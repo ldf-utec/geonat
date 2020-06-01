@@ -1,0 +1,87 @@
+package com.servicios;
+
+import java.util.List;
+
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceException;
+import javax.persistence.TypedQuery;
+
+import com.entities.Observacion;
+import com.exception.ServiciosException;
+
+/**
+ * Session Bean implementation class ObservacionesBean
+ */
+@Stateless
+public class ObservacionesBean implements ObservacionesBeanRemote {
+
+	@PersistenceContext
+	private EntityManager em;
+
+    public ObservacionesBean() {
+        
+    }
+
+	@Override
+	public void create(Observacion observacion) throws ServiciosException {
+		try {
+			em.persist(observacion);
+			em.flush();		
+		} catch (PersistenceException e) {	
+			throw new ServiciosException("Error al crear" );	
+		}
+		
+	}
+
+	@Override
+	public void update(Observacion observacion) throws ServiciosException {
+		try {
+			em.merge(observacion);
+			em.flush();	
+		} catch (PersistenceException e) {
+			throw new ServiciosException("Error al actualizar");
+		}
+		
+	}
+
+	@Override
+	public void delete(int id) throws ServiciosException {
+		try {
+			Observacion observacion = em.find(Observacion.class, id);
+			em.remove(observacion);
+			em.flush();	
+		} catch (PersistenceException e) {
+			throw new ServiciosException("Error al borrar");
+		}	
+		
+	}
+
+	@Override
+	public List<Observacion> obtenerTodos() throws ServiciosException {
+		TypedQuery<Observacion> query = em.createNamedQuery("Observacion.obtenerTodos", Observacion.class);
+		return query.getResultList();
+	}
+
+//	@Override
+//	public List<Observacion> obtenerTodosFiltro(String filtro) throws ServiciosException {
+//		TypedQuery<Observacion> query = em.createNamedQuery("Observacion.obtenerTodosFiltro", Observacion.class)
+//				.setParameter("filtro", filtro);
+//		return query.getResultList();
+//	}
+
+	@Override
+	public Observacion obtenerUno(int id) throws ServiciosException {
+		try {
+			Observacion observacion = em.find(Observacion.class, id);
+			if (observacion != null) {
+				return observacion;
+			} 
+			return observacion = null;
+		} catch (PersistenceException e) {
+			throw new ServiciosException("Error al obtener por id");
+		}
+	}
+
+}
