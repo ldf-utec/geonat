@@ -1,4 +1,4 @@
-package com.servicios;
+package com.serviciosDAO;
 
 import java.util.List;
 
@@ -10,17 +10,18 @@ import javax.persistence.TypedQuery;
 
 import com.entities.Usuario;
 import com.exception.ServiciosException;
+import com.serviciosDAO.interfaces.IUsuarioDAO;
 
 /**
- * Session Bean implementation class UsuariosBean
+ * Session Bean implementation class UsuarioDAO
  */
 
 @Stateless
-public class UsuariosBean implements UsuariosBeanRemote {
+public class UsuarioDAO implements IUsuarioDAO {
 	@PersistenceContext
 	private EntityManager em;
     
-    public UsuariosBean() {
+    public UsuarioDAO() {
         
     }
 

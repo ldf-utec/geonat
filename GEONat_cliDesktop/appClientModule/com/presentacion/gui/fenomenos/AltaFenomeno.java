@@ -1,4 +1,4 @@
-package Interfaz;
+package com.presentacion.gui.fenomenos;
 
 import java.awt.EventQueue;
 
@@ -9,7 +9,7 @@ import javax.swing.JTextField;
 
 import com.entities.Fenomeno;
 import com.exception.ServiciosException;
-import com.servicios.FenomenosBeanRemote;
+import com.serviciosDAO.interfaces.IFenomenoDAO;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -22,7 +22,7 @@ import javax.swing.JFormattedTextField;
 
 public class AltaFenomeno {
 
-	JFrame frmAltaFenomenos;
+	public JFrame frmAltaFenomenos;
 	private JTextField txtFNombre;
 	private JTextField txtFDescripcion;
 	private JTextField txtFTelEmergencia;
@@ -140,12 +140,12 @@ public class AltaFenomeno {
 		btnAltaDeFenomeno.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Boolean errores = false;
-				FenomenosBeanRemote fenBean = null;
+				IFenomenoDAO fenBean = null;
 				Fenomeno fen = new Fenomeno();
 				fen.setNombre(txtFNombre.getText().toUpperCase());
 				try {
-					fenBean = (FenomenosBeanRemote) 
-							InitialContext.doLookup("GEONat/FenomenosBean!com.servicios.FenomenosBeanRemote");
+					fenBean = (IFenomenoDAO) 
+							InitialContext.doLookup("GEONat/FenomenosDAO!com.serviciosDAO.FenomenoDAO11");
 					boolean enu = fenBean.existeNombreFenomeno(fen);
 					
 					if (enu) {

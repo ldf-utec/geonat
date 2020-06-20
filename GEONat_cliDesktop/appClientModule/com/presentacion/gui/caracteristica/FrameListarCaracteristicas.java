@@ -1,4 +1,4 @@
-package Interfaz;
+package com.presentacion.gui.caracteristica;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -19,8 +19,7 @@ import javax.swing.table.TableRowSorter;
 
 import com.entities.Caracteristica;
 import com.exception.ServiciosException;
-import com.servicios.CaracteristicasBeanRemote;
-import com.servicios.CaracteristicasBeanRemote;
+import com.serviciosDAO.interfaces.ICaracteristicaDAO;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -105,9 +104,9 @@ public class FrameListarCaracteristicas extends JFrame implements DocumentListen
 		btnEliminarCaracteristica.setEnabled(false);
 		btnEliminarCaracteristica.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				CaracteristicasBeanRemote caracteristicaBean;
+				ICaracteristicaDAO caracteristicaBean;
 				try {
-					caracteristicaBean = (CaracteristicasBeanRemote) InitialContext.doLookup("/GEONat/CaracteristicasBean!com.servicios.CaracteristicaBeanRemote");
+					caracteristicaBean = (ICaracteristicaDAO) InitialContext.doLookup("/GEONat/CaracteristicaDAO!com.serviciosDAO.CaracteristicaBeanRemote");
 					caracteristicaBean.delete(idSeleccionado);
 					cargarTabla();
 					idSeleccionado=0;
@@ -200,8 +199,8 @@ public class FrameListarCaracteristicas extends JFrame implements DocumentListen
 	// Recordar que la tabla va dentro de un JScrollPane para que se vean los encabezados
 	private void cargarTabla() throws ServiciosException {
 		try {
-			CaracteristicasBeanRemote caracteristicaBean;
-			caracteristicaBean = (CaracteristicasBeanRemote) InitialContext.doLookup("/GEONat/CaracteristicaBean!com.servicios.CaracteristicaBeanRemote");
+			ICaracteristicaDAO caracteristicaBean;
+			caracteristicaBean = (ICaracteristicaDAO) InitialContext.doLookup("/GEONat/CaracteristicaBean!com.serviciosDAO.CaracteristicaBeanRemote");
 
 			ArrayList<Caracteristica> caracteristicas =  (ArrayList<Caracteristica>) caracteristicaBean.obtenerTodos(); //ControladorMascotas.obtenerTodasMascotas();
 

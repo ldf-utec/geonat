@@ -1,4 +1,4 @@
-package com.servicios;
+package com.serviciosDAO;
 
 import java.util.List;
 
@@ -10,17 +10,18 @@ import javax.persistence.TypedQuery;
 
 import com.entities.Fenomeno;
 import com.exception.ServiciosException;
+import com.serviciosDAO.interfaces.IFenomenoDAO;
 
 /**
  * Session Bean implementation class FenomenoBean
  */
 @Stateless
-public class FenomenosBean implements FenomenosBeanRemote {
+public class FenomenosDAO implements IFenomenoDAO {
 
 	@PersistenceContext
 	private EntityManager em;
 	
-    public FenomenosBean() {
+    public FenomenosDAO() {
     	
     }
     

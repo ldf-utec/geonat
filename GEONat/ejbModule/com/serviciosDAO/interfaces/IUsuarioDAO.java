@@ -1,4 +1,4 @@
-package com.servicios;
+package com.serviciosDAO.interfaces;
 
 import java.util.List;
 
@@ -7,7 +7,7 @@ import com.entities.Usuario;
 import com.exception.ServiciosException;
 
 @Remote
-public interface UsuariosBeanRemote {
+public interface IUsuarioDAO {
 
 	void create(Usuario usuario) throws ServiciosException;
 	void update(Usuario usuario) throws ServiciosException;

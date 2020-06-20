@@ -1,4 +1,4 @@
-package com.servicios;
+package com.serviciosDAO;
 
 import java.util.List;
 
@@ -10,17 +10,18 @@ import javax.persistence.TypedQuery;
 
 import com.entities.DetalleObservacion;
 import com.exception.ServiciosException;
+import com.serviciosDAO.interfaces.IDetallesObservacionDAO;
 
 /**
- * Session Bean implementation class DetallesObservacionesBean
+ * Session Bean implementation class DetallesObservacionDAO
  */
 @Stateless
-public class DetallesObservacionesBean implements DetallesObservacionesBeanRemote {
+public class DetallesObservacionDAO implements IDetallesObservacionDAO {
 
 	@PersistenceContext
 	private EntityManager em;
 	
-    public DetallesObservacionesBean() {
+    public DetallesObservacionDAO() {
         
     }
 

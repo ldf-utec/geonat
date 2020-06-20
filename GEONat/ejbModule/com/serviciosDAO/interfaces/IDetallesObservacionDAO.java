@@ -1,4 +1,4 @@
-package com.servicios;
+package com.serviciosDAO.interfaces;
 
 
 
@@ -10,7 +10,7 @@ import com.entities.DetalleObservacion;
 import com.exception.ServiciosException;
 
 @Remote
-public interface DetallesObservacionesBeanRemote {
+public interface IDetallesObservacionDAO {
 	
 	void create(DetalleObservacion detalleObservacion) throws ServiciosException;
 

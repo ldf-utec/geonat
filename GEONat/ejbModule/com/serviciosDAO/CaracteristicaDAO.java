@@ -1,4 +1,4 @@
-package com.servicios;
+package com.serviciosDAO;
 
 
 import java.util.List;
@@ -10,17 +10,18 @@ import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 import com.entities.Caracteristica;
 import com.exception.ServiciosException;
+import com.serviciosDAO.interfaces.ICaracteristicaDAO;
 
 /**
  * Session Bean implementation class CaracteristicaBean
  */
 @Stateless
-public class CaracteristicasBean implements CaracteristicasBeanRemote {
+public class CaracteristicaDAO implements ICaracteristicaDAO {
 
 	@PersistenceContext
 	private EntityManager em;
 	
-    public CaracteristicasBean() {
+    public CaracteristicaDAO() {
     	
     }
     

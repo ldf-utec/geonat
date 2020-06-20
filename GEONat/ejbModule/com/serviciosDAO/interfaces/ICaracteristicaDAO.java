@@ -1,4 +1,4 @@
-package com.servicios;
+package com.serviciosDAO.interfaces;
 
 import java.util.List;
 
@@ -8,7 +8,7 @@ import com.entities.Caracteristica;
 import com.exception.ServiciosException;
 
 @Remote
-public interface CaracteristicasBeanRemote {
+public interface ICaracteristicaDAO {
 	void create(Caracteristica caracteristica) throws ServiciosException;
 	void update(Caracteristica caracteristica) throws ServiciosException;
 	void delete(int id) throws ServiciosException;

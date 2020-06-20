@@ -1,4 +1,4 @@
-package Interfaz;
+package com.presentacion.gui.caracteristica;
 
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
@@ -20,10 +20,10 @@ import com.entities.TipoDocumento;
 import com.entities.TipoUsuario;
 import com.entities.Usuario;
 import com.exception.ServiciosException;
-import com.servicios.CaracteristicasBeanRemote;
-import com.servicios.FenomenosBean;
-import com.servicios.FenomenosBeanRemote;
-import com.servicios.UsuariosBeanRemote;
+import com.serviciosDAO.FenomenosDAO;
+import com.serviciosDAO.interfaces.IFenomenoDAO;
+import com.serviciosDAO.interfaces.ICaracteristicaDAO;
+import com.serviciosDAO.interfaces.IUsuarioDAO;
 
 import javax.swing.JComboBox;
 import javax.naming.InitialContext;
@@ -213,8 +213,8 @@ public class ModificacionCaracteristica {
 				JOptionPane.showMessageDialog(null,  strerror);
 			} else {
 				try {
-					CaracteristicasBeanRemote CaracteristicasBean;
-					CaracteristicasBean = (CaracteristicasBeanRemote) InitialContext.doLookup("/GEONat/CaracteristicasBean!com.servicios.CaracteristicasBeanRemote");
+					ICaracteristicaDAO CaracteristicasBean;
+					CaracteristicasBean = (ICaracteristicaDAO) InitialContext.doLookup("/GEONat/CaracteristicaDAO!com.serviciosDAO.ICaracteristicaDAO");
 					CaracteristicasBean.create(caract);
 					JOptionPane.showMessageDialog(null,  "Caracteristica Creada");
 					txtFNombre.setText("");
@@ -238,15 +238,15 @@ public class ModificacionCaracteristica {
 			public void actionPerformed(ActionEvent evento) {
 				Caracteristica c = new Caracteristica();
 				int id=Integer.parseInt(txtID.getText());
-				CaracteristicasBeanRemote CaracteristicasBean=null;
+				ICaracteristicaDAO CaracteristicasBean=null;
 				try {
-					CaracteristicasBean = (CaracteristicasBeanRemote) InitialContext.doLookup("/GEONat/CaracteristicasBean!com.servicios.CaraacteristicaBeanRemote");
+					CaracteristicasBean = (ICaracteristicaDAO) InitialContext.doLookup("/GEONat/CaracteristicaDAO!com.serviciosDAO.CaraacteristicaBeanRemote");
 					boolean enu = CaracteristicasBean.existeIdCaracteristica(c);
 					if (!enu) {
 						JOptionPane.showMessageDialog(null,  "No existe la caracteristica");
 					} else {
 //						Caracteristica cc = new Caracteristica();
-//						cc = CaracteristicasBean.obtenerUno(c);
+//						cc = CaracteristicaDAO.obtenerUno(c);
 //						txtID.setText(c.getId_Caracteristica().toString());
 //						cc.setNombre(txtFNombre.getText());
 //						cc.setEtiqPresentacion(txtFEtiqueta.getText());
@@ -271,8 +271,8 @@ public class ModificacionCaracteristica {
 	private static List<Fenomeno> cargarfenomenos() throws ServiciosException {
 		ArrayList<Fenomeno> fenomenos = null;
 		try {
-			FenomenosBeanRemote FenomenosBean;
-			FenomenosBean = (FenomenosBeanRemote) InitialContext.doLookup("/GEONat/FenomenosBean!com.servicios.FenomenosBeanRemote");
+			IFenomenoDAO FenomenosBean;
+			FenomenosBean = (IFenomenoDAO) InitialContext.doLookup("/GEONat/FenomenosDAO!com.serviciosDAO.FenomenoDAO11");
 			fenomenos =  (ArrayList<Fenomeno>) FenomenosBean.obtenerTodos(); 
 			
 			} catch (NamingException | ServiciosException e) {

@@ -1,4 +1,4 @@
-package com.servicios;
+package com.serviciosDAO.interfaces;
 
 import java.util.List;
 import javax.ejb.Remote;
@@ -6,7 +6,7 @@ import com.entities.Observacion;
 import com.exception.ServiciosException;
 
 @Remote
-public interface ObservacionesBeanRemote {
+public interface IObservacionDAO {
 
 	void create(Observacion observacion) throws ServiciosException;
 

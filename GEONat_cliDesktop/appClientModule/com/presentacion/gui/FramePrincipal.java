@@ -1,14 +1,18 @@
-package Interfaz;
+package com.presentacion.gui;
 
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import java.awt.Dimension;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.border.TitledBorder;
+
+import com.presentacion.gui.caracteristica.AltaCaracteristica;
+import com.presentacion.gui.fenomenos.AltaFenomeno;
+import com.presentacion.gui.usuarios.AltaUsuario;
+import com.presentacion.gui.usuarios.FrameListarUsuarios;
+import com.presentacion.gui.usuarios.ModificacionUsuario;
+
 import javax.swing.UIManager;
 import java.awt.Color;
 import javax.swing.JLabel;

@@ -1,4 +1,4 @@
-package com.servicios;
+package com.serviciosDAO.interfaces;
 
 import java.util.List;
 
@@ -8,7 +8,7 @@ import com.entities.Fenomeno;
 import com.exception.ServiciosException;
 
 @Remote
-public interface FenomenosBeanRemote {
+public interface IFenomenoDAO {
 
 	void create(Fenomeno fenomeno) throws ServiciosException;
 

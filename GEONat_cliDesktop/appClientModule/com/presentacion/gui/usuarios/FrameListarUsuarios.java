@@ -1,4 +1,4 @@
-package Interfaz;
+package com.presentacion.gui.usuarios;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -19,7 +19,7 @@ import javax.swing.table.TableRowSorter;
 
 import com.entities.Usuario;
 import com.exception.ServiciosException;
-import com.servicios.UsuariosBeanRemote;
+import com.serviciosDAO.interfaces.IUsuarioDAO;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -41,7 +41,7 @@ import java.awt.Dimension;
 
 public class FrameListarUsuarios extends JFrame implements DocumentListener {
 
-	JFrame frmListarUsuarios;
+	public JFrame frmListarUsuarios;
 	private JTextField txtFiltroNombreUsuario;
 	private JScrollPane scrollPane;
 	private JTable table;
@@ -103,9 +103,9 @@ public class FrameListarUsuarios extends JFrame implements DocumentListener {
 		btnEliminarUsuario.setEnabled(false);
 		btnEliminarUsuario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				UsuariosBeanRemote usuarioBean;
+				IUsuarioDAO usuarioBean;
 				try {
-					usuarioBean = (UsuariosBeanRemote) InitialContext.doLookup("/GEONat/UsuariosBean!com.servicios.UsuariosBeanRemote");
+					usuarioBean = (IUsuarioDAO) InitialContext.doLookup("/GEONat/UsuarioDAO!com.serviciosDAO.IUsuarioDAO");
 					usuarioBean.delete(idSeleccionado);
 					cargarTabla();
 					idSeleccionado=0;
@@ -198,8 +198,8 @@ public class FrameListarUsuarios extends JFrame implements DocumentListener {
 	// Recordar que la tabla va dentro de un JScrollPane para que se vean los encabezados
 	private void cargarTabla() throws ServiciosException {
 		try {
-			UsuariosBeanRemote usuarioBean;
-			usuarioBean = (UsuariosBeanRemote) InitialContext.doLookup("/GEONat/UsuariosBean!com.servicios.UsuariosBeanRemote");
+			IUsuarioDAO usuarioBean;
+			usuarioBean = (IUsuarioDAO) InitialContext.doLookup("/GEONat/UsuarioDAO!com.serviciosDAO.IUsuarioDAO");
 
 			ArrayList<Usuario> usuarios =  (ArrayList<Usuario>) usuarioBean.obtenerTodos(); //ControladorMascotas.obtenerTodasMascotas();
 

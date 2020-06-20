@@ -1,6 +1,5 @@
-package Interfaz;
+package com.presentacion.gui;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -21,6 +20,10 @@ import java.awt.Color;
 
 public class Login extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textUsuario;
 	private JPasswordField jpassClave;

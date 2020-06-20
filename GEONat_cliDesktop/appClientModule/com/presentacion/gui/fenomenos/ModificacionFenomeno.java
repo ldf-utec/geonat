@@ -1,4 +1,4 @@
-package Interfaz;
+package com.presentacion.gui.fenomenos;
 
 import java.awt.EventQueue;
 
@@ -8,7 +8,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import com.entities.Fenomeno;
 import com.exception.ServiciosException;
-import com.servicios.FenomenosBeanRemote;
+import com.serviciosDAO.interfaces.IFenomenoDAO;
+
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.swing.JButton;
@@ -148,14 +149,14 @@ public class ModificacionFenomeno {
 		JButton btnBuscarFenomeno = new JButton("Buscar Fen\u00F3meno");
 		btnBuscarFenomeno.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-			    FenomenosBeanRemote fenBean = null;
+			    IFenomenoDAO fenBean = null;
 				Fenomeno fen = new Fenomeno();
 				if (txtFCodFenomeno.getText() == null) {
 					JOptionPane.showMessageDialog(null,  "Debe ingresar un codigo de fenomeno");
 				} else {
 					int id = Integer.parseInt(txtFCodFenomeno.getText());
 					try {
-						fenBean = (FenomenosBeanRemote) InitialContext.doLookup("GEONat/FenomenosBean!com.servicios.FenomenosBeanRemote");
+						fenBean = (IFenomenoDAO) InitialContext.doLookup("GEONat/FenomenosDAO!com.serviciosDAO.FenomenoDAO11");
 						boolean enu = fenBean.existeID(id);
 						if (!enu) {
 							JOptionPane.showMessageDialog(null,  "No existe el fenomeno en la base de datos");
@@ -187,11 +188,11 @@ public class ModificacionFenomeno {
 			public void actionPerformed(ActionEvent e) {
 				Boolean errores = false;
 				String strerror = null;
-				FenomenosBeanRemote fenBean2 = null;
+				IFenomenoDAO fenBean2 = null;
 				Fenomeno fen2 = new Fenomeno();
 				try {
-					fenBean2 = (FenomenosBeanRemote) 
-							InitialContext.doLookup("GEONat/FenomenosBean!com.servicios.FenomenosBeanRemote");
+					fenBean2 = (IFenomenoDAO) 
+							InitialContext.doLookup("GEONat/FenomenosDAO!com.serviciosDAO.FenomenoDAO11");
 				} catch (NamingException e1) {
 					e1.printStackTrace();
 				} 

@@ -1,4 +1,4 @@
-package Interfaz;
+package com.presentacion.gui.caracteristica;
 
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
@@ -20,10 +20,10 @@ import com.entities.TipoDocumento;
 import com.entities.TipoUsuario;
 import com.entities.Usuario;
 import com.exception.ServiciosException;
-import com.servicios.CaracteristicasBeanRemote;
-import com.servicios.FenomenosBean;
-import com.servicios.FenomenosBeanRemote;
-import com.servicios.UsuariosBeanRemote;
+import com.serviciosDAO.FenomenosDAO;
+import com.serviciosDAO.interfaces.IFenomenoDAO;
+import com.serviciosDAO.interfaces.ICaracteristicaDAO;
+import com.serviciosDAO.interfaces.IUsuarioDAO;
 
 import javax.swing.JComboBox;
 import javax.naming.InitialContext;
@@ -32,7 +32,7 @@ import javax.swing.JButton;
 
 public class AltaCaracteristica {
 
-	JFrame frmG;
+	public JFrame frmG;
 	private JTextField txtFNombre;
 	private JTextField txtFEtiqueta;
 
@@ -201,8 +201,8 @@ public class AltaCaracteristica {
 			idFenomeno = comboBFenomAsoc.getSelectedIndex();
 			Fenomeno f = new Fenomeno();
 			try {
-				FenomenosBeanRemote fenomenoBean;
-				fenomenoBean = (FenomenosBeanRemote) InitialContext.doLookup("/GEONat/FenomenosBean!com.servicios.FenomenosBeanRemote");
+				IFenomenoDAO fenomenoBean;
+				fenomenoBean = (IFenomenoDAO) InitialContext.doLookup("/GEONat/FenomenosDAO!com.serviciosDAO.FenomenoDAO11");
 				
 				
 				
@@ -234,8 +234,8 @@ public class AltaCaracteristica {
 				//		usuarioBean.create(usr);
 				try {
 					
-					CaracteristicasBeanRemote caracteristicaBean;
-					caracteristicaBean = (CaracteristicasBeanRemote) InitialContext.doLookup("/GEONat/CaracteristicasBean!com.servicios.CaracteristicasBeanRemote");
+					ICaracteristicaDAO caracteristicaBean;
+					caracteristicaBean = (ICaracteristicaDAO) InitialContext.doLookup("/GEONat/CaracteristicaDAO!com.serviciosDAO.ICaracteristicaDAO");
 					caracteristicaBean.create(caract);
 					} catch (NamingException | ServiciosException e) {
 						e.printStackTrace();
@@ -258,8 +258,8 @@ public class AltaCaracteristica {
 	private List<Fenomeno> cargarfenomenos() throws ServiciosException {
 		ArrayList<Fenomeno> fenomenos = null;
 		try {
-			FenomenosBeanRemote fenomenoBean;
-			fenomenoBean = (FenomenosBeanRemote) InitialContext.doLookup("/GEONat/FenomenosBean!com.servicios.FenomenosBeanRemote");
+			IFenomenoDAO fenomenoBean;
+			fenomenoBean = (IFenomenoDAO) InitialContext.doLookup("/GEONat/FenomenosDAO!com.serviciosDAO.FenomenoDAO11");
 			fenomenos =  (ArrayList<Fenomeno>) fenomenoBean.obtenerTodos(); 
 			
 			} catch (NamingException | ServiciosException e) {

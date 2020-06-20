@@ -1,4 +1,4 @@
-package Interfaz;
+package com.presentacion.gui.usuarios;
 
 import java.awt.EventQueue;
 
@@ -20,7 +20,7 @@ import com.entities.TipoDocumento;
 import com.entities.TipoUsuario;
 import com.entities.Usuario;
 import com.exception.ServiciosException;
-import com.servicios.UsuariosBeanRemote;
+import com.serviciosDAO.interfaces.IUsuarioDAO;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -30,7 +30,7 @@ import javax.swing.JPasswordField;
 
 public class AltaUsuario extends JFrame {
 
-	JFrame frmGeonatAlta;
+	public JFrame frmGeonatAlta;
 	private JTextField nombreUsuario;
 	private JTextField nombre;
 	private JTextField apellido;
@@ -144,9 +144,9 @@ public class AltaUsuario extends JFrame {
 					Usuario usr = new Usuario();
 					
 					usr.setNombreUsuario(nombreUsuario.getText());
-					UsuariosBeanRemote usuarioBean=null;
+					IUsuarioDAO usuarioBean=null;
 					try {
-						usuarioBean = (UsuariosBeanRemote) InitialContext.doLookup("/GEONat/UsuariosBean!com.servicios.UsuariosBeanRemote");
+						usuarioBean = (IUsuarioDAO) InitialContext.doLookup("/GEONat/UsuarioDAO!com.serviciosDAO.IUsuarioDAO");
 						boolean enu = usuarioBean.existeNombreUsuario(usr);
 						//JOptionPane.showMessageDialog(null,  "error en bean");
 						if (enu) {

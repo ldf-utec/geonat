@@ -1,4 +1,4 @@
-package Interfaz;
+package com.presentacion.gui;
 
 
 // CLASE CON PATRÓN SINGLETON QUE CREA DATOS DE PRUEBA EN CASO DE NO EXISTIR AÚN LOS MISMOS
@@ -16,11 +16,11 @@ import com.entities.TipoDocumento;
 import com.entities.TipoUsuario;
 import com.entities.Usuario;
 import com.exception.ServiciosException;
-import com.servicios.CaracteristicasBeanRemote;
-import com.servicios.DetallesObservacionesBeanRemote;
-import com.servicios.FenomenosBeanRemote;
-import com.servicios.ObservacionesBeanRemote;
-import com.servicios.UsuariosBeanRemote;
+import com.serviciosDAO.interfaces.IFenomenoDAO;
+import com.serviciosDAO.interfaces.ICaracteristicaDAO;
+import com.serviciosDAO.interfaces.IDetallesObservacionDAO;
+import com.serviciosDAO.interfaces.IObservacionDAO;
+import com.serviciosDAO.interfaces.IUsuarioDAO;
 
 public class DatosDePrueba {
 	private static DatosDePrueba instancia = new DatosDePrueba(); 
@@ -41,9 +41,9 @@ public class DatosDePrueba {
 	}
 //-------  USUARIOS
 	private void creaUsuarios() {
-		UsuariosBeanRemote usuarioBean=null;
+		IUsuarioDAO usuarioBean=null;
 		try {
-			usuarioBean = (UsuariosBeanRemote) InitialContext.doLookup("/GEONat/UsuariosBean!com.servicios.UsuariosBeanRemote");
+			usuarioBean = (IUsuarioDAO) InitialContext.doLookup("/GEONat/UsuarioDAO!com.serviciosDAO.IUsuarioDAO");
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
@@ -86,12 +86,12 @@ public class DatosDePrueba {
 //------- CARACTERISTICAS Y FENOMENOS
 	private void creaCaracteristicasYFenomenos() {
 		//  CARACTERISTICAS Y FENOMENOS
-		CaracteristicasBeanRemote caracteristicaBean=null;
-		FenomenosBeanRemote fenomenoBean = null;
+		ICaracteristicaDAO caracteristicaBean=null;
+		IFenomenoDAO fenomenoBean = null;
 		
 		try {
-			caracteristicaBean = (CaracteristicasBeanRemote) InitialContext.doLookup("/GEONat/CaracteristicasBean!com.servicios.CaracteristicasBeanRemote");
-			fenomenoBean = (FenomenosBeanRemote) InitialContext.doLookup("/GEONat/FenomenosBean!com.servicios.FenomenosBeanRemote");
+			caracteristicaBean = (ICaracteristicaDAO) InitialContext.doLookup("/GEONat/CaracteristicaDAO!com.serviciosDAO.ICaracteristicaDAO");
+			fenomenoBean = (IFenomenoDAO) InitialContext.doLookup("/GEONat/FenomenosDAO!com.serviciosDAO.FenomenoDAO11");
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
@@ -199,9 +199,9 @@ public class DatosDePrueba {
 
 //------- OBSERVACIONES
 	private void creaObservaciones() {
-		ObservacionesBeanRemote observacionBean=null;
+		IObservacionDAO observacionBean=null;
 		try {
-			observacionBean = (ObservacionesBeanRemote) InitialContext.doLookup("/GEONat/ObservacionesBean!com.servicios.ObservacionesBeanRemote");
+			observacionBean = (IObservacionDAO) InitialContext.doLookup("/GEONat/ObservacionDAO!com.serviciosDAO.IObservacionDAO");
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
@@ -222,9 +222,9 @@ public class DatosDePrueba {
 				observacionBean.create(o1);
 				
 				
-				CaracteristicasBeanRemote caracteristicaBean=null;		
+				ICaracteristicaDAO caracteristicaBean=null;		
 				try {
-					caracteristicaBean = (CaracteristicasBeanRemote) InitialContext.doLookup("/GEONat/CaracteristicasBean!com.servicios.CaracteristicasBeanRemote");
+					caracteristicaBean = (ICaracteristicaDAO) InitialContext.doLookup("/GEONat/CaracteristicaDAO!com.serviciosDAO.ICaracteristicaDAO");
 				} catch (NamingException e) {
 					e.printStackTrace();
 				}
@@ -246,9 +246,9 @@ public class DatosDePrueba {
 				o1.getDetalleObservaciones().add(d1);
 				c1.getDetalleObservaciones().add(d1);
 				
-				DetallesObservacionesBeanRemote detallesObservacionesBean=null;		
+				IDetallesObservacionDAO detallesObservacionesBean=null;		
 				try {
-					detallesObservacionesBean = (DetallesObservacionesBeanRemote) InitialContext.doLookup("/GEONat/DetallesObservacionesBean!com.servicios.DetallesObservacionesBeanRemote");
+					detallesObservacionesBean = (IDetallesObservacionDAO) InitialContext.doLookup("/GEONat/DetallesObservacionDAO!com.serviciosDAO.IDetallesObservacionDAO");
 				} catch (NamingException e) {
 					e.printStackTrace();
 				}
@@ -268,9 +268,9 @@ public class DatosDePrueba {
 
 
 	private Fenomeno obtenerFenomeno(Integer id) throws ServiciosException {
-		FenomenosBeanRemote fenomenoBean1 = null;
+		IFenomenoDAO fenomenoBean1 = null;
 		try {
-			fenomenoBean1 = (FenomenosBeanRemote) InitialContext.doLookup("/GEONat/FenomenosBean!com.servicios.FenomenosBeanRemote");
+			fenomenoBean1 = (IFenomenoDAO) InitialContext.doLookup("/GEONat/FenomenosDAO!com.serviciosDAO.FenomenoDAO11");
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
