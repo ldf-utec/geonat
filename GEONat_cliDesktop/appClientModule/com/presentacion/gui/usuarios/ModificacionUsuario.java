@@ -8,11 +8,11 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+import com.DAO.interfaces.IUsuarioDAO;
 import com.entities.TipoDocumento;
 import com.entities.TipoUsuario;
 import com.entities.Usuario;
 import com.exception.ServiciosException;
-import com.serviciosDAO.interfaces.IUsuarioDAO;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -112,7 +112,7 @@ public class ModificacionUsuario {
 				usr.setNombreUsuario(txtNombreUsr.getText());
 				IUsuarioDAO usuarioBean=null;
 				try {
-					usuarioBean = (IUsuarioDAO) InitialContext.doLookup("/GEONat/UsuarioDAO!com.serviciosDAO.IUsuarioDAO");
+					usuarioBean = (IUsuarioDAO) InitialContext.doLookup("/GEONat/UsuarioDAO!com.DAO.IUsuarioDAO");
 					boolean enu = usuarioBean.existeNombreUsuario(usr);
 					if (!enu) {
 						JOptionPane.showMessageDialog(null,  "No existe el usuario el la base de datos");
@@ -275,7 +275,7 @@ public class ModificacionUsuario {
 				usr.setNombreUsuario(txtNombreUsr.getText());
 				IUsuarioDAO usuarioBean=null;
 				try {
-					usuarioBean = (IUsuarioDAO) InitialContext.doLookup("/GEONat/UsuarioDAO!com.serviciosDAO.IUsuarioDAO");
+					usuarioBean = (IUsuarioDAO) InitialContext.doLookup("/GEONat/UsuarioDAO!com.DAO.IUsuarioDAO");
 					enu = usuarioBean.existeNombreUsuario(usr);
 					usr.setId_Usuario(id_user);
 					

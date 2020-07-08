@@ -1,4 +1,4 @@
-package com.serviciosDAO;
+package com.DAO.concrete;
 
 import java.util.List;
 
@@ -8,9 +8,9 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 
+import com.DAO.interfaces.IFenomenoDAO;
 import com.entities.Fenomeno;
 import com.exception.ServiciosException;
-import com.serviciosDAO.interfaces.IFenomenoDAO;
 
 /**
  * Session Bean implementation class FenomenoBean

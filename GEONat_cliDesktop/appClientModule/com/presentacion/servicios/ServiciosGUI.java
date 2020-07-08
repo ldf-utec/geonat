@@ -3,11 +3,11 @@ package com.presentacion.servicios;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
-import com.serviciosDAO.interfaces.ICaracteristicaDAO;
-import com.serviciosDAO.interfaces.IDetallesObservacionDAO;
-import com.serviciosDAO.interfaces.IFenomenoDAO;
-import com.serviciosDAO.interfaces.IObservacionDAO;
-import com.serviciosDAO.interfaces.IUsuarioDAO;
+import com.DAO.interfaces.ICaracteristicaDAO;
+import com.DAO.interfaces.IDetallesObservacionDAO;
+import com.DAO.interfaces.IFenomenoDAO;
+import com.DAO.interfaces.IObservacionDAO;
+import com.DAO.interfaces.IUsuarioDAO;
 
 public class ServiciosGUI {
 	
@@ -32,19 +32,19 @@ public class ServiciosGUI {
 		//InitialContext ic = new InitialContext();
 		
 		// DAO Usuario
-		usuarioBean = (IUsuarioDAO) InitialContext.doLookup("/GEONat/UsuarioDAO!com.serviciosDAO.IUsuarioDAO");
+		usuarioBean = (IUsuarioDAO) InitialContext.doLookup("/GEONat/UsuarioDAO!com.DAO.IUsuarioDAO");
 		
 		// DAO Caracteristica
-		caracteristicaBean = (ICaracteristicaDAO) InitialContext.doLookup("/GEONat/CaracteristicaDAO!com.serviciosDAO.ICaracteristicaDAO");
+		caracteristicaBean = (ICaracteristicaDAO) InitialContext.doLookup("/GEONat/CaracteristicaDAO!com.DAO.ICaracteristicaDAO");
 			
 		// DAO Fenomeno
-		fenomenoBean = (IFenomenoDAO) InitialContext.doLookup("/GEONat/FenomenosDAO!com.serviciosDAO.FenomenoDAO");
+		fenomenoBean = (IFenomenoDAO) InitialContext.doLookup("/GEONat/FenomenosDAO!com.DAO.FenomenoDAO");
 
 		// DAO Observacion
-		observacionBean = (IObservacionDAO) InitialContext.doLookup("/GEONat/ObservacionDAO!com.serviciosDAO.IObservacionDAO");
+		observacionBean = (IObservacionDAO) InitialContext.doLookup("/GEONat/ObservacionDAO!com.DAO.IObservacionDAO");
 		
 		// DAO DetalleObservacion
-		detallesObservacionesBean = (IDetallesObservacionDAO) InitialContext.doLookup("/GEONat/DetallesObservacionDAO!com.serviciosDAO.IDetallesObservacionDAO");
+		detallesObservacionesBean = (IDetallesObservacionDAO) InitialContext.doLookup("/GEONat/DetallesObservacionDAO!com.DAO.IDetallesObservacionDAO");
 
 			
 		//ic.close();

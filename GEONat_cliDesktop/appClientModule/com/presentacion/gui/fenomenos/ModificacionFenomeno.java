@@ -6,9 +6,10 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+
+import com.DAO.interfaces.IFenomenoDAO;
 import com.entities.Fenomeno;
 import com.exception.ServiciosException;
-import com.serviciosDAO.interfaces.IFenomenoDAO;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -156,7 +157,7 @@ public class ModificacionFenomeno {
 				} else {
 					int id = Integer.parseInt(txtFCodFenomeno.getText());
 					try {
-						fenBean = (IFenomenoDAO) InitialContext.doLookup("GEONat/FenomenosDAO!com.serviciosDAO.FenomenoDAO11");
+						fenBean = (IFenomenoDAO) InitialContext.doLookup("GEONat/FenomenosDAO!com.DAO.FenomenoDAO11");
 						boolean enu = fenBean.existeID(id);
 						if (!enu) {
 							JOptionPane.showMessageDialog(null,  "No existe el fenomeno en la base de datos");
@@ -192,7 +193,7 @@ public class ModificacionFenomeno {
 				Fenomeno fen2 = new Fenomeno();
 				try {
 					fenBean2 = (IFenomenoDAO) 
-							InitialContext.doLookup("GEONat/FenomenosDAO!com.serviciosDAO.FenomenoDAO11");
+							InitialContext.doLookup("GEONat/FenomenosDAO!com.DAO.FenomenoDAO11");
 				} catch (NamingException e1) {
 					e1.printStackTrace();
 				} 

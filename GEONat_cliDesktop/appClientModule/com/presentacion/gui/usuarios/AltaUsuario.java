@@ -15,12 +15,12 @@ import javax.swing.JCheckBox;
 import javax.swing.JButton;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
+import com.DAO.interfaces.IUsuarioDAO;
 import com.entities.Departamento;
 import com.entities.TipoDocumento;
 import com.entities.TipoUsuario;
 import com.entities.Usuario;
 import com.exception.ServiciosException;
-import com.serviciosDAO.interfaces.IUsuarioDAO;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -146,7 +146,7 @@ public class AltaUsuario extends JFrame {
 					usr.setNombreUsuario(nombreUsuario.getText());
 					IUsuarioDAO usuarioBean=null;
 					try {
-						usuarioBean = (IUsuarioDAO) InitialContext.doLookup("/GEONat/UsuarioDAO!com.serviciosDAO.IUsuarioDAO");
+						usuarioBean = (IUsuarioDAO) InitialContext.doLookup("/GEONat/UsuarioDAO!com.DAO.IUsuarioDAO");
 						boolean enu = usuarioBean.existeNombreUsuario(usr);
 						//JOptionPane.showMessageDialog(null,  "error en bean");
 						if (enu) {

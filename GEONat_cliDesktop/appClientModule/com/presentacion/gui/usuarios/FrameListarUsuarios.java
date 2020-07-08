@@ -17,9 +17,9 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
+import com.DAO.interfaces.IUsuarioDAO;
 import com.entities.Usuario;
 import com.exception.ServiciosException;
-import com.serviciosDAO.interfaces.IUsuarioDAO;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -105,7 +105,7 @@ public class FrameListarUsuarios extends JFrame implements DocumentListener {
 			public void actionPerformed(ActionEvent e) {
 				IUsuarioDAO usuarioBean;
 				try {
-					usuarioBean = (IUsuarioDAO) InitialContext.doLookup("/GEONat/UsuarioDAO!com.serviciosDAO.IUsuarioDAO");
+					usuarioBean = (IUsuarioDAO) InitialContext.doLookup("/GEONat/UsuarioDAO!com.DAO.IUsuarioDAO");
 					usuarioBean.delete(idSeleccionado);
 					cargarTabla();
 					idSeleccionado=0;
@@ -199,7 +199,7 @@ public class FrameListarUsuarios extends JFrame implements DocumentListener {
 	private void cargarTabla() throws ServiciosException {
 		try {
 			IUsuarioDAO usuarioBean;
-			usuarioBean = (IUsuarioDAO) InitialContext.doLookup("/GEONat/UsuarioDAO!com.serviciosDAO.IUsuarioDAO");
+			usuarioBean = (IUsuarioDAO) InitialContext.doLookup("/GEONat/UsuarioDAO!com.DAO.IUsuarioDAO");
 
 			ArrayList<Usuario> usuarios =  (ArrayList<Usuario>) usuarioBean.obtenerTodos(); //ControladorMascotas.obtenerTodasMascotas();
 

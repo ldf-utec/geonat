@@ -7,6 +7,11 @@ package com.presentacion.gui;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
+import com.DAO.interfaces.ICaracteristicaDAO;
+import com.DAO.interfaces.IDetallesObservacionDAO;
+import com.DAO.interfaces.IFenomenoDAO;
+import com.DAO.interfaces.IObservacionDAO;
+import com.DAO.interfaces.IUsuarioDAO;
 import com.entities.Caracteristica;
 import com.entities.DetalleObservacion;
 import com.entities.Fenomeno;
@@ -16,11 +21,6 @@ import com.entities.TipoDocumento;
 import com.entities.TipoUsuario;
 import com.entities.Usuario;
 import com.exception.ServiciosException;
-import com.serviciosDAO.interfaces.IFenomenoDAO;
-import com.serviciosDAO.interfaces.ICaracteristicaDAO;
-import com.serviciosDAO.interfaces.IDetallesObservacionDAO;
-import com.serviciosDAO.interfaces.IObservacionDAO;
-import com.serviciosDAO.interfaces.IUsuarioDAO;
 
 public class DatosDePrueba {
 	private static DatosDePrueba instancia = new DatosDePrueba(); 
@@ -43,7 +43,7 @@ public class DatosDePrueba {
 	private void creaUsuarios() {
 		IUsuarioDAO usuarioBean=null;
 		try {
-			usuarioBean = (IUsuarioDAO) InitialContext.doLookup("/GEONat/UsuarioDAO!com.serviciosDAO.IUsuarioDAO");
+			usuarioBean = (IUsuarioDAO) InitialContext.doLookup("/GEONat/UsuarioDAO!com.DAO.IUsuarioDAO");
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
@@ -90,8 +90,8 @@ public class DatosDePrueba {
 		IFenomenoDAO fenomenoBean = null;
 		
 		try {
-			caracteristicaBean = (ICaracteristicaDAO) InitialContext.doLookup("/GEONat/CaracteristicaDAO!com.serviciosDAO.ICaracteristicaDAO");
-			fenomenoBean = (IFenomenoDAO) InitialContext.doLookup("/GEONat/FenomenosDAO!com.serviciosDAO.FenomenoDAO11");
+			caracteristicaBean = (ICaracteristicaDAO) InitialContext.doLookup("/GEONat/CaracteristicaDAO!com.DAO.ICaracteristicaDAO");
+			fenomenoBean = (IFenomenoDAO) InitialContext.doLookup("/GEONat/FenomenosDAO!com.DAO.FenomenoDAO11");
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
@@ -201,7 +201,7 @@ public class DatosDePrueba {
 	private void creaObservaciones() {
 		IObservacionDAO observacionBean=null;
 		try {
-			observacionBean = (IObservacionDAO) InitialContext.doLookup("/GEONat/ObservacionDAO!com.serviciosDAO.IObservacionDAO");
+			observacionBean = (IObservacionDAO) InitialContext.doLookup("/GEONat/ObservacionDAO!com.DAO.IObservacionDAO");
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
@@ -224,7 +224,7 @@ public class DatosDePrueba {
 				
 				ICaracteristicaDAO caracteristicaBean=null;		
 				try {
-					caracteristicaBean = (ICaracteristicaDAO) InitialContext.doLookup("/GEONat/CaracteristicaDAO!com.serviciosDAO.ICaracteristicaDAO");
+					caracteristicaBean = (ICaracteristicaDAO) InitialContext.doLookup("/GEONat/CaracteristicaDAO!com.DAO.ICaracteristicaDAO");
 				} catch (NamingException e) {
 					e.printStackTrace();
 				}
@@ -248,7 +248,7 @@ public class DatosDePrueba {
 				
 				IDetallesObservacionDAO detallesObservacionesBean=null;		
 				try {
-					detallesObservacionesBean = (IDetallesObservacionDAO) InitialContext.doLookup("/GEONat/DetallesObservacionDAO!com.serviciosDAO.IDetallesObservacionDAO");
+					detallesObservacionesBean = (IDetallesObservacionDAO) InitialContext.doLookup("/GEONat/DetallesObservacionDAO!com.DAO.IDetallesObservacionDAO");
 				} catch (NamingException e) {
 					e.printStackTrace();
 				}
@@ -270,7 +270,7 @@ public class DatosDePrueba {
 	private Fenomeno obtenerFenomeno(Integer id) throws ServiciosException {
 		IFenomenoDAO fenomenoBean1 = null;
 		try {
-			fenomenoBean1 = (IFenomenoDAO) InitialContext.doLookup("/GEONat/FenomenosDAO!com.serviciosDAO.FenomenoDAO11");
+			fenomenoBean1 = (IFenomenoDAO) InitialContext.doLookup("/GEONat/FenomenosDAO!com.DAO.FenomenoDAO11");
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}

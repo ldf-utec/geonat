@@ -1,4 +1,4 @@
-package com.serviciosDAO;
+package com.DAO.concrete;
 
 
 import java.util.List;
@@ -8,9 +8,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
+
+import com.DAO.interfaces.ICaracteristicaDAO;
 import com.entities.Caracteristica;
 import com.exception.ServiciosException;
-import com.serviciosDAO.interfaces.ICaracteristicaDAO;
 
 /**
  * Session Bean implementation class CaracteristicaBean
@@ -69,6 +70,7 @@ public class CaracteristicaDAO implements ICaracteristicaDAO {
 		return query.getResultList();
 	}
 	
+	// TODO: Borrar este método, ya que se hace esto mediante el obtenerTodos.first() y verificando si devuelve distinto de null por ejemplo
 	@Override
 	public boolean existeIdCaracteristica(Caracteristica caracteristica) throws ServiciosException {
 		String filtro = caracteristica.getNombre();

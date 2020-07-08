@@ -7,9 +7,9 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
+import com.DAO.interfaces.IFenomenoDAO;
 import com.entities.Fenomeno;
 import com.exception.ServiciosException;
-import com.serviciosDAO.interfaces.IFenomenoDAO;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -145,7 +145,7 @@ public class AltaFenomeno {
 				fen.setNombre(txtFNombre.getText().toUpperCase());
 				try {
 					fenBean = (IFenomenoDAO) 
-							InitialContext.doLookup("GEONat/FenomenosDAO!com.serviciosDAO.FenomenoDAO11");
+							InitialContext.doLookup("GEONat/FenomenosDAO!com.DAO.FenomenoDAO11");
 					boolean enu = fenBean.existeNombreFenomeno(fen);
 					
 					if (enu) {

@@ -13,6 +13,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import com.DAO.concrete.FenomenosDAO;
+import com.DAO.interfaces.ICaracteristicaDAO;
+import com.DAO.interfaces.IFenomenoDAO;
+import com.DAO.interfaces.IUsuarioDAO;
 import com.entities.Caracteristica;
 import com.entities.Fenomeno;
 import com.entities.TipoDato;
@@ -20,10 +24,6 @@ import com.entities.TipoDocumento;
 import com.entities.TipoUsuario;
 import com.entities.Usuario;
 import com.exception.ServiciosException;
-import com.serviciosDAO.FenomenosDAO;
-import com.serviciosDAO.interfaces.IFenomenoDAO;
-import com.serviciosDAO.interfaces.ICaracteristicaDAO;
-import com.serviciosDAO.interfaces.IUsuarioDAO;
 
 import javax.swing.JComboBox;
 import javax.naming.InitialContext;
@@ -202,7 +202,7 @@ public class AltaCaracteristica {
 			Fenomeno f = new Fenomeno();
 			try {
 				IFenomenoDAO fenomenoBean;
-				fenomenoBean = (IFenomenoDAO) InitialContext.doLookup("/GEONat/FenomenosDAO!com.serviciosDAO.FenomenoDAO11");
+				fenomenoBean = (IFenomenoDAO) InitialContext.doLookup("/GEONat/FenomenosDAO!com.DAO.FenomenoDAO11");
 				
 				
 				
@@ -235,7 +235,7 @@ public class AltaCaracteristica {
 				try {
 					
 					ICaracteristicaDAO caracteristicaBean;
-					caracteristicaBean = (ICaracteristicaDAO) InitialContext.doLookup("/GEONat/CaracteristicaDAO!com.serviciosDAO.ICaracteristicaDAO");
+					caracteristicaBean = (ICaracteristicaDAO) InitialContext.doLookup("/GEONat/CaracteristicaDAO!com.DAO.ICaracteristicaDAO");
 					caracteristicaBean.create(caract);
 					} catch (NamingException | ServiciosException e) {
 						e.printStackTrace();
@@ -259,7 +259,7 @@ public class AltaCaracteristica {
 		ArrayList<Fenomeno> fenomenos = null;
 		try {
 			IFenomenoDAO fenomenoBean;
-			fenomenoBean = (IFenomenoDAO) InitialContext.doLookup("/GEONat/FenomenosDAO!com.serviciosDAO.FenomenoDAO11");
+			fenomenoBean = (IFenomenoDAO) InitialContext.doLookup("/GEONat/FenomenosDAO!com.DAO.FenomenoDAO11");
 			fenomenos =  (ArrayList<Fenomeno>) fenomenoBean.obtenerTodos(); 
 			
 			} catch (NamingException | ServiciosException e) {
