@@ -1,6 +1,13 @@
 /bin/
-/classes/com.presentacion.gui
-
-
-/com.presentacion.gui/
+/.classpath
+/.gitignore
+/.project
+/META-INF/
 /com/
+/images/
+/jgoodies-common-1.8.0-sources.jar
+/jgoodies-forms-1.8.0-sources.jar
+/jndi.properties
+/lib/
+/logo.png
+/src/
