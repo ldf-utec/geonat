@@ -1,5 +1,5 @@
 package com.presentacion.gui.usuarios;
-// comentario
+
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
