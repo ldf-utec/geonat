@@ -10,9 +10,18 @@ import com.DAO.interfaces.IObservacionDAO;
 import com.DAO.interfaces.IUsuarioDAO;
 
 public class ServiciosGUI {
+	// Se intenta utilizar el patrón Singleton, para que esta clase tenga una instancia única que provea los servicios a toda la capa
+	private static ServiciosGUI serviciosGui;
+	
+	IUsuarioDAO usuarioBean;
+	ICaracteristicaDAO caracteristicaBean;
+	IFenomenoDAO fenomenoBean;
+	IObservacionDAO observacionBean;
+	IDetallesObservacionDAO detallesObservacionesBean;
+	
 	
 	// Constructor
-	public ServiciosGUI() {
+	private ServiciosGUI() {
 		try {
 			iniciarInterfases();
 		} catch (NamingException e) {
@@ -20,12 +29,15 @@ public class ServiciosGUI {
 		}
 	}
 
-	IUsuarioDAO usuarioBean;
-	ICaracteristicaDAO caracteristicaBean;
-	IFenomenoDAO fenomenoBean;
-	IObservacionDAO observacionBean;
-	IDetallesObservacionDAO detallesObservacionesBean;
-		
+	// Getter de la instacia única
+	public static ServiciosGUI getServiciosGUI () {
+		if (serviciosGui==null) {
+			serviciosGui = new ServiciosGUI();
+		}
+		return serviciosGui;
+	}
+	
+			
 	
 	public void iniciarInterfases() throws NamingException {
 		
@@ -50,8 +62,6 @@ public class ServiciosGUI {
 		//ic.close();
 	}
 
-
-	
 	
 	
 	// GETTERs y SETTERs
