@@ -145,7 +145,7 @@ public class AltaFenomeno {
 				fen.setNombre(txtFNombre.getText().toUpperCase());
 				try {
 					fenBean = (IFenomenoDAO) 
-							InitialContext.doLookup("GEONat/FenomenosDAO!com.DAO.FenomenoDAO11");
+							InitialContext.doLookup("GEONat/FenomenosDAO!com.DAO.interfaces.IFenomenoDAO");
 					boolean enu = fenBean.existeNombreFenomeno(fen);
 					
 					if (enu) {
