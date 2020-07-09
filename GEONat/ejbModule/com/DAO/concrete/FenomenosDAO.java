@@ -31,7 +31,7 @@ public class FenomenosDAO implements IFenomenoDAO {
 			em.persist(fenomeno);
 			em.flush();		
 		} catch (PersistenceException e) {	
-			throw new ServiciosException("Error al crear" );	
+			throw new ServiciosException("Error al crear fenomeno. " + e.getMessage(), e );	
 		}
 	}
     
@@ -41,14 +41,19 @@ public class FenomenosDAO implements IFenomenoDAO {
 			em.merge(fenomeno);
 			em.flush();	
 		} catch (PersistenceException e) {
-			throw new ServiciosException("Error al actualizar");
+			throw new ServiciosException("Error al actualizar el fenomeno. "+e.getMessage(),e);
 		}
 	}
     
     @Override
 	public void delete(int id) throws ServiciosException {
-		try {
-			Fenomeno fenomeno = em.find(Fenomeno.class, id);
+    	
+    	Fenomeno fenomeno = em.find(Fenomeno.class, id);
+		if (fenomeno == null) {
+			throw new ServiciosException("No existe el fenomeno a borrar. Id=" + fenomeno.getId_Fenomeno());
+		}
+    	try {
+			
 			em.remove(fenomeno);
 			em.flush();	
 		} catch (PersistenceException e) {
@@ -85,9 +90,9 @@ public class FenomenosDAO implements IFenomenoDAO {
 	@Override
 	public Fenomeno obtenerUno(int id) throws ServiciosException {
 		try {
-			System.out.println("Obteniendo Fenomeno1");
+			//System.out.println("Obteniendo Fenomeno1");
 			Fenomeno fenomeno = em.find(Fenomeno.class, id);
-			System.out.println("Obteniendo Fenomeno2");
+			//System.out.println("Obteniendo Fenomeno2");
 			return fenomeno;
 			
 		} catch (PersistenceException e) {
@@ -107,7 +112,7 @@ public class FenomenosDAO implements IFenomenoDAO {
 				} 
 				return false;
 			} catch (PersistenceException e) {
-				throw new ServiciosException("Error al consutar");
+				throw new ServiciosException("Error al consultar");
 			}	
 		}
 	    
