@@ -10,8 +10,8 @@ import com.DAO.interfaces.IObservacionDAO;
 import com.DAO.interfaces.IUsuarioDAO;
 
 public class ServiciosGUI {
-	// Se intenta utilizar el patrón Singleton, para que esta clase tenga una instancia única que provea los servicios a toda la capa
-	private static ServiciosGUI serviciosGui;
+	// Se utiliza el patrón Singleton, para que esta clase tenga una instancia única que provea los servicios a toda la capa
+	private static ServiciosGUI instance;
 	
 	IUsuarioDAO usuarioBean;
 	ICaracteristicaDAO caracteristicaBean;
@@ -30,11 +30,11 @@ public class ServiciosGUI {
 	}
 
 	// Getter de la instacia única
-	public static ServiciosGUI getServiciosGUI () {
-		if (serviciosGui==null) {
-			serviciosGui = new ServiciosGUI();
+	public static ServiciosGUI getInstance () {
+		if (instance==null) {
+			instance = new ServiciosGUI();
 		}
-		return serviciosGui;
+		return instance;
 	}
 	
 			
