@@ -15,12 +15,14 @@ import javax.swing.JCheckBox;
 import javax.swing.JButton;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
+import com.DAO.concrete.UsuarioDAO;
 import com.DAO.interfaces.IUsuarioDAO;
 import com.entities.Departamento;
 import com.entities.TipoDocumento;
 import com.entities.TipoUsuario;
 import com.entities.Usuario;
 import com.exception.ServiciosException;
+import com.presentacion.servicios.ServiciosGUI;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -68,72 +70,78 @@ public class AltaUsuario extends JFrame {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		
+		// Obtengo la instancia del DAO Usuario
+		IUsuarioDAO usuarioDAO = ServiciosGUI.getInstance().getUsuarioBean();
+				
 		frmGeonatAlta = new JFrame();
 		frmGeonatAlta.setTitle("GEONat - Alta de usuarios");
 		frmGeonatAlta.setBounds(100, 100, 800, 600);
 		frmGeonatAlta.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		
-		JLabel lblNombreDeUsuaio = new JLabel("Nombre de usuaio");
+		JLabel lblNombreDeUsuaio = new JLabel("Nombre de usuario");
+		JLabel lblNombre = new JLabel("Nombre");
+		JLabel lblApellido = new JLabel("Apellido");
+		JLabel TipoDoc = new JLabel("Tipo de Documento");
+		JLabel lblTipoDeUsuario = new JLabel("Tipo de Usuario");
+		JLabel lblDocumento = new JLabel("Documento");
+		JLabel lblDireccion = new JLabel("Dirección");
+		JCheckBox checkboxUsuarioActivo = new JCheckBox("Usuario Activo?");
+		JLabel lblPassword = new JLabel("Password");
+		JLabel lblReIngresarPassword = new JLabel("Re ingresar Password");
+		JLabel lblCorreo = new JLabel("Correo");
 		
 		nombreUsuario = new JTextField();
 		nombreUsuario.setColumns(10);
-		
-		JLabel lblNombre = new JLabel("Nombre");
-		
-		JLabel lblApellido = new JLabel("Apellido");
-		
 		nombre = new JTextField();
 		nombre.setColumns(10);
-		
 		apellido = new JTextField();
 		apellido.setColumns(10);
+		documento = new JTextField();
+		documento.setColumns(10);
+		direccion = new JTextField();
+		direccion.setColumns(10);
+		password1 = new JPasswordField();
+		password2 = new JPasswordField();
+		correo = new JTextField();
+		correo.setColumns(10);
 		
-		JLabel TipoDoc = new JLabel("Tipo de Documento");
+		
+		
+		
+		// Combobox Tipo de DOCUMENTO
 		JComboBox comboTipoDocumento = new JComboBox();
 		comboTipoDocumento.removeAllItems(); 
 		comboTipoDocumento.addItem("");
 		TipoDocumento[] tipoDocList = TipoDocumento.values();
+				
 		for (TipoDocumento tipoDocumento : tipoDocList) {
-		comboTipoDocumento.addItem(tipoDocumento);
+			comboTipoDocumento.addItem(tipoDocumento);
 		}
+		
 		comboTipoDocumento.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent eventocombo) {
-				comboTipoDocumento.getSelectedIndex();
-				
+				comboTipoDocumento.getSelectedIndex();	
 			}
 		});
 			
-		JLabel lblTipoDeUsuario = new JLabel("Tipo de Usuario");
+		
+		// ComboBox Tipo de USUARIO
 		JComboBox comboTipoUsuario = new JComboBox();
 		comboTipoUsuario.removeAllItems(); 
 		comboTipoUsuario.addItem("");
 		TipoUsuario[] tipousrList = TipoUsuario.values();
+		
 		for (TipoUsuario tipoUsuario : tipousrList) {
-		comboTipoUsuario.addItem(tipoUsuario);
+			comboTipoUsuario.addItem(tipoUsuario);
 		}
+		
 		comboTipoUsuario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent eventocombotu) {
 				comboTipoUsuario.getSelectedIndex();
-				
 			}
-		});
-		
-		
-		
-		
-		JLabel lblDocumento = new JLabel("Documento");
-		
-		documento = new JTextField();
-		documento.setColumns(10);
-		
-		JLabel lblDireccion = new JLabel("Direccion");
-		
-		direccion = new JTextField();
-		direccion.setColumns(10);
-		
-		JCheckBox checkboxUsuarioActivo = new JCheckBox("Usuario Activo?");
-		
-		
+		});		
+				
 		
 		//Boton AltaUsuario
 		JButton btnAltaUsuario = new JButton("Alta Usuario");
@@ -141,20 +149,17 @@ public class AltaUsuario extends JFrame {
 				public void actionPerformed(ActionEvent evento) {
 					String strerror = "";
 					Boolean errores = false;
-					Usuario usr = new Usuario();
+					Usuario u = new Usuario();
 					
-					usr.setNombreUsuario(nombreUsuario.getText());
-					IUsuarioDAO usuarioBean=null;
+					u.setNombreUsuario(nombreUsuario.getText());
+					
 					try {
-						usuarioBean = (IUsuarioDAO) InitialContext.doLookup("/GEONat/UsuarioDAO!com.DAO.IUsuarioDAO");
-						boolean enu = usuarioBean.existeNombreUsuario(usr);
-						//JOptionPane.showMessageDialog(null,  "error en bean");
-						if (enu) {
+						boolean existeUsuario = usuarioDAO.existeNombreUsuario(u);
+
+						if (existeUsuario) {
 							errores = true;
 							strerror = " El usuario ya existe. ";
 						}
-					} catch (NamingException e) {
-						e.printStackTrace();
 					} catch (ServiciosException e) {
 						e.printStackTrace();
 					}
@@ -164,27 +169,27 @@ public class AltaUsuario extends JFrame {
 						errores=true;
 						strerror= strerror + " Nombre con mas de 50 caracteres. ";
 					} else {
-						usr.setNombre(nombre.getText());
+						u.setNombre(nombre.getText());
 					}
 					if ((apellido.getText().length())>50) {
 						errores=true;
 						strerror= strerror + " Apellido con mas de 50 caracteres. ";
 					} else {
-						usr.setApellido(apellido.getText());
+						u.setApellido(apellido.getText());
 					}
-					usr.setTipoDocumento(TipoDocumento.valueOf(comboTipoDocumento.getSelectedItem().toString()) );
+					u.setTipoDocumento(TipoDocumento.valueOf(comboTipoDocumento.getSelectedItem().toString()) );
 					
 					if ((documento.getText().length())>20) {
 						errores=true;
 						strerror= strerror + " Documento con mas de 20 caracteres. ";
 					} else {
-						usr.setNroDocumento(documento.getText());
+						u.setNroDocumento(documento.getText());
 					}
 					if ((direccion.getText().length())>100) {
 						errores=true;
 						strerror= strerror + " Direccion con mas de 100 caracteres. ";
 					} else {
-						usr.setDireccion(direccion.getText());
+						u.setDireccion(direccion.getText());
 					}
 
 
@@ -192,24 +197,24 @@ public class AltaUsuario extends JFrame {
 						errores=true;
 						strerror= strerror + " Direccion de email con mas de 50 caracteres. ";
 					} else {
-						usr.setEmail(correo.getText());
+						u.setEmail(correo.getText());
 					}
 					if (clavesIdenticas(password1.getPassword(), password2.getPassword())) {
-						usr.setPassword(new String(password1.getPassword()));
+						u.setPassword(new String(password1.getPassword()));
 					} else {
 						errores=true;
 						strerror= strerror + " Las contraseñas ingresadas no coinciden. ";
 					}
 									
-					usr.setTipoUsuario(TipoUsuario.valueOf(comboTipoUsuario.getSelectedItem().toString()) );
+					u.setTipoUsuario(TipoUsuario.valueOf(comboTipoUsuario.getSelectedItem().toString()) );
 										
-					usr.setEstadoActivo(checkboxUsuarioActivo.isSelected());
+					u.setEstadoActivo(checkboxUsuarioActivo.isSelected());
 										
 					if (errores) {
 						JOptionPane.showMessageDialog(null,  strerror);
 					} else {
 						try {
-							usuarioBean.create(usr);
+							usuarioDAO.create(u);
 							JOptionPane.showMessageDialog(null,  "Usuario Creado");
 						} catch (ServiciosException err) {
 							
@@ -229,21 +234,11 @@ public class AltaUsuario extends JFrame {
 			public void actionPerformed(ActionEvent evento) {
 				frmGeonatAlta.hide();
 			}
-			
 		});
-
-		JLabel lblPassword = new JLabel("Password");
 		
-		JLabel lblReIngresarPassword = new JLabel("Re ingresar Password");
 		
-		password1 = new JPasswordField();
 		
-		password2 = new JPasswordField();
 		
-		JLabel lblCorreo = new JLabel("Correo");
-		
-		correo = new JTextField();
-		correo.setColumns(10);
 		
 		
 		GroupLayout groupLayout = new GroupLayout(frmGeonatAlta.getContentPane());

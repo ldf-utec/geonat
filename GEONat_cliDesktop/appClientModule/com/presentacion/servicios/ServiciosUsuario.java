@@ -6,9 +6,24 @@ import javax.persistence.PersistenceException;
 import com.entities.Usuario;
 import com.exception.ServiciosException;
 
+
 public class ServiciosUsuario {
 
-	ServiciosGUI servicios = ServiciosGUI.getServiciosGUI();
+	private static ServiciosUsuario instance = new ServiciosUsuario();
+	ServiciosGUI servicios = ServiciosGUI.getInstance();
+	
+		
+	public ServiciosUsuario() {
+		super();
+	}
+	
+	public static ServiciosUsuario getInstance() {
+		if (instance==null) {
+			instance = new ServiciosUsuario();
+		}	
+		return instance;
+	}
+		
 	
 	// Crear nuevo
 	public void create(Usuario usuario) throws ServiciosException {
