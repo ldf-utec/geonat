@@ -27,10 +27,10 @@ import com.presentacion.servicios.ServiciosGUI;
 import com.presentacion.servicios.ServiciosUsuario;
 
 public class DatosDePrueba {
-	private static DatosDePrueba instancia = new DatosDePrueba(); 
+	private static DatosDePrueba instance = new DatosDePrueba(); 
 	
 	private DatosDePrueba() {	
-				
+		
 		creaUsuarios();
 		
 		//creaCaracteristicasYFenomenos();
@@ -39,9 +39,12 @@ public class DatosDePrueba {
 	}
 
 
-	//método estático que obtiene la instancia de la clase
+	//método estático que obtiene la instance de la clase
 	public static DatosDePrueba getInstance() { 
-		return instancia; 
+		if ( instance==null) {
+			instance = new DatosDePrueba();
+		}
+		return instance; 
 	}
 //-------  USUARIOS
 	private void creaUsuarios() {
