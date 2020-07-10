@@ -1,9 +1,9 @@
 package com.presentacion.gui;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import java.awt.Dimension;
+import java.awt.EventQueue;
+
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
