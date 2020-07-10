@@ -229,7 +229,7 @@ public class AltaUsuario extends JFrame {
 		
  
 		//Boton Cancelar
-		JButton btnCancela = new JButton("Cancela");
+		JButton btnCancela = new JButton("Cancelar");
 		btnCancela.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evento) {
 				frmGeonatAlta.hide();
