@@ -100,6 +100,7 @@ public class FrameListarUsuarios extends JFrame implements DocumentListener {
 		
 		scrollPane = new JScrollPane();
 		
+		// Botón ELIMINAR
 		JButton btnEliminarUsuario = new JButton("Eliminar Usuario");
 		btnEliminarUsuario.setEnabled(false);
 		btnEliminarUsuario.addActionListener(new ActionListener() {
@@ -246,7 +247,8 @@ public class FrameListarUsuarios extends JFrame implements DocumentListener {
 			table.setCellSelectionEnabled(false);
 			
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			
+			System.out.println("Error al cargar datos en la tabla Lista Usuarios. ");
 			e.printStackTrace();
 			
 		}
