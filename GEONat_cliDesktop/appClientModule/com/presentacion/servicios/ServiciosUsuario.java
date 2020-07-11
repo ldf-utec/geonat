@@ -2,6 +2,7 @@ package com.presentacion.servicios;
 
 import java.util.List;
 import javax.persistence.PersistenceException;
+import javax.persistence.TypedQuery;
 
 import com.entities.Usuario;
 import com.exception.ServiciosException;
@@ -80,7 +81,7 @@ public class ServiciosUsuario {
 			return lista;
 			
 		} catch (Exception e) {
-			throw new ServiciosException("Error al borrar");
+			throw new ServiciosException("Error al obtener por filtro");
 		}	
 	}
 	
@@ -88,10 +89,15 @@ public class ServiciosUsuario {
 	// Si lo que se quiere es obtener por Nombre, se debería pasar el String nombre
 	// Obtener uno
 	public Usuario obtenerUno(Usuario usuario) throws ServiciosException {
-		
-		String filtro = usuario.getNombreUsuario();
+
 		Usuario u = servicios.usuarioBean.obtenerUno(usuario);
 		return u ;
 		
-	  }
+	}
+	
+	
+	public boolean existeNombreUsuario(Usuario usuario) throws ServiciosException {
+		return servicios.usuarioBean.existeNombreUsuario(usuario);
+	}
+	
 }

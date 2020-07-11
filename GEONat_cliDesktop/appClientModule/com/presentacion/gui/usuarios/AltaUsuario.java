@@ -23,6 +23,7 @@ import com.entities.TipoUsuario;
 import com.entities.Usuario;
 import com.exception.ServiciosException;
 import com.presentacion.servicios.ServiciosGUI;
+import com.presentacion.servicios.ServiciosUsuario;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -72,8 +73,9 @@ public class AltaUsuario extends JFrame {
 	private void initialize() {
 		
 		// Obtengo la instancia del DAO Usuario
-		IUsuarioDAO usuarioDAO = ServiciosGUI.getInstance().getUsuarioBean();
-				
+		// IUsuarioDAO usuarioDAO = ServiciosGUI.getInstance().getUsuarioBean();
+		ServiciosUsuario usuarios = ServiciosUsuario.getInstance();
+		
 		frmGeonatAlta = new JFrame();
 		frmGeonatAlta.setTitle("GEONat - Alta de usuarios");
 		frmGeonatAlta.setBounds(100, 100, 800, 600);
@@ -154,7 +156,7 @@ public class AltaUsuario extends JFrame {
 					u.setNombreUsuario(nombreUsuario.getText());
 					
 					try {
-						boolean existeUsuario = usuarioDAO.existeNombreUsuario(u);
+						boolean existeUsuario = usuarios.existeNombreUsuario(u);
 
 						if (existeUsuario) {
 							errores = true;
@@ -214,7 +216,7 @@ public class AltaUsuario extends JFrame {
 						JOptionPane.showMessageDialog(null,  strerror);
 					} else {
 						try {
-							usuarioDAO.create(u);
+							usuarios.create(u);
 							JOptionPane.showMessageDialog(null,  "Usuario Creado");
 						} catch (ServiciosException err) {
 							
