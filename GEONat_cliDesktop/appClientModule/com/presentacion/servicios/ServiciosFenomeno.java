@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.PersistenceException;
 
 import com.entities.Fenomeno;
+import com.entities.Usuario;
 import com.exception.ServiciosException;
 
 public class ServiciosFenomeno {
@@ -92,5 +93,9 @@ public class ServiciosFenomeno {
 		return f ;
 		
 	  }
+	
+	public boolean existeNombreFenomeno(Fenomeno fenomeno) throws ServiciosException {
+		return servicios.fenomenoBean.existeNombreFenomeno(fenomeno);
+	}
 
 }
