@@ -25,7 +25,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class FramePrincipal {
-// prueba jj
+// prueba jj d
 	JFrame frmGeonat;
 
 	/**
