@@ -24,6 +24,8 @@ import com.entities.TipoDocumento;
 import com.entities.TipoUsuario;
 import com.entities.Usuario;
 import com.exception.ServiciosException;
+import com.presentacion.servicios.ServiciosCaracteristica;
+import com.presentacion.servicios.ServiciosUsuario;
 
 import javax.swing.JComboBox;
 import javax.naming.InitialContext;
@@ -63,6 +65,10 @@ public class AltaCaracteristica {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		
+		ServiciosCaracteristica serviciosCaracteristicas = ServiciosCaracteristica.getInstance();
+		
+		
 		frmG = new JFrame();
 		frmG.setTitle("GEONat - Alta de una caracteristica");
 		frmG.setBounds(100, 100, 450, 300);
@@ -96,7 +102,7 @@ public class AltaCaracteristica {
 		frmG.getContentPane().add(lblFenomenoAsociado);
 		
 		
-// Combo Fenomeno Asociado		
+		// Combo Fenomeno Asociado		
 		JComboBox comboBFenomAsoc = new JComboBox();
 		comboBFenomAsoc.setBounds(181, 154, 206, 20);
 		frmG.getContentPane().add(comboBFenomAsoc);
@@ -118,7 +124,7 @@ public class AltaCaracteristica {
 		});	
 		
 		
-// Combo TipoDato
+		// Combo TipoDato
 		JComboBox comboBTipoDato = new JComboBox();
 		comboBTipoDato.setBounds(181, 114, 206, 20);
 		frmG.getContentPane().add(comboBTipoDato);
@@ -135,6 +141,7 @@ public class AltaCaracteristica {
 			}
 		});
 		
+		// Botón CANCELAR
 		JButton btnCancelarAlta = new JButton("Cancelar Alta");
 		btnCancelarAlta.setBounds(10, 210, 104, 23);
 		frmG.getContentPane().add(btnCancelarAlta);
@@ -145,10 +152,11 @@ public class AltaCaracteristica {
 			
 		});
 		
-		
+		// Botón GUARDAR
 		JButton btnDarDeAlta = new JButton("Confirmar alta");
 		btnDarDeAlta.setBounds(271, 210, 116, 23);
 		frmG.getContentPane().add(btnDarDeAlta);
+		
 		btnDarDeAlta.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent evento) {
 			String strerror = "";
@@ -156,8 +164,7 @@ public class AltaCaracteristica {
 			Caracteristica caract = new Caracteristica();
 			
 			
-			
-					
+			// VALIDACIONES de campos	
 			if ((txtFEtiqueta.getText().length())>50) {
 				errores=true;
 				strerror= strerror + " Etiqueta con mas de 50 caracteres. ";
@@ -186,14 +193,10 @@ public class AltaCaracteristica {
 //			}
 //			
 			
-			
 			//caract.setId_Fenomeno(fen[comboBFenomAsoc.getSelectedItem()]);
 			
-			
 			//caract.set   comboBFenomAsoc.getSelectedItem()
-			
-			
-			
+					
 			//caract.setId_Fenomeno(Id_Fenomeno); ( comboBFenomAsoc.getSelectedItem().toString());
 		
 			int idFenomeno =0;
@@ -201,55 +204,34 @@ public class AltaCaracteristica {
 			idFenomeno = comboBFenomAsoc.getSelectedIndex();
 			Fenomeno f = new Fenomeno();
 			try {
+				// TODO: Cambiar a la capa de lógica de negocios ServiciosFenomenos
 				IFenomenoDAO fenomenoBean;
 				fenomenoBean = (IFenomenoDAO) InitialContext.doLookup("/GEONat/FenomenosDAO!com.DAO.FenomenoDAO11");
 				
-				
-				
 				f = fenomenoBean.obtenerUno(idFenomeno+1);
-				
-				
+								
 				} catch (NamingException | ServiciosException e) {
 					e.printStackTrace();
 				}
-			
-			
+				
 			
 			//caract.setId_Fenomeno(f);
-			
-			
-			
-			
-			//caract.setId_TipoDato(TipoDato.valueOf(comboBTipoDato.getSelectedItem().toString()));
-			
-			
-			
-			
-			
-			
 									
+			//caract.setId_TipoDato(TipoDato.valueOf(comboBTipoDato.getSelectedItem().toString()));
+								
 			if (errores) {
 				JOptionPane.showMessageDialog(null,  strerror);
 			} else {
-				//		usuarioBean.create(usr);
 				try {
+					serviciosCaracteristicas.create(caract);
+					JOptionPane.showMessageDialog(null,  "Caracteristica Creada");
 					
-					ICaracteristicaDAO caracteristicaBean;
-					caracteristicaBean = (ICaracteristicaDAO) InitialContext.doLookup("/GEONat/CaracteristicaDAO!com.DAO.ICaracteristicaDAO");
-					caracteristicaBean.create(caract);
-					} catch (NamingException | ServiciosException e) {
+				}catch ( ServiciosException e) {
 						e.printStackTrace();
-						}
-				
-				JOptionPane.showMessageDialog(null,  "Caracteristica Creada");
-				
+				}
 			}
-
-
 		}
 		});
-		
-		
 	}
 	
 	
