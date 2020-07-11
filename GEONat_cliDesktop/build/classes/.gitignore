@@ -1,5 +1,7 @@
-/bin/
-/classes/Interfaz
-
-
+/.classpath
+/.project
+/META-INF/
 /com/
+/jndi.properties
+/lib/
+/logo.png

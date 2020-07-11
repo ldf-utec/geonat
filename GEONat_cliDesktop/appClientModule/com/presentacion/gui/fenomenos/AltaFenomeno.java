@@ -6,10 +6,18 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 import com.DAO.interfaces.IFenomenoDAO;
 import com.entities.Fenomeno;
+import com.entities.TipoDocumento;
+import com.entities.TipoUsuario;
+import com.entities.Usuario;
 import com.exception.ServiciosException;
+import com.presentacion.servicios.ServiciosGUI;
+import com.presentacion.servicios.ServiciosFenomeno;
+import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -17,6 +25,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.JFormattedTextField;
 
@@ -31,6 +40,7 @@ public class AltaFenomeno {
 	private int limiteTel = 20;
 	private Boolean errores = false;
 	private String strerror = null;
+	
 	
 	/**
 	 * Launch the application.
@@ -59,6 +69,11 @@ public class AltaFenomeno {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		
+	//	IFenomenoDAO fenomenoDAO = ServiciosGUI.getInstance().getFenomenoBean();
+		ServiciosFenomeno fenomeno = ServiciosFenomeno.getInstance();
+	
+		
 		frmAltaFenomenos = new JFrame();
 		frmAltaFenomenos.setTitle("GEONat - Registro de Fen\u00F3menos");
 		frmAltaFenomenos.setResizable(false);
@@ -72,20 +87,21 @@ public class AltaFenomeno {
 		
 		txtFNombre = new JTextField();
 		txtFNombre.setBounds(170, 19, 229, 20);
-		txtFNombre.addKeyListener(new KeyListener() {
-			public void keyTyped(KeyEvent e) {
-				if(txtFNombre.getText().length() > limiteNombre) {
-					JOptionPane.showMessageDialog(null,"Debe ingresar menos de "+limiteNombre+" caracteres");
-					e.consume();
-				}
-			}
-			@Override
-			public void keyPressed(KeyEvent arg0) {
-			}
-			@Override
-			public void keyReleased(KeyEvent arg0) {
-			}
-		});
+//		txtFNombre.getDocument().addDocumentListener(listener);
+//		txtFNombre.addKeyListener(new KeyListener() {
+//			public void keyTyped(KeyEvent e) {
+//				if(txtFNombre.getText().length() > limiteNombre) {
+//					JOptionPane.showMessageDialog(null,"Debe ingresar menos de "+limiteNombre+" caracteres");
+//					e.consume();
+//				}
+//			}
+//			@Override
+//			public void keyPressed(KeyEvent arg0) {
+//			}
+//			@Override
+//			public void keyReleased(KeyEvent arg0) {
+//			}
+//		});
 		frmAltaFenomenos.getContentPane().add(txtFNombre);
 		txtFNombre.setColumns(10);
 		
@@ -95,20 +111,21 @@ public class AltaFenomeno {
 		
 		txtFDescripcion = new JTextField();
 		txtFDescripcion.setBounds(170, 56, 229, 45);
-		txtFDescripcion.addKeyListener(new KeyListener() {
-			public void keyTyped(KeyEvent e) {
-				if(txtFDescripcion.getText().length() > limiteDescripcion) {
-					JOptionPane.showMessageDialog(null,"Debe ingresar menos de "+limiteDescripcion+" caracteres");
-					e.consume();
-				}
-			}
-			@Override
-			public void keyPressed(KeyEvent arg0) {
-			}
-			@Override
-			public void keyReleased(KeyEvent arg0) {
-			}
-		});
+//		txtFDescripcion.getDocument().addDocumentListener(listener);
+//		txtFDescripcion.addKeyListener(new KeyListener() {
+//			public void keyTyped(KeyEvent e) {
+//				if(txtFDescripcion.getText().length() > limiteDescripcion) {
+//					JOptionPane.showMessageDialog(null,"Debe ingresar menos de "+limiteDescripcion+" caracteres");
+//					e.consume();
+//				}
+//			}
+//			@Override
+//			public void keyPressed(KeyEvent arg0) {
+//			}
+//			@Override
+//			public void keyReleased(KeyEvent arg0) {
+//			}
+//		});
 		frmAltaFenomenos.getContentPane().add(txtFDescripcion);
 		txtFDescripcion.setColumns(10);
 		
@@ -118,65 +135,68 @@ public class AltaFenomeno {
 		
 		txtFTelEmergencia = new JTextField();
 		txtFTelEmergencia.setBounds(170, 127, 170, 20);
-		txtFTelEmergencia.addKeyListener(new KeyListener() {
-			public void keyTyped(KeyEvent e) {
-				if(txtFTelEmergencia.getText().length() > limiteTel) {
-					JOptionPane.showMessageDialog(null,"Debe ingresar menos de "+limiteTel+" números");
-					e.consume();
-				}
-			}
-			@Override
-			public void keyPressed(KeyEvent arg0) {
-			}
-			@Override
-			public void keyReleased(KeyEvent arg0) {
-			}
-		});
+//		txtFTelEmergencia.getDocument().addDocumentListener(listener);
+//		txtFTelEmergencia.addKeyListener(new KeyListener() {
+//			public void keyTyped(KeyEvent e) {
+//				if(txtFTelEmergencia.getText().length() > limiteTel) {
+//					JOptionPane.showMessageDialog(null,"Debe ingresar menos de "+limiteTel+" números");
+//					e.consume();
+//				}
+//			}
+//			@Override
+//			public void keyPressed(KeyEvent arg0) {
+//			}
+//			@Override
+//			public void keyReleased(KeyEvent arg0) {
+//			}
+//		});
 		frmAltaFenomenos.getContentPane().add(txtFTelEmergencia);
 		txtFTelEmergencia.setColumns(10);
+		
 		
 		
 		JButton btnAltaDeFenomeno = new JButton("Alta de fen\u00F3meno");
 		btnAltaDeFenomeno.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Boolean errores = false;
-				IFenomenoDAO fenBean = null;
-				Fenomeno fen = new Fenomeno();
-				fen.setNombre(txtFNombre.getText().toUpperCase());
-				try {
-					fenBean = (IFenomenoDAO) 
-							InitialContext.doLookup("GEONat/FenomenosDAO!com.DAO.FenomenoDAO11");
-					boolean enu = fenBean.existeNombreFenomeno(fen);
-					
-					if (enu) {
-						errores = true;
-						JOptionPane.showMessageDialog(null, "El nombre de fenomeno ingresado, ya existe en la base de datos. ");
-					}
-				} catch (NamingException e1) {
-					e1.printStackTrace();
-				} catch (ServiciosException e2) {
-					e2.printStackTrace();
-				}
-				if(txtFDescripcion.getText()== null) {
-					errores = true;
-					strerror = "Debe ingresar una descripcion";
-				} else {
-					fen.setDescripcion(txtFDescripcion.getText().toString());
-				}
+				String strerror = "";
+				Fenomeno f = new Fenomeno();
 				
-				if (txtFTelEmergencia.getText() == null) {
+				if ((txtFNombre.getText() != null) && (txtFNombre.getText().length() < limiteNombre)) {
+					f.setNombre(txtFNombre.getText());	
+					
+					try {
+						boolean existeFenomeno = fenomeno.existeNombreFenomeno(f);
+
+						if (existeFenomeno) {
+							errores = true;
+							strerror = "El fenomeno ya existe. ";
+						}
+					} catch (ServiciosException e1) {
+						e1.printStackTrace();
+					}
+				} else {
 					errores = true;
-					strerror = "Debe ingresar un telefono";
-				} else if (txtFTelEmergencia.getText().matches("[0-9]*") ) {
-					fen.setTelefono(txtFTelEmergencia.getText().toString());
+					strerror = "Debe ingresar un nombre valido";
+				}
+							
+				if((txtFDescripcion.getText()!= null) && (txtFDescripcion.getText().length()<limiteDescripcion) ) {
+					f.setDescripcion(txtFDescripcion.getText().toString());						
+				} else {
+					errores = true;
+					strerror = "Debe ingresar una descripcion de menos de 200 caracteres";
+				}
+						
+				if ((txtFTelEmergencia.getText() != null) && (txtFTelEmergencia.getText().length() < limiteTel) && (txtFTelEmergencia.getText().matches("[0-9]*"))) {
+					f.setTelefono(txtFTelEmergencia.getText().toString());				
 				} else {
 					errores=true;
 					strerror = "Debe ingresar un numero de telefono valido";
 				}
 				
+				
 				if(errores == false) {
 					try {
-						fenBean.create(fen);
+						fenomeno.create(f);
 						JOptionPane.showMessageDialog(null, "Fenomeno Creado");
 						
 					} catch (ServiciosException err) {
@@ -189,6 +209,7 @@ public class AltaFenomeno {
 				txtFNombre.setText(null);
 				txtFDescripcion.setText(null);
 				txtFTelEmergencia.setText(null);
+				
 				
 			}
 		});
