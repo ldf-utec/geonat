@@ -10,13 +10,13 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 import com.DAO.interfaces.IFenomenoDAO;
-import com.DAO.interfaces.IUsuarioDAO;
 import com.entities.Fenomeno;
 import com.entities.TipoDocumento;
 import com.entities.TipoUsuario;
 import com.entities.Usuario;
 import com.exception.ServiciosException;
 import com.presentacion.servicios.ServiciosGUI;
+import com.presentacion.servicios.ServiciosFenomeno;
 import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
 
 import javax.naming.InitialContext;
@@ -70,8 +70,8 @@ public class AltaFenomeno {
 	 */
 	private void initialize() {
 		
-		IFenomenoDAO fenomenoDAO = ServiciosGUI.getInstance().getFenomenoBean();
-		
+	//	IFenomenoDAO fenomenoDAO = ServiciosGUI.getInstance().getFenomenoBean();
+		ServiciosFenomeno fenomeno = ServiciosFenomeno.getInstance();
 	
 		
 		frmAltaFenomenos = new JFrame();
@@ -165,7 +165,7 @@ public class AltaFenomeno {
 					f.setNombre(txtFNombre.getText());	
 					
 					try {
-						boolean existeFenomeno = fenomenoDAO.existeNombreFenomeno(f);
+						boolean existeFenomeno = fenomeno.existeNombreFenomeno(f);
 
 						if (existeFenomeno) {
 							errores = true;
@@ -196,7 +196,7 @@ public class AltaFenomeno {
 				
 				if(errores == false) {
 					try {
-						fenomenoDAO.create(f);
+						fenomeno.create(f);
 						JOptionPane.showMessageDialog(null, "Fenomeno Creado");
 						
 					} catch (ServiciosException err) {
