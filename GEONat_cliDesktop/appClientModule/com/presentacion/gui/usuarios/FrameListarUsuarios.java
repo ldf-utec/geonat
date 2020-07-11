@@ -17,9 +17,10 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
+import com.DAO.interfaces.IUsuarioDAO;
 import com.entities.Usuario;
 import com.exception.ServiciosException;
-import com.serviciosDAO.interfaces.IUsuarioDAO;
+import com.presentacion.servicios.ServiciosUsuario;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -99,19 +100,18 @@ public class FrameListarUsuarios extends JFrame implements DocumentListener {
 		
 		scrollPane = new JScrollPane();
 		
+		// Botón ELIMINAR
 		JButton btnEliminarUsuario = new JButton("Eliminar Usuario");
 		btnEliminarUsuario.setEnabled(false);
 		btnEliminarUsuario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				IUsuarioDAO usuarioBean;
 				try {
-					usuarioBean = (IUsuarioDAO) InitialContext.doLookup("/GEONat/UsuarioDAO!com.serviciosDAO.IUsuarioDAO");
-					usuarioBean.delete(idSeleccionado);
+					ServiciosUsuario.getInstance().delete(idSeleccionado);
 					cargarTabla();
 					idSeleccionado=0;
 					btnEliminarUsuario.setEnabled(false);
 					
-				} catch (NamingException | ServiciosException e1) {
+				} catch ( ServiciosException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
@@ -198,10 +198,8 @@ public class FrameListarUsuarios extends JFrame implements DocumentListener {
 	// Recordar que la tabla va dentro de un JScrollPane para que se vean los encabezados
 	private void cargarTabla() throws ServiciosException {
 		try {
-			IUsuarioDAO usuarioBean;
-			usuarioBean = (IUsuarioDAO) InitialContext.doLookup("/GEONat/UsuarioDAO!com.serviciosDAO.IUsuarioDAO");
-
-			ArrayList<Usuario> usuarios =  (ArrayList<Usuario>) usuarioBean.obtenerTodos(); //ControladorMascotas.obtenerTodasMascotas();
+			
+			ArrayList<Usuario> usuarios =  (ArrayList<Usuario>) ServiciosUsuario.getInstance().obtenerTodos(); //ControladorMascotas.obtenerTodasMascotas();
 
 			String[] nombreColumnas = { "ID", "Documento", "Nombre de Usuario", "Nombre", "Apellido", "Tipo Usuario", "Email" };
 	
@@ -248,8 +246,9 @@ public class FrameListarUsuarios extends JFrame implements DocumentListener {
 			table.setAutoscrolls(true);
 			table.setCellSelectionEnabled(false);
 			
-		} catch (NamingException e) {
-			// TODO Auto-generated catch block
+		} catch (Exception e) {
+			
+			System.out.println("Error al cargar datos en la tabla Lista Usuarios. ");
 			e.printStackTrace();
 			
 		}

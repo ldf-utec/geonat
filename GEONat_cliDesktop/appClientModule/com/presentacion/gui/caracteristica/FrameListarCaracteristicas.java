@@ -17,9 +17,9 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
+import com.DAO.interfaces.ICaracteristicaDAO;
 import com.entities.Caracteristica;
 import com.exception.ServiciosException;
-import com.serviciosDAO.interfaces.ICaracteristicaDAO;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -106,7 +106,7 @@ public class FrameListarCaracteristicas extends JFrame implements DocumentListen
 			public void actionPerformed(ActionEvent e) {
 				ICaracteristicaDAO caracteristicaBean;
 				try {
-					caracteristicaBean = (ICaracteristicaDAO) InitialContext.doLookup("/GEONat/CaracteristicaDAO!com.serviciosDAO.CaracteristicaBeanRemote");
+					caracteristicaBean = (ICaracteristicaDAO) InitialContext.doLookup("/GEONat/CaracteristicaDAO!com.DAO.CaracteristicaBeanRemote");
 					caracteristicaBean.delete(idSeleccionado);
 					cargarTabla();
 					idSeleccionado=0;
@@ -200,7 +200,7 @@ public class FrameListarCaracteristicas extends JFrame implements DocumentListen
 	private void cargarTabla() throws ServiciosException {
 		try {
 			ICaracteristicaDAO caracteristicaBean;
-			caracteristicaBean = (ICaracteristicaDAO) InitialContext.doLookup("/GEONat/CaracteristicaBean!com.serviciosDAO.CaracteristicaBeanRemote");
+			caracteristicaBean = (ICaracteristicaDAO) InitialContext.doLookup("/GEONat/CaracteristicaBean!com.DAO.CaracteristicaBeanRemote");
 
 			ArrayList<Caracteristica> caracteristicas =  (ArrayList<Caracteristica>) caracteristicaBean.obtenerTodos(); //ControladorMascotas.obtenerTodasMascotas();
 

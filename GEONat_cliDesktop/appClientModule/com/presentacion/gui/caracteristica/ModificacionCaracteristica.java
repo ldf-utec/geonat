@@ -13,6 +13,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import com.DAO.concrete.FenomenosDAO;
+import com.DAO.interfaces.ICaracteristicaDAO;
+import com.DAO.interfaces.IFenomenoDAO;
+import com.DAO.interfaces.IUsuarioDAO;
 import com.entities.Caracteristica;
 import com.entities.Fenomeno;
 import com.entities.TipoDato;
@@ -20,10 +24,6 @@ import com.entities.TipoDocumento;
 import com.entities.TipoUsuario;
 import com.entities.Usuario;
 import com.exception.ServiciosException;
-import com.serviciosDAO.FenomenosDAO;
-import com.serviciosDAO.interfaces.IFenomenoDAO;
-import com.serviciosDAO.interfaces.ICaracteristicaDAO;
-import com.serviciosDAO.interfaces.IUsuarioDAO;
 
 import javax.swing.JComboBox;
 import javax.naming.InitialContext;
@@ -214,7 +214,7 @@ public class ModificacionCaracteristica {
 			} else {
 				try {
 					ICaracteristicaDAO CaracteristicasBean;
-					CaracteristicasBean = (ICaracteristicaDAO) InitialContext.doLookup("/GEONat/CaracteristicaDAO!com.serviciosDAO.ICaracteristicaDAO");
+					CaracteristicasBean = (ICaracteristicaDAO) InitialContext.doLookup("/GEONat/CaracteristicaDAO!com.DAO.ICaracteristicaDAO");
 					CaracteristicasBean.create(caract);
 					JOptionPane.showMessageDialog(null,  "Caracteristica Creada");
 					txtFNombre.setText("");
@@ -240,7 +240,7 @@ public class ModificacionCaracteristica {
 				int id=Integer.parseInt(txtID.getText());
 				ICaracteristicaDAO CaracteristicasBean=null;
 				try {
-					CaracteristicasBean = (ICaracteristicaDAO) InitialContext.doLookup("/GEONat/CaracteristicaDAO!com.serviciosDAO.CaraacteristicaBeanRemote");
+					CaracteristicasBean = (ICaracteristicaDAO) InitialContext.doLookup("/GEONat/CaracteristicaDAO!com.DAO.CaraacteristicaBeanRemote");
 					boolean enu = CaracteristicasBean.existeIdCaracteristica(c);
 					if (!enu) {
 						JOptionPane.showMessageDialog(null,  "No existe la caracteristica");
@@ -272,7 +272,7 @@ public class ModificacionCaracteristica {
 		ArrayList<Fenomeno> fenomenos = null;
 		try {
 			IFenomenoDAO FenomenosBean;
-			FenomenosBean = (IFenomenoDAO) InitialContext.doLookup("/GEONat/FenomenosDAO!com.serviciosDAO.FenomenoDAO11");
+			FenomenosBean = (IFenomenoDAO) InitialContext.doLookup("/GEONat/FenomenosDAO!com.DAO.FenomenoDAO11");
 			fenomenos =  (ArrayList<Fenomeno>) FenomenosBean.obtenerTodos(); 
 			
 			} catch (NamingException | ServiciosException e) {

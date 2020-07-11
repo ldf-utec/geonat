@@ -1,4 +1,4 @@
-package com.serviciosDAO;
+package com.DAO.concrete;
 
 import java.util.List;
 
@@ -8,9 +8,9 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 
+import com.DAO.interfaces.IDetallesObservacionDAO;
 import com.entities.DetalleObservacion;
 import com.exception.ServiciosException;
-import com.serviciosDAO.interfaces.IDetallesObservacionDAO;
 
 /**
  * Session Bean implementation class DetallesObservacionDAO

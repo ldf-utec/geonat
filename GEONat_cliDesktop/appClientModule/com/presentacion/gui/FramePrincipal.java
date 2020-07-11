@@ -1,14 +1,15 @@
 package com.presentacion.gui;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import java.awt.Dimension;
+import java.awt.EventQueue;
+
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
 import com.presentacion.gui.caracteristica.AltaCaracteristica;
 import com.presentacion.gui.fenomenos.AltaFenomeno;
+import com.presentacion.gui.fenomenos.ModificacionFenomeno;
 import com.presentacion.gui.usuarios.AltaUsuario;
 import com.presentacion.gui.usuarios.FrameListarUsuarios;
 import com.presentacion.gui.usuarios.ModificacionUsuario;
@@ -269,10 +270,38 @@ public class FramePrincipal {
 		panel_2.add(button_4);
 		
 		JButton button_5 = new JButton("Ver listado");
+//		button_5.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				EventQueue.invokeLater(new Runnable() {
+//					public void run() {
+//						try {
+//							AltaFenomeno window = new AltaFenomeno();
+//							window.frmAltaFenomenos.setVisible(true);
+//						} catch (Exception e) {
+//							e.printStackTrace();
+//						}
+//					}
+//				});
+//			}
+//		});
 		button_5.setBounds(10, 99, 199, 23);
 		panel_2.add(button_5);
 		
 		JButton button_6 = new JButton("Modificar");
+		button_6.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				EventQueue.invokeLater(new Runnable() {
+					public void run() {
+						try {
+							ModificacionFenomeno window = new ModificacionFenomeno();
+							window.getFrmModificacionFenomeno().setVisible(true);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+				});
+			}
+		});
 		button_6.setBounds(10, 65, 199, 23);
 		panel_2.add(button_6);
 		
