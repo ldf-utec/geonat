@@ -1,7 +1,9 @@
 package com.presentacion.gui;
 
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 // CLASE CON PATRÓN SINGLETON QUE CREA DATOS DE PRUEBA EN CASO DE NO EXISTIR AÚN LOS MISMOS
 
@@ -32,6 +34,8 @@ public class DatosDePrueba {
 	private DatosDePrueba() {	
 		
 		creaUsuarios();
+		
+		creaFenoYCarac();
 		
 		//creaCaracteristicasYFenomenos();
 		
@@ -72,7 +76,7 @@ public class DatosDePrueba {
 					try {
 						usuarioDAO.create(u);
 						System.out.println("Usuario creado " + i);
-						
+						System.out.println("Vez: " + i + "Lista: " + listaUsuarios.size());
 					} catch (ServiciosException err) {
 						err.printStackTrace();
 					}
@@ -86,6 +90,94 @@ public class DatosDePrueba {
 			e.printStackTrace();
 		} ;
 	}
+	
+	
+// Fenomenos y Caracteristicas 
+	
+	private void creaFenoYCarac() {
+		
+		//Atiendo a Fenomenos
+		 try {
+			 IFenomenoDAO fenomenoDAO = ServiciosGUI.getInstance().getFenomenoBean();
+			 List<Fenomeno> listarFenomenos = fenomenoDAO.obtenerTodos();
+		 
+			 if (listarFenomenos.size()<1) {
+				System.out.println("NO existen datos de prueba para Fenomenos: "+ listarFenomenos.size() );
+				for (int i = 0; i < 10; i++) {
+					Fenomeno f = new Fenomeno();
+					//f.setId_Fenomeno(100 + i);
+					
+					Set<Caracteristica> caracteristicas = new HashSet<>();
+					f.setCaracteristicas(caracteristicas);
+					Set<Observacion> observaciones = new HashSet<>();
+										
+					f.setDescripcion("Descripcion " + i);
+					f.setNombre("Nombre " + i);
+					f.setTelefono("Telefono " + i);
+	
+					
+					
+					// Llamada al servicio remoto Fenomenos DAO para solicitar crear el Fenomeno "i"
+					try {
+						fenomenoDAO.create(f);
+						System.out.println("Fenomeno " + i + " creado ");
+						System.out.println("Vez: " + i + "Lista: " + listarFenomenos.size());
+						
+					} catch (ServiciosException err) {
+						err.printStackTrace();
+					}
+				}
+			}
+			else {
+				System.out.println("Ya existen datos de prueba para Fenomenos");
+			}
+			
+		} catch (ServiciosException e) {
+			e.printStackTrace();
+		} ;
+
+		//Atiendo a Caracteristicas
+		 try {
+			 ICaracteristicaDAO caracteristicaDAO = ServiciosGUI.getInstance().getCaracteristicaBean();
+			 List<Caracteristica> listarCaracteristica = caracteristicaDAO.obtenerTodos();
+	 
+			 if (listarCaracteristica.size()<1) {
+				System.out.println("NO existen datos de prueba para Caracteristica: "+ listarCaracteristica.size() );
+				for (int i = 0; i < 10; i++) {
+					Caracteristica c = new Caracteristica();
+					//c.setId_Caracteristica(100 + i);
+					c.setEtiqPresentacion("Etiqueta de presentacion " + i);
+					c.setNombre("Nombre " + i);
+					//c.setTipoDato(null);
+					//c.setFenomeno(null);
+															
+					// Llamada al servicio remoto Caracteristica DAO para solicitar crear la Caracteristica "i"
+					try {
+						caracteristicaDAO.create(c);
+						System.out.println("Caracteristica " + i + " creada ");
+						
+					} catch (ServiciosException err) {
+						err.printStackTrace();
+					}
+				}
+			}
+			else {
+				System.out.println("Ya existen datos de prueba para Caracteristicas");
+			}
+			
+		} catch (ServiciosException e) {
+			e.printStackTrace();
+		} ;
+
+	
+
+	}
+	
+
+	//En orden
+
+	//Fenomeno
+	//Caracteristica
 	
 ////------- CARACTERISTICAS Y FENOMENOS
 //	private void creaCaracteristicasYFenomenos() {
