@@ -13,6 +13,7 @@ import com.entities.TipoDocumento;
 import com.entities.TipoUsuario;
 import com.entities.Usuario;
 import com.exception.ServiciosException;
+import com.presentacion.servicios.ServiciosUsuario;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -27,6 +28,9 @@ import java.awt.Dimension;
 
 public class ModificacionUsuario {
 
+	// Obtengo la instancia del servicio de capa lógica de negocios
+	ServiciosUsuario serviciosUsuarios = ServiciosUsuario.getInstance();
+	
 	public JFrame frmModificarUsuario;
 	private JTextField txtNombreUsr;
 	private JButton btnBuscarUsuario;
@@ -112,13 +116,13 @@ public class ModificacionUsuario {
 				usr.setNombreUsuario(txtNombreUsr.getText());
 				IUsuarioDAO usuarioBean=null;
 				try {
-					usuarioBean = (IUsuarioDAO) InitialContext.doLookup("/GEONat/UsuarioDAO!com.DAO.IUsuarioDAO");
-					boolean enu = usuarioBean.existeNombreUsuario(usr);
+					
+					boolean enu = serviciosUsuarios.existeNombreUsuario(usr);
 					if (!enu) {
 						JOptionPane.showMessageDialog(null,  "No existe el usuario el la base de datos");
 					} else {
 						Usuario usuario = new Usuario();
-						usuario = usuarioBean.obtenerUno(usr);
+						usuario = serviciosUsuarios.obtenerUno(usr);
 						id_user = usuario.getId_Usuario();
 						txtNombre.setText(usuario.getNombre());
 						txtApellido.setText(usuario.getApellido());
@@ -130,8 +134,6 @@ public class ModificacionUsuario {
 						comboBoxTUsuario.setSelectedIndex(usuario.getTipoUsuario().getId_tipoUsuario());
 							
 					}
-				} catch (NamingException e) {
-					e.printStackTrace();
 				} catch (ServiciosException e) {
 					e.printStackTrace();
 				}
