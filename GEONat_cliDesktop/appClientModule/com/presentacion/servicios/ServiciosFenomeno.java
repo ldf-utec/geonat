@@ -60,7 +60,7 @@ public class ServiciosFenomeno {
 	// Obtener Todos
 	public List<Fenomeno> obtenerTodos() throws ServiciosException {
 		try {
-			
+			System.out.println("por llamar al bean de serviciosGUI");
 			List<Fenomeno> lista = servicios.fenomenoBean.obtenerTodos();
 			return lista;
 			
