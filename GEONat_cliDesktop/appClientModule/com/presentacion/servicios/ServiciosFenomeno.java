@@ -5,7 +5,6 @@ import java.util.List;
 import javax.persistence.PersistenceException;
 
 import com.entities.Fenomeno;
-import com.entities.Usuario;
 import com.exception.ServiciosException;
 
 public class ServiciosFenomeno {
@@ -61,18 +60,18 @@ public class ServiciosFenomeno {
 	// Obtener Todos
 	public List<Fenomeno> obtenerTodos() throws ServiciosException {
 		try {
-			
+			System.out.println("por llamar al bean de serviciosGUI");
 			List<Fenomeno> lista = servicios.fenomenoBean.obtenerTodos();
 			return lista;
 			
 		} catch (Exception e) {
-			throw new ServiciosException("Error al obtener datos");
+			throw new ServiciosException("Error al obtener datos " +e.getMessage());
 		}
 	}
 	
 
 	// Obtener Todos (filtro)
-	public List<Fenomeno> obtenerTodos(String filtro) throws ServiciosException {
+	public List<Fenomeno> obtenerTodosFiltro(String filtro) throws ServiciosException {
 		try {
 			
 			List<Fenomeno> lista = servicios.fenomenoBean.obtenerTodosFiltro(filtro);
