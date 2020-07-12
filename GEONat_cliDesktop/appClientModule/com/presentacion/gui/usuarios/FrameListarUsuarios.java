@@ -2,22 +2,19 @@ package com.presentacion.gui.usuarios;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
+
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
+
 import javax.swing.JTextField;
-import javax.swing.JComboBox;
-import javax.swing.JCheckBox;
+
 import javax.swing.JButton;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
-import com.DAO.interfaces.IUsuarioDAO;
 import com.entities.Usuario;
 import com.exception.ServiciosException;
 import com.presentacion.servicios.ServiciosUsuario;
@@ -42,6 +39,9 @@ import java.awt.Dimension;
 
 public class FrameListarUsuarios extends JFrame implements DocumentListener {
 
+	// Obtengo la instancia del servicio de capa lógica de negocios
+	ServiciosUsuario serviciosUsuarios = ServiciosUsuario.getInstance();
+	
 	public JFrame frmListarUsuarios;
 	private JTextField txtFiltroNombreUsuario;
 	private JScrollPane scrollPane;
@@ -106,7 +106,7 @@ public class FrameListarUsuarios extends JFrame implements DocumentListener {
 		btnEliminarUsuario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					ServiciosUsuario.getInstance().delete(idSeleccionado);
+					serviciosUsuarios.delete(idSeleccionado);
 					cargarTabla();
 					idSeleccionado=0;
 					btnEliminarUsuario.setEnabled(false);
@@ -199,7 +199,7 @@ public class FrameListarUsuarios extends JFrame implements DocumentListener {
 	private void cargarTabla() throws ServiciosException {
 		try {
 			
-			ArrayList<Usuario> usuarios =  (ArrayList<Usuario>) ServiciosUsuario.getInstance().obtenerTodos(); //ControladorMascotas.obtenerTodasMascotas();
+			ArrayList<Usuario> usuarios =  (ArrayList<Usuario>) serviciosUsuarios.obtenerTodos(); //ControladorMascotas.obtenerTodasMascotas();
 
 			String[] nombreColumnas = { "ID", "Documento", "Nombre de Usuario", "Nombre", "Apellido", "Tipo Usuario", "Email" };
 	

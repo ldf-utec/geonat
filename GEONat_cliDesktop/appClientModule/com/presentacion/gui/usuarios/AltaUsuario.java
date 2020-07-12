@@ -33,6 +33,9 @@ import javax.swing.JPasswordField;
 
 public class AltaUsuario extends JFrame {
 
+	// Obtengo la instancia del servicio de capa lógica de negocios
+	ServiciosUsuario serviciosUsuarios = ServiciosUsuario.getInstance();
+	
 	public JFrame frmGeonatAlta;
 	private JTextField nombreUsuario;
 	private JTextField nombre;
@@ -74,8 +77,7 @@ public class AltaUsuario extends JFrame {
 		
 		// Obtengo la instancia del DAO Usuario
 		// IUsuarioDAO usuarioDAO = ServiciosGUI.getInstance().getUsuarioBean();
-		ServiciosUsuario usuarios = ServiciosUsuario.getInstance();
-		
+				
 		frmGeonatAlta = new JFrame();
 		frmGeonatAlta.setTitle("GEONat - Alta de usuarios");
 		frmGeonatAlta.setBounds(100, 100, 800, 600);
@@ -156,7 +158,7 @@ public class AltaUsuario extends JFrame {
 					u.setNombreUsuario(nombreUsuario.getText());
 					
 					try {
-						boolean existeUsuario = usuarios.existeNombreUsuario(u);
+						boolean existeUsuario = serviciosUsuarios.existeNombreUsuario(u);
 
 						if (existeUsuario) {
 							errores = true;
@@ -216,7 +218,7 @@ public class AltaUsuario extends JFrame {
 						JOptionPane.showMessageDialog(null,  strerror);
 					} else {
 						try {
-							usuarios.create(u);
+							serviciosUsuarios.create(u);
 							JOptionPane.showMessageDialog(null,  "Usuario Creado");
 						} catch (ServiciosException err) {
 							
