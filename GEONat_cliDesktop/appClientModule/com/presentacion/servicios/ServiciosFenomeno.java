@@ -86,12 +86,10 @@ public class ServiciosFenomeno {
 	// TODO: Posiblemente este método no tiene mucho sentido, ya que al pasarse como parámetro el objeto Usuario, es más eficiente buscarlo por id.
 	// Si lo que se quiere es obtener por Nombre, se debería pasar el String nombre
 	// Obtener uno
-	public Fenomeno obtenerUno(Fenomeno fenomeno) throws ServiciosException {
-		
-		Integer filtro = fenomeno.getId_Fenomeno();
-		Fenomeno f = servicios.fenomenoBean.obtenerUno(filtro);
-		return f ;
-		
+	public Fenomeno obtenerUno(int id) throws ServiciosException {
+	
+		return servicios.fenomenoBean.obtenerUno(id); 
+	
 	  }
 	
 	public boolean existeNombreFenomeno(Fenomeno fenomeno) throws ServiciosException {
