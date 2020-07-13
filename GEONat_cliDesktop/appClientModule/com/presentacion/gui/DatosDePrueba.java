@@ -54,8 +54,10 @@ public class DatosDePrueba {
 	private void creaUsuarios() {
 				
 		 try {
-			 IUsuarioDAO usuarioDAO = ServiciosGUI.getInstance().getUsuarioBean();
-			 List<Usuario> listaUsuarios = usuarioDAO.obtenerTodos();
+			 
+			 //IUsuarioDAO usuarioDAO = ServiciosGUI.getInstance().getUsuarioBean();
+			 ServiciosUsuario serviciosUsuario = ServiciosUsuario.getInstance();
+			 List<Usuario> listaUsuarios = serviciosUsuario.obtenerTodos();
 			 
 			 if (listaUsuarios.size()<1) {
 				System.out.println("NO existen datos de prueba de Usuarios: "+ listaUsuarios.size() );
@@ -74,7 +76,7 @@ public class DatosDePrueba {
 										
 					// Llamada al servicio remoto UsuarioBeanRemote para solicitarle que cree el usuario "usuario1"
 					try {
-						usuarioDAO.create(u);
+						serviciosUsuario.create(u);
 						System.out.println("Usuario creado " + i);
 						System.out.println("Vez: " + i + "Lista: " + listaUsuarios.size());
 					} catch (ServiciosException err) {
@@ -101,8 +103,10 @@ public class DatosDePrueba {
 		
 				
 		 try {
-			if (serviciosCaracteristicas.obtenerTodos().size()<1) {
-				
+			 List<Caracteristica> listaCaracteristicas = serviciosCaracteristicas.obtenerTodos();
+			 if (listaCaracteristicas.size() < 1)  {
+			 //if ( listaCaracteristicas==null)  {
+				 
 				System.out.println("NO existen datos de prueba");
 				// CREAR FENOMENOS
 				Fenomeno granizo = new Fenomeno();
@@ -196,7 +200,7 @@ public class DatosDePrueba {
 				System.out.println("Ya existen datos de prueba Caracteristicas y fenomenos");
 			}
 			
-		} catch (ServiciosException e) {
+		} catch (Exception e) {
 			System.out.println("Error al crear datos de prueba: Características y Fenómenos. ");
 			e.printStackTrace();
 		} ;
