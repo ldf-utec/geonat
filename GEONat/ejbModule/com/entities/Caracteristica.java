@@ -103,7 +103,10 @@ public class Caracteristica implements Serializable {
 		this.tipoDato = tipoDato;
 	}   
 	
-
+	@Override
+    public String toString() {
+          return "Característica [id=" + Id_Caracteristica + ", name=" + nombre + "]";
+    }
 	
 	
 
