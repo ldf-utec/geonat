@@ -59,8 +59,17 @@ public class CaracteristicaDAO implements ICaracteristicaDAO {
     
     @Override
 	public List<Caracteristica> obtenerTodos() throws ServiciosException {
-		TypedQuery<Caracteristica> query = em.createNamedQuery("Caracteristica.obtenerTodos", Caracteristica.class);
-		return query.getResultList();
+		try {
+			TypedQuery<Caracteristica> query = em.createNamedQuery("Caracteristica.obtenerTodos", Caracteristica.class);
+			
+			List<Caracteristica> lista = query.getResultList();
+			lista.forEach(System.out::println);
+			return lista;
+		} catch (Exception e) {
+			System.out.println("Error al obtenerTodos Caracteristica. " + e.getMessage());
+		}
+		return null;
+    	
 	}
 	
 	@Override
