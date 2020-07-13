@@ -3,6 +3,7 @@ package com.presentacion.servicios;
 import java.util.List;
 import javax.persistence.PersistenceException;
 
+import com.DAO.interfaces.ICaracteristicaDAO;
 import com.entities.Caracteristica;
 import com.exception.ServiciosException;
 
@@ -52,7 +53,18 @@ public class ServiciosCaracteristica {
     
 
 	public List<Caracteristica> obtenerTodos() throws ServiciosException {
-		return servicios.caracteristicaBean.obtenerTodos();
+		try {
+//			ICaracteristicaDAO daoCarac = servicios.getCaracteristicaBean();
+//			List<Caracteristica> l = daoCarac.obtenerTodos();
+			
+			List<Caracteristica> l = servicios.caracteristicaBean.obtenerTodos();
+
+			
+			return l;
+		} catch (Exception e) {
+			System.out.println("Error en serviciosCaracteristicas ObtenerTodos(). " + e.getMessage());
+		}
+		return null;
 	}
 	
 
