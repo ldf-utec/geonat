@@ -25,6 +25,7 @@ import com.entities.TipoUsuario;
 import com.entities.Usuario;
 import com.exception.ServiciosException;
 import com.presentacion.servicios.ServiciosCaracteristica;
+import com.presentacion.servicios.ServiciosFenomeno;
 import com.presentacion.servicios.ServiciosUsuario;
 
 import javax.swing.JComboBox;
@@ -34,6 +35,9 @@ import javax.swing.JButton;
 
 public class AltaCaracteristica {
 
+	ServiciosCaracteristica serviciosCaracteristicas = ServiciosCaracteristica.getInstance();
+	ServiciosFenomeno serviciosFenomeno = ServiciosFenomeno.getInstance();
+	
 	public JFrame frmG;
 	private JTextField txtFNombre;
 	private JTextField txtFEtiqueta;
@@ -66,7 +70,6 @@ public class AltaCaracteristica {
 	 */
 	private void initialize() {
 		
-		ServiciosCaracteristica serviciosCaracteristicas = ServiciosCaracteristica.getInstance();
 		
 		
 		frmG = new JFrame();
@@ -132,7 +135,7 @@ public class AltaCaracteristica {
 		comboBTipoDato.addItem("");
 		TipoDato[] tipoDatoList = TipoDato.values();
 		for (TipoDato tipoDato : tipoDatoList) {
-		comboBTipoDato.addItem(tipoDato);
+			comboBTipoDato.addItem(tipoDato);
 		}
 		comboBTipoDato.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent eventocombo) {
@@ -204,13 +207,10 @@ public class AltaCaracteristica {
 			idFenomeno = comboBFenomAsoc.getSelectedIndex();
 			Fenomeno f = new Fenomeno();
 			try {
-				// TODO: Cambiar a la capa de lógica de negocios ServiciosFenomenos
-				IFenomenoDAO fenomenoBean;
-				fenomenoBean = (IFenomenoDAO) InitialContext.doLookup("/GEONat/FenomenosDAO!com.DAO.FenomenoDAO11");
 				
-				f = fenomenoBean.obtenerUno(idFenomeno+1);
+				f = serviciosFenomeno.obtenerUno(idFenomeno+1);
 								
-				} catch (NamingException | ServiciosException e) {
+				} catch ( ServiciosException e) {
 					e.printStackTrace();
 				}
 				
@@ -240,11 +240,9 @@ public class AltaCaracteristica {
 	private List<Fenomeno> cargarfenomenos() throws ServiciosException {
 		ArrayList<Fenomeno> fenomenos = null;
 		try {
-			IFenomenoDAO fenomenoBean;
-			fenomenoBean = (IFenomenoDAO) InitialContext.doLookup("/GEONat/FenomenosDAO!com.DAO.FenomenoDAO11");
-			fenomenos =  (ArrayList<Fenomeno>) fenomenoBean.obtenerTodos(); 
+			fenomenos = (ArrayList<Fenomeno>) serviciosFenomeno.obtenerTodos(); 
 			
-			} catch (NamingException | ServiciosException e) {
+			} catch (ServiciosException e) {
 				e.printStackTrace();
 				}
 		
