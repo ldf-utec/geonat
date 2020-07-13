@@ -61,7 +61,7 @@ public class ModificacionFenomeno {
 		setFrmModificacionFenomeno(new JFrame());
 		getFrmModificacionFenomeno().setTitle("GEONat - Modificaci\u00F3n de fen\u00F3meno");
 		getFrmModificacionFenomeno().setBounds(100, 100, 450, 300);
-		getFrmModificacionFenomeno().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		getFrmModificacionFenomeno().setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		getFrmModificacionFenomeno().getContentPane().setLayout(null);
 		
 		JLabel lblCodFenomeno = new JLabel("C\u00F3digo del Fen\u00F3meno");
