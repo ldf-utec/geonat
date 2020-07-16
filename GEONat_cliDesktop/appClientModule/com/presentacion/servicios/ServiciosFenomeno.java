@@ -85,12 +85,19 @@ public class ServiciosFenomeno {
 	// TODO: Posiblemente este método no tiene mucho sentido, ya que al pasarse como parámetro el objeto Usuario, es más eficiente buscarlo por id.
 	// Si lo que se quiere es obtener por Nombre, se debería pasar el String nombre
 	// Obtener uno
+<<<<<<< HEAD
 	public Fenomeno obtenerUnoID(int Id) throws ServiciosException {
 		
 		//Integer filtro = fenomeno.getId_Fenomeno();
 		Fenomeno f = servicios.fenomenoBean.obtenerUnoID(Id);
 		return f ;
 		
+=======
+	public Fenomeno obtenerUno(int id) throws ServiciosException {
+	
+		return servicios.fenomenoBean.obtenerUno(id); 
+	
+>>>>>>> branch 'desarrollo' of https://github.com/ldf-utec/geonat.git
 	  }
 	
 	public boolean existeNombreFenomeno(Fenomeno fenomeno) throws ServiciosException {
