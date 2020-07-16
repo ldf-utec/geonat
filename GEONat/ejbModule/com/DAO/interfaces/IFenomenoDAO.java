@@ -24,8 +24,10 @@ public interface IFenomenoDAO {
 
 	boolean existeID(int id) throws ServiciosException;
 
-	Fenomeno obtenerUno(int id) throws ServiciosException;
+	//Fenomeno obtenerUno(int id) throws ServiciosException;
 
-	Fenomeno obtenerUnoID(int id) throws ServiciosException;
+	List<Fenomeno> obtenerUnoID(String filtro) throws ServiciosException;
+
+	Fenomeno obtenerUno(int id) throws ServiciosException;
 
 }
