@@ -63,6 +63,8 @@ public class ServiciosCaracteristica {
 			return l;
 		} catch (Exception e) {
 			System.out.println("Error en serviciosCaracteristicas ObtenerTodos(). " + e.getMessage());
+			e.printStackTrace();
+			;
 		}
 		return null;
 	}

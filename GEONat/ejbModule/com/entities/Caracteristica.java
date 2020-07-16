@@ -23,7 +23,7 @@ public class Caracteristica implements Serializable {
 
 	// Relación ManyToMany BIDIRECCIONAL mediante DetalleObservacion
 	@OneToMany(mappedBy = "observacion")
-	private Set<DetalleObservacion> detalleObservaciones = new HashSet<>();
+	private List<DetalleObservacion> detalleObservaciones = new ArrayList<DetalleObservacion>();
 	
 	
 	// Relación con Fenomeno : Muchos Caracteristicas estan asociadas a Un Fenomeno
@@ -63,11 +63,11 @@ public class Caracteristica implements Serializable {
 		Id_Caracteristica = id_Caracteristica;
 	}
 
-	public Set<DetalleObservacion> getDetalleObservaciones() {
+	public List<DetalleObservacion> getDetalleObservaciones() {
 		return detalleObservaciones;
 	}
 
-	public void setDetalleObservaciones(Set<DetalleObservacion> detalleObservaciones) {
+	public void setDetalleObservaciones(List<DetalleObservacion> detalleObservaciones) {
 		this.detalleObservaciones = detalleObservaciones;
 	}
 

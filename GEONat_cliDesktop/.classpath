@@ -12,7 +12,9 @@
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry combineaccessrules="false" kind="src" path="/GEONat"/>
-	<classpathentry kind="lib" path="lib/jboss-client.jar"/>
+	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/GEONat"/>
+	<classpathentry exported="true" kind="lib" path="lib/jboss-client.jar"/>
+	<classpathentry kind="lib" path="C:/wildfly-17.0.1.Final/bin/client/jboss-client.jar"/>
+	<classpathentry kind="lib" path="C:/wildfly-17.0.1.Final/modules/system/layers/base/org/hibernate/main/hibernate-core-5.3.10.Final.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

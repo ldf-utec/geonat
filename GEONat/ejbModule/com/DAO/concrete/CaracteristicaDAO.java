@@ -62,7 +62,7 @@ public class CaracteristicaDAO implements ICaracteristicaDAO {
 		try {
 			TypedQuery<Caracteristica> query = em.createNamedQuery("Caracteristica.obtenerTodos", Caracteristica.class);
 			
-			List<Caracteristica> lista = query.getResultList();
+			List<Caracteristica> lista = (List<Caracteristica>)query.getResultList();
 			lista.forEach(System.out::println);
 			return lista;
 		} catch (Exception e) {

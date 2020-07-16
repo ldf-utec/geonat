@@ -104,8 +104,13 @@ public class DatosDePrueba {
 				
 		 try {
 			 List<Caracteristica> listaCaracteristicas = serviciosCaracteristicas.obtenerTodos();
-			 if (listaCaracteristicas.size() < 1)  {
-			 //if ( listaCaracteristicas==null)  {
+			 
+			 if (listaCaracteristicas==null) {
+				 System.out.println("DatosDePrueba: no se obtuvieron caracteristicas");
+				 return;
+			 }
+			 
+			 if (listaCaracteristicas.size() < 1) {
 				 
 				System.out.println("NO existen datos de prueba");
 				// CREAR FENOMENOS
