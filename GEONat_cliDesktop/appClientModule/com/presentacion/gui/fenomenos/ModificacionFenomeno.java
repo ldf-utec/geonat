@@ -10,6 +10,7 @@ import javax.swing.JTextField;
 import com.DAO.interfaces.IFenomenoDAO;
 import com.entities.Fenomeno;
 import com.exception.ServiciosException;
+import com.presentacion.servicios.ServiciosFenomeno;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -58,6 +59,9 @@ public class ModificacionFenomeno {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		
+		ServiciosFenomeno fenomenoSrv = ServiciosFenomeno.getInstance();
+		
 		setFrmModificacionFenomeno(new JFrame());
 		getFrmModificacionFenomeno().setTitle("GEONat - Modificaci\u00F3n de fen\u00F3meno");
 		getFrmModificacionFenomeno().setBounds(100, 100, 450, 300);
@@ -150,31 +154,29 @@ public class ModificacionFenomeno {
 		JButton btnBuscarFenomeno = new JButton("Buscar Fen\u00F3meno");
 		btnBuscarFenomeno.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-			    IFenomenoDAO fenBean = null;
 				Fenomeno fen = new Fenomeno();
 				if (txtFCodFenomeno.getText() == null) {
 					JOptionPane.showMessageDialog(null,  "Debe ingresar un codigo de fenomeno");
 				} else {
 					int id = Integer.parseInt(txtFCodFenomeno.getText());
 					try {
-						fenBean = (IFenomenoDAO) InitialContext.doLookup("GEONat/FenomenosDAO!com.DAO.FenomenoDAO11");
-						boolean enu = fenBean.existeID(id);
-						if (!enu) {
+						Fenomeno f = fenomenoSrv.obtenerUnoID(id);
+						if (f == null) {
 							JOptionPane.showMessageDialog(null,  "No existe el fenomeno en la base de datos");
 						} else {
-							fen = new Fenomeno();
-							fen = fenBean.obtenerUno(id);
+							//fen = new Fenomeno();
+							//fen = fenBean.obtenerUno(id);
 							txtFNombre.setVisible(true);
+							txtFNombre.setText(f.getNombre());
 							txtFDescripcion.setVisible(true);
 							txtFTelEmergencia.setVisible(true);
 							txtFNombre.setText(fen.getNombre());
 							txtFDescripcion.setText(fen.getDescripcion());
 							txtFTelEmergencia.setText(fen.getTelefono());
 						}
-					} catch (NamingException e) {
-						e.printStackTrace();
 					} catch (ServiciosException e) {
 						e.printStackTrace();
+						System.out.println("Error al obtener fenomeno " +e.getMessage());
 					}
 				}	
 			}
@@ -189,14 +191,8 @@ public class ModificacionFenomeno {
 			public void actionPerformed(ActionEvent e) {
 				Boolean errores = false;
 				String strerror = null;
-				IFenomenoDAO fenBean2 = null;
 				Fenomeno fen2 = new Fenomeno();
-				try {
-					fenBean2 = (IFenomenoDAO) 
-							InitialContext.doLookup("GEONat/FenomenosDAO!com.DAO.FenomenoDAO11");
-				} catch (NamingException e1) {
-					e1.printStackTrace();
-				} 
+				 
 				fen2.setNombre(txtFNombre.getText().toUpperCase());
 				fen2.setId_Fenomeno(Integer.parseInt(txtFCodFenomeno.getText()));
 				
@@ -219,7 +215,7 @@ public class ModificacionFenomeno {
 				
 				if(errores == false) {
 					try {
-						fenBean2.update(fen2);
+						fenomenoSrv.update(fen2);
 						JOptionPane.showMessageDialog(null, "Fenomeno Actualizado");
 					} catch (ServiciosException err) {
 						
