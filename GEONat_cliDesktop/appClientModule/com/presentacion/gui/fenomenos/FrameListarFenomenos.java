@@ -197,7 +197,7 @@ public class FrameListarFenomenos extends JFrame implements DocumentListener {
 	// Recordar que la tabla va dentro de un JScrollPane para que se vean los encabezados
 	private void cargarTabla() throws ServiciosException {
 		try {
-			System.out.println("Estoy en el try de cargar tabla");
+			
 			List<Fenomeno> fen =  fenomenoSrv.obtenerTodos(); 
 
 			String[] nombreColumnas = { "ID", "Nombre", "Descripcion", "Telefono de Emergenica" };
@@ -219,7 +219,6 @@ public class FrameListarFenomenos extends JFrame implements DocumentListener {
 				datos[fila][3] = f.getTelefono().toString();
 
 				fila++;
-				System.out.println("Estoy en el for de cargar tabla");
 			}
 
 			/*
