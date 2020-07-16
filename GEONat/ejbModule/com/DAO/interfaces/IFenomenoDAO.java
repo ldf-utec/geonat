@@ -26,4 +26,6 @@ public interface IFenomenoDAO {
 
 	Fenomeno obtenerUno(int id) throws ServiciosException;
 
+	Fenomeno obtenerUnoID(int id) throws ServiciosException;
+
 }
