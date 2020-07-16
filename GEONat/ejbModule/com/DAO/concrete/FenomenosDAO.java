@@ -31,7 +31,7 @@ public class FenomenosDAO implements IFenomenoDAO {
 			em.persist(fenomeno);
 			em.flush();		
 		} catch (PersistenceException e) {	
-			throw new ServiciosException("Error al crear fenomeno. " + e.getMessage(), e );	
+			throw new ServiciosException("Error al crear fenomeno. " + e.getMessage());	
 		}
 	}
     
@@ -41,7 +41,7 @@ public class FenomenosDAO implements IFenomenoDAO {
 			em.merge(fenomeno);
 			em.flush();	
 		} catch (PersistenceException e) {
-			throw new ServiciosException("Error al actualizar el fenomeno. "+e.getMessage(),e);
+			throw new ServiciosException("Error al actualizar el fenomeno. "+e.getMessage());
 		}
 	}
     
@@ -63,7 +63,19 @@ public class FenomenosDAO implements IFenomenoDAO {
     
     @Override
 	public List<Fenomeno> obtenerTodos() throws ServiciosException {
-		TypedQuery<Fenomeno> query = em.createNamedQuery("Fenomeno.obtenerTodos", Fenomeno.class);
+    	TypedQuery<Fenomeno> query;
+    	try {
+			 query = em.createNamedQuery("Fenomeno.obtenerTodos", Fenomeno.class);
+			 
+		} catch (Exception e) {
+			System.out.println("error en ObtenerTodos en el DAO" + e.getMessage());
+			return null;
+		}
+    	;
+    	if (query.getResultList().isEmpty()) {
+			System.out.println("lista de fenomenos está vacía");
+			return null;
+		}
 		return query.getResultList();
 	}
 	
