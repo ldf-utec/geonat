@@ -100,12 +100,12 @@ public class FenomenosDAO implements IFenomenoDAO {
 	  }
 	
 	@Override
-	public Fenomeno obtenerUno(int id) throws ServiciosException {
+	public List<Fenomeno> obtenerUnoID(String filtro) throws ServiciosException {
 		try {
-			//System.out.println("Obteniendo Fenomeno1");
-			Fenomeno fenomeno = em.find(Fenomeno.class, id);
-			//System.out.println("Obteniendo Fenomeno2");
-			return fenomeno;
+			TypedQuery<Fenomeno> query = em.createNamedQuery("Fenomeno.obtenerTodosFiltro", Fenomeno.class)
+					.setParameter("filtro", filtro);
+			return query.getResultList();
+			
 			
 		} catch (PersistenceException e) {
 			System.out.println("Error al obtener fenomeno");
@@ -127,7 +127,27 @@ public class FenomenosDAO implements IFenomenoDAO {
 				throw new ServiciosException("Error al consultar");
 			}	
 		}
+
+	/*
+	 * @Override public Fenomeno obtenerUno(int id) throws ServiciosException { //
+	 * TODO Auto-generated method stub return null; }
+	 */
 	    
+		@Override
+		public Fenomeno obtenerUno(int id) throws ServiciosException {
+			try {
+				System.out.println("Obteniendo Fenomeno1");
+				Fenomeno fenomeno = em.find(Fenomeno.class, id);
+				System.out.println("Obteniendo Fenomeno2");
+				return fenomeno;
+				
+			} catch (PersistenceException e) {
+				System.out.println("Error al obtener fenomeno");
+				throw new ServiciosException("Error al consutar");
+				
+			}
+			
+		  }
 	
 
 
