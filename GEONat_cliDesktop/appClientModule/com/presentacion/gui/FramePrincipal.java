@@ -9,8 +9,7 @@ import javax.swing.border.TitledBorder;
 
 import com.presentacion.gui.caracteristica.AltaCaracteristica;
 import com.presentacion.gui.fenomenos.AltaFenomeno;
-import com.presentacion.gui.fenomenos.FrameListarFenomenos;
-import com.presentacion.gui.fenomenos.ModificacionFenomeno;
+import com.presentacion.gui.fenomenos.NewFrameModificar;
 import com.presentacion.gui.usuarios.AltaUsuario;
 import com.presentacion.gui.usuarios.FrameListarUsuarios;
 import com.presentacion.gui.usuarios.ModificacionUsuario;
@@ -270,14 +269,14 @@ public class FramePrincipal {
 		button_4.setBounds(10, 31, 199, 23);
 		panel_2.add(button_4);
 		
-		JButton button_5 = new JButton("Ver listado");
-		button_5.addActionListener(new ActionListener() {
+		JButton btnGestionFenomeno = new JButton("Gestion Fenomeno");
+		btnGestionFenomeno.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						try {
-							FrameListarFenomenos window = new FrameListarFenomenos();
-							window.frmListarFenomenos.setVisible(true);
+							NewFrameModificar frame = new NewFrameModificar();
+							frame.setVisible(true);
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
@@ -285,26 +284,8 @@ public class FramePrincipal {
 				});
 			}
 		});
-		button_5.setBounds(10, 99, 199, 23);
-		panel_2.add(button_5);
-		
-		JButton button_6 = new JButton("Modificar");
-		button_6.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				EventQueue.invokeLater(new Runnable() {
-					public void run() {
-						try {
-							ModificacionFenomeno window = new ModificacionFenomeno();
-							window.getFrmModificacionFenomeno().setVisible(true);
-						} catch (Exception e) {
-							e.printStackTrace();
-						}
-					}
-				});
-			}
-		});
-		button_6.setBounds(10, 65, 199, 23);
-		panel_2.add(button_6);
+		btnGestionFenomeno.setBounds(10, 65, 199, 23);
+		panel_2.add(btnGestionFenomeno);
 		
 		JButton btnCrearDatosPrueba = new JButton("Crear datos de prueba");
 		btnCrearDatosPrueba.addActionListener(new ActionListener() {
