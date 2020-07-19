@@ -70,7 +70,6 @@ public class AltaFenomeno {
 	 */
 	private void initialize() {
 		
-	//	IFenomenoDAO fenomenoDAO = ServiciosGUI.getInstance().getFenomenoBean();
 		ServiciosFenomeno fenomeno = ServiciosFenomeno.getInstance();
 	
 		
