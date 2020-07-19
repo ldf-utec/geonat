@@ -26,7 +26,7 @@ public interface IFenomenoDAO {
 
 	//Fenomeno obtenerUno(int id) throws ServiciosException;
 
-	List<Fenomeno> obtenerUnoID(String filtro) throws ServiciosException;
+	List<Fenomeno> obtenerUnoID(Integer filtro) throws ServiciosException;
 
 	Fenomeno obtenerUno(int id) throws ServiciosException;
 

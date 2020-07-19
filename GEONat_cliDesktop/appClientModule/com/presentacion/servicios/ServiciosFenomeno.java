@@ -86,9 +86,8 @@ public class ServiciosFenomeno {
 	// Si lo que se quiere es obtener por Nombre, se debería pasar el String nombre
 	// Obtener uno
 	
-	public List<Fenomeno> obtenerUnoID(String filtro) throws ServiciosException {
+	public List<Fenomeno> obtenerUnoID(Integer filtro) throws ServiciosException {
 		
-		//Integer filtro = fenomeno.getId_Fenomeno();
 		List<Fenomeno> lista = servicios.fenomenoBean.obtenerUnoID(filtro);
 		return lista;
 		

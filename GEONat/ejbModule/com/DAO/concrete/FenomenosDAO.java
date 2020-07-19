@@ -100,9 +100,9 @@ public class FenomenosDAO implements IFenomenoDAO {
 	  }
 	
 	@Override
-	public List<Fenomeno> obtenerUnoID(String filtro) throws ServiciosException {
+	public List<Fenomeno> obtenerUnoID(Integer filtro) throws ServiciosException {
 		try {
-			TypedQuery<Fenomeno> query = em.createNamedQuery("Fenomeno.obtenerTodosFiltro", Fenomeno.class)
+			TypedQuery<Fenomeno> query = em.createNamedQuery("Fenomeno.obtenerId", Fenomeno.class)
 					.setParameter("filtro", filtro);
 			return query.getResultList();
 			
