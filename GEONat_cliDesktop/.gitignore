@@ -47,7 +47,7 @@ local.properties
 ## Java
 ##############################
 .mtj.tmp/
-*.class
+##*.class
 *.jar
 *.war
 *.ear
