@@ -219,6 +219,8 @@ public class FramePrincipal {
 		panel_1.setBounds(564, 297, 220, 193);
 		frmGeonat.getContentPane().add(panel_1);
 		
+		
+		// Alta CARACTERÍSTICA
 		JButton button_1 = new JButton("Registrar");
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
