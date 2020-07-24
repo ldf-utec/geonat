@@ -42,9 +42,9 @@ public class DatosDePrueba {
 	
 	private DatosDePrueba() {	
 		
-		//creaUsuarios();
-		//creaCaracteristicasYFenomenos();
-		creaObservaciones();
+		creaUsuarios();
+		creaCaracteristicasYFenomenos();
+		//creaObservaciones();
 	}
 
 
