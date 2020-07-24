@@ -24,12 +24,14 @@ import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
-public class NewFrameModificar extends JFrame {
-
+public class NewFrameModificar  {
+	
+	public JFrame frmGestionFenomenos;
 	private JPanel contentPane;
 	private JTable table;
-	private ServiciosFenomeno fenomenoSrv = ServiciosFenomeno.getInstance();
 	private JButton btnGuardar;
 	private JButton btnEliminar;
 	private JButton btnCancelar;
@@ -38,6 +40,8 @@ public class NewFrameModificar extends JFrame {
 	private JTextField txtFTelefono;
 	private JComboBox comboBox; 
 
+	private ServiciosFenomeno fenomenoSrv = ServiciosFenomeno.getInstance();
+	
 	/**
 	 * Launch the application.
 	 */
@@ -46,7 +50,7 @@ public class NewFrameModificar extends JFrame {
 			public void run() {
 				try {
 					NewFrameModificar frame = new NewFrameModificar();
-					frame.setVisible(true);
+					frame.frmGestionFenomenos.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -58,12 +62,14 @@ public class NewFrameModificar extends JFrame {
 	 * Create the frame.
 	 */
 	public NewFrameModificar() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 982, 496);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
+		
+		frmGestionFenomenos = new JFrame();
+		frmGestionFenomenos.setTitle("GEONat - Registro de Fen\u00F3menos");
+		frmGestionFenomenos.setResizable(false);
+		frmGestionFenomenos.setBounds(100, 100, 982, 496);
+		frmGestionFenomenos.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		frmGestionFenomenos.getContentPane().setLayout(null);
+		
 		
 		JButton btnCargarTabla = new JButton("Listar Fen\u00F3menos Existentes");
 		btnCargarTabla.addActionListener(new ActionListener() {
@@ -76,11 +82,11 @@ public class NewFrameModificar extends JFrame {
 			}
 		});
 		btnCargarTabla.setBounds(723, 24, 201, 23);
-		contentPane.add(btnCargarTabla);
+		frmGestionFenomenos.getContentPane().add(btnCargarTabla);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(329, 98, 616, 348);
-		contentPane.add(scrollPane);
+		frmGestionFenomenos.getContentPane().add(scrollPane);
 		
 		table = new JTable();
 		scrollPane.setViewportView(table);
@@ -107,7 +113,7 @@ public class NewFrameModificar extends JFrame {
 		});
 		btnGuardar.setFont(new Font("Tahoma", Font.BOLD, 15));
 		btnGuardar.setBounds(10, 324, 179, 50);
-		contentPane.add(btnGuardar);
+		frmGestionFenomenos.getContentPane().add(btnGuardar);
 		
 		btnEliminar = new JButton("Eliminar");
 		btnEliminar.addActionListener(new ActionListener() {
@@ -126,42 +132,47 @@ public class NewFrameModificar extends JFrame {
 		btnEliminar.setForeground(Color.RED);
 		btnEliminar.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnEliminar.setBounds(194, 324, 124, 50);
-		contentPane.add(btnEliminar);
+		frmGestionFenomenos.getContentPane().add(btnEliminar);
 		
 		btnCancelar = new JButton("Cancelar");
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frmGestionFenomenos.hide();
+			}
+		});
 		btnCancelar.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnCancelar.setBounds(98, 385, 138, 50);
-		contentPane.add(btnCancelar);
+		frmGestionFenomenos.getContentPane().add(btnCancelar);
 		
 		txtFNombre = new JTextField();
 		txtFNombre.setBounds(98, 120, 206, 31);
-		contentPane.add(txtFNombre);
+		frmGestionFenomenos.getContentPane().add(txtFNombre);
 		txtFNombre.setColumns(10);
 		
 		JLabel lblNombre = new JLabel("Nombre");
 		lblNombre.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		lblNombre.setBounds(10, 120, 78, 31);
-		contentPane.add(lblNombre);
+		frmGestionFenomenos.getContentPane().add(lblNombre);
 		
 		JLabel lblDescripcion = new JLabel("Descripcion");
 		lblDescripcion.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		lblDescripcion.setBounds(10, 175, 78, 31);
-		contentPane.add(lblDescripcion);
+		frmGestionFenomenos.getContentPane().add(lblDescripcion);
 		
 		textFDescripcion = new JTextField();
 		textFDescripcion.setBounds(98, 175, 206, 69);
-		contentPane.add(textFDescripcion);
+		frmGestionFenomenos.getContentPane().add(textFDescripcion);
 		textFDescripcion.setColumns(10);
 		
 		txtFTelefono = new JTextField();
 		txtFTelefono.setBounds(98, 263, 206, 31);
-		contentPane.add(txtFTelefono);
+		frmGestionFenomenos.getContentPane().add(txtFTelefono);
 		txtFTelefono.setColumns(10);
 		
 		JLabel lblTelefonoDe = new JLabel("Telefono");
 		lblTelefonoDe.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		lblTelefonoDe.setBounds(10, 263, 78, 28);
-		contentPane.add(lblTelefonoDe);
+		frmGestionFenomenos.getContentPane().add(lblTelefonoDe);
 		
 		comboBox = new JComboBox();
 		comboBox.addActionListener(new ActionListener() {
@@ -171,12 +182,12 @@ public class NewFrameModificar extends JFrame {
 		});
 		comboBox.setFont(new Font("Tahoma", Font.BOLD, 16));
 		comboBox.setBounds(183, 39, 108, 42);
-		contentPane.add(comboBox);
+		frmGestionFenomenos.getContentPane().add(comboBox);
 		
 		JLabel lblSeleccioneElId = new JLabel("Seleccione el ID del fenomeno");
 		lblSeleccioneElId.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		lblSeleccioneElId.setBounds(10, 39, 163, 42);
-		contentPane.add(lblSeleccioneElId);
+		frmGestionFenomenos.getContentPane().add(lblSeleccioneElId);
 		
 		try {
 			cargarTabla();

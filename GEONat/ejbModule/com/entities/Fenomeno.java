@@ -37,7 +37,7 @@ public class Fenomeno implements Serializable {
 	
 	
 	@Basic(optional = false)
-	@Column(length = 50)
+	@Column(length = 50, unique = true)
 	private String nombre;
 	
 	@Basic(optional = true)

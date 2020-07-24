@@ -22,7 +22,7 @@ public class Caracteristica implements Serializable {
 	private Integer Id_Caracteristica;
 
 	// Relación ManyToMany BIDIRECCIONAL mediante DetalleObservacion
-	@OneToMany(mappedBy = "observacion")
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "observacion")
 	private List<DetalleObservacion> detalleObservaciones = new ArrayList<DetalleObservacion>();
 	
 	

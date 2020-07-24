@@ -1,9 +1,9 @@
 package com.presentacion.gui;
 
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+/*import java.util.Set;
+import java.util.HashSet;
 
 // CLASE CON PATRÓN SINGLETON QUE CREA DATOS DE PRUEBA EN CASO DE NO EXISTIR AÚN LOS MISMOS
 
@@ -16,6 +16,7 @@ import com.DAO.interfaces.IDetallesObservacionDAO;
 import com.DAO.interfaces.IFenomenoDAO;
 import com.DAO.interfaces.IObservacionDAO;
 import com.DAO.interfaces.IUsuarioDAO;
+*/
 import com.entities.Caracteristica;
 import com.entities.DetalleObservacion;
 import com.entities.Fenomeno;
@@ -26,20 +27,24 @@ import com.entities.TipoUsuario;
 import com.entities.Usuario;
 import com.exception.ServiciosException;
 import com.presentacion.servicios.ServiciosCaracteristica;
+import com.presentacion.servicios.ServiciosDetalleObservaciones;
 import com.presentacion.servicios.ServiciosFenomeno;
-import com.presentacion.servicios.ServiciosGUI;
+//import com.presentacion.servicios.ServiciosGUI;
+import com.presentacion.servicios.ServiciosObservacion;
 import com.presentacion.servicios.ServiciosUsuario;
 
+/**
+ * @author Victor
+ *
+ */
 public class DatosDePrueba {
 	private static DatosDePrueba instance = new DatosDePrueba(); 
 	
 	private DatosDePrueba() {	
 		
-		creaUsuarios();
-				
-		creaCaracteristicasYFenomenos();
-		
-		//creaObservaciones();
+		//creaUsuarios();
+		//creaCaracteristicasYFenomenos();
+		creaObservaciones();
 	}
 
 
@@ -59,7 +64,7 @@ public class DatosDePrueba {
 			 ServiciosUsuario serviciosUsuario = ServiciosUsuario.getInstance();
 			 List<Usuario> listaUsuarios = serviciosUsuario.obtenerTodos();
 			 
-			 if (listaUsuarios.size()<1) {
+			 if (listaUsuarios.size()<6) {
 				System.out.println("NO existen datos de prueba de Usuarios: "+ listaUsuarios.size() );
 				for (int i = 0; i < 10; i++) {
 					Usuario u = new Usuario();
@@ -97,7 +102,7 @@ public class DatosDePrueba {
 	
 //------- CARACTERISTICAS Y FENOMENOS
 	private void creaCaracteristicasYFenomenos() {
-		//  CARACTERISTICAS Y FENOMENOS
+
 		ServiciosCaracteristica serviciosCaracteristicas = ServiciosCaracteristica.getInstance();
 		ServiciosFenomeno serviciosFenomeno = ServiciosFenomeno.getInstance();
 		
@@ -211,94 +216,80 @@ public class DatosDePrueba {
 		} ;
 	} 
 
-////------- OBSERVACIONES
-//	private void creaObservaciones() {
-//		IObservacionDAO observacionBean=null;
-//		try {
-//			observacionBean = (IObservacionDAO) InitialContext.doLookup("/GEONat/ObservacionDAO!com.DAO.IObservacionDAO");
-//		} catch (NamingException e) {
-//			e.printStackTrace();
-//		}
-//	
-//		 try {
-//			if (observacionBean.obtenerTodos().size()<1) {
-//				System.out.println("NO existen datos de prueba de Observaciones: " + observacionBean.obtenerTodos().size() );
-//				
-//				Observacion o1 = new Observacion();
-//				System.out.println("1 ");
-//				o1.setFenomeno(obtenerFenomeno(2));
-//				System.out.println("2 ");
-//				//o1.setGeolocalizacion(null);
-//				o1.setLocalidad(null);
-//				o1.setDescripcion("Se observó incendio forestal de monte de eucaliptus");
-//				o1.setFecha(java.util.Calendar.getInstance().getTime());
-//				
-//				observacionBean.create(o1);
-//				
-//				
-//				ICaracteristicaDAO caracteristicaBean=null;		
-//				try {
-//					caracteristicaBean = (ICaracteristicaDAO) InitialContext.doLookup("/GEONat/CaracteristicaDAO!com.DAO.ICaracteristicaDAO");
-//				} catch (NamingException e) {
-//					e.printStackTrace();
-//				}
-//				
-//				
-//				Caracteristica c1 = new Caracteristica();
-//				c1 = caracteristicaBean.obtenerUno(1);
-//				
-//				
-//				
-//				
-//				
-//				DetalleObservacion d1 = new DetalleObservacion();
-//				d1.setFecha(java.util.Calendar.getInstance().getTime());
-//				d1.setValorNumerico( 2.5f);
-//				d1.setCaracteristica(c1);
-//				d1.setObservacion(o1);
-//				
-//				o1.getDetalleObservaciones().add(d1);
-//				c1.getDetalleObservaciones().add(d1);
-//				
-//				IDetallesObservacionDAO detallesObservacionesBean=null;		
-//				try {
-//					detallesObservacionesBean = (IDetallesObservacionDAO) InitialContext.doLookup("/GEONat/DetallesObservacionDAO!com.DAO.IDetallesObservacionDAO");
-//				} catch (NamingException e) {
-//					e.printStackTrace();
-//				}
-//				
-//				detallesObservacionesBean.create(d1);
-//				
-//				
-//			}
-//			else {
-//				System.out.println("Ya existen datos de prueba observaciones");
-//			}
-//
-//		} catch (ServiciosException e) {
-//			e.printStackTrace();
-//		} ;
-//	}
-//
-//
-//	private Fenomeno obtenerFenomeno(Integer id) throws ServiciosException {
-//		IFenomenoDAO fenomenoBean1 = null;
-//		try {
-//			fenomenoBean1 = (IFenomenoDAO) InitialContext.doLookup("/GEONat/FenomenosDAO!com.DAO.FenomenoDAO11");
-//		} catch (NamingException e) {
-//			e.printStackTrace();
-//		}
-//		
-//		return fenomenoBean1.obtenerUno(id);
-//	}
-	
-	
-	
-	
-	
-	
-	
-	
+//------- OBSERVACIONES
+	private void creaObservaciones() {
+		
+		ServiciosObservacion serviciosObservacion = ServiciosObservacion.getInstance();
+		 try {
+			if (serviciosObservacion.obtenerTodos().size()<1) {
+				System.out.println("NO existen datos de prueba de Observaciones: " + serviciosObservacion.obtenerTodos().size() );
+				
+				Observacion o1 = new Observacion();
+
+				ServiciosUsuario serviciosUsuario = ServiciosUsuario.getInstance();
+//				List<Usuario> listaUsuarios = serviciosUsuario.obtenerTodos();
+								
+				Usuario u = new Usuario();
+				u.setNombreUsuario("nombreUsuario0");
+				o1.setUsuarioRegistro(serviciosUsuario.obtenerUno(u));
+				u.setNombreUsuario("nombreUsuario1");	
+				o1.setUsuarioRevision(serviciosUsuario.obtenerUno(u));
+
+				System.out.println("obtuve usuarios necesarios");
+				
+				o1.setFenomeno(obtenerFenomeno(2));
+				o1.setLocalidad(null);
+				o1.setGeoLatitud(null);
+				o1.setGeoLongitud(null);
+				o1.setDescripcion("Se observó incendio forestal de monte de eucaliptus");
+				o1.setFecha(java.util.Calendar.getInstance().getTime());
+				o1.setFechaRevision(java.util.Calendar.getInstance().getTime());
+				o1.setFiabilidadRevision(null);
+				o1.setComentarioRevision("Revisado OK");
+
+				System.out.println("Voy a grabar Observacion");
+				serviciosObservacion.create(o1);
+				System.out.println("Grabare Observacion");
+				//
+				ServiciosCaracteristica serviciosCaracteristicas = ServiciosCaracteristica.getInstance();
+				
+				Caracteristica c1 = new Caracteristica();
+				c1 = serviciosCaracteristicas.obtenerUno(1);
+				
+				DetalleObservacion d1 = new DetalleObservacion();
+				d1.setFecha(java.util.Calendar.getInstance().getTime());
+				d1.setValorNumerico( 2.5f);
+				d1.setCaracteristica(c1);
+				d1.setObservacion(o1);
+				
+				
+				//
+				ServiciosDetalleObservaciones serviciosDetalleObservaciones = ServiciosDetalleObservaciones.getInstance();
+				serviciosDetalleObservaciones.create(d1);
+
+				o1.getDetalleObservaciones().add(d1);
+				c1.getDetalleObservaciones().add(d1);
+				
+				
+				
+			}
+			else {
+				System.out.println("Ya existen datos de prueba observaciones");
+			}
+
+		} catch (ServiciosException e) {
+			e.printStackTrace();
+		} ;
+	}
+
+
+	private Fenomeno obtenerFenomeno(Integer id) throws ServiciosException {
+
+		ServiciosFenomeno serviciosFenomeno = ServiciosFenomeno.getInstance();
+		Fenomeno fenomeno = serviciosFenomeno.obtenerUno(id);
+		return fenomeno;
+	}
+
 	
 	
 	// HELPER METHODS
