@@ -20,6 +20,7 @@ import javax.swing.table.TableRowSorter;
 import com.DAO.interfaces.ICaracteristicaDAO;
 import com.entities.Caracteristica;
 import com.exception.ServiciosException;
+import com.presentacion.servicios.ServiciosCaracteristica;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -41,8 +42,9 @@ import java.awt.Dimension;
 
 public class FrameListarCaracteristicas extends JFrame implements DocumentListener {
 
+	ServiciosCaracteristica serviciosCaracteristicas = ServiciosCaracteristica.getInstance();
 	
-	JFrame frmListarCaracteristicas;
+	public JFrame frmListarCaracteristicas;
 	private JTextField txtFiltroNombreCaracteristica;
 	private JScrollPane scrollPane;
 	private JTable table;
@@ -106,13 +108,13 @@ public class FrameListarCaracteristicas extends JFrame implements DocumentListen
 			public void actionPerformed(ActionEvent e) {
 				ICaracteristicaDAO caracteristicaBean;
 				try {
-					caracteristicaBean = (ICaracteristicaDAO) InitialContext.doLookup("/GEONat/CaracteristicaDAO!com.DAO.CaracteristicaBeanRemote");
-					caracteristicaBean.delete(idSeleccionado);
+					
+					serviciosCaracteristicas.delete(idSeleccionado);
 					cargarTabla();
 					idSeleccionado=0;
 					btnEliminarCaracteristica.setEnabled(false);
 					
-				} catch (NamingException | ServiciosException e1) {
+				} catch ( ServiciosException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
@@ -199,10 +201,8 @@ public class FrameListarCaracteristicas extends JFrame implements DocumentListen
 	// Recordar que la tabla va dentro de un JScrollPane para que se vean los encabezados
 	private void cargarTabla() throws ServiciosException {
 		try {
-			ICaracteristicaDAO caracteristicaBean;
-			caracteristicaBean = (ICaracteristicaDAO) InitialContext.doLookup("/GEONat/CaracteristicaBean!com.DAO.CaracteristicaBeanRemote");
 
-			ArrayList<Caracteristica> caracteristicas =  (ArrayList<Caracteristica>) caracteristicaBean.obtenerTodos(); //ControladorMascotas.obtenerTodasMascotas();
+			ArrayList<Caracteristica> caracteristicas =  (ArrayList<Caracteristica>) serviciosCaracteristicas.obtenerTodos(); //ControladorMascotas.obtenerTodasMascotas();
 
 			String[] nombreColumnas = { "ID_Caracteristica", "Nombre", "Etiqueta"};
 			
@@ -211,7 +211,7 @@ public class FrameListarCaracteristicas extends JFrame implements DocumentListen
 			 * El tamaño de la tabla es, 7 columnas (cantidad de datos a mostrar) y
 			 * la cantidad de filas depende de la cantidad de caracteristicas
 			 */
-			Object[][] datos = new Object[caracteristicas.size()][7];
+			Object[][] datos = new Object[caracteristicas.size()][3];
 			
 			/* Cargamos la matriz con todos los datos */
 			int fila = 0;
@@ -246,7 +246,7 @@ public class FrameListarCaracteristicas extends JFrame implements DocumentListen
 			table.setAutoscrolls(true);
 			table.setCellSelectionEnabled(false);
 			
-		} catch (NamingException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			

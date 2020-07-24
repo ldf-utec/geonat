@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
 import com.presentacion.gui.caracteristica.AltaCaracteristica;
+import com.presentacion.gui.caracteristica.FrameListarCaracteristicas;
 import com.presentacion.gui.fenomenos.AltaFenomeno;
 import com.presentacion.gui.fenomenos.NewFrameModificar;
 import com.presentacion.gui.usuarios.AltaUsuario;
@@ -259,6 +260,20 @@ public class FramePrincipal {
 		panel_1.add(btnRegistrarCaracteristica);
 		
 		btnListarCaracterisitica = new JButton("Ver listado / Dar de Baja");
+		btnListarCaracterisitica.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				EventQueue.invokeLater(new Runnable() {
+					public void run() {
+						try {
+							FrameListarCaracteristicas window = new FrameListarCaracteristicas();
+							window.frmListarCaracteristicas.setVisible(true);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+				});
+			}
+		});
 		btnListarCaracterisitica.setBounds(10, 99, 199, 23);
 		panel_1.add(btnListarCaracterisitica);
 		
