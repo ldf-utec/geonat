@@ -49,7 +49,10 @@ public class Observacion implements Serializable {
 	
 	@Basic(optional=true)
 	private Double geoLongitud;
-	
+
+	@Basic(optional=true)
+	private Double geoAltitud;
+
 	@Basic(optional = true)
 	@Column(length = 200)
 	private String descripcion;
@@ -67,6 +70,9 @@ public class Observacion implements Serializable {
 	@Basic(optional = true)
 	private String comentarioRevision;
 	
+	@Basic(optional = true)
+	@Column(length = 20)
+	private String criticidad;
 	
 	
 	
@@ -179,6 +185,22 @@ public class Observacion implements Serializable {
 
 	public void setUsuarioRevision(Usuario usuarioRevision) {
 		this.usuarioRevision = usuarioRevision;
+	}
+
+	public Double getGeoAltitud() {
+		return geoAltitud;
+	}
+
+	public void setGeoAltitud(Double geoAltitud) {
+		this.geoAltitud = geoAltitud;
+	}
+
+	public String getCriticidad() {
+		return criticidad;
+	}
+
+	public void setCriticidad(String criticidad) {
+		this.criticidad = criticidad;
 	}   
 	
 	
