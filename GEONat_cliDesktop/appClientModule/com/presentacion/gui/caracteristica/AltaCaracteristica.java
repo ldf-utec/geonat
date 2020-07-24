@@ -75,7 +75,7 @@ public class AltaCaracteristica {
 		frmG = new JFrame();
 		frmG.setTitle("GEONat - Alta de una caracteristica");
 		frmG.setBounds(100, 100, 450, 300);
-		frmG.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmG.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		frmG.getContentPane().setLayout(null);
 		
 		JLabel lblNombre = new JLabel("Nombre de la caracter\u00EDstica");
@@ -180,54 +180,40 @@ public class AltaCaracteristica {
 			} else {
 				caract.setNombre(txtFNombre.getText());
 			}
-//			Fenomeno fenomeno =new Fenomeno();
-//			try {
-//				List<Fenomeno> fen = cargarfenomenos();
-//				for (Fenomeno f : fen) {
-//					
-//					if (f.getNombre()==comboBFenomAsoc.getSelectedItem()) {
-//						fenomeno.setId_Fenomeno(f.getId_Fenomeno());
-//						fenomeno.setNombre(nombre);
-//					}
-//				}
-//			} catch (ServiciosException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//			
-			
-			//caract.setId_Fenomeno(fen[comboBFenomAsoc.getSelectedItem()]);
-			
-			//caract.set   comboBFenomAsoc.getSelectedItem()
 					
-			//caract.setId_Fenomeno(Id_Fenomeno); ( comboBFenomAsoc.getSelectedItem().toString());
-		
-			int idFenomeno =0;
-			
-			idFenomeno = comboBFenomAsoc.getSelectedIndex();
-			Fenomeno f = new Fenomeno();
-			try {
-				
-				f = serviciosFenomeno.obtenerUno(idFenomeno+1);
-								
-				} catch ( ServiciosException e) {
-					e.printStackTrace();
-				}
-				
-			
-			//caract.setId_Fenomeno(f);
-									
-			//caract.setId_TipoDato(TipoDato.valueOf(comboBTipoDato.getSelectedItem().toString()));
 								
 			if (errores) {
 				JOptionPane.showMessageDialog(null,  strerror);
 			} else {
 				try {
+					
+					int idFenomeno =0;
+					Fenomeno f = new Fenomeno();
+					
+					try {
+						
+						idFenomeno = comboBFenomAsoc.getSelectedIndex();
+						
+						f = serviciosFenomeno.obtenerUno(idFenomeno+1);
+										
+						} catch ( ServiciosException e) {
+							e.printStackTrace();
+							throw new ServiciosException("Error al obtener el fenómeno.");
+						}
+					
+					caract.setFenomeno(f);;
+											
+					caract.setTipoDato(TipoDato.valueOf(comboBTipoDato.getSelectedItem().toString()));
+					
 					serviciosCaracteristicas.create(caract);
 					JOptionPane.showMessageDialog(null,  "Caracteristica Creada");
 					
 				}catch ( ServiciosException e) {
-						e.printStackTrace();
+					
+					System.out.println("Error al crear característica.");	
+					e.printStackTrace();
+					JOptionPane.showMessageDialog(null,  "Error al crear característica. " + e.getMessage());
+						
 				}
 			}
 		}
