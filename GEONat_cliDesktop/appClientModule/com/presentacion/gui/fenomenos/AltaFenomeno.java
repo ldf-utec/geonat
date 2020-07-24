@@ -28,6 +28,7 @@ import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.JFormattedTextField;
+import java.awt.event.KeyAdapter;
 
 public class AltaFenomeno {
 
@@ -76,7 +77,7 @@ public class AltaFenomeno {
 		frmAltaFenomenos = new JFrame();
 		frmAltaFenomenos.setTitle("GEONat - Registro de Fen\u00F3menos");
 		frmAltaFenomenos.setResizable(false);
-		frmAltaFenomenos.setBounds(100, 100, 445, 243);
+		frmAltaFenomenos.setBounds(100, 100, 457, 249);
 		frmAltaFenomenos.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		frmAltaFenomenos.getContentPane().setLayout(null);
 		
@@ -85,22 +86,16 @@ public class AltaFenomeno {
 		frmAltaFenomenos.getContentPane().add(lblNombre);
 		
 		txtFNombre = new JTextField();
+		txtFNombre.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				if(txtFNombre.getText().length() > limiteNombre) {
+					JOptionPane.showMessageDialog(null,"Debe ingresar menos de "+limiteNombre+" caracteres");
+					e.consume();
+			}
+			}
+			});
 		txtFNombre.setBounds(170, 19, 229, 20);
-//		txtFNombre.getDocument().addDocumentListener(listener);
-//		txtFNombre.addKeyListener(new KeyListener() {
-//			public void keyTyped(KeyEvent e) {
-//				if(txtFNombre.getText().length() > limiteNombre) {
-//					JOptionPane.showMessageDialog(null,"Debe ingresar menos de "+limiteNombre+" caracteres");
-//					e.consume();
-//				}
-//			}
-//			@Override
-//			public void keyPressed(KeyEvent arg0) {
-//			}
-//			@Override
-//			public void keyReleased(KeyEvent arg0) {
-//			}
-//		});
 		frmAltaFenomenos.getContentPane().add(txtFNombre);
 		txtFNombre.setColumns(10);
 		
@@ -109,22 +104,16 @@ public class AltaFenomeno {
 		frmAltaFenomenos.getContentPane().add(lblDescripcion);
 		
 		txtFDescripcion = new JTextField();
+		txtFDescripcion.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				if(txtFDescripcion.getText().length() > limiteDescripcion) {
+					JOptionPane.showMessageDialog(null,"Debe ingresar menos de "+limiteDescripcion+" caracteres");
+				e.consume();
+				}
+			}
+		});
 		txtFDescripcion.setBounds(170, 56, 229, 45);
-//		txtFDescripcion.getDocument().addDocumentListener(listener);
-//		txtFDescripcion.addKeyListener(new KeyListener() {
-//			public void keyTyped(KeyEvent e) {
-//				if(txtFDescripcion.getText().length() > limiteDescripcion) {
-//					JOptionPane.showMessageDialog(null,"Debe ingresar menos de "+limiteDescripcion+" caracteres");
-//					e.consume();
-//				}
-//			}
-//			@Override
-//			public void keyPressed(KeyEvent arg0) {
-//			}
-//			@Override
-//			public void keyReleased(KeyEvent arg0) {
-//			}
-//		});
 		frmAltaFenomenos.getContentPane().add(txtFDescripcion);
 		txtFDescripcion.setColumns(10);
 		
@@ -133,22 +122,16 @@ public class AltaFenomeno {
 		frmAltaFenomenos.getContentPane().add(lblTelEmergencia);
 		
 		txtFTelEmergencia = new JTextField();
+		txtFTelEmergencia.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				if(txtFTelEmergencia.getText().length() > limiteTel) {
+					JOptionPane.showMessageDialog(null,"Debe ingresar menos de "+limiteTel+" números");
+				e.consume();
+			}
+			}
+		});
 		txtFTelEmergencia.setBounds(170, 127, 170, 20);
-//		txtFTelEmergencia.getDocument().addDocumentListener(listener);
-//		txtFTelEmergencia.addKeyListener(new KeyListener() {
-//			public void keyTyped(KeyEvent e) {
-//				if(txtFTelEmergencia.getText().length() > limiteTel) {
-//					JOptionPane.showMessageDialog(null,"Debe ingresar menos de "+limiteTel+" números");
-//					e.consume();
-//				}
-//			}
-//			@Override
-//			public void keyPressed(KeyEvent arg0) {
-//			}
-//			@Override
-//			public void keyReleased(KeyEvent arg0) {
-//			}
-//		});
 		frmAltaFenomenos.getContentPane().add(txtFTelEmergencia);
 		txtFTelEmergencia.setColumns(10);
 		
@@ -160,8 +143,8 @@ public class AltaFenomeno {
 				String strerror = "";
 				Fenomeno f = new Fenomeno();
 				
-				if ((txtFNombre.getText() != null) && (txtFNombre.getText().length() < limiteNombre)) {
-					f.setNombre(txtFNombre.getText());	
+				if (!(txtFNombre.getText().isEmpty()) && (txtFNombre.getText().length() < limiteNombre)) {
+					f.setNombre(txtFNombre.getText().toLowerCase().toString());	
 					
 					try {
 						boolean existeFenomeno = fenomeno.existeNombreFenomeno(f);
@@ -178,14 +161,14 @@ public class AltaFenomeno {
 					strerror = "Debe ingresar un nombre valido";
 				}
 							
-				if((txtFDescripcion.getText()!= null) && (txtFDescripcion.getText().length()<limiteDescripcion) ) {
+				if(!(txtFDescripcion.getText().isEmpty()) && (txtFDescripcion.getText().length()<limiteDescripcion) ) {
 					f.setDescripcion(txtFDescripcion.getText().toString());						
 				} else {
 					errores = true;
 					strerror = "Debe ingresar una descripcion de menos de 200 caracteres";
 				}
 						
-				if ((txtFTelEmergencia.getText() != null) && (txtFTelEmergencia.getText().length() < limiteTel) && (txtFTelEmergencia.getText().matches("[0-9]*"))) {
+				if (!(txtFTelEmergencia.getText().isEmpty()) && (txtFTelEmergencia.getText().length() < limiteTel) && (txtFTelEmergencia.getText().toString().matches("[0-9]*"))) {
 					f.setTelefono(txtFTelEmergencia.getText().toString());				
 				} else {
 					errores=true;
@@ -205,9 +188,7 @@ public class AltaFenomeno {
 				} else {
 					JOptionPane.showMessageDialog(null,  strerror);
 				}
-				txtFNombre.setText(null);
-				txtFDescripcion.setText(null);
-				txtFTelEmergencia.setText(null);
+				limpiarDatos();
 				
 				
 			}
@@ -226,5 +207,11 @@ public class AltaFenomeno {
 		
 		
 		
+	}
+	
+	public void limpiarDatos() {
+		txtFNombre.setText(null);
+		txtFDescripcion.setText(null);
+		txtFTelEmergencia.setText(null);
 	}
 }

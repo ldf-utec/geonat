@@ -298,8 +298,7 @@ public class FramePrincipal {
 					public void run() {
 						try {
 							NewFrameModificar frame = new NewFrameModificar();
-							//era windows no frame
-							frame.setVisible(true);
+							frame.frmGestionFenomenos.setVisible(true);
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
