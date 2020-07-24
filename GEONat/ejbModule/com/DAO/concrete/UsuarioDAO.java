@@ -99,8 +99,16 @@ public class UsuarioDAO implements IUsuarioDAO {
 		TypedQuery<Usuario> query = em.createNamedQuery("Usuario.obtenerUno", Usuario.class)
 				.setParameter("filtro", filtro);
 		return query.getSingleResult() ;
+	}
+	
+	
+	@Override
+	public List<Usuario> obtenerLogin(Usuario usuario) throws ServiciosException {
 		
-
-	  }
+		String filtro = usuario.getNombreUsuario();
+		TypedQuery<Usuario> query = em.createNamedQuery("Usuario.obtenerUno", Usuario.class)
+				.setParameter("filtro", filtro);
+		return query.getResultList() ;
+	}
 	
 }

@@ -9,8 +9,7 @@ import javax.swing.border.TitledBorder;
 
 import com.presentacion.gui.caracteristica.AltaCaracteristica;
 import com.presentacion.gui.fenomenos.AltaFenomeno;
-import com.presentacion.gui.fenomenos.FrameListarFenomenos;
-import com.presentacion.gui.fenomenos.ModificacionFenomeno;
+import com.presentacion.gui.fenomenos.NewFrameModificar;
 import com.presentacion.gui.usuarios.AltaUsuario;
 import com.presentacion.gui.usuarios.FrameListarUsuarios;
 import com.presentacion.gui.usuarios.ModificacionUsuario;
@@ -30,6 +29,27 @@ public class FramePrincipal {
 // prueba jj d
 	JFrame frmGeonat;
 
+	
+	JButton btnObservacionesRegistrar;
+	JButton btnObservacionesModificar;
+	JButton btnObservacionesVerListado;
+	JButton btnUsuariosRegistrar;
+	JButton btnUsuarioModificar;
+	JButton btnUsuariosVerListado;
+	JButton btnTipoUsuarioRegistrar;
+	JButton btnTipoUsuarioModificar;
+	JButton btnTipoUsuarioEliminar;
+	JButton btnFenomenoRegistrar;
+	JButton btnGestionFenomeno;
+//	JButton btnModificarFenomeno;
+//	JButton btnListarFenomeno;
+	JButton btnRegistrarCaracteristica;
+	JButton btnModificarCaracteristica;
+	JButton btnListarCaracterisitica;
+	JButton btnCrearDatosPrueba;
+	
+	
+	
 	/**
 	 * Launch the application.
 	 */
@@ -73,7 +93,7 @@ public class FramePrincipal {
 		frmGeonat.getContentPane().add(panelUsuarios);
 		panelUsuarios.setLayout(null);
 		
-		JButton btnUsuariosRegistrar = new JButton("Registrar");
+		btnUsuariosRegistrar = new JButton("Registrar");
 		btnUsuariosRegistrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				EventQueue.invokeLater(new Runnable() {
@@ -91,7 +111,7 @@ public class FramePrincipal {
 		btnUsuariosRegistrar.setBounds(10, 32, 199, 23);
 		panelUsuarios.add(btnUsuariosRegistrar);
 		
-		JButton btnUsuariosVerListado = new JButton("Ver listado / Dar de Baja");
+		btnUsuariosVerListado = new JButton("Ver listado / Dar de Baja");
 		btnUsuariosVerListado.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				EventQueue.invokeLater(new Runnable() {
@@ -109,8 +129,8 @@ public class FramePrincipal {
 		btnUsuariosVerListado.setBounds(10, 100, 199, 23);
 		panelUsuarios.add(btnUsuariosVerListado);
 		
-		JButton button = new JButton("Modificar");
-		button.addActionListener(new ActionListener() {
+		btnUsuarioModificar = new JButton("Modificar");
+		btnUsuarioModificar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
 				EventQueue.invokeLater(new Runnable() {
@@ -125,8 +145,8 @@ public class FramePrincipal {
 				});
 			}
 		});
-		button.setBounds(10, 66, 199, 23);
-		panelUsuarios.add(button);
+		btnUsuarioModificar.setBounds(10, 66, 199, 23);
+		panelUsuarios.add(btnUsuarioModificar);
 		
 		JPanel panel_TiposDeUsuario = new JPanel();
 		panel_TiposDeUsuario.setLayout(null);
@@ -134,17 +154,17 @@ public class FramePrincipal {
 		panel_TiposDeUsuario.setBounds(10, 134, 200, 125);
 		panelUsuarios.add(panel_TiposDeUsuario);
 		
-		JButton button_7 = new JButton("Registrar");
-		button_7.setBounds(10, 23, 157, 23);
-		panel_TiposDeUsuario.add(button_7);
+		btnTipoUsuarioRegistrar = new JButton("Registrar");
+		btnTipoUsuarioRegistrar.setBounds(10, 23, 157, 23);
+		panel_TiposDeUsuario.add(btnTipoUsuarioRegistrar);
 		
-		JButton btnEliminar = new JButton("Eliminar");
-		btnEliminar.setBounds(10, 91, 157, 23);
-		panel_TiposDeUsuario.add(btnEliminar);
+		btnTipoUsuarioEliminar = new JButton("Eliminar");
+		btnTipoUsuarioEliminar.setBounds(10, 91, 157, 23);
+		panel_TiposDeUsuario.add(btnTipoUsuarioEliminar);
 		
-		JButton button_9 = new JButton("Modificar");
-		button_9.setBounds(10, 57, 157, 23);
-		panel_TiposDeUsuario.add(button_9);
+		btnTipoUsuarioModificar = new JButton("Modificar");
+		btnTipoUsuarioModificar.setBounds(10, 57, 157, 23);
+		panel_TiposDeUsuario.add(btnTipoUsuarioModificar);
 		
 		JPanel panelObservaciones = new JPanel();
 		panelObservaciones.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Gesti\u00F3n de Observaciones", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
@@ -152,7 +172,7 @@ public class FramePrincipal {
 		frmGeonat.getContentPane().add(panelObservaciones);
 		panelObservaciones.setLayout(null);
 		
-		JButton btnObservacionesRegistrar = new JButton("Registrar");
+		btnObservacionesRegistrar = new JButton("Registrar");
 		btnObservacionesRegistrar.setEnabled(false);
 		btnObservacionesRegistrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -166,7 +186,7 @@ public class FramePrincipal {
 		btnObservacionesRegistrar.setBounds(10, 31, 199, 23);
 		panelObservaciones.add(btnObservacionesRegistrar);
 		
-		JButton btnObservacionesVerListado = new JButton("Ver listado");
+		btnObservacionesVerListado = new JButton("Ver listado");
 		btnObservacionesVerListado.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -177,7 +197,7 @@ public class FramePrincipal {
 		btnObservacionesVerListado.setBounds(10, 99, 199, 23);
 		panelObservaciones.add(btnObservacionesVerListado);
 		
-		JButton btnObservacionesModificar = new JButton("Modificar");
+		btnObservacionesModificar = new JButton("Modificar");
 		btnObservacionesModificar.setEnabled(false);
 		btnObservacionesModificar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -219,10 +239,8 @@ public class FramePrincipal {
 		panel_1.setBounds(564, 297, 220, 193);
 		frmGeonat.getContentPane().add(panel_1);
 		
-		
-		// Alta CARACTERÍSTICA
-		JButton button_1 = new JButton("Registrar");
-		button_1.addActionListener(new ActionListener() {
+		btnRegistrarCaracteristica = new JButton("Registrar");
+		btnRegistrarCaracteristica.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
@@ -237,16 +255,16 @@ public class FramePrincipal {
 				
 			}
 		});
-		button_1.setBounds(10, 31, 199, 23);
-		panel_1.add(button_1);
+		btnRegistrarCaracteristica.setBounds(10, 31, 199, 23);
+		panel_1.add(btnRegistrarCaracteristica);
 		
-		JButton btnVerListado = new JButton("Ver listado / Dar de Baja");
-		btnVerListado.setBounds(10, 99, 199, 23);
-		panel_1.add(btnVerListado);
+		btnListarCaracterisitica = new JButton("Ver listado / Dar de Baja");
+		btnListarCaracterisitica.setBounds(10, 99, 199, 23);
+		panel_1.add(btnListarCaracterisitica);
 		
-		JButton button_3 = new JButton("Modificar");
-		button_3.setBounds(10, 65, 199, 23);
-		panel_1.add(button_3);
+		btnModificarCaracteristica = new JButton("Modificar");
+		btnModificarCaracteristica.setBounds(10, 65, 199, 23);
+		panel_1.add(btnModificarCaracteristica);
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setLayout(null);
@@ -254,8 +272,8 @@ public class FramePrincipal {
 		panel_2.setBounds(289, 297, 220, 263);
 		frmGeonat.getContentPane().add(panel_2);
 		
-		JButton button_4 = new JButton("Registrar");
-		button_4.addActionListener(new ActionListener() {
+		btnFenomenoRegistrar = new JButton("Registrar");
+		btnFenomenoRegistrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
@@ -269,17 +287,19 @@ public class FramePrincipal {
 				});
 			}
 		});
-		button_4.setBounds(10, 31, 199, 23);
-		panel_2.add(button_4);
+		btnFenomenoRegistrar.setBounds(10, 31, 199, 23);
+		panel_2.add(btnFenomenoRegistrar);
+
 		
-		JButton button_5 = new JButton("Ver listado");
-		button_5.addActionListener(new ActionListener() {
+		btnGestionFenomeno = new JButton("Gestión Fenomeno");
+		btnGestionFenomeno.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						try {
-							FrameListarFenomenos window = new FrameListarFenomenos();
-							window.frmListarFenomenos.setVisible(true);
+							NewFrameModificar frame = new NewFrameModificar();
+							//era windows no frame
+							frame.setVisible(true);
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
@@ -287,28 +307,11 @@ public class FramePrincipal {
 				});
 			}
 		});
-		button_5.setBounds(10, 99, 199, 23);
-		panel_2.add(button_5);
+		btnGestionFenomeno.setBounds(10, 99, 199, 23);
+		panel_2.add(btnGestionFenomeno);
 		
-		JButton button_6 = new JButton("Modificar");
-		button_6.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				EventQueue.invokeLater(new Runnable() {
-					public void run() {
-						try {
-							ModificacionFenomeno window = new ModificacionFenomeno();
-							window.getFrmModificacionFenomeno().setVisible(true);
-						} catch (Exception e) {
-							e.printStackTrace();
-						}
-					}
-				});
-			}
-		});
-		button_6.setBounds(10, 65, 199, 23);
-		panel_2.add(button_6);
-		
-		JButton btnCrearDatosPrueba = new JButton("Crear datos de prueba");
+
+		btnCrearDatosPrueba = new JButton("Crear datos de prueba");
 		btnCrearDatosPrueba.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				DatosDePrueba.getInstance();

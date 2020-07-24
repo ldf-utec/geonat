@@ -16,8 +16,9 @@ import javax.persistence.*;
 @Entity
 @NamedQuery(name="Fenomeno.obtenerTodos", query="SELECT f FROM Fenomeno f")
 @NamedQuery(name="Fenomeno.obtenerTodosFiltro", query="SELECT f FROM Fenomeno f WHERE f.nombre LIKE :filtro")
-//TODO: la siguiente namedQuery es innecesaria ya que se puede obtener mediante la anterior (obtenerTodosFiltro), verificando si retorna un listado con size>0
 @NamedQuery(name="Fenomeno.existeNombreFenomeno", query="SELECT count (nombre) FROM Fenomeno WHERE nombre=:filtro")
+@NamedQuery(name="Fenomeno.obtenerId", query="SELECT f FROM Fenomeno f WHERE f.Id_Fenomeno =:filtro")
+
 
 public class Fenomeno implements Serializable {
 
