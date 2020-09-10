@@ -227,7 +227,6 @@ public class DatosDePrueba {
 				Observacion o1 = new Observacion();
 
 				ServiciosUsuario serviciosUsuario = ServiciosUsuario.getInstance();
-//				List<Usuario> listaUsuarios = serviciosUsuario.obtenerTodos();
 								
 				Usuario u = new Usuario();
 				u.setNombreUsuario("nombreUsuario0");

@@ -9,6 +9,7 @@ import javax.swing.border.TitledBorder;
 
 import com.presentacion.gui.caracteristica.AltaCaracteristica;
 import com.presentacion.gui.caracteristica.FrameListarCaracteristicas;
+import com.presentacion.gui.caracteristica.ModificacionCaracteristica;
 import com.presentacion.gui.fenomenos.AltaFenomeno;
 import com.presentacion.gui.fenomenos.NewFrameModificar;
 import com.presentacion.gui.usuarios.AltaUsuario;
@@ -278,6 +279,22 @@ public class FramePrincipal {
 		panel_1.add(btnListarCaracterisitica);
 		
 		btnModificarCaracteristica = new JButton("Modificar");
+		btnModificarCaracteristica.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				EventQueue.invokeLater(new Runnable() {
+					public void run() {				
+						
+						try {
+							ModificacionCaracteristica window = new ModificacionCaracteristica();
+							window.frmModificarCaracteristica.setVisible(true);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+				});
+			}
+		});
 		btnModificarCaracteristica.setBounds(10, 65, 199, 23);
 		panel_1.add(btnModificarCaracteristica);
 		
