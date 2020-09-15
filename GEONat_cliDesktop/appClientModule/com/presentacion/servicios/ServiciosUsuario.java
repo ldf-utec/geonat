@@ -85,9 +85,13 @@ public class ServiciosUsuario {
 		}	
 	}
 	
+	
+	
 	// TODO: Posiblemente este método no tiene mucho sentido, ya que al pasarse como parámetro el objeto Usuario, es más eficiente buscarlo por id.
 	// Si lo que se quiere es obtener por Nombre, se debería pasar el String nombre
+	
 	// Obtener uno
+	@Deprecated
 	public Usuario obtenerUno(Usuario usuario) throws ServiciosException {
 
 		Usuario u = servicios.usuarioBean.obtenerUno(usuario);
@@ -99,5 +103,13 @@ public class ServiciosUsuario {
 	public boolean existeNombreUsuario(Usuario usuario) throws ServiciosException {
 		return servicios.usuarioBean.existeNombreUsuario(usuario);
 	}
+	
+	public Usuario obtenerUno(Integer id) throws ServiciosException {
+
+		Usuario u = servicios.usuarioBean.obtenerUno(id);
+		return u ;
+	}
+	
+
 	
 }

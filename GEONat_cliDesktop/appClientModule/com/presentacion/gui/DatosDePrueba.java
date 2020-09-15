@@ -44,7 +44,7 @@ public class DatosDePrueba {
 		
 		creaUsuarios();
 		creaCaracteristicasYFenomenos();
-		//creaObservaciones();
+		creaObservaciones();
 	}
 
 
@@ -227,16 +227,16 @@ public class DatosDePrueba {
 				Observacion o1 = new Observacion();
 
 				ServiciosUsuario serviciosUsuario = ServiciosUsuario.getInstance();
-								
-				Usuario u = new Usuario();
-				u.setNombreUsuario("nombreUsuario0");
-				o1.setUsuarioRegistro(serviciosUsuario.obtenerUno(u));
-				u.setNombreUsuario("nombreUsuario1");	
-				o1.setUsuarioRevision(serviciosUsuario.obtenerUno(u));
+							
+
+				o1.setUsuarioRegistro(serviciosUsuario.obtenerUno(1));
+				o1.setUsuarioRevision(serviciosUsuario.obtenerUno(2));
 
 				System.out.println("obtuve usuarios necesarios");
 				
-				o1.setFenomeno(obtenerFenomeno(2));
+				ServiciosFenomeno servicioFenomeno = ServiciosFenomeno.getInstance();
+				
+				o1.setFenomeno(servicioFenomeno.obtenerUno(1));
 				o1.setLocalidad(null);
 				o1.setGeoLatitud(null);
 				o1.setGeoLongitud(null);
@@ -245,13 +245,9 @@ public class DatosDePrueba {
 				o1.setFechaRevision(java.util.Calendar.getInstance().getTime());
 				o1.setFiabilidadRevision(null);
 				o1.setComentarioRevision("Revisado OK");
-
-				System.out.println("Voy a grabar Observacion");
-				serviciosObservacion.create(o1);
-				System.out.println("Grabare Observacion");
-				//
-				ServiciosCaracteristica serviciosCaracteristicas = ServiciosCaracteristica.getInstance();
 				
+				
+				ServiciosCaracteristica serviciosCaracteristicas = ServiciosCaracteristica.getInstance();
 				Caracteristica c1 = new Caracteristica();
 				c1 = serviciosCaracteristicas.obtenerUno(1);
 				
@@ -261,13 +257,26 @@ public class DatosDePrueba {
 				d1.setCaracteristica(c1);
 				d1.setObservacion(o1);
 				
+				o1.getDetalleObservaciones().add(d1);
+				
+				
+				System.out.println("Voy a grabar Observacion");
+				serviciosObservacion.create(o1);
+				System.out.println("Grabare Observacion");
+				//
+				
+				
+				
+				
+				
+				
 				
 				//
-				ServiciosDetalleObservaciones serviciosDetalleObservaciones = ServiciosDetalleObservaciones.getInstance();
-				serviciosDetalleObservaciones.create(d1);
-
-				o1.getDetalleObservaciones().add(d1);
-				c1.getDetalleObservaciones().add(d1);
+//				ServiciosDetalleObservaciones serviciosDetalleObservaciones = ServiciosDetalleObservaciones.getInstance();
+//				serviciosDetalleObservaciones.create(d1);
+//
+//				o1.getDetalleObservaciones().add(d1);
+//				c1.getDetalleObservaciones().add(d1);
 				
 				
 				
@@ -282,12 +291,7 @@ public class DatosDePrueba {
 	}
 
 
-	private Fenomeno obtenerFenomeno(Integer id) throws ServiciosException {
 
-		ServiciosFenomeno serviciosFenomeno = ServiciosFenomeno.getInstance();
-		Fenomeno fenomeno = serviciosFenomeno.obtenerUno(id);
-		return fenomeno;
-	}
 
 	
 	
