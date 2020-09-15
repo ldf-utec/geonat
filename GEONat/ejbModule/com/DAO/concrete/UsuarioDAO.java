@@ -92,6 +92,7 @@ public class UsuarioDAO implements IUsuarioDAO {
 
 	  }
 
+	@Deprecated
 	@Override
 	public Usuario obtenerUno(Usuario usuario) throws ServiciosException {
 		
@@ -99,6 +100,13 @@ public class UsuarioDAO implements IUsuarioDAO {
 		TypedQuery<Usuario> query = em.createNamedQuery("Usuario.obtenerUno", Usuario.class)
 				.setParameter("filtro", filtro);
 		return query.getSingleResult() ;
+	}
+	
+	@Override
+	public Usuario obtenerUno(Integer id) throws ServiciosException {
+		
+		Usuario u = em.find( Usuario.class, id);
+		return u ;
 	}
 	
 	

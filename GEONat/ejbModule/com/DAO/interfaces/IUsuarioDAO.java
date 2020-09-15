@@ -17,5 +17,6 @@ public interface IUsuarioDAO {
 	boolean existeNombreUsuario(Usuario usuario) throws ServiciosException;
 	public Usuario obtenerUno(Usuario usuario) throws ServiciosException;
 	List<Usuario> obtenerLogin(Usuario usuario) throws ServiciosException; // esto se agrego para el login con sus tipo de usuario
+	public Usuario obtenerUno(Integer id) throws ServiciosException;
 	
 }
