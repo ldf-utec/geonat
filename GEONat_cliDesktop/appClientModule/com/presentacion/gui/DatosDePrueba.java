@@ -220,50 +220,55 @@ public class DatosDePrueba {
 	private void creaObservaciones() {
 		
 		ServiciosObservacion serviciosObservacion = ServiciosObservacion.getInstance();
+		ServiciosDetalleObservaciones serviciosDetalles = ServiciosDetalleObservaciones.getInstance();
 		 try {
 			if (serviciosObservacion.obtenerTodos().size()<1) {
 				System.out.println("NO existen datos de prueba de Observaciones: " + serviciosObservacion.obtenerTodos().size() );
+				ServiciosCaracteristica serviciosCaracteristicas = ServiciosCaracteristica.getInstance();
+				ServiciosUsuario serviciosUsuario = ServiciosUsuario.getInstance();
+				ServiciosFenomeno servicioFenomeno = ServiciosFenomeno.getInstance();
+				
 				
 				Observacion o1 = new Observacion();
 
-				ServiciosUsuario serviciosUsuario = ServiciosUsuario.getInstance();
-							
-
-				o1.setUsuarioRegistro(serviciosUsuario.obtenerUno(1));
-				o1.setUsuarioRevision(serviciosUsuario.obtenerUno(2));
-
-				System.out.println("obtuve usuarios necesarios");
-				
-				ServiciosFenomeno servicioFenomeno = ServiciosFenomeno.getInstance();
-				
-				o1.setFenomeno(servicioFenomeno.obtenerUno(1));
-				o1.setLocalidad(null);
-				o1.setGeoLatitud(null);
-				o1.setGeoLongitud(null);
+				// Obtengo un par de usuarios y los seteo como Registrador y Revisor de la observación
+				//o1.setUsuarioRegistro(serviciosUsuario.obtenerUno(1));
+				//o1.setUsuarioRevision(serviciosUsuario.obtenerUno(2));
+				//o1.setFenomeno(servicioFenomeno.obtenerUno(1));
+				//o1.setLocalidad(null);
+				//o1.setGeoLatitud(null);
+				//o1.setGeoLongitud(null);
 				o1.setDescripcion("Se observó incendio forestal de monte de eucaliptus");
-				o1.setFecha(java.util.Calendar.getInstance().getTime());
-				o1.setFechaRevision(java.util.Calendar.getInstance().getTime());
-				o1.setFiabilidadRevision(null);
+				//o1.setFecha(java.util.Calendar.getInstance().getTime());
+				//o1.setFechaRevision(java.util.Calendar.getInstance().getTime());
+				//o1.setFiabilidadRevision(null);
 				o1.setComentarioRevision("Revisado OK");
 				
+				o1 = serviciosObservacion.create(o1);
 				
-				ServiciosCaracteristica serviciosCaracteristicas = ServiciosCaracteristica.getInstance();
 				Caracteristica c1 = new Caracteristica();
 				c1 = serviciosCaracteristicas.obtenerUno(1);
 				
-				DetalleObservacion d1 = new DetalleObservacion();
-				d1.setFecha(java.util.Calendar.getInstance().getTime());
-				d1.setValorNumerico( 2.5f);
-				d1.setCaracteristica(c1);
-				d1.setObservacion(o1);
 				
+				DetalleObservacion d1 = new DetalleObservacion();
+				d1.setObservacion(o1);
+				d1.setCaracteristica(c1);
+				//d1.setFecha(java.util.Calendar.getInstance().getTime());
+				//d1.setValorNumerico( 2.5f);
+								
 				o1.getDetalleObservaciones().add(d1);
 				
 				
+				c1.getDetalleObservaciones().add(d1);//
+				
 				System.out.println("Voy a grabar Observacion");
-				serviciosObservacion.create(o1);
-				System.out.println("Grabare Observacion");
-				//
+				
+				serviciosDetalles.create(d1);
+				
+				//serviciosObservacion.create(o1);
+				//serviciosCaracteristicas.create(c1);  // Esta no es necesario crearla porque ya existe de antes(la obtuve por su ID)
+				System.out.println("Grabó Observacion");
+				
 				
 				
 				

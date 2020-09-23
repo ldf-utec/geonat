@@ -19,20 +19,27 @@ public class DetalleObservacion implements Serializable {
 	@EmbeddedId
 	DetalleObservacionPK Id_DetalleObservacion;
 	
-	@ManyToOne
+	@ManyToOne//(fetch = FetchType.EAGER)
     @MapsId("Id_Observacion")
 	@JoinColumn(name="Id_Observacion", nullable=false)
-    Observacion observacion;
+    private Observacion observacion;
  
-    @ManyToOne
+    @ManyToOne//(fetch = FetchType.EAGER)
     @MapsId("Id_Caracteristica")
     @JoinColumn(name="Id_Caracteristica", nullable=false)
-    Caracteristica caracteristica;
+    private Caracteristica caracteristica;
 	
-	
+    @Basic(optional=true)
 	private Date fecha;
+    
+    @Basic(optional=true)
 	private String valorTexto;
+    
+    @Basic(optional=true)
 	private Float valorNumerico;
+    
+    
+    
 	private static final long serialVersionUID = 1L;
 
 	public DetalleObservacion() {

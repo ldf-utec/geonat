@@ -26,6 +26,7 @@ public class CaracteristicaDAO implements ICaracteristicaDAO {
     	
     }
     
+    
     @Override
 	public void create(Caracteristica caracteristica) throws ServiciosException {
 		try {
@@ -35,6 +36,7 @@ public class CaracteristicaDAO implements ICaracteristicaDAO {
 			throw new ServiciosException("Error al crear" );	
 		}
 	}
+    
     
     @Override
 	public void update(Caracteristica caracteristica) throws ServiciosException {
@@ -46,6 +48,7 @@ public class CaracteristicaDAO implements ICaracteristicaDAO {
 		}
 	}
     
+    
     @Override
 	public void delete(int id) throws ServiciosException {
 		try {
@@ -56,6 +59,7 @@ public class CaracteristicaDAO implements ICaracteristicaDAO {
 			throw new ServiciosException("Error al borrar");
 		}	
 	}
+    
     
     @Override
 	public List<Caracteristica> obtenerTodos() throws ServiciosException {
@@ -69,15 +73,16 @@ public class CaracteristicaDAO implements ICaracteristicaDAO {
 			System.out.println("Error al obtenerTodos Caracteristica. " + e.getMessage());
 		}
 		return null;
-    	
 	}
 	
+    
 	@Override
 	public List<Caracteristica> obtenerTodosFiltro(String filtro) throws ServiciosException {
 		TypedQuery<Caracteristica> query = em.createNamedQuery("Caracteristica.obtenerTodosFiltro", Caracteristica.class)
 				.setParameter("filtro", filtro);
 		return query.getResultList();
 	}
+	
 	
 	// TODO: Borrar este método, ya que se hace esto mediante el obtenerTodos.first() y verificando si devuelve distinto de null por ejemplo
 	@Override
@@ -90,8 +95,9 @@ public class CaracteristicaDAO implements ICaracteristicaDAO {
 		} else {
 			return true;
 		}
-
-	  }
+	}
+	
+	
 	@Override
 	public Caracteristica obtenerUno(int id) throws ServiciosException {
 		try {
@@ -101,10 +107,8 @@ public class CaracteristicaDAO implements ICaracteristicaDAO {
 			} 
 			return c = null;
 		} catch (PersistenceException e) {
-			throw new ServiciosException("Error al consutar");
+			throw new ServiciosException("Error al consultar");
 		}
-		
-
-	  }
+	}
 
 }

@@ -25,6 +25,14 @@ public class DetalleObservacionPK  implements Serializable {
 
 	
 
+	public DetalleObservacionPK(Integer id_Observacion, Integer id_Caracteristica) {
+		super();
+		Id_Observacion = id_Observacion;
+		Id_Caracteristica = id_Caracteristica;
+	}
+
+
+
 	public Integer getId_Observacion() {
 		return this.Id_Observacion;
 	}
