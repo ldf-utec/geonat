@@ -21,13 +21,15 @@ public class Caracteristica implements Serializable {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "caracteristicaSeq")
 	private Integer Id_Caracteristica;
 
-	// Relación ManyToMany BIDIRECCIONAL mediante DetalleObservacion
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "observacion")
-	private List<DetalleObservacion> detalleObservaciones = new ArrayList<DetalleObservacion>();
+	
+	
+	// Relación ManyToMany BIDIRECCIONAL mediante DetalleObservacion (El FetchType.EAGER se puso ya que daba error al obtener una caracteristica, ver nota al pié..)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "observacion") 
+	private Set<DetalleObservacion> detalleObservaciones = new HashSet<>();
 	
 	
 	// Relación con Fenomeno : Muchos Caracteristicas estan asociadas a Un Fenomeno
-	@ManyToOne()
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "Id_Fenomeno")
 	private Fenomeno fenomeno;
 
@@ -54,6 +56,21 @@ public class Caracteristica implements Serializable {
 	public Caracteristica() {
 		super();
 	}
+	
+		
+	public Caracteristica(Integer id_Caracteristica, Set<DetalleObservacion> detalleObservaciones, Fenomeno fenomeno,
+			String nombre, String etiqPresentacion, TipoDato tipoDato) {
+		super();
+		Id_Caracteristica = id_Caracteristica;
+		this.detalleObservaciones = detalleObservaciones;
+		this.fenomeno = fenomeno;
+		this.nombre = nombre;
+		this.etiqPresentacion = etiqPresentacion;
+		this.tipoDato = tipoDato;
+	}
+
+
+
 
 	public Integer getId_Caracteristica() {
 		return Id_Caracteristica;
@@ -63,11 +80,11 @@ public class Caracteristica implements Serializable {
 		Id_Caracteristica = id_Caracteristica;
 	}
 
-	public List<DetalleObservacion> getDetalleObservaciones() {
+	public Set<DetalleObservacion> getDetalleObservaciones() {
 		return detalleObservaciones;
 	}
 
-	public void setDetalleObservaciones(List<DetalleObservacion> detalleObservaciones) {
+	public void setDetalleObservaciones(Set<DetalleObservacion> detalleObservaciones) {
 		this.detalleObservaciones = detalleObservaciones;
 	}
 
@@ -108,9 +125,8 @@ public class Caracteristica implements Serializable {
           return "Característica [id=" + Id_Caracteristica + ", name=" + nombre + "]";
     }
 	
-	
-
-	
-	
    
 }
+
+// ERROR que daba al intentar obtener una Característica. Se tuvo que poner FetchType.EAGER en el set DetalleObservacin
+// https://www.baeldung.com/hibernate-initialize-proxy-exception
