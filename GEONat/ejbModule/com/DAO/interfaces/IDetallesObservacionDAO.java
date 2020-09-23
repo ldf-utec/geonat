@@ -12,7 +12,7 @@ import com.exception.ServiciosException;
 @Remote
 public interface IDetallesObservacionDAO {
 	
-	void create(DetalleObservacion detalleObservacion) throws ServiciosException;
+	DetalleObservacion create(DetalleObservacion detalleObservacion) throws ServiciosException;
 
 	void update(DetalleObservacion detalleObservacion) throws ServiciosException;
 

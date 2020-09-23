@@ -20,13 +20,15 @@ public class Observacion implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer Id_Observacion;
 	
+	
+	
 	// Relación ManyToMany BIDIRECCIONAL con Caracteristicas mediante DetalleObservacion
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "observacion")
 	private Set<DetalleObservacion> detalleObservaciones = new HashSet<>();
 	
 		
 	@ManyToOne( fetch = FetchType.EAGER)
-	@JoinColumn(name="Id_Usuario_Reg", nullable=false)
+	@JoinColumn(name="Id_Usuario_Reg", nullable=true)
 	private Usuario usuarioRegistro;
 	
 	
@@ -36,13 +38,14 @@ public class Observacion implements Serializable {
 	
 	
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name="Id_Fenomeno", nullable=false)
+	@JoinColumn(name="Id_Fenomeno", nullable=true) //TODO Cambiar a nullable false
 	private Fenomeno fenomeno;
 	
 	
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name="Id_Localidad", nullable=true)
 	private Localidad localidad;
+	
 	
 	@Basic(optional=true)
 	private Double geoLatitud;
@@ -82,6 +85,34 @@ public class Observacion implements Serializable {
 	public Observacion() {
 		super();
 	}
+	
+	
+	
+
+	public Observacion(Integer id_Observacion, Set<DetalleObservacion> detalleObservaciones, Usuario usuarioRegistro,
+			Usuario usuarioRevision, Fenomeno fenomeno, Localidad localidad, Double geoLatitud, Double geoLongitud,
+			Double geoAltitud, String descripcion, Date fecha, Date fechaRevision, Integer fiabilidadRevision,
+			String comentarioRevision, String criticidad) {
+		super();
+		Id_Observacion = id_Observacion;
+		this.detalleObservaciones = detalleObservaciones;
+		this.usuarioRegistro = usuarioRegistro;
+		this.usuarioRevision = usuarioRevision;
+		this.fenomeno = fenomeno;
+		this.localidad = localidad;
+		this.geoLatitud = geoLatitud;
+		this.geoLongitud = geoLongitud;
+		this.geoAltitud = geoAltitud;
+		this.descripcion = descripcion;
+		this.fecha = fecha;
+		this.fechaRevision = fechaRevision;
+		this.fiabilidadRevision = fiabilidadRevision;
+		this.comentarioRevision = comentarioRevision;
+		this.criticidad = criticidad;
+	}
+
+
+
 
 	public Integer getId_Observacion() {
 		return Id_Observacion;
@@ -203,6 +234,7 @@ public class Observacion implements Serializable {
 		this.criticidad = criticidad;
 	}   
 	
-	
    
 }
+
+// https://thorben-janssen.com/hibernate-tip-many-to-many-association-with-additional-attributes/

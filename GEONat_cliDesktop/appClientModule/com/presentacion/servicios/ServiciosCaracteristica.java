@@ -84,7 +84,7 @@ public class ServiciosCaracteristica {
 		try {
 			return servicios.caracteristicaBean.obtenerUno(id);
 		} catch (PersistenceException e) {
-			throw new ServiciosException("Error al consutar");
+			throw new ServiciosException("Error al consultar");
 		}
 	}
 	

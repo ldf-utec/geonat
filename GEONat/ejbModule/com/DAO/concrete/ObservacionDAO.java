@@ -26,12 +26,15 @@ public class ObservacionDAO implements IObservacionDAO {
     }
 
 	@Override
-	public void create(Observacion observacion) throws ServiciosException {
+	public Observacion create(Observacion observacion) throws ServiciosException {
 		try {
 			em.persist(observacion);
-			em.flush();		
+			em.flush();	
+			em.refresh(observacion);
+			return observacion; // Retorno el objeto persistido, que contiene la PK autogenerada, ya que la necesito para persistir la clase asociada (Detalles..)
 		} catch (PersistenceException e) {	
 			throw new ServiciosException("Error al crear" );	
+			
 		}
 		
 	}
@@ -86,3 +89,5 @@ public class ObservacionDAO implements IObservacionDAO {
 	}
 
 }
+
+// http://www.jtech.ua.es/j2ee/restringido/jpa/sesion05-apuntes.html#C%C3%B3mo+implementar+y+usar+un+DAO+con+JPA

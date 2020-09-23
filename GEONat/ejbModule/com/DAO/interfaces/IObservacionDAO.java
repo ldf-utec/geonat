@@ -8,7 +8,7 @@ import com.exception.ServiciosException;
 @Remote
 public interface IObservacionDAO {
 
-	void create(Observacion observacion) throws ServiciosException;
+	Observacion create(Observacion observacion) throws ServiciosException;
 
 	void update(Observacion observacion) throws ServiciosException;
 

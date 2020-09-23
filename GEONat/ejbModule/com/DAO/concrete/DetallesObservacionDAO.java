@@ -26,11 +26,14 @@ public class DetallesObservacionDAO implements IDetallesObservacionDAO {
     }
 
 	@Override
-	public void create(DetalleObservacion detalleObservacion) throws ServiciosException {
+	public DetalleObservacion create(DetalleObservacion detalleObservacion) throws ServiciosException {
 		try {
 			em.persist(detalleObservacion);
 			em.flush();		
+			em.refresh(detalleObservacion);
+			return detalleObservacion;
 		} catch (PersistenceException e) {	
+			System.out.println(e.toString());
 			throw new ServiciosException("Error al crear" );	
 		}
 		

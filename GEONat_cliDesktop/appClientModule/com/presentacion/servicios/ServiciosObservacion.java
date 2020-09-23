@@ -23,10 +23,10 @@ public class ServiciosObservacion {
 	}
 	
 	// Crear nuevo
-	public void create(Observacion observacion) throws ServiciosException {
+	public Observacion create(Observacion observacion) throws ServiciosException {
 		try {
 			
-			servicios.observacionBean.create(observacion);
+			return servicios.observacionBean.create(observacion);
 			
 		} catch (PersistenceException e) {
 			throw new ServiciosException("Error al crear observacion" );
