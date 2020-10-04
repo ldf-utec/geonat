@@ -19,6 +19,7 @@ import com.DAO.interfaces.IUsuarioDAO;
 */
 import com.entities.Caracteristica;
 import com.entities.DetalleObservacion;
+import com.entities.DetalleObservacionPK;
 import com.entities.Fenomeno;
 import com.entities.Observacion;
 import com.entities.TipoDato;
@@ -253,13 +254,17 @@ public class DatosDePrueba {
 				DetalleObservacion d1 = new DetalleObservacion();
 				d1.setObservacion(o1);
 				d1.setCaracteristica(c1);
-				//d1.setFecha(java.util.Calendar.getInstance().getTime());
-				//d1.setValorNumerico( 2.5f);
+				
+				DetalleObservacionPK detPK = new DetalleObservacionPK(o1.getId_Observacion(), c1.getId_Caracteristica());
+				d1.setId_DetalleObservacion(detPK);
+				
+				d1.setFecha(java.util.Calendar.getInstance().getTime());
+				d1.setValorNumerico( 2.5f);
 								
 				o1.getDetalleObservaciones().add(d1);
 				
 				
-				c1.getDetalleObservaciones().add(d1);//
+				c1.getDetalleObservaciones().add(d1);
 				
 				System.out.println("Voy a grabar Observacion");
 				

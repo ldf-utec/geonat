@@ -9,7 +9,9 @@ import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 
 import com.DAO.interfaces.IDetallesObservacionDAO;
+import com.entities.Caracteristica;
 import com.entities.DetalleObservacion;
+import com.entities.Observacion;
 import com.exception.ServiciosException;
 
 /**
@@ -28,10 +30,15 @@ public class DetallesObservacionDAO implements IDetallesObservacionDAO {
 	@Override
 	public DetalleObservacion create(DetalleObservacion detalleObservacion) throws ServiciosException {
 		try {
+			Caracteristica c = em.find(Caracteristica.class, detalleObservacion.getId_DetalleObservacion().getId_Caracteristica());
+			Observacion o = em.find(Observacion.class, detalleObservacion.getId_DetalleObservacion().getId_Observacion());
+			detalleObservacion.setCaracteristica(c);
+			detalleObservacion.setObservacion(o);
 			em.persist(detalleObservacion);
 			em.flush();		
 			em.refresh(detalleObservacion);
 			return detalleObservacion;
+			
 		} catch (PersistenceException e) {	
 			System.out.println(e.toString());
 			throw new ServiciosException("Error al crear" );	
