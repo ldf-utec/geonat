@@ -235,12 +235,12 @@ public class DatosDePrueba {
 				// Obtengo un par de usuarios y los seteo como Registrador y Revisor de la observación
 				//o1.setUsuarioRegistro(serviciosUsuario.obtenerUno(1));
 				//o1.setUsuarioRevision(serviciosUsuario.obtenerUno(2));
-				//o1.setFenomeno(servicioFenomeno.obtenerUno(1));
+				o1.setFenomeno(servicioFenomeno.obtenerUno(1));
 				//o1.setLocalidad(null);
 				//o1.setGeoLatitud(null);
 				//o1.setGeoLongitud(null);
 				o1.setDescripcion("Se observó incendio forestal de monte de eucaliptus");
-				//o1.setFecha(java.util.Calendar.getInstance().getTime());
+				o1.setFecha(java.util.Calendar.getInstance().getTime());
 				//o1.setFechaRevision(java.util.Calendar.getInstance().getTime());
 				//o1.setFiabilidadRevision(null);
 				o1.setComentarioRevision("Revisado OK");
