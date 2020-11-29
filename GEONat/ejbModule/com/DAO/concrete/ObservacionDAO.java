@@ -9,6 +9,7 @@ import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 
 import com.DAO.interfaces.IObservacionDAO;
+import com.entities.Fenomeno;
 import com.entities.Observacion;
 import com.exception.ServiciosException;
 
@@ -28,6 +29,10 @@ public class ObservacionDAO implements IObservacionDAO {
 	@Override
 	public Observacion create(Observacion observacion) throws ServiciosException {
 		try {
+			if(observacion.getFenomeno()!=null) {
+				observacion.setFenomeno(em.find(Fenomeno.class, observacion.getFenomeno().getId_Fenomeno()));
+			}
+			
 			em.persist(observacion);
 			em.flush();	
 			em.refresh(observacion);
