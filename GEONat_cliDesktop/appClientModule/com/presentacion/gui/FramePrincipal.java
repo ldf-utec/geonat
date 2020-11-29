@@ -12,6 +12,7 @@ import com.presentacion.gui.caracteristica.FrameListarCaracteristicas;
 import com.presentacion.gui.caracteristica.ModificacionCaracteristica;
 import com.presentacion.gui.fenomenos.AltaFenomeno;
 import com.presentacion.gui.fenomenos.NewFrameModificar;
+import com.presentacion.gui.observaciones.GestionObservaciones;
 import com.presentacion.gui.usuarios.AltaUsuario;
 import com.presentacion.gui.usuarios.FrameListarUsuarios;
 import com.presentacion.gui.usuarios.ModificacionUsuario;
@@ -191,7 +192,16 @@ public class FramePrincipal {
 		btnObservacionesVerListado = new JButton("Ver listado");
 		btnObservacionesVerListado.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				EventQueue.invokeLater(new Runnable() {
+					public void run() {
+						try {
+							GestionObservaciones window = new GestionObservaciones();
+							window.frmGestionObservaciones.setVisible(true);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+				});
 								
 			}
 			
