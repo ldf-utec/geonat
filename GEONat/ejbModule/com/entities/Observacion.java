@@ -94,7 +94,7 @@ public class Observacion implements Serializable {
 	public Observacion(Integer id_Observacion, Set<DetalleObservacion> detalleObservaciones, Usuario usuarioRegistro,
 			Usuario usuarioRevision, Fenomeno fenomeno, Localidad localidad, Double geoLatitud, Double geoLongitud,
 			Double geoAltitud, String descripcion, Date fecha, Date fechaRevision, Integer fiabilidadRevision,
-			String comentarioRevision, String criticidad) {
+			String comentarioRevision, Criticidad criticidad) {
 		super();
 		Id_Observacion = id_Observacion;
 		this.detalleObservaciones = detalleObservaciones;
@@ -228,11 +228,11 @@ public class Observacion implements Serializable {
 		this.geoAltitud = geoAltitud;
 	}
 
-	public String getCriticidad() {
+	public Criticidad getCriticidad() {
 		return criticidad;
 	}
 
-	public void setCriticidad(String criticidad) {
+	public void setCriticidad(Criticidad criticidad) {
 		this.criticidad = criticidad;
 	}   
 	
