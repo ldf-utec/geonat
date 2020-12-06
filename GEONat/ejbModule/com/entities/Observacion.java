@@ -9,11 +9,14 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import com.Enums.Criticidad;
+
 
 @Entity
 @NamedQuery(name="Observacion.obtenerUno", query="SELECT o FROM Observacion o WHERE o.Id_Observacion =:id")
 @NamedQuery(name="Observacion.obtenerTodos", query="SELECT o FROM Observacion o")
 //@NamedQuery(name="Observacion.obtenerTodosFiltro", query="SELECT o FROM Observacion o WHERE o.nombre LIKE :filtro")
+@NamedQuery(name="Observacion.obtenerPorCriticidad", query="SELECT o FROM Observacion o WHERE o.criticidad LIKE :criticidad")
 public class Observacion implements Serializable {
 
 	@Id
@@ -73,10 +76,9 @@ public class Observacion implements Serializable {
 	@Basic(optional = true)
 	private String comentarioRevision;
 	
-	@Basic(optional = true)
-	@Column(length = 20)
-	private String criticidad;
-	
+	@Basic(optional = false)
+	@Enumerated(EnumType.STRING)
+	private Criticidad criticidad;
 	
 	
 	
