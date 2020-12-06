@@ -83,7 +83,7 @@ public class ObservacionDAO implements IObservacionDAO {
 	
 	@Override
 	public List<Observacion> obtenerPorCriticidad(Criticidad criticidad) throws ServiciosException {
-		TypedQuery<Observacion> query = em.createNamedQuery("Observacion.obtenerTodosFiltro", Observacion.class)
+		TypedQuery<Observacion> query = em.createNamedQuery("Observacion.obtenerPorCriticidad", Observacion.class)
 				.setParameter("criticidad", criticidad);
 		return query.getResultList();
 	}
