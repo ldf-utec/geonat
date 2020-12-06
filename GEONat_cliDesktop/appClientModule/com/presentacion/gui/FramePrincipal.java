@@ -44,8 +44,6 @@ public class FramePrincipal {
 	JButton btnTipoUsuarioEliminar;
 	JButton btnFenomenoRegistrar;
 	JButton btnGestionFenomeno;
-//	JButton btnModificarFenomeno;
-//	JButton btnListarFenomeno;
 	JButton btnRegistrarCaracteristica;
 	JButton btnModificarCaracteristica;
 	JButton btnListarCaracterisitica;
