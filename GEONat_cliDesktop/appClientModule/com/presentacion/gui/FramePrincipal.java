@@ -11,6 +11,7 @@ import com.presentacion.gui.caracteristica.AltaCaracteristica;
 import com.presentacion.gui.caracteristica.FrameListarCaracteristicas;
 import com.presentacion.gui.caracteristica.ModificacionCaracteristica;
 import com.presentacion.gui.fenomenos.AltaFenomeno;
+import com.presentacion.gui.fenomenos.ListarFenomeno;
 import com.presentacion.gui.fenomenos.NewFrameModificar;
 import com.presentacion.gui.observaciones.GestionObservaciones;
 import com.presentacion.gui.usuarios.AltaUsuario;
@@ -331,7 +332,7 @@ public class FramePrincipal {
 		panel_2.add(btnFenomenoRegistrar);
 
 		
-		btnGestionFenomeno = new JButton("Gestión Fenomeno");
+		btnGestionFenomeno = new JButton("Modificar / Dar de Baja");
 		btnGestionFenomeno.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				EventQueue.invokeLater(new Runnable() {
@@ -346,8 +347,18 @@ public class FramePrincipal {
 				});
 			}
 		});
-		btnGestionFenomeno.setBounds(10, 99, 199, 23);
+		btnGestionFenomeno.setBounds(10, 65, 199, 23);
 		panel_2.add(btnGestionFenomeno);
+		
+		JButton btnListadoFenomeno = new JButton("Ver Listado");
+		btnListadoFenomeno.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ListarFenomeno frame = new ListarFenomeno();
+				frame.frmGestionFenomenos.setVisible(true);
+			}
+		});
+		btnListadoFenomeno.setBounds(10, 104, 199, 23);
+		panel_2.add(btnListadoFenomeno);
 		
 
 		btnCrearDatosPrueba = new JButton("Crear datos de prueba");
