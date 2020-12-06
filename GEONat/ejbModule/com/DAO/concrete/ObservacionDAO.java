@@ -9,6 +9,7 @@ import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 
 import com.DAO.interfaces.IObservacionDAO;
+import com.Enums.Criticidad;
 import com.entities.Fenomeno;
 import com.entities.Observacion;
 import com.exception.ServiciosException;
@@ -79,6 +80,13 @@ public class ObservacionDAO implements IObservacionDAO {
 //				.setParameter("filtro", filtro);
 //		return query.getResultList();
 //	}
+	
+	@Override
+	public List<Observacion> obtenerPorCriticidad(Criticidad criticidad) throws ServiciosException {
+		TypedQuery<Observacion> query = em.createNamedQuery("Observacion.obtenerTodosFiltro", Observacion.class)
+				.setParameter("criticidad", criticidad);
+		return query.getResultList();
+	}
 
 	@Override
 	public Observacion obtenerUno(int id) throws ServiciosException {
