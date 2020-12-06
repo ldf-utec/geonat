@@ -34,6 +34,7 @@ public class ListarFenomeno  {
 	private JTable table;
 
 	private ServiciosFenomeno fenomenoSrv = ServiciosFenomeno.getInstance();
+	private JTextField txtFFiltroNombre;
 	
 	/**
 	 * Launch the application.
@@ -74,7 +75,7 @@ public class ListarFenomeno  {
 				}
 			}
 		});
-		btnCargarTabla.setBounds(425, 30, 201, 23);
+		btnCargarTabla.setBounds(428, 74, 201, 23);
 		frmGestionFenomenos.getContentPane().add(btnCargarTabla);
 		
 		JScrollPane scrollPane = new JScrollPane();
@@ -83,6 +84,15 @@ public class ListarFenomeno  {
 		
 		table = new JTable();
 		scrollPane.setViewportView(table);
+		
+		JLabel lblFiltrarPorNombre = new JLabel("Filtrar por nombre de Fenomeno:");
+		lblFiltrarPorNombre.setBounds(10, 34, 167, 23);
+		frmGestionFenomenos.getContentPane().add(lblFiltrarPorNombre);
+		
+		txtFFiltroNombre = new JTextField();
+		txtFFiltroNombre.setBounds(174, 35, 201, 22);
+		frmGestionFenomenos.getContentPane().add(txtFFiltroNombre);
+		txtFFiltroNombre.setColumns(10);
 		
 		try {
 			cargarTabla();
@@ -150,5 +160,4 @@ public class ListarFenomeno  {
 
 		}
 	}
-
 }
