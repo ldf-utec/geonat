@@ -2,6 +2,8 @@ package com.DAO.interfaces;
 
 import java.util.List;
 import javax.ejb.Remote;
+
+import com.Enums.Criticidad;
 import com.entities.Observacion;
 import com.exception.ServiciosException;
 
@@ -25,4 +27,6 @@ public interface IObservacionDAO {
 	//boolean existeId(int id) throws ServiciosException;
 
 	Observacion obtenerUno(int id) throws ServiciosException;
+
+	List<Observacion> obtenerPorCriticidad(Criticidad criticidad) throws ServiciosException;
 }
