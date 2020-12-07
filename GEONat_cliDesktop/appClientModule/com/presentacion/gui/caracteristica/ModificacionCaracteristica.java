@@ -105,60 +105,24 @@ public class ModificacionCaracteristica {
 		frmModificarCaracteristica.getContentPane().add(lblFenomenoAsociado);
 		
 		
-// Combo Fenomeno Asociado		
+		// Combo Fenomeno Asociado		
 		JComboBox comboBFenomAsoc = new JComboBox();
 		comboBFenomAsoc.setBounds(181, 195, 206, 20);
 		frmModificarCaracteristica.getContentPane().add(comboBFenomAsoc);
 		
-		try {
-			fenomenos = cargarfenomenos();
-			for (Fenomeno f : fenomenos) {
-				comboBFenomAsoc.addItem(f.getNombre());
-			}
-		} catch (ServiciosException e1) {
-
-			e1.printStackTrace();
-		}
 		
-		
-		
-		comboBFenomAsoc.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent eventocombo) {
-				comboBFenomAsoc.getSelectedIndex();
-				
-			}
-		});	
-		
-		
-// Combo TipoDato
+		// Combo TipoDato
 		JComboBox comboBTipoDato = new JComboBox();
 		comboBTipoDato.setBounds(181, 155, 206, 20);
 		frmModificarCaracteristica.getContentPane().add(comboBTipoDato);
-		comboBTipoDato.removeAllItems(); 
-		comboBTipoDato.addItem("");
-		TipoDato[] tipoDatoList = TipoDato.values();
-		for (TipoDato tipoDato : tipoDatoList) {
-		comboBTipoDato.addItem(tipoDato);
-		}
-		comboBTipoDato.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent eventocombo) {
-				comboBTipoDato.getSelectedIndex();
-				
-			}
-		});
 		
+		//Boton Cancelar
 		JButton btnCancelarAlta = new JButton("Cancelar Modificacion");
 		btnCancelarAlta.setForeground(Color.RED);
 		btnCancelarAlta.setBounds(424, 153, 150, 23);
 		frmModificarCaracteristica.getContentPane().add(btnCancelarAlta);
-		btnCancelarAlta.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent evento) {
-				frmModificarCaracteristica.hide();
-			}
-			
-		});
 		
-		
+		//Boton Confirmar
 		JButton btnDarDeAlta = new JButton("Confirmar Modificacion");
 		btnDarDeAlta.setBounds(424, 192, 150, 23);
 		frmModificarCaracteristica.getContentPane().add(btnDarDeAlta);
@@ -169,82 +133,131 @@ public class ModificacionCaracteristica {
 		
 		//Combo que despliega la informacion de la caracteristica de acuerdo al ID seleccionado
 		comboIDCaracteristica = new JComboBox();
+		comboIDCaracteristica.setBounds(181, 22, 80, 20);
+		frmModificarCaracteristica.getContentPane().add(comboIDCaracteristica);
+
+		
+		/*****************************************
+		 * Para mostrar los datos por primera vez*
+		 * ***************************************/
+		
+		//Combo ID
+		try {
+			cargarComboBox();
+		} catch (ServiciosException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		//Combo Fenomenos
+		try {
+			fenomenos = cargarfenomenos();
+			for (Fenomeno f : fenomenos) {
+				comboBFenomAsoc.addItem(f.getNombre());
+			}
+			comboBFenomAsoc.addItem("Ninguno");
+		} catch (ServiciosException e1) {
+			e1.printStackTrace();
+		}
+		
+		//Combo Tipo de Datos
+		comboBTipoDato.removeAllItems(); 
+		//comboBTipoDato.addItem("");
+		TipoDato[] tipoDatoList = TipoDato.values();
+		for (TipoDato tipoDato : tipoDatoList) {
+		comboBTipoDato.addItem(tipoDato);
+		}
+		
+		/**********************
+		 * Acciones*
+		 * ********************/
+		
+		//Combo ID Caracteristicas
 		comboIDCaracteristica.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cargarDatos((int)comboIDCaracteristica.getSelectedItem());
 			}
 		});
-		comboIDCaracteristica.setBounds(181, 22, 80, 20);
-		frmModificarCaracteristica.getContentPane().add(comboIDCaracteristica);
-
-		btnDarDeAlta.addActionListener(new ActionListener() {
-			
-		public void actionPerformed(ActionEvent evento) {
-			String strerror = "";
-			Boolean errores = false;
-			Caracteristica caract = new Caracteristica();
-			
-			
-			
-			
-			if ((txtFNombre.getText().length())>50) {
-				errores=true;
-				strerror= strerror + " Nombre caracteristica con mas de 50 caracteres. ";
-			} else {
-				caract.setNombre(txtFNombre.getText());
+		
+		//Combo Fenomenos					
+		comboBFenomAsoc.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent eventocombo) {
+				comboBFenomAsoc.getSelectedIndex();	
 			}
-			if ((txtFEtiqueta.getText().length())>50) {
-				errores=true;
-				strerror= strerror + " Etiqueta con mas de 50 caracteres. ";
-			} else {
-				caract.setEtiqPresentacion(txtFEtiqueta.getText());
-			}
-			
-			TipoDato td=(TipoDato.valueOf(comboBTipoDato.getSelectedItem().toString()) );
-			caract.setTipoDato(td);
-			
-			Fenomeno fenomAlta = new Fenomeno();
-			for (Fenomeno f : fenomenos) {
-				if (f.getNombre()==comboBFenomAsoc.getSelectedItem()) {
-					fenomAlta.setId_Fenomeno(f.getId_Fenomeno());
-					fenomAlta.setNombre(f.getNombre());
-					fenomAlta.setDescripcion(f.getDescripcion());
-					fenomAlta.setTelefono(f.getTelefono());
-					
-				}
-			}
-//			caract.setId_Fenomeno(fenomAlta);
-			
-			if (errores) {
-				JOptionPane.showMessageDialog(null,  strerror);
-			} else {
-				try {
-					serviciosCaracteristicas.create(caract);
-					JOptionPane.showMessageDialog(null,  "Caracteristica Creada");
-					txtFNombre.setText("");
-					txtFEtiqueta.setText("");
-					comboBFenomAsoc.setSelectedIndex(0);
-					comboBTipoDato.setSelectedIndex(0);
-					
-					} catch ( ServiciosException e) {
-						e.printStackTrace();
-						}
-				
-				
+		});	
+		
+		//Combo Tipo de Dato
+		comboBTipoDato.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent eventocombo) {
+				comboBTipoDato.getSelectedIndex();
 				
 			}
-
-
-		}
 		});
 		
-		//Para mostrar los datos por primera vez		
-				try {
-					cargarComboBox();
-				} catch (ServiciosException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+		//Boton de Confirmar Modificacion		
+		btnDarDeAlta.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent evento) {
+				String strerror = "";
+				Boolean errores = false;
+				Caracteristica caract = new Caracteristica();
+				
+				if ((txtFNombre.getText().length())>50) {
+					errores=true;
+					strerror= strerror + " Nombre caracteristica con mas de 50 caracteres. ";
+				} else {
+					caract.setNombre(txtFNombre.getText());
 				}
+				if ((txtFEtiqueta.getText().length())>50) {
+					errores=true;
+					strerror= strerror + " Etiqueta con mas de 50 caracteres. ";
+				} else {
+					caract.setEtiqPresentacion(txtFEtiqueta.getText());
+				}
+				
+				TipoDato td=(TipoDato.valueOf(comboBTipoDato.getSelectedItem().toString()) );
+				caract.setTipoDato(td);
+				
+				Fenomeno fenomAlta = new Fenomeno();
+				for (Fenomeno f : fenomenos) {
+					if (f.getNombre()==comboBFenomAsoc.getSelectedItem()) {
+						fenomAlta.setId_Fenomeno(f.getId_Fenomeno());
+						fenomAlta.setNombre(f.getNombre());
+						fenomAlta.setDescripcion(f.getDescripcion());
+						fenomAlta.setTelefono(f.getTelefono());
+						
+					}
+				}
+//				caract.setId_Fenomeno(fenomAlta);
+				
+				if (errores) {
+					JOptionPane.showMessageDialog(null,  strerror);
+				} else {
+					try {
+						serviciosCaracteristicas.create(caract);
+						JOptionPane.showMessageDialog(null,  "Caracteristica Creada");
+						txtFNombre.setText("");
+						txtFEtiqueta.setText("");
+						comboBFenomAsoc.setSelectedIndex(0);
+						comboBTipoDato.setSelectedIndex(0);
+						
+						} catch ( ServiciosException e) {
+							e.printStackTrace();
+							}
+								
+				}
+
+
+			}
+			});
+		
+		//Boton cancelar modificacion
+		btnCancelarAlta.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evento) {
+				frmModificarCaracteristica.hide();
+			}
+			
+		});
 	}
 	
 	//metodo que obtiene todas las caracteristicas y carga sus IDs en el combo IDCaracteristica
