@@ -44,7 +44,7 @@ public class CaracteristicaDAO implements ICaracteristicaDAO {
 			em.merge(caracteristica);
 			em.flush();	
 		} catch (PersistenceException e) {
-			throw new ServiciosException("Error al actualizar");
+			throw new ServiciosException("Error al actualizar caracteristica");
 		}
 	}
     

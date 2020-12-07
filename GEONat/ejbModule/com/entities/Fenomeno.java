@@ -15,7 +15,7 @@ import javax.persistence.*;
 
 @Entity
 @NamedQuery(name="Fenomeno.obtenerTodos", query="SELECT f FROM Fenomeno f")
-@NamedQuery(name="Fenomeno.obtenerTodosFiltro", query="SELECT f FROM Fenomeno f WHERE f.nombre LIKE :filtro")
+@NamedQuery(name="Fenomeno.obtenerPorNombre", query="SELECT f FROM Fenomeno f WHERE f.nombre LIKE :filtro")
 @NamedQuery(name="Fenomeno.existeNombreFenomeno", query="SELECT count (nombre) FROM Fenomeno WHERE nombre=:filtro")
 @NamedQuery(name="Fenomeno.obtenerId", query="SELECT f FROM Fenomeno f WHERE f.Id_Fenomeno =:filtro")
 
