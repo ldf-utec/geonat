@@ -42,7 +42,10 @@ public class ModificacionCaracteristica {
 	private JTextField txtFNombre;
 	private JTextField txtFEtiqueta;
 	private List<Fenomeno> fenomenos;
-	private JComboBox comboIDCaracteristica;
+	private JComboBox<Integer> comboIDCaracteristica;
+	private JComboBox comboBTipoDato;
+	private JComboBox comboBFenomAsoc;
+	
 
 	/**
 	 * Launch the application.
@@ -50,7 +53,7 @@ public class ModificacionCaracteristica {
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
-					
+	
 				try {
 					ModificacionCaracteristica window = new ModificacionCaracteristica();
 					window.frmModificarCaracteristica.setVisible(true);
@@ -74,7 +77,7 @@ public class ModificacionCaracteristica {
 	private void initialize() {
 		frmModificarCaracteristica = new JFrame();
 		frmModificarCaracteristica.setTitle("GEONat - Modificacion de una caracteristica");
-		frmModificarCaracteristica.setBounds(100, 100, 600, 300);
+		frmModificarCaracteristica.setBounds(100, 100, 621, 307);
 		frmModificarCaracteristica.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		frmModificarCaracteristica.getContentPane().setLayout(null);
 		
@@ -106,181 +109,161 @@ public class ModificacionCaracteristica {
 		
 		
 		// Combo Fenomeno Asociado		
-		JComboBox comboBFenomAsoc = new JComboBox();
+		comboBFenomAsoc = new JComboBox();
 		comboBFenomAsoc.setBounds(181, 195, 206, 20);
 		frmModificarCaracteristica.getContentPane().add(comboBFenomAsoc);
-		
-		
-		// Combo TipoDato
-		JComboBox comboBTipoDato = new JComboBox();
-		comboBTipoDato.setBounds(181, 155, 206, 20);
-		frmModificarCaracteristica.getContentPane().add(comboBTipoDato);
-		
-		//Boton Cancelar
-		JButton btnCancelarAlta = new JButton("Cancelar Modificacion");
-		btnCancelarAlta.setForeground(Color.RED);
-		btnCancelarAlta.setBounds(424, 153, 150, 23);
-		frmModificarCaracteristica.getContentPane().add(btnCancelarAlta);
-		
-		//Boton Confirmar
-		JButton btnDarDeAlta = new JButton("Confirmar Modificacion");
-		btnDarDeAlta.setBounds(424, 192, 150, 23);
-		frmModificarCaracteristica.getContentPane().add(btnDarDeAlta);
-		
-		JLabel lblIdCaracteritica = new JLabel("ID Caracteritica");
-		lblIdCaracteritica.setBounds(10, 25, 141, 14);
-		frmModificarCaracteristica.getContentPane().add(lblIdCaracteritica);
-		
-		//Combo que despliega la informacion de la caracteristica de acuerdo al ID seleccionado
-		comboIDCaracteristica = new JComboBox();
-		comboIDCaracteristica.setBounds(181, 22, 80, 20);
-		frmModificarCaracteristica.getContentPane().add(comboIDCaracteristica);
-
-		
-		/*****************************************
-		 * Para mostrar los datos por primera vez*
-		 * ***************************************/
-		
-		//Combo ID
-		try {
-			cargarComboBox();
-		} catch (ServiciosException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		
-		//Combo Fenomenos
+		//Carga de datos inicial
 		try {
 			fenomenos = cargarfenomenos();
 			for (Fenomeno f : fenomenos) {
-				comboBFenomAsoc.addItem(f.getNombre());
+				comboBFenomAsoc.addItem(f.getNombre().toString());
 			}
-			comboBFenomAsoc.addItem("Ninguno");
+			comboBFenomAsoc.addItem("No tiene");
 		} catch (ServiciosException e1) {
+
 			e1.printStackTrace();
 		}
-		
-		//Combo Tipo de Datos
+		//Accion		
+		comboBFenomAsoc.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent eventocombo) {
+				comboBFenomAsoc.getSelectedIndex();
+				
+			}
+		});	
+				
+		// Combo TipoDato
+		comboBTipoDato = new JComboBox();
+		comboBTipoDato.setBounds(181, 155, 206, 20);
+		frmModificarCaracteristica.getContentPane().add(comboBTipoDato);
 		comboBTipoDato.removeAllItems(); 
 		//comboBTipoDato.addItem("");
+		//Carga de datos inicial
 		TipoDato[] tipoDatoList = TipoDato.values();
 		for (TipoDato tipoDato : tipoDatoList) {
 		comboBTipoDato.addItem(tipoDato);
 		}
-		
-		/**********************
-		 * Acciones*
-		 * ********************/
-		
-		//Combo ID Caracteristicas
-		comboIDCaracteristica.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				cargarDatos((int)comboIDCaracteristica.getSelectedItem());
-			}
-		});
-		
-		//Combo Fenomenos					
-		comboBFenomAsoc.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent eventocombo) {
-				comboBFenomAsoc.getSelectedIndex();	
-			}
-		});	
-		
-		//Combo Tipo de Dato
+		//Accion
 		comboBTipoDato.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent eventocombo) {
-				comboBTipoDato.getSelectedIndex();
-				
+				comboBTipoDato.getSelectedIndex();			
 			}
 		});
 		
-		//Boton de Confirmar Modificacion		
-		btnDarDeAlta.addActionListener(new ActionListener() {
-			
-			public void actionPerformed(ActionEvent evento) {
-				String strerror = "";
-				Boolean errores = false;
-				Caracteristica caract = new Caracteristica();
-				
-				if ((txtFNombre.getText().length())>50) {
-					errores=true;
-					strerror= strerror + " Nombre caracteristica con mas de 50 caracteres. ";
-				} else {
-					caract.setNombre(txtFNombre.getText());
-				}
-				if ((txtFEtiqueta.getText().length())>50) {
-					errores=true;
-					strerror= strerror + " Etiqueta con mas de 50 caracteres. ";
-				} else {
-					caract.setEtiqPresentacion(txtFEtiqueta.getText());
-				}
-				
-				TipoDato td=(TipoDato.valueOf(comboBTipoDato.getSelectedItem().toString()) );
-				caract.setTipoDato(td);
-				
-				Fenomeno fenomAlta = new Fenomeno();
-				for (Fenomeno f : fenomenos) {
-					if (f.getNombre()==comboBFenomAsoc.getSelectedItem()) {
-						fenomAlta.setId_Fenomeno(f.getId_Fenomeno());
-						fenomAlta.setNombre(f.getNombre());
-						fenomAlta.setDescripcion(f.getDescripcion());
-						fenomAlta.setTelefono(f.getTelefono());
-						
-					}
-				}
-//				caract.setId_Fenomeno(fenomAlta);
-				
-				if (errores) {
-					JOptionPane.showMessageDialog(null,  strerror);
-				} else {
-					try {
-						serviciosCaracteristicas.create(caract);
-						JOptionPane.showMessageDialog(null,  "Caracteristica Creada");
-						txtFNombre.setText("");
-						txtFEtiqueta.setText("");
-						comboBFenomAsoc.setSelectedIndex(0);
-						comboBTipoDato.setSelectedIndex(0);
-						
-						} catch ( ServiciosException e) {
-							e.printStackTrace();
-							}
-								
-				}
-
-
-			}
-			});
-		
-		//Boton cancelar modificacion
+		//Boton de cancelar
+		JButton btnCancelarAlta = new JButton("Cancelar Modificacion");
+		btnCancelarAlta.setForeground(Color.RED);
+		btnCancelarAlta.setBounds(424, 153, 150, 23);
+		frmModificarCaracteristica.getContentPane().add(btnCancelarAlta);
 		btnCancelarAlta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evento) {
 				frmModificarCaracteristica.hide();
 			}
 			
 		});
+		
+		//Boton de confirmar
+		JButton btnConfirmarModificacion = new JButton("Confirmar Modificacion");
+		btnConfirmarModificacion.setBounds(424, 192, 150, 23);
+		frmModificarCaracteristica.getContentPane().add(btnConfirmarModificacion);
+		
+		JLabel lblIdCaracteritica = new JLabel("ID Caracteritica");
+		lblIdCaracteritica.setBounds(10, 25, 141, 14);
+		frmModificarCaracteristica.getContentPane().add(lblIdCaracteritica);
+		
+		//Combo ID Caracteristica
+		comboIDCaracteristica = new JComboBox();
+		
+		//Para mostrar los datos por primera vez		
+		try {
+			cargarComboBox();
+		} catch (ServiciosException e1) {
+			e1.printStackTrace();
+		}
+		//Accion
+		comboIDCaracteristica.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cargarDatos((Integer)comboIDCaracteristica.getSelectedItem());
+			}
+		});
+		comboIDCaracteristica.setBounds(181, 22, 58, 20);
+		frmModificarCaracteristica.getContentPane().add(comboIDCaracteristica);
+		
+		//Accion boton confirmae
+		btnConfirmarModificacion.addActionListener(new ActionListener() {
+			
+		public void actionPerformed(ActionEvent evento) {
+			String strerror = "";
+			Boolean errores = false;
+			Caracteristica caract = new Caracteristica();
+			
+			caract.setId_Caracteristica((Integer)comboIDCaracteristica.getSelectedItem());
+			
+			if ((txtFNombre.getText().length())>50) {
+				errores=true;
+				strerror= strerror + "Nombre caracteristica con mas de 50 caracteres. ";
+			} else {
+				caract.setNombre(txtFNombre.getText());
+			}
+			if ((txtFEtiqueta.getText().length())>50) {
+				errores=true;
+				strerror= strerror + "Etiqueta con mas de 50 caracteres. ";
+			} else {
+				caract.setEtiqPresentacion(txtFEtiqueta.getText());
+			}
+			
+		    TipoDato td=(TipoDato.valueOf(comboBTipoDato.getSelectedItem().toString()) );
+			caract.setTipoDato(td);
+			
+			if (!(comboBFenomAsoc.getSelectedItem().toString().equals("No tiene"))) {
+				caract.setFenomeno(obtenerFenom(comboBFenomAsoc.getSelectedItem().toString()));
+			} else {
+				caract.setFenomeno(null);
+			}
+	
+			if (errores) {
+				JOptionPane.showMessageDialog(null,  strerror);
+			} else {
+				try {
+					serviciosCaracteristicas.update(caract);
+					JOptionPane.showMessageDialog(null,  "Caracteristica Actualizada");
+					cargarDatos(1);
+				} catch ( ServiciosException e) {
+						e.printStackTrace();
+				}	
+				
+			}
+		}
+		});
+ 
 	}
 	
-	//metodo que obtiene todas las caracteristicas y carga sus IDs en el combo IDCaracteristica
-	
+	//metodo para cargar combobox de id caracteristica
 	private void cargarComboBox() throws ServiciosException {
 		try {
 			List<Caracteristica> carac =  serviciosCaracteristicas.obtenerTodos();
-			for (Caracteristica c : carac) {
-				comboIDCaracteristica.addItem((Integer)c.getId_Caracteristica());
-			}			
+			if (!carac.equals(null)) {
+				for (Caracteristica c : carac) {
+					comboIDCaracteristica.addItem((Integer)c.getId_Caracteristica());
+				}
+			} else {
+				JOptionPane.showMessageDialog(null,  "Aun no se han cargado caracteristicas");
+				frmModificarCaracteristica.hide();
+			}
+			
+			
 		}catch (Exception e) {
 			System.out.println("Error al cargar datos en el comboBox ID Caracteristica. ");
 			e.printStackTrace();
 		}
 	}
 	
-	//metodo que busca caracteristicas por su id y carga los valores obtenidos dentro de la ventana
-	
+	//metodo para cargar datos cuando se selecciona un ID
 	private void cargarDatos (int filtro) {
 		try {
 			Caracteristica carac = new Caracteristica();
 			carac = serviciosCaracteristicas.obtenerUno(filtro);
 			if (!carac.equals(null)) {
+				comboIDCaracteristica.setSelectedItem(filtro);
 				txtFNombre.setText(carac.getNombre().toString());
 				txtFEtiqueta.setText(carac.getEtiqPresentacion());		
 			}
@@ -293,20 +276,38 @@ public class ModificacionCaracteristica {
 		}
 	}
 	
-	
-	
-	
+	//metodo para cargar fenomenos en el combo box de fenomenos
 	private List<Fenomeno> cargarfenomenos() throws ServiciosException {
-		ArrayList<Fenomeno> fenomenos = null;
+		List<Fenomeno> fenomenos = null;
 		try {
-			fenomenos =  (ArrayList<Fenomeno>) serviciosFenomeno.obtenerTodos(); 
-			
-			} catch (ServiciosException e) {
-				e.printStackTrace();
-				}
-		
+			fenomenos =  (List<Fenomeno>) serviciosFenomeno.obtenerTodos(); 	
+		} catch (ServiciosException e) {
+			e.printStackTrace();
+		}	
 		return fenomenos;
+	}
 	
+	//metodo para obtener un objeto fenomeno a partir de su nombre
+	private Fenomeno obtenerFenom (String filtro) {
+		List<Fenomeno> fen;	
+		Fenomeno fenom = null;
+		try {
+			fen =  serviciosFenomeno.obtenerTodosPorNombre(filtro);
+			if (!fen.isEmpty()) {	
+				fenom = new Fenomeno();
+				fenom.setId_Fenomeno(fen.get(0).getId_Fenomeno());
+				fenom.setDescripcion(fen.get(0).getDescripcion());
+				fenom.setNombre(fen.get(0).getNombre());
+				fenom.setTelefono(fen.get(0).getTelefono());
+			}
+			
+		}catch (Exception e) {
+			System.out.println("Error al obtener Fenomenos");
+			e.printStackTrace();
+		}
+		
+		return fenom;
+	}
 	
 	}
-	}
+
