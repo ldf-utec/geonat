@@ -18,13 +18,11 @@ public interface IFenomenoDAO {
 
 	List<Fenomeno> obtenerTodos() throws ServiciosException;
 
-	List<Fenomeno> obtenerTodosFiltro(String filtro) throws ServiciosException;
+    List<Fenomeno> obtenerTodosPorNombre(String filtro) throws ServiciosException;
 
 	boolean existeNombreFenomeno(Fenomeno fenomeno) throws ServiciosException;
 
 	boolean existeID(int id) throws ServiciosException;
-
-	//Fenomeno obtenerUno(int id) throws ServiciosException;
 
 	List<Fenomeno> obtenerUnoID(Integer filtro) throws ServiciosException;
 
