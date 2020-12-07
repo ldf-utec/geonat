@@ -31,6 +31,7 @@ import javax.swing.JComboBox;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.swing.JButton;
+import java.awt.Color;
 
 public class ModificacionCaracteristica {
 
@@ -41,8 +42,7 @@ public class ModificacionCaracteristica {
 	private JTextField txtFNombre;
 	private JTextField txtFEtiqueta;
 	private List<Fenomeno> fenomenos;
-	private JTextField txtID;
-	
+	private JComboBox comboIDCaracteristica;
 
 	/**
 	 * Launch the application.
@@ -50,9 +50,7 @@ public class ModificacionCaracteristica {
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				
-				
-				
+					
 				try {
 					ModificacionCaracteristica window = new ModificacionCaracteristica();
 					window.frmModificarCaracteristica.setVisible(true);
@@ -150,6 +148,7 @@ public class ModificacionCaracteristica {
 		});
 		
 		JButton btnCancelarAlta = new JButton("Cancelar Modificacion");
+		btnCancelarAlta.setForeground(Color.RED);
 		btnCancelarAlta.setBounds(424, 153, 150, 23);
 		frmModificarCaracteristica.getContentPane().add(btnCancelarAlta);
 		btnCancelarAlta.addActionListener(new ActionListener() {
@@ -164,17 +163,19 @@ public class ModificacionCaracteristica {
 		btnDarDeAlta.setBounds(424, 192, 150, 23);
 		frmModificarCaracteristica.getContentPane().add(btnDarDeAlta);
 		
-		JButton btnBuscaCaracteristica = new JButton("Busca Caracteristica");
-		btnBuscaCaracteristica.setBounds(424, 21, 150, 23);
-		frmModificarCaracteristica.getContentPane().add(btnBuscaCaracteristica);
-		txtID = new JTextField();
-		txtID.setBounds(181, 22, 206, 20);
-		frmModificarCaracteristica.getContentPane().add(txtID);
-		txtID.setColumns(10);
-		
 		JLabel lblIdCaracteritica = new JLabel("ID Caracteritica");
 		lblIdCaracteritica.setBounds(10, 25, 141, 14);
 		frmModificarCaracteristica.getContentPane().add(lblIdCaracteritica);
+		
+		//Combo que despliega la informacion de la caracteristica de acuerdo al ID seleccionado
+		comboIDCaracteristica = new JComboBox();
+		comboIDCaracteristica.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cargarDatos((int)comboIDCaracteristica.getSelectedItem());
+			}
+		});
+		comboIDCaracteristica.setBounds(181, 22, 80, 20);
+		frmModificarCaracteristica.getContentPane().add(comboIDCaracteristica);
 
 		btnDarDeAlta.addActionListener(new ActionListener() {
 			
@@ -237,32 +238,46 @@ public class ModificacionCaracteristica {
 		}
 		});
 		
-		btnBuscaCaracteristica.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent evento) {
-				Caracteristica c = new Caracteristica();
-				int id=Integer.parseInt(txtID.getText());
-
+		//Para mostrar los datos por primera vez		
 				try {
-					boolean enu = serviciosCaracteristicas.existeIdCaracteristica(c);
-					if (!enu) {
-						JOptionPane.showMessageDialog(null,  "No existe la caracteristica");
-					} else {
-//						Caracteristica cc = new Caracteristica();
-//						cc = CaracteristicaDAO.obtenerUno(c);
-//						txtID.setText(c.getId_Caracteristica().toString());
-//						cc.setNombre(txtFNombre.getText());
-//						cc.setEtiqPresentacion(txtFEtiqueta.getText());
-//						int x = cc.getId_TipoFonomeno();
-//						comboBFenomAsoc.setSelectedIndex(cc.getId_Fenomeno().getId_TipoFenomeno());
-//						comboBTipoDato.setSelectedIndex(cc.getId_TipoDato().getTipoDato());
-
-							
-					}
-				} catch (ServiciosException e) {
-					e.printStackTrace();
+					cargarComboBox();
+				} catch (ServiciosException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
 				}
+	}
+	
+	//metodo que obtiene todas las caracteristicas y carga sus IDs en el combo IDCaracteristica
+	
+	private void cargarComboBox() throws ServiciosException {
+		try {
+			List<Caracteristica> carac =  serviciosCaracteristicas.obtenerTodos();
+			for (Caracteristica c : carac) {
+				comboIDCaracteristica.addItem((Integer)c.getId_Caracteristica());
+			}			
+		}catch (Exception e) {
+			System.out.println("Error al cargar datos en el comboBox ID Caracteristica. ");
+			e.printStackTrace();
+		}
+	}
+	
+	//metodo que busca caracteristicas por su id y carga los valores obtenidos dentro de la ventana
+	
+	private void cargarDatos (int filtro) {
+		try {
+			Caracteristica carac = new Caracteristica();
+			carac = serviciosCaracteristicas.obtenerUno(filtro);
+			if (!carac.equals(null)) {
+				txtFNombre.setText(carac.getNombre().toString());
+				txtFEtiqueta.setText(carac.getEtiqPresentacion());		
 			}
-			});
+			
+		}catch (Exception e) {
+
+			System.out.println("Error al cargar datos en el comboBox Fenomeno. ");
+			e.printStackTrace();
+
+		}
 	}
 	
 	
