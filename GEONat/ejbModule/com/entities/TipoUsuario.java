@@ -2,7 +2,7 @@ package com.entities;
 
 
 public enum TipoUsuario{
-	ADMINISTRADOR("Adminsitrador",1),
+	ADMINISTRADOR("Administrador",1),
 	EXPERTO("Experto",2),
 	ONG("ONG",3),
 	ORGANISMOPRIVADO("Organismo Privado",4),

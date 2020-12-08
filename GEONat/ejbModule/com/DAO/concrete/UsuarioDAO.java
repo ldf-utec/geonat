@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
@@ -111,12 +112,24 @@ public class UsuarioDAO implements IUsuarioDAO {
 	
 	
 	@Override
-	public List<Usuario> obtenerLogin(Usuario usuario) throws ServiciosException {
+	public Usuario obtenerPorNombre(String nombreUsuario) throws ServiciosException{
 		
-		String filtro = usuario.getNombreUsuario();
-		TypedQuery<Usuario> query = em.createNamedQuery("Usuario.obtenerUno", Usuario.class)
-				.setParameter("filtro", filtro);
-		return query.getResultList() ;
-	}
+		Usuario usr = new Usuario();
+		try {
+		TypedQuery<Usuario> query = em.createNamedQuery("Usuario.obtenerUno", Usuario.class).setParameter("filtro", nombreUsuario);
+		//query.setMaxResults(1);
+		List<Usuario> lista = query.getResultList();
+		if (lista.size()>0) {
+			usr = lista.get(0);
+		} else {
+			usr.setNombreUsuario("");
+		}
+
+		} catch  (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return usr;
+	  }
 	
 }
