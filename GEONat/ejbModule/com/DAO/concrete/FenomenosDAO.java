@@ -79,12 +79,13 @@ public class FenomenosDAO implements IFenomenoDAO {
 		return query.getResultList();
 	}
 	
-	@Override
-	public List<Fenomeno> obtenerTodosFiltro(String filtro) throws ServiciosException {
-		TypedQuery<Fenomeno> query = em.createNamedQuery("Fenomeno.obtenerTodosFiltro", Fenomeno.class)
-				.setParameter("filtro", filtro);
-		return query.getResultList();
-	}
+	
+	  @Override 
+	  public List<Fenomeno> obtenerTodosPorNombre(String filtro) throws ServiciosException { 
+		  TypedQuery<Fenomeno> query = 	  em.createNamedQuery("Fenomeno.obtenerPorNombre", Fenomeno.class)
+	  .setParameter("filtro", filtro); 
+		  return query.getResultList(); 
+		  }
 	
 	@Override
 	public boolean existeNombreFenomeno(Fenomeno fenomeno) throws ServiciosException {
@@ -114,6 +115,8 @@ public class FenomenosDAO implements IFenomenoDAO {
 		}
 		
 	  }
+	
+
 	
 	 @Override
 		public boolean existeID(int id) throws ServiciosException {

@@ -11,6 +11,7 @@ import com.presentacion.gui.caracteristica.AltaCaracteristica;
 import com.presentacion.gui.caracteristica.FrameListarCaracteristicas;
 import com.presentacion.gui.caracteristica.ModificacionCaracteristica;
 import com.presentacion.gui.fenomenos.AltaFenomeno;
+import com.presentacion.gui.fenomenos.ListarFenomeno;
 import com.presentacion.gui.fenomenos.NewFrameModificar;
 import com.presentacion.gui.observaciones.GestionObservaciones;
 import com.presentacion.gui.usuarios.AltaUsuario;
@@ -39,13 +40,8 @@ public class FramePrincipal {
 	JButton btnUsuariosRegistrar;
 	JButton btnUsuarioModificar;
 	JButton btnUsuariosVerListado;
-	JButton btnTipoUsuarioRegistrar;
-	JButton btnTipoUsuarioModificar;
-	JButton btnTipoUsuarioEliminar;
 	JButton btnFenomenoRegistrar;
 	JButton btnGestionFenomeno;
-//	JButton btnModificarFenomeno;
-//	JButton btnListarFenomeno;
 	JButton btnRegistrarCaracteristica;
 	JButton btnModificarCaracteristica;
 	JButton btnListarCaracterisitica;
@@ -92,7 +88,7 @@ public class FramePrincipal {
 		
 		JPanel panelUsuarios = new JPanel();
 		panelUsuarios.setBorder(new TitledBorder(null, "Gesti\u00F3n de Usuarios", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panelUsuarios.setBounds(10, 297, 220, 263);
+		panelUsuarios.setBounds(10, 297, 220, 193);
 		frmGeonat.getContentPane().add(panelUsuarios);
 		panelUsuarios.setLayout(null);
 		
@@ -150,24 +146,6 @@ public class FramePrincipal {
 		});
 		btnUsuarioModificar.setBounds(10, 66, 199, 23);
 		panelUsuarios.add(btnUsuarioModificar);
-		
-		JPanel panel_TiposDeUsuario = new JPanel();
-		panel_TiposDeUsuario.setLayout(null);
-		panel_TiposDeUsuario.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Tipos de Usuario", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		panel_TiposDeUsuario.setBounds(10, 134, 200, 125);
-		panelUsuarios.add(panel_TiposDeUsuario);
-		
-		btnTipoUsuarioRegistrar = new JButton("Registrar");
-		btnTipoUsuarioRegistrar.setBounds(10, 23, 157, 23);
-		panel_TiposDeUsuario.add(btnTipoUsuarioRegistrar);
-		
-		btnTipoUsuarioEliminar = new JButton("Eliminar");
-		btnTipoUsuarioEliminar.setBounds(10, 91, 157, 23);
-		panel_TiposDeUsuario.add(btnTipoUsuarioEliminar);
-		
-		btnTipoUsuarioModificar = new JButton("Modificar");
-		btnTipoUsuarioModificar.setBounds(10, 57, 157, 23);
-		panel_TiposDeUsuario.add(btnTipoUsuarioModificar);
 		
 		JPanel panelObservaciones = new JPanel();
 		panelObservaciones.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Gesti\u00F3n de Observaciones", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
@@ -311,7 +289,7 @@ public class FramePrincipal {
 		JPanel panel_2 = new JPanel();
 		panel_2.setLayout(null);
 		panel_2.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Gesti\u00F3n de Fen\u00F3menos", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		panel_2.setBounds(289, 297, 220, 263);
+		panel_2.setBounds(289, 297, 220, 193);
 		frmGeonat.getContentPane().add(panel_2);
 		
 		btnFenomenoRegistrar = new JButton("Registrar");
@@ -333,7 +311,7 @@ public class FramePrincipal {
 		panel_2.add(btnFenomenoRegistrar);
 
 		
-		btnGestionFenomeno = new JButton("Gestión Fenomeno");
+		btnGestionFenomeno = new JButton("Modificar / Dar de Baja");
 		btnGestionFenomeno.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				EventQueue.invokeLater(new Runnable() {
@@ -348,8 +326,18 @@ public class FramePrincipal {
 				});
 			}
 		});
-		btnGestionFenomeno.setBounds(10, 99, 199, 23);
+		btnGestionFenomeno.setBounds(10, 65, 199, 23);
 		panel_2.add(btnGestionFenomeno);
+		
+		JButton btnListadoFenomeno = new JButton("Ver Listado");
+		btnListadoFenomeno.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ListarFenomeno frame = new ListarFenomeno();
+				frame.frmGestionFenomenos.setVisible(true);
+			}
+		});
+		btnListadoFenomeno.setBounds(10, 104, 199, 23);
+		panel_2.add(btnListadoFenomeno);
 		
 
 		btnCrearDatosPrueba = new JButton("Crear datos de prueba");

@@ -6,7 +6,10 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
+import com.Enums.Criticidad;
 import com.entities.Fenomeno;
 import com.entities.Observacion;
 import com.exception.ServiciosException;
@@ -19,11 +22,13 @@ import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 import java.awt.Color;
 import javax.swing.JTextField;
+import javax.swing.RowFilter;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
@@ -40,7 +45,7 @@ public class GestionObservaciones  {
 	private JPanel contentPane;
 	private JTable table;
 	private JButton btnCancelar;
-	private JComboBox comboBox; 
+	private JComboBox cmbCriticidad; 
 
 	
 	/**
@@ -75,11 +80,11 @@ public class GestionObservaciones  {
 		JButton btnCargarTabla = new JButton("Listar Fen\u00F3menos Existentes");
 		btnCargarTabla.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try {
-					cargarTabla();
-				} catch (ServiciosException e1) {
-					e1.printStackTrace();
-				}
+//				try {
+//					cargarTabla();
+//				} catch (ServiciosException e1) {
+//					e1.printStackTrace();
+//				}
 			}
 		});
 		btnCargarTabla.setBounds(807, 29, 138, 56);
@@ -102,20 +107,24 @@ public class GestionObservaciones  {
 		btnCancelar.setBounds(143, 409, 138, 50);
 		frmGestionObservaciones.getContentPane().add(btnCancelar);
 		
-		comboBox = new JComboBox();
-		comboBox.addActionListener(new ActionListener() {
+		cmbCriticidad = new JComboBox();
+		cmbCriticidad.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				filtrar(cmbCriticidad.getSelectedItem().toString());
+				
+				
 				
 			}
 		});
-		comboBox.setFont(new Font("Tahoma", Font.BOLD, 16));
-		comboBox.setBounds(445, 412, 108, 42);
-		frmGestionObservaciones.getContentPane().add(comboBox);
+		cmbCriticidad.setFont(new Font("Tahoma", Font.BOLD, 16));
+		cmbCriticidad.setBounds(117, 43, 144, 42);
+		frmGestionObservaciones.getContentPane().add(cmbCriticidad);
 		
-		JLabel lblSeleccioneElId = new JLabel("Seleccione el ID");
-		lblSeleccioneElId.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblSeleccioneElId.setBounds(346, 416, 163, 42);
-		frmGestionObservaciones.getContentPane().add(lblSeleccioneElId);
+		JLabel lblCriticidad = new JLabel("Criticidad:");
+		lblCriticidad.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblCriticidad.setBounds(60, 44, 91, 42);
+		frmGestionObservaciones.getContentPane().add(lblCriticidad);
 		
 		JDateChooser dateChooser = new JDateChooser();
 		dateChooser.setBounds(329, 43, 163, 42);
@@ -135,8 +144,15 @@ public class GestionObservaciones  {
 		lblFechaHasta.setBounds(585, 29, 163, 15);
 		frmGestionObservaciones.getContentPane().add(lblFechaHasta);
 		
+		
+		
+		
+				
 		try {
-			cargarTabla();
+			cargarTabla(serviciosObservaciones.obtenerTodos());
+			cargarComboBox();
+
+			
 			
 		} catch (ServiciosException e1) {
 			// TODO Auto-generated catch block
@@ -146,18 +162,18 @@ public class GestionObservaciones  {
 	
 	// Método para cargar el contenido de la tabla
 	
-	private void cargarTabla() throws ServiciosException {
+	private void cargarTabla(List<Observacion> listaObservaciones) throws ServiciosException {
 		try {
 			
-			List<Observacion> listaObservaciones =  serviciosObservaciones.obtenerTodos(); 
+			//List<Observacion> listaObservaciones =  serviciosObservaciones.obtenerTodos(); 
 
-			String[] nombreColumnas = { "ID", "Fecha", "Descripcion", "Tipo de Fenómeno" };
+			String[] nombreColumnas = { "ID", "Fecha", "Descripcion", "Tipo de Fenómeno", "Criticidad" };
 
 			/*
-			 * El tamaño de la tabla es, 4 columnas (cantidad de datos a mostrar) y
+			 * El tamaño de la tabla es, 5 columnas (cantidad de datos a mostrar) y
 			 * la cantidad de filas depende de la cantidad de observaciones
 			 */
-			Object[][] datos = new Object[listaObservaciones.size()][4];
+			Object[][] datos = new Object[listaObservaciones.size()][5];
 
 			/* Cargamos la matriz con todos los datos */
 			int fila = 0;
@@ -167,7 +183,8 @@ public class GestionObservaciones  {
 				datos[fila][0] = o.getId_Observacion().toString();
 				datos[fila][1] = o.getFecha().toString();
 				datos[fila][2] = o.getDescripcion().toString();
-				datos[fila][3] = "fenomeno";//o.getFenomeno().getNombre().toString();
+				datos[fila][3] = o.getFenomeno().getNombre().toString();
+				datos[fila][4] = o.getCriticidad().toString();
 				fila++;
 			}
 
@@ -202,6 +219,30 @@ public class GestionObservaciones  {
 		}
 	}
 	
+	private void cargarComboBox() throws ServiciosException {
+		try {
+			cmbCriticidad.addItem("");
+			for (Criticidad c : Criticidad.values()) {
+				cmbCriticidad.addItem(c.toString());
+				}
+			
+		}catch (Exception e) {
+
+			System.out.println("Error al cargar datos en el comboBox Criticidad. ");
+			e.printStackTrace();
+
+		}
+	}
 	
+	public void filtrar(String strFiltro) {
+		
+		List<RowFilter<Object,Object>> filters = new ArrayList<>(1);
+		filters.add(RowFilter.regexFilter(strFiltro, 4));
+
+		TableRowSorter<TableModel> filtro = new TableRowSorter<>(this.table.getModel());
+		filtro.setRowFilter(RowFilter.andFilter(filters));
+		this.table.setRowSorter(filtro);
+
+}
 	
 }

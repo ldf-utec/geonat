@@ -60,31 +60,27 @@ public class ServiciosFenomeno {
 	// Obtener Todos
 	public List<Fenomeno> obtenerTodos() throws ServiciosException {
 		try {
-			System.out.println("por llamar al bean de serviciosGUI");
 			List<Fenomeno> lista = servicios.fenomenoBean.obtenerTodos();
-			return lista;
-			
+			return lista;		
 		} catch (Exception e) {
 			throw new ServiciosException("Error al obtener datos " +e.getMessage());
 		}
 	}
 	
 
-	// Obtener Todos (filtro)
-	public List<Fenomeno> obtenerTodosFiltro(String filtro) throws ServiciosException {
-		try {
-			
-			List<Fenomeno> lista = servicios.fenomenoBean.obtenerTodosFiltro(filtro);
-			return lista;
-			
-		} catch (Exception e) {
-			throw new ServiciosException("Error al obtener lista");
-		}	
-	}
 	
-	// TODO: Posiblemente este método no tiene mucho sentido, ya que al pasarse como parámetro el objeto Usuario, es más eficiente buscarlo por id.
-	// Si lo que se quiere es obtener por Nombre, se debería pasar el String nombre
-	// Obtener uno
+	  // Obtener Todos (filtro) 
+	public List<Fenomeno> obtenerTodosPorNombre(String filtro) throws ServiciosException { 
+		  try {
+			  List<Fenomeno> lista = servicios.fenomenoBean.obtenerTodosPorNombre(filtro);
+	  	  		return lista;
+	  
+		  } catch (Exception e) { 
+			  throw new  ServiciosException("Error al obtener lista"); 
+		  } 
+	}
+	 
+	
 	
 	public List<Fenomeno> obtenerUnoID(Integer filtro) throws ServiciosException {
 		

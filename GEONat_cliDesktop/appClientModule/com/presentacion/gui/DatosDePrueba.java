@@ -2,6 +2,8 @@ package com.presentacion.gui;
 
 
 import java.util.List;
+
+import com.Enums.Criticidad;
 /*import java.util.Set;
 import java.util.HashSet;
 
@@ -21,6 +23,7 @@ import com.entities.Caracteristica;
 import com.entities.DetalleObservacion;
 import com.entities.DetalleObservacionPK;
 import com.entities.Fenomeno;
+import com.entities.Localidad;
 import com.entities.Observacion;
 import com.entities.TipoDato;
 import com.entities.TipoDocumento;
@@ -251,16 +254,17 @@ public class DatosDePrueba {
 				Observacion o1 = new Observacion();
 
 				// Obtengo un par de usuarios y los seteo como Registrador y Revisor de la observación
-				//o1.setUsuarioRegistro(serviciosUsuario.obtenerUno(1));
-				//o1.setUsuarioRevision(serviciosUsuario.obtenerUno(2));
+				o1.setUsuarioRegistro(serviciosUsuario.obtenerUno(1));
+				o1.setUsuarioRevision(serviciosUsuario.obtenerUno(2));
 				o1.setFenomeno(servicioFenomeno.obtenerUno(1));
-				//o1.setLocalidad(null);
-				//o1.setGeoLatitud(null);
-				//o1.setGeoLongitud(null);
+				//o1.setLocalidad();
+				o1.setGeoLatitud(250.695);
+				o1.setGeoLongitud(250.695);
 				o1.setDescripcion("Se observó incendio forestal de monte de eucaliptus");
 				o1.setFecha(java.util.Calendar.getInstance().getTime());
-				//o1.setFechaRevision(java.util.Calendar.getInstance().getTime());
-				//o1.setFiabilidadRevision(null);
+				o1.setFechaRevision(java.util.Calendar.getInstance().getTime());
+				o1.setFiabilidadRevision(4);
+				o1.setCriticidad(Criticidad.ALTA);
 				o1.setComentarioRevision("Revisado OK");
 				
 				o1 = serviciosObservacion.create(o1);
@@ -288,8 +292,6 @@ public class DatosDePrueba {
 				
 				serviciosDetalles.create(d1);
 				
-				//serviciosObservacion.create(o1);
-				//serviciosCaracteristicas.create(c1);  // Esta no es necesario crearla porque ya existe de antes(la obtuve por su ID)
 				System.out.println("Grabó Observacion");
 				
 				
