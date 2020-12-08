@@ -104,11 +104,11 @@ public class ServiciosUsuario {
 		return servicios.usuarioBean.existeNombreUsuario(usuario);
 	}
 	
-//	public Usuario obtenerUno(Integer id) throws ServiciosException {
-//
-//		Usuario u = servicios.usuarioBean.obtenerUno(id);
-//		return u ;
-//	}
+	public Usuario obtenerUno(Integer id) throws ServiciosException {
+
+		Usuario u = servicios.usuarioBean.obtenerUno(id);
+		return u ;
+	}
 
 	public Usuario obtenerUno(Usuario usuario) throws ServiciosException  {
 		// TODO Auto-generated method stub
