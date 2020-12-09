@@ -13,6 +13,7 @@ import com.Enums.Criticidad;
 import com.entities.Fenomeno;
 import com.entities.Observacion;
 import com.exception.ServiciosException;
+import com.presentacion.gui.FramePrincipal;
 import com.presentacion.servicios.ServiciosFenomeno;
 import com.presentacion.servicios.ServiciosObservacion;
 import com.presentacion.servicios.ServiciosUsuario;
@@ -35,6 +36,22 @@ import javax.swing.JComboBox;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import com.toedter.calendar.JDateChooser;
+import javax.swing.border.TitledBorder;
+import java.awt.GridLayout;
+import java.awt.Component;
+import java.awt.FlowLayout;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import java.awt.BorderLayout;
+import javax.swing.border.SoftBevelBorder;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.CompoundBorder;
+import javax.swing.SwingConstants;
+import javax.swing.UIManager;
+import javax.swing.ImageIcon;
+import java.awt.Rectangle;
+import java.awt.Toolkit;
 
 public class GestionObservaciones  {
 
@@ -56,6 +73,7 @@ public class GestionObservaciones  {
 			public void run() {
 				try {
 					GestionObservaciones frame = new GestionObservaciones();
+					UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
 					frame.frmGestionObservaciones.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -70,81 +88,130 @@ public class GestionObservaciones  {
 	public GestionObservaciones() {
 		
 		frmGestionObservaciones = new JFrame();
+		//frmGestionObservaciones.setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Leandro\\Downloads\\icongeonat_eij_icon.ico"));
 		frmGestionObservaciones.setTitle("GEONat - Observaciones");
 		frmGestionObservaciones.setResizable(false);
-		frmGestionObservaciones.setBounds(100, 100, 982, 496);
+		frmGestionObservaciones.setBounds(100, 100, 1200, 800);
 		frmGestionObservaciones.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		frmGestionObservaciones.getContentPane().setLayout(null);
 		
-		
-		JButton btnCargarTabla = new JButton("Listar Fen\u00F3menos Existentes");
-		btnCargarTabla.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-//				try {
-//					cargarTabla();
-//				} catch (ServiciosException e1) {
-//					e1.printStackTrace();
-//				}
-			}
-		});
-		btnCargarTabla.setBounds(807, 29, 138, 56);
-		frmGestionObservaciones.getContentPane().add(btnCargarTabla);
-		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(32, 88, 913, 315);
+		scrollPane.setFont(new Font("SansSerif", Font.PLAIN, 18));
+		scrollPane.setBounds(50, 195, 1100, 500);
 		frmGestionObservaciones.getContentPane().add(scrollPane);
 		
 		table = new JTable();
+		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		table.setFont(new Font("SansSerif", Font.PLAIN, 18));
 		scrollPane.setViewportView(table);
 		
-		btnCancelar = new JButton("Cancelar");
+		btnCancelar = new JButton("Cerrar");
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frmGestionObservaciones.hide();
 			}
 		});
-		btnCancelar.setFont(new Font("Tahoma", Font.BOLD, 13));
-		btnCancelar.setBounds(143, 409, 138, 50);
+		btnCancelar.setFont(new Font("Dialog", Font.PLAIN, 18));
+		btnCancelar.setBounds(1012, 715, 138, 50);
 		frmGestionObservaciones.getContentPane().add(btnCancelar);
 		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBorder(new TitledBorder(null, "Filtrar por nivel de criticidad", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel_1.setBounds(50, 87, 280, 96);
+		frmGestionObservaciones.getContentPane().add(panel_1);
+		panel_1.setLayout(null);
+		
 		cmbCriticidad = new JComboBox();
+		cmbCriticidad.setBounds(105, 23, 144, 42);
+		panel_1.add(cmbCriticidad);
 		cmbCriticidad.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				try {
+					filtrar(cmbCriticidad.getSelectedItem().toString());
+				} catch (Exception e2) {
+					System.out.println(e2);
+				}
 				
-				filtrar(cmbCriticidad.getSelectedItem().toString());
 				
 				
 				
 			}
 		});
-		cmbCriticidad.setFont(new Font("Tahoma", Font.BOLD, 16));
-		cmbCriticidad.setBounds(117, 43, 144, 42);
-		frmGestionObservaciones.getContentPane().add(cmbCriticidad);
+		cmbCriticidad.setFont(new Font("Dialog", Font.PLAIN, 18));
 		
 		JLabel lblCriticidad = new JLabel("Criticidad:");
-		lblCriticidad.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblCriticidad.setBounds(60, 44, 91, 42);
-		frmGestionObservaciones.getContentPane().add(lblCriticidad);
+		lblCriticidad.setBounds(17, 27, 91, 34);
+		panel_1.add(lblCriticidad);
+		lblCriticidad.setFont(new Font("Dialog", Font.PLAIN, 18));
 		
-		JDateChooser dateChooser = new JDateChooser();
-		dateChooser.setBounds(329, 43, 163, 42);
-		frmGestionObservaciones.getContentPane().add(dateChooser);
-		
-		JDateChooser dateChooser_1 = new JDateChooser();
-		dateChooser_1.setBounds(585, 43, 163, 42);
-		frmGestionObservaciones.getContentPane().add(dateChooser_1);
+		JPanel panel = new JPanel();
+		panel.setFont(new Font("SansSerif", Font.PLAIN, 18));
+		panel.setBorder(new TitledBorder(null, "Filtrar de fecha", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(59, 59, 59)));
+		panel.setBounds(339, 87, 811, 96);
+		frmGestionObservaciones.getContentPane().add(panel);
 		
 		JLabel lblFechaDesde = new JLabel("Fecha desde:");
-		lblFechaDesde.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblFechaDesde.setBounds(329, 27, 163, 15);
-		frmGestionObservaciones.getContentPane().add(lblFechaDesde);
+		lblFechaDesde.setBounds(39, 31, 109, 24);
+		lblFechaDesde.setAlignmentX(Component.CENTER_ALIGNMENT);
+		lblFechaDesde.setFont(new Font("Dialog", Font.PLAIN, 18));
+		
+		JDateChooser dateChooser_1 = new JDateChooser();
+		dateChooser_1.setBounds(158, 23, 180, 40);
+		dateChooser_1.setFont(new Font("SansSerif", Font.PLAIN, 18));
+		dateChooser_1.getCalendarButton().setFont(new Font("Dialog", Font.PLAIN, 18));
 		
 		JLabel lblFechaHasta = new JLabel("Fecha hasta:");
-		lblFechaHasta.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblFechaHasta.setBounds(585, 29, 163, 15);
-		frmGestionObservaciones.getContentPane().add(lblFechaHasta);
+		lblFechaHasta.setBounds(350, 31, 104, 24);
+		lblFechaHasta.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		lblFechaHasta.setFont(new Font("Dialog", Font.PLAIN, 18));
+		
+		JDateChooser dateChooser = new JDateChooser();
+		dateChooser.setBounds(455, 23, 180, 40);
+		dateChooser.setFont(new Font("SansSerif", Font.PLAIN, 18));
 		
 		
+		JButton btnCargarTabla = new JButton("Aplicar filtro");
+		btnCargarTabla.setBounds(647, 25, 143, 36);
+		btnCargarTabla.setFont(new Font("Dialog", Font.PLAIN, 18));
+		panel.setLayout(null);
+		panel.add(lblFechaDesde);
+		panel.add(dateChooser_1);
+		panel.add(lblFechaHasta);
+		panel.add(dateChooser);
+		panel.add(btnCargarTabla);
+		
+		JPanel banner = new JPanel();
+		banner.setLayout(null);
+		banner.setBackground(Color.WHITE);
+		banner.setBounds(0, 0, 1194, 59);
+		frmGestionObservaciones.getContentPane().add(banner);
+		
+		JLabel lblReporteDeObservaciones = new JLabel("Reporte de observaciones");
+		lblReporteDeObservaciones.setBounds(new Rectangle(10, 10, 10, 10));
+		lblReporteDeObservaciones.setFont(new Font("SansSerif", Font.PLAIN, 20));
+		lblReporteDeObservaciones.setHorizontalAlignment(SwingConstants.LEFT);
+		lblReporteDeObservaciones.setForeground(Color.GRAY);
+		lblReporteDeObservaciones.setBounds(14, 28, 1174, 25);
+		banner.add(lblReporteDeObservaciones);
+		
+		JLabel label = new JLabel("");
+		label.setIconTextGap(0);
+		label.setHorizontalAlignment(SwingConstants.CENTER);
+		label.setBounds(1099, 0, 69, 53);
+		//label.setIcon(new ImageIcon(this.getClass().getResource("../img/logo_small.png")));
+		banner.add(label);
+		btnCargarTabla.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				if(dateChooser_1.getDate() != null) {
+					JOptionPane.showMessageDialog( scrollPane, "Fecha:"+ dateChooser_1.getDate());
+				} else {
+				    JOptionPane.showMessageDialog(scrollPane, "pls choose date");
+				}
+			}
+		});
+		
+
 		
 		
 				
@@ -221,7 +288,7 @@ public class GestionObservaciones  {
 	
 	private void cargarComboBox() throws ServiciosException {
 		try {
-			cmbCriticidad.addItem("");
+			cmbCriticidad.addItem("Todos");
 			for (Criticidad c : Criticidad.values()) {
 				cmbCriticidad.addItem(c.toString());
 				}
@@ -236,13 +303,16 @@ public class GestionObservaciones  {
 	
 	public void filtrar(String strFiltro) {
 		
+		if (strFiltro=="Todos") {
+			strFiltro="";
+		}
+		
 		List<RowFilter<Object,Object>> filters = new ArrayList<>(1);
 		filters.add(RowFilter.regexFilter(strFiltro, 4));
-
+		
 		TableRowSorter<TableModel> filtro = new TableRowSorter<>(this.table.getModel());
 		filtro.setRowFilter(RowFilter.andFilter(filters));
 		this.table.setRowSorter(filtro);
 
 }
-	
 }
