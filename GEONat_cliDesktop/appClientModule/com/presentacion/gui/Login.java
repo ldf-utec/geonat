@@ -219,18 +219,12 @@ public class Login extends JFrame {
 							window.btnUsuariosRegistrar.setEnabled(false);
 							window.btnUsuarioModificar.setEnabled(false);
 							window.btnUsuariosVerListado.setEnabled(false);
-//							window.btnTipoUsuarioRegistrar.setEnabled(false);
-//							window.btnTipoUsuarioModificar.setEnabled(false);
-//							window.btnTipoUsuarioEliminar.setEnabled(false);
 							window.btnFenomenoRegistrar.setEnabled(false);
-//							window.btnModificarFenomeno.setEnabled(false);
-//							window.btnListarFenomeno.setEnabled(false);
 							window.btnRegistrarCaracteristica.setEnabled(false);
 							window.btnModificarCaracteristica.setEnabled(false);
 							window.btnListarCaracterisitica.setEnabled(false);
 							window.btnCrearDatosPrueba.setEnabled(false);
-							window.btnUsuariosRegistrar.setEnabled(false);
-							
+							window.btnGestionFenomeno.setEnabled(false);
 							window.frmGeonat.setVisible(true);
 						
 					}
@@ -250,18 +244,13 @@ public class Login extends JFrame {
 							window.btnUsuariosRegistrar.setEnabled(false);
 							window.btnUsuarioModificar.setEnabled(false);
 							window.btnUsuariosVerListado.setEnabled(false);
-//							window.btnTipoUsuarioRegistrar.setEnabled(false);
-//							window.btnTipoUsuarioModificar.setEnabled(false);
-//							window.btnTipoUsuarioEliminar.setEnabled(false);
 							window.btnFenomenoRegistrar.setEnabled(false);
-//							window.btnModificarFenomeno.setEnabled(false);
-//							window.btnListarFenomeno.setEnabled(false);
 							window.btnRegistrarCaracteristica.setEnabled(false);
 							window.btnModificarCaracteristica.setEnabled(false);
 							window.btnListarCaracterisitica.setEnabled(false);
 							window.btnCrearDatosPrueba.setEnabled(false);
 							window.btnUsuariosRegistrar.setEnabled(false);
-							
+							window.btnGestionFenomeno.setEnabled(false);
 							window.frmGeonat.setVisible(true);
 						
 					}
@@ -283,18 +272,13 @@ public class Login extends JFrame {
 						window.btnUsuariosRegistrar.setEnabled(false);
 						window.btnUsuarioModificar.setEnabled(false);
 						window.btnUsuariosVerListado.setEnabled(false);
-//						window.btnTipoUsuarioRegistrar.setEnabled(false);
-//						window.btnTipoUsuarioModificar.setEnabled(false);
-//						window.btnTipoUsuarioEliminar.setEnabled(false);
 						window.btnFenomenoRegistrar.setEnabled(false);
-//						window.btnModificarFenomeno.setEnabled(false);
-//						window.btnListarFenomeno.setEnabled(false);
 						window.btnRegistrarCaracteristica.setEnabled(false);
 						window.btnModificarCaracteristica.setEnabled(false);
 						window.btnListarCaracterisitica.setEnabled(false);
 						window.btnCrearDatosPrueba.setEnabled(false);
 						window.btnUsuariosRegistrar.setEnabled(false);
-						
+						window.btnGestionFenomeno.setEnabled(false);
 						window.frmGeonat.setVisible(true);
 					
 				}
@@ -316,18 +300,13 @@ public class Login extends JFrame {
 						window.btnUsuariosRegistrar.setEnabled(false);
 						window.btnUsuarioModificar.setEnabled(false);
 						window.btnUsuariosVerListado.setEnabled(false);
-//						window.btnTipoUsuarioRegistrar.setEnabled(false);
-//						window.btnTipoUsuarioModificar.setEnabled(false);
-//						window.btnTipoUsuarioEliminar.setEnabled(false);
 						window.btnFenomenoRegistrar.setEnabled(false);
-//						window.btnModificarFenomeno.setEnabled(false);
-//						window.btnListarFenomeno.setEnabled(false);
 						window.btnRegistrarCaracteristica.setEnabled(false);
 						window.btnModificarCaracteristica.setEnabled(false);
 						window.btnListarCaracterisitica.setEnabled(false);
 						window.btnCrearDatosPrueba.setEnabled(false);
 						window.btnUsuariosRegistrar.setEnabled(false);
-						
+						window.btnGestionFenomeno.setEnabled(false);
 						window.frmGeonat.setVisible(true);
 					
 				}
