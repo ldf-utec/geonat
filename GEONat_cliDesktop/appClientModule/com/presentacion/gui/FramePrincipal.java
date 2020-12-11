@@ -31,9 +31,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class FramePrincipal {
-// prueba jj d
-	JFrame frmGeonat;
-
+JFrame frmGeonat;
 	
 	JButton btnObservacionesRegistrar;
 	JButton btnObservacionesModificar;
@@ -49,8 +47,6 @@ public class FramePrincipal {
 	JButton btnCrearDatosPrueba;
 	private JButton btnGestin;
 	
-	
-	
 	/**
 	 * Launch the application.
 	 */
@@ -58,7 +54,9 @@ public class FramePrincipal {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
 					FramePrincipal window = new FramePrincipal();
+					
 					window.frmGeonat.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -66,14 +64,18 @@ public class FramePrincipal {
 			}
 		});
 	}
-
+	
 	/**
 	 * Create the application.
 	 */
 	public FramePrincipal() {
 		initialize();
 	}
-
+	
+	
+	
+	
+	
 	/**
 	 * Initialize the contents of the frame.
 	 */
@@ -170,6 +172,7 @@ public class FramePrincipal {
 		panelObservaciones.add(btnObservacionesRegistrar);
 		
 		btnObservacionesVerListado = new JButton("Ver listado");
+		btnObservacionesVerListado.setBorder(null);
 		btnObservacionesVerListado.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				EventQueue.invokeLater(new Runnable() {
@@ -227,7 +230,7 @@ public class FramePrincipal {
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setLayout(null);
-		panel_1.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Gesti\u00F3n de Caracter\u00EDsticas", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panel_1.setBorder(new TitledBorder(null, "Gesti\u00F3n de Caracter\u00EDsticas", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel_1.setBounds(564, 297, 220, 193);
 		frmGeonat.getContentPane().add(panel_1);
 		
@@ -290,7 +293,7 @@ public class FramePrincipal {
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setLayout(null);
-		panel_2.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Gesti\u00F3n de Fen\u00F3menos", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panel_2.setBorder(new TitledBorder(null, "Gesti\u00F3n de Fen\u00F3menos", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel_2.setBounds(289, 297, 220, 193);
 		frmGeonat.getContentPane().add(panel_2);
 		
