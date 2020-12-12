@@ -54,17 +54,14 @@ public class ServiciosCaracteristica {
 
 	public List<Caracteristica> obtenerTodos() throws ServiciosException {
 		try {
-//			ICaracteristicaDAO daoCarac = servicios.getCaracteristicaBean();
-//			List<Caracteristica> l = daoCarac.obtenerTodos();
-			
+		
 			List<Caracteristica> l = servicios.caracteristicaBean.obtenerTodos();
-
 			
 			return l;
 		} catch (Exception e) {
 			System.out.println("Error en serviciosCaracteristicas ObtenerTodos(). " + e.getMessage());
 			e.printStackTrace();
-			;
+			
 		}
 		return null;
 	}
@@ -74,11 +71,6 @@ public class ServiciosCaracteristica {
 		return servicios.caracteristicaBean.obtenerTodosFiltro(filtro);
 	}
 	
-	// TODO: Borrar este método, ya que se hace esto mediante el obtenerTodos.first() y verificando si devuelve distinto de null por ejemplo
-	public boolean existeIdCaracteristica(Caracteristica caracteristica) throws ServiciosException {
-		return servicios.caracteristicaBean.existeIdCaracteristica(caracteristica);
-	}
-
 	
 	public Caracteristica obtenerUno(int id) throws ServiciosException {
 		try {
