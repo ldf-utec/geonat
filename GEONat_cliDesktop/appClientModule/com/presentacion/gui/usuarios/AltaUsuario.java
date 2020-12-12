@@ -30,6 +30,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemListener;
 
 import javax.swing.JPasswordField;
+import java.awt.Font;
 
 public class AltaUsuario extends JFrame {
 
@@ -79,8 +80,8 @@ public class AltaUsuario extends JFrame {
 		// IUsuarioDAO usuarioDAO = ServiciosGUI.getInstance().getUsuarioBean();
 				
 		frmGeonatAlta = new JFrame();
-		frmGeonatAlta.setTitle("GEONat - Alta de usuarios");
-		frmGeonatAlta.setBounds(100, 100, 800, 600);
+		frmGeonatAlta.setTitle("GEONat - Registro de usuarios");
+		frmGeonatAlta.setBounds(100, 100, 1200, 800);
 		frmGeonatAlta.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		
 		JLabel lblNombreDeUsuaio = new JLabel("Nombre de usuario");
@@ -149,6 +150,7 @@ public class AltaUsuario extends JFrame {
 		
 		//Boton AltaUsuario
 		JButton btnAltaUsuario = new JButton("Alta Usuario");
+		btnAltaUsuario.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		btnAltaUsuario.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent evento) {
 					String strerror = "";
@@ -234,6 +236,7 @@ public class AltaUsuario extends JFrame {
  
 		//Boton Cancelar
 		JButton btnCancela = new JButton("Cancelar");
+		btnCancela.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		btnCancela.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evento) {
 				frmGeonatAlta.hide();
@@ -260,9 +263,9 @@ public class AltaUsuario extends JFrame {
 							.addGap(26)
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 								.addGroup(groupLayout.createSequentialGroup()
-									.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-										.addComponent(comboTipoUsuario, Alignment.LEADING, 0, 337, Short.MAX_VALUE)
-										.addGroup(Alignment.LEADING, groupLayout.createParallelGroup(Alignment.TRAILING, false)
+									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+										.addComponent(comboTipoUsuario, 0, 837, Short.MAX_VALUE)
+										.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
 											.addComponent(password2, Alignment.LEADING)
 											.addComponent(password1, Alignment.LEADING, 195, 195, Short.MAX_VALUE)))
 									.addGap(255))
@@ -287,9 +290,11 @@ public class AltaUsuario extends JFrame {
 								.addGroup(groupLayout.createSequentialGroup()
 									.addComponent(checkboxUsuarioActivo)
 									.addGap(18)
-									.addComponent(btnAltaUsuario)
-									.addGap(18)
-									.addComponent(btnCancela)))))
+									.addComponent(btnAltaUsuario, GroupLayout.PREFERRED_SIZE, 155, GroupLayout.PREFERRED_SIZE)
+									.addGap(80)))
+							.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addComponent(btnCancela, GroupLayout.PREFERRED_SIZE, 148, GroupLayout.PREFERRED_SIZE)
+							.addGap(488)))
 					.addGap(0))
 		);
 		groupLayout.setVerticalGroup(
@@ -337,10 +342,10 @@ public class AltaUsuario extends JFrame {
 						.addComponent(comboTipoUsuario, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(88)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnAltaUsuario)
-						.addComponent(btnCancela)
+						.addComponent(btnAltaUsuario, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnCancela, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
 						.addComponent(checkboxUsuarioActivo))
-					.addContainerGap(50, Short.MAX_VALUE))
+					.addContainerGap(163, Short.MAX_VALUE))
 		);
 		frmGeonatAlta.getContentPane().setLayout(groupLayout);
 
