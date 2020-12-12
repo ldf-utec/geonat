@@ -76,8 +76,8 @@ public class GestionObservaciones  {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					GestionObservaciones frame = new GestionObservaciones();
 					UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+					GestionObservaciones frame = new GestionObservaciones();
 					frame.frmGestionObservaciones.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -141,12 +141,12 @@ public class GestionObservaciones  {
 				
 			}
 		});
-		cmbCriticidad.setFont(new Font("Dialog", Font.PLAIN, 18));
+		cmbCriticidad.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		
 		JLabel lblCriticidad = new JLabel("Criticidad:");
 		lblCriticidad.setBounds(17, 27, 91, 34);
 		panel_1.add(lblCriticidad);
-		lblCriticidad.setFont(new Font("Dialog", Font.PLAIN, 18));
+		lblCriticidad.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		
 		JPanel panel = new JPanel();
 		panel.setFont(new Font("SansSerif", Font.PLAIN, 18));
@@ -157,7 +157,7 @@ public class GestionObservaciones  {
 		JLabel lblFechaDesde = new JLabel("Fecha desde:");
 		lblFechaDesde.setBounds(39, 31, 109, 24);
 		lblFechaDesde.setAlignmentX(Component.CENTER_ALIGNMENT);
-		lblFechaDesde.setFont(new Font("Dialog", Font.PLAIN, 18));
+		lblFechaDesde.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		
 		JDateChooser dateChooser_desde = new JDateChooser();
 		dateChooser_desde.setBounds(158, 23, 180, 40);
@@ -170,7 +170,7 @@ public class GestionObservaciones  {
 		JLabel lblFechaHasta = new JLabel("Fecha hasta:");
 		lblFechaHasta.setBounds(350, 31, 104, 24);
 		lblFechaHasta.setAlignmentX(Component.RIGHT_ALIGNMENT);
-		lblFechaHasta.setFont(new Font("Dialog", Font.PLAIN, 18));
+		lblFechaHasta.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		
 		JDateChooser dateChooser_hasta = new JDateChooser();
 		dateChooser_hasta.setBounds(455, 23, 180, 40);
@@ -182,7 +182,7 @@ public class GestionObservaciones  {
 		
 		JButton btnAplicarFecha = new JButton("Aplicar filtro");
 		btnAplicarFecha.setBounds(647, 25, 143, 36);
-		btnAplicarFecha.setFont(new Font("Dialog", Font.PLAIN, 18));
+		btnAplicarFecha.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		panel.setLayout(null);
 		panel.add(lblFechaDesde);
 		panel.add(dateChooser_desde);
@@ -198,7 +198,7 @@ public class GestionObservaciones  {
 		
 		JLabel lblReporteDeObservaciones = new JLabel("Reporte de observaciones");
 		lblReporteDeObservaciones.setBounds(new Rectangle(10, 10, 10, 10));
-		lblReporteDeObservaciones.setFont(new Font("SansSerif", Font.PLAIN, 20));
+		lblReporteDeObservaciones.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblReporteDeObservaciones.setHorizontalAlignment(SwingConstants.LEFT);
 		lblReporteDeObservaciones.setForeground(Color.GRAY);
 		lblReporteDeObservaciones.setBounds(14, 28, 1174, 25);
@@ -215,10 +215,17 @@ public class GestionObservaciones  {
 
 				if((dateChooser_desde.getDate() != null) & (dateChooser_hasta.getDate() != null )) {
 					
-					filtrar(dateChooser_desde.getDate(), dateChooser_hasta.getDate());
+					if(dateChooser_desde.getDate().compareTo(dateChooser_hasta.getDate()) > 0) {
+						JOptionPane.showMessageDialog(scrollPane, "La fecha final debe ser posterior a la inicial", null, JOptionPane.ERROR_MESSAGE);
+				    }else{
+				    	 filtrar(dateChooser_desde.getDate(), dateChooser_hasta.getDate());
+				    }
+										
+					
+					
 					
 				} else {
-				    JOptionPane.showMessageDialog(scrollPane, "pls choose date");
+				    JOptionPane.showMessageDialog(scrollPane, "Falta seleccionar alguna fecha", null, JOptionPane.ERROR_MESSAGE);
 				}
 				
 				
