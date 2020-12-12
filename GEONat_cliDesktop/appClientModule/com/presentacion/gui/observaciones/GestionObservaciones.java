@@ -24,18 +24,22 @@ import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 import java.awt.Color;
 import javax.swing.JTextField;
 import javax.swing.RowFilter;
+import javax.swing.RowFilter.ComparisonType;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import com.toedter.calendar.JDateChooser;
+import com.toedter.calendar.JTextFieldDateEditor;
+
 import javax.swing.border.TitledBorder;
 import java.awt.GridLayout;
 import java.awt.Component;
@@ -101,7 +105,7 @@ public class GestionObservaciones  {
 		frmGestionObservaciones.getContentPane().add(scrollPane);
 		
 		table = new JTable();
-		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		table.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
 		table.setFont(new Font("SansSerif", Font.PLAIN, 18));
 		scrollPane.setViewportView(table);
 		
@@ -155,30 +159,36 @@ public class GestionObservaciones  {
 		lblFechaDesde.setAlignmentX(Component.CENTER_ALIGNMENT);
 		lblFechaDesde.setFont(new Font("Dialog", Font.PLAIN, 18));
 		
-		JDateChooser dateChooser_1 = new JDateChooser();
-		dateChooser_1.setBounds(158, 23, 180, 40);
-		dateChooser_1.setFont(new Font("SansSerif", Font.PLAIN, 18));
-		dateChooser_1.getCalendarButton().setFont(new Font("Dialog", Font.PLAIN, 18));
+		JDateChooser dateChooser_desde = new JDateChooser();
+		dateChooser_desde.setBounds(158, 23, 180, 40);
+		dateChooser_desde.setFont(new Font("SansSerif", Font.PLAIN, 18));
+		dateChooser_desde.getCalendarButton().setFont(new Font("Dialog", Font.PLAIN, 18));
+		JTextFieldDateEditor dateChooser_desdeEditor = (JTextFieldDateEditor) dateChooser_desde.getDateEditor();
+		dateChooser_desdeEditor.setEnabled(false);
+		
 		
 		JLabel lblFechaHasta = new JLabel("Fecha hasta:");
 		lblFechaHasta.setBounds(350, 31, 104, 24);
 		lblFechaHasta.setAlignmentX(Component.RIGHT_ALIGNMENT);
 		lblFechaHasta.setFont(new Font("Dialog", Font.PLAIN, 18));
 		
-		JDateChooser dateChooser = new JDateChooser();
-		dateChooser.setBounds(455, 23, 180, 40);
-		dateChooser.setFont(new Font("SansSerif", Font.PLAIN, 18));
+		JDateChooser dateChooser_hasta = new JDateChooser();
+		dateChooser_hasta.setBounds(455, 23, 180, 40);
+		dateChooser_hasta.setFont(new Font("SansSerif", Font.PLAIN, 18));
+		JTextFieldDateEditor dateChooser_hastaEditor = (JTextFieldDateEditor) dateChooser_hasta.getDateEditor();
+		dateChooser_hastaEditor.setEnabled(false);
 		
 		
-		JButton btnCargarTabla = new JButton("Aplicar filtro");
-		btnCargarTabla.setBounds(647, 25, 143, 36);
-		btnCargarTabla.setFont(new Font("Dialog", Font.PLAIN, 18));
+		
+		JButton btnAplicarFecha = new JButton("Aplicar filtro");
+		btnAplicarFecha.setBounds(647, 25, 143, 36);
+		btnAplicarFecha.setFont(new Font("Dialog", Font.PLAIN, 18));
 		panel.setLayout(null);
 		panel.add(lblFechaDesde);
-		panel.add(dateChooser_1);
+		panel.add(dateChooser_desde);
 		panel.add(lblFechaHasta);
-		panel.add(dateChooser);
-		panel.add(btnCargarTabla);
+		panel.add(dateChooser_hasta);
+		panel.add(btnAplicarFecha);
 		
 		JPanel banner = new JPanel();
 		banner.setLayout(null);
@@ -200,14 +210,20 @@ public class GestionObservaciones  {
 		label.setBounds(1099, 0, 69, 53);
 		//label.setIcon(new ImageIcon(this.getClass().getResource("../img/logo_small.png")));
 		banner.add(label);
-		btnCargarTabla.addActionListener(new ActionListener() {
+		btnAplicarFecha.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				if(dateChooser_1.getDate() != null) {
-					JOptionPane.showMessageDialog( scrollPane, "Fecha:"+ dateChooser_1.getDate());
+				if((dateChooser_desde.getDate() != null) & (dateChooser_hasta.getDate() != null )) {
+					
+					filtrar(dateChooser_desde.getDate(), dateChooser_hasta.getDate());
+					
 				} else {
 				    JOptionPane.showMessageDialog(scrollPane, "pls choose date");
 				}
+				
+				
+				
+				
 			}
 		});
 		
@@ -248,7 +264,7 @@ public class GestionObservaciones  {
 			for (Observacion o : listaObservaciones) {
 
 				datos[fila][0] = o.getId_Observacion().toString();
-				datos[fila][1] = o.getFecha().toString();
+				datos[fila][1] = o.getFecha();
 				datos[fila][2] = o.getDescripcion().toString();
 				datos[fila][3] = o.getFenomeno().getNombre().toString();
 				datos[fila][4] = o.getCriticidad().toString();
@@ -314,5 +330,17 @@ public class GestionObservaciones  {
 		filtro.setRowFilter(RowFilter.andFilter(filters));
 		this.table.setRowSorter(filtro);
 
-}
+	}
+	
+	
+	public void filtrar(Date startDate, Date endDate) {
+		List<RowFilter<Object,Object>> filters = new ArrayList<RowFilter<Object,Object>>(2);
+		filters.add( RowFilter.dateFilter(ComparisonType.AFTER , startDate) );
+		filters.add( RowFilter.dateFilter(ComparisonType.BEFORE, endDate) );
+
+		TableRowSorter<TableModel> filtro = new TableRowSorter<>(this.table.getModel());
+		filtro.setRowFilter(RowFilter.andFilter(filters));
+		this.table.setRowSorter(filtro);
+		
+	}
 }
