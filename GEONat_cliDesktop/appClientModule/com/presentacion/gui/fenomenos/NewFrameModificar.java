@@ -26,6 +26,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.JTextArea;
 
 public class NewFrameModificar  {
 	
@@ -35,9 +36,10 @@ public class NewFrameModificar  {
 	private JButton btnEliminar;
 	private JButton btnCancelar;
 	private JTextField txtFNombre;
-	private JTextField textFDescripcion;
 	private JTextField txtFTelefono;
+	private JTextArea txtADescripcion;
 	private JComboBox comboBox; 
+
 
 	private ServiciosFenomeno fenomenoSrv = ServiciosFenomeno.getInstance();
 	
@@ -63,9 +65,9 @@ public class NewFrameModificar  {
 	public NewFrameModificar() {
 		
 		frmGestionFenomenos = new JFrame();
-		frmGestionFenomenos.setTitle("GEONat - Registro de Fen\u00F3menos");
+		frmGestionFenomenos.setTitle("GEONat - Modificar Fen\u00F3menos");
 		frmGestionFenomenos.setResizable(false);
-		frmGestionFenomenos.setBounds(100, 100, 392, 496);
+		frmGestionFenomenos.setBounds(100, 100, 1200, 800);
 		frmGestionFenomenos.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		frmGestionFenomenos.getContentPane().setLayout(null);
 		
@@ -73,9 +75,12 @@ public class NewFrameModificar  {
 		btnGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Fenomeno f = new Fenomeno();
-				f.setId_Fenomeno((Integer)comboBox.getSelectedItem());
+				String item = comboBox.getSelectedItem().toString();
+				String[] parts = item.split(" - ");
+				Integer ID = Integer.parseInt(parts[0]); 
+				f.setId_Fenomeno(ID);
 				f.setNombre(txtFNombre.getText());
-				f.setDescripcion(textFDescripcion.getText());
+				f.setDescripcion(txtADescripcion.getText());
 				f.setTelefono(txtFTelefono.getText());
 				
 				
@@ -88,27 +93,22 @@ public class NewFrameModificar  {
 				}
 			}
 		});
-		btnGuardar.setFont(new Font("Tahoma", Font.BOLD, 15));
-		btnGuardar.setBounds(10, 324, 179, 50);
+		btnGuardar.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		btnGuardar.setBounds(10, 324, 270, 40);
 		frmGestionFenomenos.getContentPane().add(btnGuardar);
 		
-		btnEliminar = new JButton("Eliminar");
-		btnEliminar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-		
-				try {
-					fenomenoSrv.delete((Integer)comboBox.getSelectedItem());
-					JOptionPane.showMessageDialog(null, "Fenomeno Eliminado");
-				} catch (ServiciosException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-			}
-		});
-		btnEliminar.setForeground(Color.RED);
-		btnEliminar.setFont(new Font("Tahoma", Font.BOLD, 16));
-		btnEliminar.setBounds(194, 324, 124, 50);
-		frmGestionFenomenos.getContentPane().add(btnEliminar);
+		/*
+		 * btnEliminar = new JButton("Eliminar"); btnEliminar.addActionListener(new
+		 * ActionListener() { public void actionPerformed(ActionEvent e) {
+		 * 
+		 * try { fenomenoSrv.delete((Integer)comboBox.getSelectedItem());
+		 * JOptionPane.showMessageDialog(null, "Fenomeno Eliminado"); } catch
+		 * (ServiciosException e1) { // TODO Auto-generated catch block
+		 * e1.printStackTrace(); } } }); btnEliminar.setForeground(Color.RED);
+		 * btnEliminar.setFont(new Font("Tahoma", Font.BOLD, 16));
+		 * btnEliminar.setBounds(194, 324, 124, 50);
+		 * frmGestionFenomenos.getContentPane().add(btnEliminar);
+		 */
 		
 		btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(new ActionListener() {
@@ -116,54 +116,59 @@ public class NewFrameModificar  {
 				frmGestionFenomenos.hide();
 			}
 		});
-		btnCancelar.setFont(new Font("Tahoma", Font.BOLD, 13));
-		btnCancelar.setBounds(98, 385, 138, 50);
+		btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		btnCancelar.setBounds(348, 324, 270, 40);
 		frmGestionFenomenos.getContentPane().add(btnCancelar);
 		
 		txtFNombre = new JTextField();
-		txtFNombre.setBounds(98, 120, 206, 31);
+		txtFNombre.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		txtFNombre.setBounds(348, 106, 270, 40);
 		frmGestionFenomenos.getContentPane().add(txtFNombre);
 		txtFNombre.setColumns(10);
 		
 		JLabel lblNombre = new JLabel("Nombre");
-		lblNombre.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblNombre.setBounds(10, 120, 78, 31);
+		lblNombre.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblNombre.setBounds(10, 120, 270, 40);
 		frmGestionFenomenos.getContentPane().add(lblNombre);
 		
-		JLabel lblDescripcion = new JLabel("Descripcion");
-		lblDescripcion.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblDescripcion.setBounds(10, 175, 78, 31);
+		JLabel lblDescripcion = new JLabel("Descripci\u00F3n");
+		lblDescripcion.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblDescripcion.setBounds(10, 175, 270, 40);
 		frmGestionFenomenos.getContentPane().add(lblDescripcion);
 		
-		textFDescripcion = new JTextField();
-		textFDescripcion.setBounds(98, 175, 206, 69);
-		frmGestionFenomenos.getContentPane().add(textFDescripcion);
-		textFDescripcion.setColumns(10);
-		
 		txtFTelefono = new JTextField();
-		txtFTelefono.setBounds(98, 263, 206, 31);
+		txtFTelefono.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		txtFTelefono.setBounds(348, 263, 270, 40);
 		frmGestionFenomenos.getContentPane().add(txtFTelefono);
 		txtFTelefono.setColumns(10);
 		
-		JLabel lblTelefonoDe = new JLabel("Telefono");
-		lblTelefonoDe.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		JLabel lblTelefonoDe = new JLabel("Tel\u00E9fono");
+		lblTelefonoDe.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblTelefonoDe.setBounds(10, 263, 78, 28);
 		frmGestionFenomenos.getContentPane().add(lblTelefonoDe);
 		
 		comboBox = new JComboBox();
 		comboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				cargarDatos((Integer)comboBox.getSelectedItem());
+				String item = comboBox.getSelectedItem().toString();
+				String[] parts = item.split(" - ");
+				Integer ID = Integer.parseInt(parts[0]); 
+				cargarDatos(ID);
 			}
 		});
 		comboBox.setFont(new Font("Tahoma", Font.BOLD, 16));
-		comboBox.setBounds(183, 39, 108, 42);
+		comboBox.setBounds(348, 40, 270, 40);
 		frmGestionFenomenos.getContentPane().add(comboBox);
 		
-		JLabel lblSeleccioneElId = new JLabel("Seleccione el ID del fenomeno");
-		lblSeleccioneElId.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblSeleccioneElId.setBounds(10, 39, 163, 42);
+		JLabel lblSeleccioneElId = new JLabel("Seleccione el ID del fen\u00F3meno");
+		lblSeleccioneElId.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblSeleccioneElId.setBounds(10, 39, 270, 40);
 		frmGestionFenomenos.getContentPane().add(lblSeleccioneElId);
+		
+		txtADescripcion = new JTextArea();
+		txtADescripcion.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		txtADescripcion.setBounds(348, 159, 270, 100);
+		frmGestionFenomenos.getContentPane().add(txtADescripcion);
 		
 		try {
 			cargarComboBox();
@@ -177,7 +182,7 @@ public class NewFrameModificar  {
 		try {
 			List<Fenomeno> fen =  fenomenoSrv.obtenerTodos();
 			for (Fenomeno f : fen) {
-				comboBox.addItem((Integer)f.getId_Fenomeno());
+				comboBox.addItem((Integer)f.getId_Fenomeno()+" - "+f.getNombre());
 			}
 			
 		}catch (Exception e) {
@@ -193,7 +198,7 @@ public class NewFrameModificar  {
 			List<Fenomeno> fen =  fenomenoSrv.obtenerUnoID(filtro);
 			for (Fenomeno f : fen) {
 				txtFNombre.setText(f.getNombre());;
-				textFDescripcion.setText(f.getDescripcion());;
+				txtADescripcion.setText(f.getDescripcion());;
 				txtFTelefono.setText(f.getTelefono());;
 			}
 			
