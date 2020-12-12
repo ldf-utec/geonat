@@ -14,6 +14,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JButton;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
@@ -39,6 +40,8 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.JFormattedTextField;
 import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Color;
 
 public class FrameListarCaracteristicas extends JFrame implements DocumentListener {
 
@@ -80,19 +83,25 @@ public class FrameListarCaracteristicas extends JFrame implements DocumentListen
 		frmListarCaracteristicas = new JFrame();
 		frmListarCaracteristicas.setResizable(false);
 		frmListarCaracteristicas.setMinimumSize(new Dimension(800, 600));
-		frmListarCaracteristicas.setMaximumSize(new Dimension(800, 600));
-		frmListarCaracteristicas.setTitle("GEONat - Lista de Caracteristicas");
+		frmListarCaracteristicas.setMaximumSize(new Dimension(1200, 800));
+		frmListarCaracteristicas.setTitle("GEONat - Eliminar Caracter\u00EDsticas");
 		frmListarCaracteristicas.setBounds(100, 100, 800, 600);
 		frmListarCaracteristicas.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		
-		JLabel lblNombreDeCaracteristica = new JLabel("Filtrar por nombre de caracteristica:");
+		JLabel lblNombreDeCaracteristica = new JLabel("Filtrar por nombre de caracter\u00EDstica:");
+		lblNombreDeCaracteristica.setBounds(40, 55, 300, 40);
+		lblNombreDeCaracteristica.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		
 		txtFiltroNombreCaracteristica = new JTextField();
+		txtFiltroNombreCaracteristica.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		txtFiltroNombreCaracteristica.setBounds(337, 60, 255, 30);
 		txtFiltroNombreCaracteristica.setColumns(10);
 		
  
 		//Boton Cerrar
 		JButton btnCerrar = new JButton("Cerrar");
+		btnCerrar.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		btnCerrar.setBounds(565, 522, 180, 40);
 		btnCerrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evento) {
 				frmListarCaracteristicas.hide();
@@ -101,8 +110,12 @@ public class FrameListarCaracteristicas extends JFrame implements DocumentListen
 		});
 		
 		scrollPane = new JScrollPane();
+		scrollPane.setBounds(40, 111, 705, 382);
 		
 		JButton btnEliminarCaracteristica = new JButton("Eliminar Caracteristica");
+		btnEliminarCaracteristica.setForeground(Color.RED);
+		btnEliminarCaracteristica.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		btnEliminarCaracteristica.setBounds(40, 520, 210, 40);
 		btnEliminarCaracteristica.setEnabled(false);
 		btnEliminarCaracteristica.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -121,41 +134,12 @@ public class FrameListarCaracteristicas extends JFrame implements DocumentListen
 				
 			}
 		});
-		
-		GroupLayout groupLayout = new GroupLayout(frmListarCaracteristicas.getContentPane());
-		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.TRAILING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap(40, Short.MAX_VALUE)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 705, GroupLayout.PREFERRED_SIZE)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(lblNombreDeCaracteristica, GroupLayout.PREFERRED_SIZE, 209, GroupLayout.PREFERRED_SIZE)
-							.addGap(18)
-							.addComponent(txtFiltroNombreCaracteristica, GroupLayout.PREFERRED_SIZE, 196, GroupLayout.PREFERRED_SIZE))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(btnEliminarCaracteristica, GroupLayout.PREFERRED_SIZE, 132, GroupLayout.PREFERRED_SIZE)
-							.addGap(454)
-							.addComponent(btnCerrar, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE)))
-					.addGap(49))
-		);
-		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(53)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblNombreDeCaracteristica, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-						.addComponent(txtFiltroNombreCaracteristica, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(30)
-					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 382, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnCerrar)
-						.addComponent(btnEliminarCaracteristica))
-					.addGap(23))
-		);
+		frmListarCaracteristicas.getContentPane().setLayout(null);
 		
 		table = new JTable();
+		table.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		JTableHeader tableHeader = table.getTableHeader();
+		tableHeader.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
 			},
@@ -163,7 +147,11 @@ public class FrameListarCaracteristicas extends JFrame implements DocumentListen
 			}
 		));
 		scrollPane.setViewportView(table);
-		frmListarCaracteristicas.getContentPane().setLayout(groupLayout);
+		frmListarCaracteristicas.getContentPane().add(scrollPane);
+		frmListarCaracteristicas.getContentPane().add(lblNombreDeCaracteristica);
+		frmListarCaracteristicas.getContentPane().add(txtFiltroNombreCaracteristica);
+		frmListarCaracteristicas.getContentPane().add(btnEliminarCaracteristica);
+		frmListarCaracteristicas.getContentPane().add(btnCerrar);
 		
 		try {
 			cargarTabla();
@@ -204,7 +192,7 @@ public class FrameListarCaracteristicas extends JFrame implements DocumentListen
 
 			ArrayList<Caracteristica> caracteristicas =  (ArrayList<Caracteristica>) serviciosCaracteristicas.obtenerTodos(); //ControladorMascotas.obtenerTodasMascotas();
 
-			String[] nombreColumnas = { "ID_Caracteristica", "Nombre", "Etiqueta"};
+			String[] nombreColumnas = { "ID_Caracter\u00EDstica", "Nombre", "Etiqueta"};
 			
 	
 			/*
@@ -280,7 +268,7 @@ public class FrameListarCaracteristicas extends JFrame implements DocumentListen
 	public void filtrar() {
 		
 			List<RowFilter<Object,Object>> filters = new ArrayList<>(1);
-			filters.add(RowFilter.regexFilter(this.txtFiltroNombreCaracteristica.getText(), 2));
+			filters.add(RowFilter.regexFilter(this.txtFiltroNombreCaracteristica.getText(), 1));
 
 			TableRowSorter<TableModel> filtro = new TableRowSorter<>(this.table.getModel());
 			filtro.setRowFilter(RowFilter.andFilter(filters));
