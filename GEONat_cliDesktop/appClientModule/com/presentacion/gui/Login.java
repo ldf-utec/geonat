@@ -159,7 +159,7 @@ public class Login extends JFrame {
 		//Comienzo validaciones de usuario:
 		ServiciosUsuario serviciosUsuario = ServiciosUsuario.getInstance();
 		//Variables que ingreso en el text del login
-		String nombreUsuario = textUsuario.getText();
+		String nombreUsuario = textUsuario.getText().toUpperCase();
 		String clave = String.valueOf(jpassClave.getPassword());
 		
 		
@@ -194,7 +194,7 @@ public class Login extends JFrame {
 		}
 		
 		if(existeUsuario) {
-			if(nombreUsuario.equals(naUsuario) &&  clave.equals(claveUsuario) && perfil.equals("ADMINISTRADOR")) {
+			if(nombreUsuario.toUpperCase().equals(naUsuario.toUpperCase()) &&  clave.equals(claveUsuario) && perfil.toUpperCase().equals("ADMINISTRADOR")) {
 				dispose();
 				JOptionPane.showMessageDialog(null,"Bienvenido al Sistema","Login Correcto",JOptionPane.INFORMATION_MESSAGE);
 				
@@ -206,7 +206,7 @@ public class Login extends JFrame {
 					}
 				});
 				
-			}else if(nombreUsuario.equals(naUsuario) &&  clave.equals(claveUsuario) && perfil.equals("EXPERTO")) {
+			}else if(nombreUsuario.toUpperCase().equals(naUsuario.toUpperCase()) &&  clave.equals(claveUsuario) && perfil.toUpperCase().equals("EXPERTO")) {
 				dispose();
 				JOptionPane.showMessageDialog(null,"Bienvenido al Sistema","Login Correcto",JOptionPane.INFORMATION_MESSAGE);
 				
@@ -231,7 +231,7 @@ public class Login extends JFrame {
 				});
 			}
 			//Para ONG
-			else if(nombreUsuario.equals(naUsuario) &&  clave.equals(claveUsuario) && perfil.equals("ONG") ) {
+			else if(nombreUsuario.toUpperCase().equals(naUsuario.toUpperCase()) &&  clave.equals(claveUsuario) && perfil.toUpperCase().equals("ONG") ) {
 				dispose();
 				JOptionPane.showMessageDialog(null,"Bienvenido al Sistema","Login Correcto",JOptionPane.INFORMATION_MESSAGE);
 				
@@ -259,7 +259,7 @@ public class Login extends JFrame {
 			
 		
 		
-		else if(nombreUsuario.equals(naUsuario) &&  clave.equals(claveUsuario) && perfil.equals("ORGANISMOPRIVADO") ) {
+		else if(nombreUsuario.toUpperCase().equals(naUsuario.toUpperCase()) &&  clave.equals(claveUsuario) && perfil.toUpperCase().equals("ORGANISMO PRIVADO") ) {
 			dispose();
 			JOptionPane.showMessageDialog(null,"Bienvenido al Sistema","Login Correcto",JOptionPane.INFORMATION_MESSAGE);
 			
@@ -287,7 +287,7 @@ public class Login extends JFrame {
 		
 
 		
-		else if(nombreUsuario.equals(naUsuario) &&  clave.equals(claveUsuario) && perfil.equals("USUARIO") ) {
+		else if(nombreUsuario.toUpperCase().equals(naUsuario.toUpperCase()) &&  clave.equals(claveUsuario) && perfil.toUpperCase().equals("USUARIO COMUN") ) {
 			dispose();
 			JOptionPane.showMessageDialog(null,"Bienvenido al Sistema","Login Correcto",JOptionPane.INFORMATION_MESSAGE);
 			

@@ -6,7 +6,7 @@ public enum TipoUsuario{
 	EXPERTO("Experto",2),
 	ONG("ONG",3),
 	ORGANISMOPRIVADO("Organismo Privado",4),
-	USUARIO("Usuario Común",5);
+	USUARIO("Usuario Comun",5);
 	
 	private int id_tipoUsuario;
 	private String nombre;
