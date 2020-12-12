@@ -14,6 +14,5 @@ public interface ICaracteristicaDAO {
 	void delete(int id) throws ServiciosException;
 	List<Caracteristica> obtenerTodos() throws ServiciosException;
 	List<Caracteristica> obtenerTodosFiltro(String filtro) throws ServiciosException;
-	boolean existeIdCaracteristica(Caracteristica caracteristica) throws ServiciosException;
 	public Caracteristica obtenerUno(int id) throws ServiciosException;
 }
