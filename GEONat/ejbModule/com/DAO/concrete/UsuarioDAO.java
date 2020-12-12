@@ -115,8 +115,10 @@ public class UsuarioDAO implements IUsuarioDAO {
 	public Usuario obtenerPorNombre(String nombreUsuario) throws ServiciosException{
 		
 		Usuario usr = new Usuario();
+		nombreUsuario = nombreUsuario.toUpperCase();
 		try {
-		TypedQuery<Usuario> query = em.createNamedQuery("Usuario.obtenerUno", Usuario.class).setParameter("filtro", nombreUsuario);
+			TypedQuery<Usuario> query = em.createNamedQuery("Usuario.obtenerPorNombre", Usuario.class)
+					.setParameter("filtro", nombreUsuario);
 		//query.setMaxResults(1);
 		List<Usuario> lista = query.getResultList();
 		if (lista.size()>0) {
