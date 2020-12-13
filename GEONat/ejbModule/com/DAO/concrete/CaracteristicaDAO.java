@@ -95,5 +95,17 @@ public class CaracteristicaDAO implements ICaracteristicaDAO {
 			throw new ServiciosException("Error al consultar");
 		}
 	}
+	
+	@Override
+	public boolean existeNombreCaracteristica(String nombre) throws ServiciosException {
+		TypedQuery<Long> query = em.createNamedQuery("Caracteristica.existeNombreCaracteristica", Long.class)
+				.setParameter("filtro", nombre);
+		if (query.getSingleResult()==0) {
+			return false;
+		} else {
+			return true;
+		}
+
+	}
 
 }

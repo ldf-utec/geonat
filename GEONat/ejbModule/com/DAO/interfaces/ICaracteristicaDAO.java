@@ -15,4 +15,5 @@ public interface ICaracteristicaDAO {
 	List<Caracteristica> obtenerTodos() throws ServiciosException;
 	List<Caracteristica> obtenerTodosFiltro(String filtro) throws ServiciosException;
 	public Caracteristica obtenerUno(int id) throws ServiciosException;
+	boolean existeNombreCaracteristica(String nombre) throws ServiciosException;
 }
