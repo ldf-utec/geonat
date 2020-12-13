@@ -35,6 +35,12 @@ import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.Rectangle;
 import javax.swing.SwingConstants;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class AltaUsuario extends JFrame {
 
@@ -50,7 +56,8 @@ public class AltaUsuario extends JFrame {
 	private JPasswordField password1;
 	private JPasswordField password2;
 	private JTextField correo;
-
+	JComboBox comboTipoDocumento;
+	JComboBox comboTipoUsuario;
 
 	/**
 	 * Launch the application.
@@ -113,7 +120,7 @@ public class AltaUsuario extends JFrame {
 		JLabel lblDocumento = new JLabel("Documento:");
 		lblDocumento.setBounds(new Rectangle(0, 0, 300, 0));
 		lblDocumento.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblDocumento.setBounds(574, 336, 113, 40);
+		lblDocumento.setBounds(580, 334, 113, 32);
 		JLabel lblDireccion = new JLabel("Direcci\u00F3n:");
 		lblDireccion.setBounds(new Rectangle(0, 0, 300, 0));
 		lblDireccion.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -121,7 +128,7 @@ public class AltaUsuario extends JFrame {
 		JCheckBox checkboxUsuarioActivo = new JCheckBox("Activaci\u00F3n de usuario");
 		checkboxUsuarioActivo.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		checkboxUsuarioActivo.setSelected(true);
-		checkboxUsuarioActivo.setBounds(284, 664, 276, 18);
+		checkboxUsuarioActivo.setBounds(276, 664, 284, 28);
 		JLabel lblPassword = new JLabel("Password:");
 		lblPassword.setBounds(new Rectangle(0, 0, 300, 0));
 		lblPassword.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -136,34 +143,113 @@ public class AltaUsuario extends JFrame {
 		lblCorreo.setBounds(64, 474, 212, 28);
 		
 		nombreUsuario = new JTextField();
+		nombreUsuario.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				if(nombreUsuario.getText().length()>=25&&!(e.getKeyChar()==KeyEvent.VK_DELETE||e.getKeyChar()==KeyEvent.VK_BACK_SPACE)) {
+		            getToolkit().beep();
+		            e.consume();
+		         }			
+			}
+		});		
 		nombreUsuario.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		nombreUsuario.setBounds(276, 169, 250, 40);
 		nombreUsuario.setColumns(10);
+		
 		nombre = new JTextField();
+		nombre.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				if(nombre.getText().length()>=25&&!(e.getKeyChar()==KeyEvent.VK_DELETE||e.getKeyChar()==KeyEvent.VK_BACK_SPACE)) {
+		            getToolkit().beep();
+		            e.consume();
+		         }	
+			}
+		});
 		nombre.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		nombre.setBounds(276, 241, 250, 40);
 		nombre.setColumns(10);
+		
 		apellido = new JTextField();
+		apellido.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				if(apellido.getText().length()>=25&&!(e.getKeyChar()==KeyEvent.VK_DELETE||e.getKeyChar()==KeyEvent.VK_BACK_SPACE)) {
+		            getToolkit().beep();
+		            e.consume();
+		         }	
+			}
+		});
 		apellido.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		apellido.setBounds(692, 241, 250, 40);
+		apellido.setBounds(715, 240, 250, 40);
 		apellido.setColumns(10);
+		
 		documento = new JTextField();
+		documento.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				if(documento.getText().length()>=25&&!(e.getKeyChar()==KeyEvent.VK_DELETE||e.getKeyChar()==KeyEvent.VK_BACK_SPACE)) {
+		            getToolkit().beep();
+		            e.consume();
+		         }
+			}
+		});
 		documento.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		documento.setBounds(692, 336, 250, 40);
+		documento.setBounds(715, 335, 250, 40);
 		documento.setColumns(10);
+		
 		direccion = new JTextField();
+		direccion.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				if(direccion.getText().length()>=50&&!(e.getKeyChar()==KeyEvent.VK_DELETE||e.getKeyChar()==KeyEvent.VK_BACK_SPACE)) {
+		            getToolkit().beep();
+		            e.consume();
+		         }
+			}
+		});
 		direccion.setBounds(new Rectangle(0, 0, 0, 40));
 		direccion.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		direccion.setBounds(276, 404, 450, 40);
 		direccion.setColumns(10);
+		
 		password1 = new JPasswordField();
+		password1.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				if(password1.getText().length()>=25&&!(e.getKeyChar()==KeyEvent.VK_DELETE||e.getKeyChar()==KeyEvent.VK_BACK_SPACE)) {
+		            getToolkit().beep();
+		            e.consume();
+		         }
+			}
+		});
 		password1.setBounds(new Rectangle(0, 0, 0, 40));
 		password1.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		password1.setBounds(276, 531, 195, 40);
+		password1.setBounds(276, 531, 206, 40);
+		
 		password2 = new JPasswordField();
+		password2.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				if(password2.getText().length()>=25&&!(e.getKeyChar()==KeyEvent.VK_DELETE||e.getKeyChar()==KeyEvent.VK_BACK_SPACE)) {
+		            getToolkit().beep();
+		            e.consume();
+		         }
+			}
+		});
 		password2.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		password2.setBounds(276, 583, 195, 40);
+		password2.setBounds(276, 583, 206, 40);
+		
 		correo = new JTextField();
+		correo.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				if(correo.getText().length()>=50&&!(e.getKeyChar()==KeyEvent.VK_DELETE||e.getKeyChar()==KeyEvent.VK_BACK_SPACE)) {
+		            getToolkit().beep();
+		            e.consume();
+		         }
+			}
+		});
 		correo.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		correo.setBounds(276, 468, 450, 40);
 		correo.setColumns(10);
@@ -172,7 +258,7 @@ public class AltaUsuario extends JFrame {
 		
 		
 		// Combobox Tipo de DOCUMENTO
-		JComboBox comboTipoDocumento = new JComboBox();
+		comboTipoDocumento = new JComboBox();
 		comboTipoDocumento.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		comboTipoDocumento.setBounds(276, 337, 250, 40);
 		comboTipoDocumento.removeAllItems(); 
@@ -191,7 +277,7 @@ public class AltaUsuario extends JFrame {
 			
 		
 		// ComboBox Tipo de USUARIO
-		JComboBox comboTipoUsuario = new JComboBox();
+		comboTipoUsuario = new JComboBox();
 		comboTipoUsuario.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		comboTipoUsuario.setBounds(276, 95, 250, 40);
 		comboTipoUsuario.removeAllItems(); 
@@ -219,54 +305,39 @@ public class AltaUsuario extends JFrame {
 					Boolean errores = false;
 					Usuario u = new Usuario();
 					
+					if (hayCamposVacios()) {
+						JOptionPane.showMessageDialog(frmGeonatAlta,  "Falta completar campos obligatorios(*)");
+						return;
+					}									
+					
 					u.setNombreUsuario(nombreUsuario.getText());
 					
 					try {
 						boolean existeUsuario = serviciosUsuarios.existeNombreUsuario(u);
 
-						if (existeUsuario) {
+						if (serviciosUsuarios.existeNombreUsuario(u)) {
 							errores = true;
 							strerror = " El usuario ya existe. ";
 						}
 					} catch (ServiciosException e) {
 						e.printStackTrace();
 					}
-					
-					
-					if ((nombre.getText().length())>50) {
-						errores=true;
-						strerror= strerror + " Nombre con mas de 50 caracteres. ";
-					} else {
-						u.setNombre(nombre.getText());
-					}
-					if ((apellido.getText().length())>50) {
-						errores=true;
-						strerror= strerror + " Apellido con mas de 50 caracteres. ";
-					} else {
-						u.setApellido(apellido.getText());
-					}
+									
+
+					u.setNombre(nombre.getText());
+					u.setApellido(apellido.getText());
 					u.setTipoDocumento(TipoDocumento.valueOf(comboTipoDocumento.getSelectedItem().toString()) );
+					u.setNroDocumento(documento.getText());
+					u.setDireccion(direccion.getText());
 					
-					if ((documento.getText().length())>20) {
-						errores=true;
-						strerror= strerror + " Documento con mas de 20 caracteres. ";
-					} else {
-						u.setNroDocumento(documento.getText());
-					}
-					if ((direccion.getText().length())>100) {
-						errores=true;
-						strerror= strerror + " Direccion con mas de 100 caracteres. ";
-					} else {
-						u.setDireccion(direccion.getText());
-					}
-
-
-					if ((correo.getText().length())>50) {
-						errores=true;
-						strerror= strerror + " Direccion de email con mas de 50 caracteres. ";
-					} else {
+					if (isEmailValid(correo.getText())) {
 						u.setEmail(correo.getText());
+					}else {
+						errores=true;
+						strerror= strerror + " El correo ingresado no es válido. ";
 					}
+					
+
 					if (clavesIdenticas(password1.getPassword(), password2.getPassword())) {
 						u.setPassword(new String(password1.getPassword()));
 					} else {
@@ -274,8 +345,7 @@ public class AltaUsuario extends JFrame {
 						strerror= strerror + " Las contraseñas ingresadas no coinciden. ";
 					}
 									
-					u.setTipoUsuario(TipoUsuario.valueOf(comboTipoUsuario.getSelectedItem().toString()) );
-										
+					u.setTipoUsuario(TipoUsuario.valueOf(comboTipoUsuario.getSelectedItem().toString()) );			
 					u.setEstadoActivo(checkboxUsuarioActivo.isSelected());
 										
 					if (errores) {
@@ -287,6 +357,7 @@ public class AltaUsuario extends JFrame {
 						} catch (ServiciosException err) {
 							
 							err.printStackTrace();
+							JOptionPane.showMessageDialog(null,  "Error al crear usuario en la base de datos");
 						}
 						
 					}
@@ -302,7 +373,7 @@ public class AltaUsuario extends JFrame {
 		btnCancela.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		btnCancela.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evento) {
-				frmGeonatAlta.hide();
+				frmGeonatAlta.dispose();;
 			}
 		});
 		frmGeonatAlta.getContentPane().setLayout(null);
@@ -375,7 +446,7 @@ public class AltaUsuario extends JFrame {
 		label_4.setForeground(Color.RED);
 		label_4.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		label_4.setBounds(new Rectangle(0, 0, 300, 0));
-		label_4.setBounds(943, 255, 33, 28);
+		label_4.setBounds(966, 254, 33, 28);
 		frmGeonatAlta.getContentPane().add(label_4);
 		
 		JLabel label_5 = new JLabel("*");
@@ -389,7 +460,7 @@ public class AltaUsuario extends JFrame {
 		label_6.setForeground(Color.RED);
 		label_6.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		label_6.setBounds(new Rectangle(0, 0, 300, 0));
-		label_6.setBounds(943, 350, 33, 28);
+		label_6.setBounds(966, 358, 33, 17);
 		frmGeonatAlta.getContentPane().add(label_6);
 		
 		JLabel label_7 = new JLabel("*");
@@ -403,14 +474,14 @@ public class AltaUsuario extends JFrame {
 		label_8.setForeground(Color.RED);
 		label_8.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		label_8.setBounds(new Rectangle(0, 0, 300, 0));
-		label_8.setBounds(472, 547, 33, 28);
+		label_8.setBounds(483, 545, 33, 28);
 		frmGeonatAlta.getContentPane().add(label_8);
 		
 		JLabel label_9 = new JLabel("*");
 		label_9.setForeground(Color.RED);
 		label_9.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		label_9.setBounds(new Rectangle(0, 0, 300, 0));
-		label_9.setBounds(472, 597, 33, 28);
+		label_9.setBounds(483, 595, 33, 28);
 		frmGeonatAlta.getContentPane().add(label_9);
 		
 		JLabel label_10 = new JLabel("*");
@@ -426,10 +497,47 @@ public class AltaUsuario extends JFrame {
 		lblCamposObligatorios.setBounds(new Rectangle(0, 0, 300, 0));
 		lblCamposObligatorios.setBounds(64, 737, 200, 28);
 		frmGeonatAlta.getContentPane().add(lblCamposObligatorios);
+		
+		JLabel lblSinPuntosNi = new JLabel("Sin puntos ni guiones");
+		lblSinPuntosNi.setForeground(Color.DARK_GRAY);
+		lblSinPuntosNi.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblSinPuntosNi.setBounds(new Rectangle(0, 0, 300, 0));
+		lblSinPuntosNi.setBounds(966, 343, 200, 17);
+		frmGeonatAlta.getContentPane().add(lblSinPuntosNi);
 
 		
 	}
 	
+	// Devuelve true si todos los campos obligatorios NO están vacíos
+	private boolean hayCamposVacios() {
+		List<JTextField> array = new ArrayList<JTextField>() {
+			{
+				getContentPane().add(nombreUsuario);
+				getContentPane().add(nombre);
+				getContentPane().add(apellido);
+				getContentPane().add(documento);
+				getContentPane().add(correo);
+				getContentPane().add(password1);
+				getContentPane().add(password2);
+			}
+		};
+
+		// Valido los campos de texto que no sean null
+		for (JTextField jTextField : array) {
+			String s = jTextField.getText();
+			if (s.equals("")) {
+				return true;
+			}
+		}
+		
+		// valido los combo
+		if (comboTipoDocumento.getSelectedItem().toString().equals("") || comboTipoUsuario.getSelectedItem().toString().equals("")) {
+			return true;
+		}
+		
+		return false;
+	}
+
 	private boolean clavesIdenticas(char[] j1,char[] j2) {
 		boolean valor = true;
 		int puntero = 0;
@@ -445,4 +553,63 @@ public class AltaUsuario extends JFrame {
 		}
 		return valor;
 		}
+
+	private boolean isEmailValid(String email) {
+	// Patrón para validar el email
+    Pattern pattern = Pattern
+            .compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+                    + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+
+    Matcher mather = pattern.matcher(email);
+
+    if (mather.find() == true) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+	private boolean esCIValida(String ci) {
+
+		if(ci.length() != 7 && ci.length() != 8){
+			return false;
+		}else{
+			try{
+				Integer.parseInt(ci);
+			}catch (NumberFormatException e){
+				return false;
+			}
+		}
+
+		int digVerificador = Integer.parseInt((ci.charAt(ci.length() - 1)) + "" ) ;
+		int[] factores;
+		if(ci.length() == 7){ // CI viejas
+			factores = new int[]{9, 8, 7, 6, 3, 4};
+		}else{
+			factores = new int[]{2, 9, 8, 7, 6, 3, 4};
+		}
+
+for (int i = 0; i < factores.length; i++) {
+	int j = factores[i];
+	
+}
+		int suma = 0;
+		for(int i=0; i int digito = Integer.parseInt(ci.charAt(i) + "" ){ 
+				suma += digito * factores[ i ];
+		}
+
+	for
+	
+		int resto = suma % 10;
+		int checkdigit = 10 - resto;
+
+		if(checkdigit == 10){
+			return (digVerificador == 0);
+		}else {
+			return (checkdigit == digVerificador) ;
+		}
+
+	}
+
+
 }
