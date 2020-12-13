@@ -18,7 +18,7 @@ public class Usuario implements Serializable {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "usuarioSeq")
 	private Integer Id_Usuario;
 	
-	@Basic(optional = true)
+	@Basic(optional = false)
 	@Column(length = 50)
 	private String nombreUsuario;
 	
@@ -38,7 +38,7 @@ public class Usuario implements Serializable {
 	@Column(length = 20, unique=true)
 	private String nroDocumento;
 	
-	@Basic(optional = true)
+	@Basic(optional = false)
 	@Column(length = 50, unique=true)
 	private String email;
 	
@@ -46,16 +46,16 @@ public class Usuario implements Serializable {
 	/**/ @Column(length=100)
 	private String direccion;
 		
-	@Basic(optional = true)
+	@Basic(optional = false)
 	private Boolean estadoActivo;
 	
 	
-	@Basic(optional = true)
+	@Basic(optional = false)
 	@Enumerated(value = EnumType.STRING)
 	private TipoUsuario tipoUsuario;
 		
 	
-	@Basic(optional = true)
+	@Basic(optional = false)
 	@Column(length = 50)
 	private String password;
 	
