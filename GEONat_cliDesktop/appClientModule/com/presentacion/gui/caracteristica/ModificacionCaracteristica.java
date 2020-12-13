@@ -188,7 +188,7 @@ public class ModificacionCaracteristica {
 		comboIDCaracteristica.setBounds(181, 22, 58, 20);
 		frmModificarCaracteristica.getContentPane().add(comboIDCaracteristica);
 		
-		//Accion boton confirmae
+		//Accion boton confirmar
 		btnConfirmarModificacion.addActionListener(new ActionListener() {
 			
 		public void actionPerformed(ActionEvent evento) {

@@ -11,27 +11,24 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-import javax.swing.table.DefaultTableModel;
-
-import com.DAO.concrete.FenomenosDAO;
-import com.DAO.interfaces.ICaracteristicaDAO;
-import com.DAO.interfaces.IFenomenoDAO;
-import com.DAO.interfaces.IUsuarioDAO;
 import com.entities.Caracteristica;
 import com.entities.Fenomeno;
 import com.entities.TipoDato;
 import com.entities.TipoDocumento;
-import com.entities.TipoUsuario;
-import com.entities.Usuario;
 import com.exception.ServiciosException;
 import com.presentacion.servicios.ServiciosCaracteristica;
 import com.presentacion.servicios.ServiciosFenomeno;
-import com.presentacion.servicios.ServiciosUsuario;
 
 import javax.swing.JComboBox;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.swing.JButton;
+import java.awt.Font;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.Color;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class AltaCaracteristica {
 
@@ -41,6 +38,10 @@ public class AltaCaracteristica {
 	public JFrame frmG;
 	private JTextField txtFNombre;
 	private JTextField txtFEtiqueta;
+	private int limiteNombre = 50;
+	private int limiteEtiqueta = 50;
+	private JComboBox comboBFenomAsoc;
+	private JComboBox comboBTipoDato;
 
 	/**
 	 * Launch the application.
@@ -73,80 +74,127 @@ public class AltaCaracteristica {
 		
 		
 		frmG = new JFrame();
-		frmG.setTitle("GEONat - Alta de una caracteristica");
-		frmG.setBounds(100, 100, 450, 300);
-		frmG.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		frmG.setTitle("GEONat - Registro de una caracter\u00EDstica");
+		frmG.setBounds(100, 100, 1200, 800);
+		frmG.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmG.getContentPane().setLayout(null);
+		frmG.setResizable(false);
 		
 		JLabel lblNombre = new JLabel("Nombre de la caracter\u00EDstica");
-		lblNombre.setBounds(10, 25, 141, 14);
+		lblNombre.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblNombre.setBounds(150, 100, 250, 40);
 		frmG.getContentPane().add(lblNombre);
 		
 		txtFNombre = new JTextField();
-		txtFNombre.setBounds(181, 22, 206, 20);
+		txtFNombre.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				if (txtFNombre.getText().length() > limiteNombre) {
+					JOptionPane.showMessageDialog(null,"Debe ingresar menos de "+limiteNombre+" caracteres", null, JOptionPane.WARNING_MESSAGE);
+					e.consume();
+				}
+			}
+		});
+		txtFNombre.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		txtFNombre.setBounds(500, 105, 350, 30);
 		frmG.getContentPane().add(txtFNombre);
 		txtFNombre.setColumns(10);
 		
+		JLabel lblErrorNombre = new JLabel("Debe ingresar un nombre");
+		lblErrorNombre.setForeground(Color.RED);
+		lblErrorNombre.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		lblErrorNombre.setBounds(850, 105, 250, 30);
+		lblErrorNombre.setVisible(false);
+		frmG.getContentPane().add(lblErrorNombre);
+		
 		JLabel lblEtiqueta = new JLabel("Etiqueta de presentaci\u00F3n");
-		lblEtiqueta.setBounds(10, 63, 141, 14);
+		lblEtiqueta.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblEtiqueta.setBounds(150, 240, 250, 40);
 		frmG.getContentPane().add(lblEtiqueta);
 		
 		txtFEtiqueta = new JTextField();
-		txtFEtiqueta.setBounds(181, 60, 206, 34);
+		txtFEtiqueta.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				if(txtFEtiqueta.getText().length() > limiteEtiqueta) {
+					JOptionPane.showMessageDialog(null,"Debe ingresar menos de "+limiteEtiqueta+" caracteres", null, JOptionPane.WARNING_MESSAGE);
+					e.consume();
+				}
+			}
+		});
+		txtFEtiqueta.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		txtFEtiqueta.setBounds(500, 245, 350, 30);
 		frmG.getContentPane().add(txtFEtiqueta);
 		txtFEtiqueta.setColumns(10);
 		
+		JLabel lblErrorEtiqueta = new JLabel("Debe ingresar una etiqueta de presentaci\u00F3n");
+		lblErrorEtiqueta.setForeground(Color.RED);
+		lblErrorEtiqueta.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		lblErrorEtiqueta.setBounds(850, 245, 338, 30);
+		lblErrorEtiqueta.setVisible(false);
+		frmG.getContentPane().add(lblErrorEtiqueta);
+		
 		JLabel lblTipoDeDato = new JLabel("Tipo de Dato");
-		lblTipoDeDato.setBounds(10, 117, 125, 14);
+		lblTipoDeDato.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblTipoDeDato.setBounds(150, 380, 250, 40);
 		frmG.getContentPane().add(lblTipoDeDato);
 		
+		
 		JLabel lblFenomenoAsociado = new JLabel("Fen\u00F3meno Asociado");
-		lblFenomenoAsociado.setBounds(10, 157, 125, 14);
+		lblFenomenoAsociado.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblFenomenoAsociado.setBounds(150, 520, 250, 40);
 		frmG.getContentPane().add(lblFenomenoAsociado);
 		
+		JLabel lblErrorFen = new JLabel("A\u00FAn no se han creado fen\u00F3menos");
+		lblErrorFen.setForeground(Color.YELLOW);
+		lblErrorFen.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		lblErrorFen.setBounds(850, 525, 262, 30);
+		lblErrorFen.setVisible(false);
+		frmG.getContentPane().add(lblErrorFen);
 		
 		// Combo Fenomeno Asociado		
-		JComboBox comboBFenomAsoc = new JComboBox();
-		comboBFenomAsoc.setBounds(181, 154, 206, 20);
+		comboBFenomAsoc = new JComboBox();
+		comboBFenomAsoc.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		comboBFenomAsoc.setBounds(500, 525, 350, 30);
 		frmG.getContentPane().add(comboBFenomAsoc);
 		try {
 			List<Fenomeno> fen = cargarfenomenos();
-			for (Fenomeno f : fen) {
-				comboBFenomAsoc.addItem(f.getNombre());
+			if (fen == null) {
+				lblErrorFen.setVisible(true);
 			}
 		} catch (ServiciosException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		comboBFenomAsoc.addItem("No Tiene");
 		
 		comboBFenomAsoc.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent eventocombo) {
 				comboBFenomAsoc.getSelectedIndex();
-				
 			}
 		});	
 		
 		
 		// Combo TipoDato
-		JComboBox comboBTipoDato = new JComboBox();
-		comboBTipoDato.setBounds(181, 114, 206, 20);
+		comboBTipoDato = new JComboBox();
+		comboBTipoDato.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		comboBTipoDato.setBounds(500, 385, 350, 30);
 		frmG.getContentPane().add(comboBTipoDato);
-		comboBTipoDato.removeAllItems(); 
-		comboBTipoDato.addItem("");
+		comboBTipoDato.removeAllItems();
 		TipoDato[] tipoDatoList = TipoDato.values();
 		for (TipoDato tipoDato : tipoDatoList) {
 			comboBTipoDato.addItem(tipoDato);
 		}
 		comboBTipoDato.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent eventocombo) {
-				comboBTipoDato.getSelectedIndex();
-				
+				comboBTipoDato.getSelectedIndex();		
 			}
 		});
 		
 		// Botón CANCELAR
-		JButton btnCancelarAlta = new JButton("Cancelar Alta");
-		btnCancelarAlta.setBounds(10, 210, 104, 23);
+		JButton btnCancelarAlta = new JButton("Cancelar");
+		btnCancelarAlta.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		btnCancelarAlta.setBounds(920, 660, 180, 40);
 		frmG.getContentPane().add(btnCancelarAlta);
 		btnCancelarAlta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evento) {
@@ -155,66 +203,41 @@ public class AltaCaracteristica {
 			
 		});
 		
-		// Botón GUARDAR
-		JButton btnDarDeAlta = new JButton("Confirmar alta");
-		btnDarDeAlta.setBounds(271, 210, 116, 23);
+		// Botón Confirmar
+		JButton btnDarDeAlta = new JButton("Confirmar");
+		btnDarDeAlta.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		btnDarDeAlta.setBounds(100, 660, 180, 40);
 		frmG.getContentPane().add(btnDarDeAlta);
+		
 		
 		btnDarDeAlta.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent evento) {
-			String strerror = "";
-			Boolean errores = false;
-			Caracteristica caract = new Caracteristica();
-			
-			
-			// VALIDACIONES de campos	
-			if ((txtFEtiqueta.getText().length())>50) {
-				errores=true;
-				strerror= strerror + " Etiqueta con mas de 50 caracteres. ";
-			} else {
-				caract.setEtiqPresentacion(txtFEtiqueta.getText());
-			}
-			if ((txtFNombre.getText().length())>50) {
-				errores=true;
-				strerror= strerror + " Nombre caracteristica con mas de 50 caracteres. ";
-			} else {
-				caract.setNombre(txtFNombre.getText());
-			}
-					
-								
-			if (errores) {
-				JOptionPane.showMessageDialog(null,  strerror);
-			} else {
+			if (txtFNombre.getText().isEmpty()) {
+				lblErrorNombre.setVisible(true);
+				txtFEtiqueta.setText("");
+				comboBTipoDato.setSelectedIndex(0);
+				comboBFenomAsoc.setSelectedIndex(0);
+			} else if (txtFEtiqueta.getText().isEmpty()) {
+				lblErrorEtiqueta.setVisible(true);
+				txtFNombre.setText("");
+				comboBTipoDato.setSelectedIndex(0);
+				comboBFenomAsoc.setSelectedIndex(0);
+			}else {
 				try {
-					
-					int idFenomeno =0;
-					Fenomeno f = new Fenomeno();
-					
-					try {
-						
-						idFenomeno = comboBFenomAsoc.getSelectedIndex();
-						
-						f = serviciosFenomeno.obtenerUno(idFenomeno+1);
-										
-						} catch ( ServiciosException e) {
-							e.printStackTrace();
-							throw new ServiciosException("Error al obtener el fenómeno.");
-						}
-					
-					caract.setFenomeno(f);;
-											
-					caract.setTipoDato(TipoDato.valueOf(comboBTipoDato.getSelectedItem().toString()));
-					
-					serviciosCaracteristicas.create(caract);
-					JOptionPane.showMessageDialog(null,  "Caracteristica Creada");
-					
-				}catch ( ServiciosException e) {
-					
-					System.out.println("Error al crear característica.");	
+					altaCaracteristica(
+							txtFNombre.getText(), 
+							txtFEtiqueta.getText(), 
+							TipoDato.valueOf(comboBTipoDato.getSelectedItem().toString ()), 
+							comboBFenomAsoc.getSelectedItem().toString());
+				} catch (ServiciosException e) {
 					e.printStackTrace();
-					JOptionPane.showMessageDialog(null,  "Error al crear característica. " + e.getMessage());
-						
 				}
+				txtFNombre.setText("");
+				txtFEtiqueta.setText("");
+				comboBTipoDato.setSelectedIndex(0);
+				comboBFenomAsoc.setSelectedIndex(0);
+				lblErrorNombre.setVisible(false);
+				lblErrorEtiqueta.setVisible(false);
 			}
 		}
 		});
@@ -222,19 +245,95 @@ public class AltaCaracteristica {
 	
 	
 	
-	
+	//Metodo que carga los nombres de los fenomenos en el combo fenomenos asociados
 	private List<Fenomeno> cargarfenomenos() throws ServiciosException {
-		ArrayList<Fenomeno> fenomenos = null;
+		List<Fenomeno> fenomenos = null;
 		try {
-			fenomenos = (ArrayList<Fenomeno>) serviciosFenomeno.obtenerTodos(); 
-			
-			} catch (ServiciosException e) {
-				e.printStackTrace();
+			fenomenos = serviciosFenomeno.obtenerTodos();
+			if(fenomenos != null) {
+				for (Fenomeno f : fenomenos) {
+					comboBFenomAsoc.addItem(f.getNombre());
 				}
-		
+			} else {
+				fenomenos = null;
+			}
+		} catch (ServiciosException e) {
+			e.printStackTrace();
+		}
 		return fenomenos;
-	
-	
 	}
-
+	
+	//metodo que se encarga del registro de caracteristica
+	private void altaCaracteristica(String nombre, String etiqueta, TipoDato tipoDato, String fenomeno) throws ServiciosException {
+		String strerror = "";
+		Boolean errores = false;
+		Caracteristica caract = new Caracteristica();
+			
+		// VALIDACIONES de campos
+		//Campo Nombre
+		if (!(nombre.length() >50)) {
+			if (serviciosCaracteristicas.existeNombreCaracteristica(nombre.toUpperCase())) {
+				strerror= strerror + "El nombre de la característica ya existe.";
+				errores = true;
+			}else {
+				caract.setNombre(nombre);
+			}			
+		} else {
+			errores=true;
+			strerror= strerror + "Nombre caracteristica con mas de 50 caracteres. ";
+		}
+		
+		//Campo Etiqueta
+		if (!(etiqueta.length()>50)) {
+			caract.setEtiqPresentacion(etiqueta);
+		} else {
+			errores=true;
+			strerror= strerror + " Etiqueta con mas de 50 caracteres. ";
+		}
+		
+		//Campo fenomeno
+		Fenomeno f = new Fenomeno();
+		if (fenomeno.equals("No tiene")) {
+			f = null;
+			caract.setFenomeno(f);
+		} else {
+			f = obtenerFenom (fenomeno);
+			caract.setFenomeno(f);
+		}
+		
+		//Campo tipo dato
+		caract.setTipoDato(tipoDato);
+		
+		if (errores) {
+			JOptionPane.showMessageDialog(null,  strerror);
+		} else {
+			try {	
+				serviciosCaracteristicas.create(caract);
+				JOptionPane.showMessageDialog(null,  "Característica Creada");	
+			}catch ( ServiciosException e) {	
+				e.printStackTrace();
+				JOptionPane.showMessageDialog(null,  "Error al crear característica. " + e.getMessage());				
+			}
+		}
+	}
+	
+	//Metodo para obtener datos del fenomeno a traves de su nombre
+	private Fenomeno obtenerFenom (String filtro) {
+		List<Fenomeno> fen;	
+		Fenomeno fenom = null;
+		try {
+			fen =  serviciosFenomeno.obtenerTodosPorNombre(filtro);
+			if (!fen.isEmpty()) {	
+				fenom = new Fenomeno();
+				fenom.setId_Fenomeno(fen.get(0).getId_Fenomeno());
+				fenom.setDescripcion(fen.get(0).getDescripcion());
+				fenom.setNombre(fen.get(0).getNombre());
+				fenom.setTelefono(fen.get(0).getTelefono());
+			}		
+		}catch (Exception e) {
+			System.out.println("Error al obtener Fenomenos");
+			e.printStackTrace();
+		}
+		return fenom;
+	}
 }

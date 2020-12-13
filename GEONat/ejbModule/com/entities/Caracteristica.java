@@ -10,48 +10,40 @@ import javax.persistence.*;
 
 @Entity
 @NamedQuery(name="Caracteristica.obtenerTodos", query="SELECT c FROM Caracteristica c")
-@NamedQuery(name="Caracteristica.obtenerTodosFiltro", query="SELECT c FROM Caracteristica c WHERE c.nombre LIKE :filtro")
-@NamedQuery(name="Caracteristica.existeNombreUsuario", query="SELECT count (nombre) FROM Caracteristica WHERE nombre=:filtro")
-@NamedQuery(name="Caracteristica.obtenerUnoxNombre", query="SELECT c FROM Caracteristica c WHERE c.nombre LIKE :filtro")
-@NamedQuery(name="Caracteristica.existeNombreCaracteristica", query="SELECT count(nombre) FROM Caracteristica WHERE nombre=:filtro")
+@NamedQuery(name="Caracteristica.obtenerPorNombre", query="SELECT c FROM Caracteristica c WHERE UPPER(c.nombre) LIKE :filtro")
+@NamedQuery(name="Caracteristica.existeNombreCaracteristica", query="SELECT count(nombre) FROM Caracteristica WHERE UPPER(nombre)=:filtro")
+
 public class Caracteristica implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@SequenceGenerator(name = "caracteristicaSeq", sequenceName="CARACTERISTICA_SEQ", allocationSize=1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "caracteristicaSeq")
-	private Integer Id_Caracteristica;
-
-	
-	
-	// Relación ManyToMany BIDIRECCIONAL mediante DetalleObservacion (El FetchType.EAGER se puso ya que daba error al obtener una caracteristica, ver nota al pié..)
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "observacion") 
-	private Set<DetalleObservacion> detalleObservaciones = new HashSet<>();
-	
-	
-	// Relación con Fenomeno : Muchos Caracteristicas estan asociadas a Un Fenomeno
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "Id_Fenomeno")
-	private Fenomeno fenomeno;
-
+	private Integer Id_Caracteristica;	
 	
 	@Basic(optional = false)
 	@Column(length = 50, unique = true)
 	private String nombre;
 	
-	@Basic(optional = true)
-	
+	@Basic(optional = false)
 	@Column(length = 50)
 	private String etiqPresentacion;
-		
-	@Basic(optional = true)
+	
 	//@Column(name = "TIPO_DATO", length = 20, nullable = false)
+	@Basic(optional = false)
 	@Enumerated(EnumType.STRING)
 	private TipoDato tipoDato;
 	
-			
+	// Relación ManyToMany BIDIRECCIONAL mediante DetalleObservacion (El FetchType.EAGER se puso ya que daba error al obtener una caracteristica, ver nota al pié..)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "observacion") 
+	private Set<DetalleObservacion> detalleObservaciones = new HashSet<>();
 	
+	// Relación con Fenomeno : Muchos Caracteristicas estan asociadas a Un Fenomeno
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "Id_Fenomeno")
+	private Fenomeno fenomeno;
 	
-	private static final long serialVersionUID = 1L;
 
 	public Caracteristica() {
 		super();

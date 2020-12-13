@@ -33,7 +33,7 @@ public class CaracteristicaDAO implements ICaracteristicaDAO {
 			em.persist(caracteristica);
 			em.flush();		
 		} catch (PersistenceException e) {	
-			throw new ServiciosException("Error al crear" );	
+			throw new ServiciosException("Error al crear característica" );	
 		}
 	}
     
@@ -44,7 +44,7 @@ public class CaracteristicaDAO implements ICaracteristicaDAO {
 			em.merge(caracteristica);
 			em.flush();	
 		} catch (PersistenceException e) {
-			throw new ServiciosException("Error al actualizar caracteristica");
+			throw new ServiciosException("Error al actualizar característica");
 		}
 	}
     
@@ -56,7 +56,7 @@ public class CaracteristicaDAO implements ICaracteristicaDAO {
 			em.remove(caracteristica);
 			em.flush();	
 		} catch (PersistenceException e) {
-			throw new ServiciosException("Error al borrar");
+			throw new ServiciosException("Error al borrar carcterística");
 		}	
 	}
     
@@ -65,12 +65,11 @@ public class CaracteristicaDAO implements ICaracteristicaDAO {
 	public List<Caracteristica> obtenerTodos() throws ServiciosException {
 		try {
 			TypedQuery<Caracteristica> query = em.createNamedQuery("Caracteristica.obtenerTodos", Caracteristica.class);
-			
-			List<Caracteristica> lista = (List<Caracteristica>)query.getResultList();
-			lista.forEach(System.out::println);
+			List<Caracteristica> lista = query.getResultList();
 			return lista;
+			
 		} catch (Exception e) {
-			System.out.println("Error al obtenerTodos Caracteristica. " + e.getMessage());
+			System.out.println("Error al obtenerTodos Característica. " + e.getMessage());
 		}
 		return null;
 	}
@@ -78,23 +77,9 @@ public class CaracteristicaDAO implements ICaracteristicaDAO {
     
 	@Override
 	public List<Caracteristica> obtenerTodosFiltro(String filtro) throws ServiciosException {
-		TypedQuery<Caracteristica> query = em.createNamedQuery("Caracteristica.obtenerTodosFiltro", Caracteristica.class)
+		TypedQuery<Caracteristica> query = em.createNamedQuery("Caracteristica.obtenerPorNombre", Caracteristica.class)
 				.setParameter("filtro", filtro);
 		return query.getResultList();
-	}
-	
-	
-	// TODO: Borrar este método, ya que se hace esto mediante el obtenerTodos.first() y verificando si devuelve distinto de null por ejemplo
-	@Override
-	public boolean existeIdCaracteristica(Caracteristica caracteristica) throws ServiciosException {
-		String filtro = caracteristica.getNombre();
-		TypedQuery<Long> query = em.createNamedQuery("Caracteristica.existeNombreFenomeno", Long.class)
-				.setParameter("filtro", filtro);
-		if (query.getSingleResult()==0) {
-			return false;
-		} else {
-			return true;
-		}
 	}
 	
 	
@@ -109,6 +94,18 @@ public class CaracteristicaDAO implements ICaracteristicaDAO {
 		} catch (PersistenceException e) {
 			throw new ServiciosException("Error al consultar");
 		}
+	}
+	
+	@Override
+	public boolean existeNombreCaracteristica(String nombre) throws ServiciosException {
+		TypedQuery<Long> query = em.createNamedQuery("Caracteristica.existeNombreCaracteristica", Long.class)
+				.setParameter("filtro", nombre);
+		if (query.getSingleResult()==0) {
+			return false;
+		} else {
+			return true;
+		}
+
 	}
 
 }
