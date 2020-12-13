@@ -253,14 +253,15 @@ public class GestionObservaciones  {
 			 * la cantidad de filas depende de la cantidad de observaciones
 			 */
 			Object[][] datos = new Object[listaObservaciones.size()][5];
-
+			
+			DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 			/* Cargamos la matriz con todos los datos */
 			int fila = 0;
 
 			for (Observacion o : listaObservaciones) {
 
 				datos[fila][0] = o.getId_Observacion().toString();
-				datos[fila][1] = o.getFecha();
+				datos[fila][1] = dateFormat.format(o.getFecha());
 				datos[fila][2] = o.getDescripcion().toString();
 				datos[fila][3] = o.getFenomeno().getNombre().toString();
 				datos[fila][4] = o.getCriticidad().toString();
