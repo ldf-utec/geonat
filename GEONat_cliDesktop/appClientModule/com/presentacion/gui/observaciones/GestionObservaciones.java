@@ -24,6 +24,7 @@ import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.awt.event.ActionEvent;
@@ -37,6 +38,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
 import com.toedter.calendar.JDateChooser;
 import com.toedter.calendar.JTextFieldDateEditor;
 
@@ -67,7 +71,8 @@ public class GestionObservaciones  {
 	private JTable table;
 	private JButton btnCancelar;
 	private JComboBox cmbCriticidad; 
-
+	private JDateChooser dateChooser_hasta;
+	private JDateChooser dateChooser_desde;
 	
 	/**
 	 * Launch the application.
@@ -128,19 +133,19 @@ public class GestionObservaciones  {
 		cmbCriticidad = new JComboBox();
 		cmbCriticidad.setBounds(105, 23, 144, 42);
 		panel_1.add(cmbCriticidad);
-		cmbCriticidad.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				try {
-					filtrar(cmbCriticidad.getSelectedItem().toString());
-				} catch (Exception e2) {
-					System.out.println(e2);
-				}
-				
-				
-				
-				
-			}
-		});
+//		cmbCriticidad.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				try {
+//					filtrar();
+//				} catch (Exception e2) {
+//					System.out.println(e2);
+//				}
+//				
+//				
+//				
+//				
+//			}
+//		});
 		cmbCriticidad.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		
 		JLabel lblCriticidad = new JLabel("Criticidad:");
@@ -151,7 +156,7 @@ public class GestionObservaciones  {
 		JPanel panel = new JPanel();
 		panel.setFont(new Font("SansSerif", Font.PLAIN, 18));
 		panel.setBorder(new TitledBorder(null, "Filtrar de fecha", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(59, 59, 59)));
-		panel.setBounds(339, 87, 811, 96);
+		panel.setBounds(339, 87, 647, 96);
 		frmGestionObservaciones.getContentPane().add(panel);
 		
 		JLabel lblFechaDesde = new JLabel("Fecha desde:");
@@ -159,7 +164,7 @@ public class GestionObservaciones  {
 		lblFechaDesde.setAlignmentX(Component.CENTER_ALIGNMENT);
 		lblFechaDesde.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		
-		JDateChooser dateChooser_desde = new JDateChooser();
+		dateChooser_desde = new JDateChooser();
 		dateChooser_desde.setBounds(158, 23, 180, 40);
 		dateChooser_desde.setFont(new Font("SansSerif", Font.PLAIN, 18));
 		dateChooser_desde.getCalendarButton().setFont(new Font("Dialog", Font.PLAIN, 18));
@@ -172,23 +177,16 @@ public class GestionObservaciones  {
 		lblFechaHasta.setAlignmentX(Component.RIGHT_ALIGNMENT);
 		lblFechaHasta.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		
-		JDateChooser dateChooser_hasta = new JDateChooser();
+		dateChooser_hasta = new JDateChooser();
 		dateChooser_hasta.setBounds(455, 23, 180, 40);
 		dateChooser_hasta.setFont(new Font("SansSerif", Font.PLAIN, 18));
 		JTextFieldDateEditor dateChooser_hastaEditor = (JTextFieldDateEditor) dateChooser_hasta.getDateEditor();
 		dateChooser_hastaEditor.setEnabled(false);
-		
-		
-		
-		JButton btnAplicarFecha = new JButton("Aplicar filtro");
-		btnAplicarFecha.setBounds(647, 25, 143, 36);
-		btnAplicarFecha.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		panel.setLayout(null);
 		panel.add(lblFechaDesde);
 		panel.add(dateChooser_desde);
 		panel.add(lblFechaHasta);
 		panel.add(dateChooser_hasta);
-		panel.add(btnAplicarFecha);
 		
 		JPanel banner = new JPanel();
 		banner.setLayout(null);
@@ -210,26 +208,17 @@ public class GestionObservaciones  {
 		label.setBounds(1099, 0, 69, 53);
 		//label.setIcon(new ImageIcon(this.getClass().getResource("../img/logo_small.png")));
 		banner.add(label);
+		
+		
+		
+		JButton btnAplicarFecha = new JButton("Aplicar filtros");
+		btnAplicarFecha.setBounds(1001, 109, 149, 40);
+		frmGestionObservaciones.getContentPane().add(btnAplicarFecha);
+		btnAplicarFecha.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		btnAplicarFecha.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
-				if((dateChooser_desde.getDate() != null) & (dateChooser_hasta.getDate() != null )) {
-					
-					if(dateChooser_desde.getDate().compareTo(dateChooser_hasta.getDate()) > 0) {
-						JOptionPane.showMessageDialog(scrollPane, "La fecha final debe ser posterior a la inicial", null, JOptionPane.ERROR_MESSAGE);
-				    }else{
-				    	 filtrar(dateChooser_desde.getDate(), dateChooser_hasta.getDate());
-				    }
-										
-					
-					
-					
-				} else {
-				    JOptionPane.showMessageDialog(scrollPane, "Falta seleccionar alguna fecha", null, JOptionPane.ERROR_MESSAGE);
-				}
-				
-				
-				
+				    	 
+				filtrar();		
 				
 			}
 		});
@@ -324,30 +313,87 @@ public class GestionObservaciones  {
 		}
 	}
 	
-	public void filtrar(String strFiltro) {
+	
+	
+	
+	public void filtrar() {
+		Date startDate;
+		Date endDate;
+		List<RowFilter<Object,Object>> filters = new ArrayList<RowFilter<Object,Object>>(3);
 		
-		if (strFiltro=="Todos") {
-			strFiltro="";
+		try {
+			
+						
+			String strCriticidad = cmbCriticidad.getSelectedItem().toString();
+			if (strCriticidad == "Todos") { strCriticidad=""; }
+			
+			// el filtro de fechas sólo lo aplico si está bien seleccionadas
+			if (ValidateFechas()) {
+				startDate = this.dateChooser_desde.getDate();
+				endDate = this.dateChooser_hasta.getDate();
+				
+				
+				DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+				Calendar cal = Calendar.getInstance();
+				cal.setTime(startDate);
+				cal.add(Calendar.DATE, -1);
+				startDate = cal.getTime();
+				
+				
+				filters.add( RowFilter.dateFilter(ComparisonType.AFTER , startDate) );
+				filters.add( RowFilter.dateFilter(ComparisonType.BEFORE, endDate) );
+			}
+			
+			// el filtro de criticididad siempre lo aplica
+			filters.add(RowFilter.regexFilter(strCriticidad, 4));
+			
+			TableRowSorter<TableModel> filtro = new TableRowSorter<>(this.table.getModel());
+			filtro.setRowFilter(RowFilter.andFilter(filters));
+			this.table.setRowSorter(filtro);
+
+			
+			
+			
+			//JOptionPane.showMessageDialog(frmGestionObservaciones, cal.getTime(), null, JOptionPane.ERROR_MESSAGE);
+			
+			
+			
+		} catch (Exception e) {
+			throw e;
 		}
-		
-		List<RowFilter<Object,Object>> filters = new ArrayList<>(1);
-		filters.add(RowFilter.regexFilter(strFiltro, 4));
-		
-		TableRowSorter<TableModel> filtro = new TableRowSorter<>(this.table.getModel());
-		filtro.setRowFilter(RowFilter.andFilter(filters));
-		this.table.setRowSorter(filtro);
-
+				
 	}
 	
 	
-	public void filtrar(Date startDate, Date endDate) {
-		List<RowFilter<Object,Object>> filters = new ArrayList<RowFilter<Object,Object>>(2);
-		filters.add( RowFilter.dateFilter(ComparisonType.AFTER , startDate) );
-		filters.add( RowFilter.dateFilter(ComparisonType.BEFORE, endDate) );
-
-		TableRowSorter<TableModel> filtro = new TableRowSorter<>(this.table.getModel());
-		filtro.setRowFilter(RowFilter.andFilter(filters));
-		this.table.setRowSorter(filtro);
+	
+	
+	
+	
+	
+	// Helpers methods
+	private boolean ValidateFechas() {
+		Date startDate = dateChooser_desde.getDate();
+		Date endtDate = dateChooser_hasta.getDate();
+		
+		// los dos campos están vacío?
+		if( (startDate == null) & ( endtDate == null ) ) { return false;}
+		
+		
+		// hay sólo uno ?
+		if( !((startDate == null) || ( endtDate == null )) ) {
+			if(startDate.compareTo(endtDate) > 0) {
+				JOptionPane.showMessageDialog(frmGestionObservaciones, "La fecha final debe ser posterior a la inicial", null, JOptionPane.ERROR_MESSAGE);
+		    }else{
+		    	 return true;
+		    }
+			
+		} else {
+		    JOptionPane.showMessageDialog(frmGestionObservaciones, "Falta seleccionar alguna fecha", null, JOptionPane.ERROR_MESSAGE);
+		}
+		return false;
 		
 	}
+	
+	
+	
 }
