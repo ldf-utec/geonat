@@ -14,6 +14,7 @@ import com.Enums.Criticidad;
 import com.entities.Fenomeno;
 import com.entities.Observacion;
 import com.exception.ServiciosException;
+import com.presentacion.componentes.DateCellRenderer;
 import com.presentacion.gui.FramePrincipal;
 import com.presentacion.servicios.ServiciosFenomeno;
 import com.presentacion.servicios.ServiciosObservacion;
@@ -102,7 +103,7 @@ public class GestionObservaciones  {
 		frmGestionObservaciones.setTitle("GEONat - Observaciones");
 		frmGestionObservaciones.setResizable(false);
 		frmGestionObservaciones.setBounds(100, 100, 1200, 800);
-		frmGestionObservaciones.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmGestionObservaciones.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmGestionObservaciones.getContentPane().setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
@@ -250,14 +251,14 @@ public class GestionObservaciones  {
 			 */
 			Object[][] datos = new Object[listaObservaciones.size()][5];
 			
-			DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+			DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 			/* Cargamos la matriz con todos los datos */
 			int fila = 0;
 
 			for (Observacion o : listaObservaciones) {
 
 				datos[fila][0] = o.getId_Observacion().toString();
-				datos[fila][1] = dateFormat.format(o.getFecha());
+				datos[fila][1] = o.getFecha();
 				datos[fila][2] = o.getDescripcion().toString();
 				datos[fila][3] = o.getFenomeno().getNombre().toString();
 				datos[fila][4] = o.getCriticidad().toString();
@@ -286,7 +287,11 @@ public class GestionObservaciones  {
 			table.setModel(model);
 			table.setAutoscrolls(true);
 			table.setCellSelectionEnabled(false);
+			table.getColumnModel().getColumn(1).setCellRenderer(new DateCellRenderer());
 
+
+			
+			
 			// Defines table's column width.
 	        int[] columnsWidth = {
 	            40, 120, 500, 200, 120
@@ -344,11 +349,15 @@ public class GestionObservaciones  {
 				startDate = this.dateChooser_desde.getDate();
 				endDate = this.dateChooser_hasta.getDate();
 								
-				DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+				DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 				Calendar cal = Calendar.getInstance();
 				cal.setTime(startDate);
 				cal.add(Calendar.DATE, -1);
 				startDate = cal.getTime();
+				
+				cal.setTime(endDate);
+				cal.add(Calendar.DATE, +1);
+				endDate = cal.getTime();
 								
 				filters.add( RowFilter.dateFilter(ComparisonType.AFTER , startDate) );
 				filters.add( RowFilter.dateFilter(ComparisonType.BEFORE, endDate) );
