@@ -19,15 +19,15 @@ public class Usuario implements Serializable {
 	private Integer Id_Usuario;
 	
 	@Basic(optional = false)
-	@Column(length = 50)
+	@Column(length = 25)
 	private String nombreUsuario;
 	
 	@Basic(optional = false)
-	@Column(length = 50)
+	@Column(length = 25)
 	private String nombre;
 	
 	@Basic(optional = false)
-	@Column(length = 50)
+	@Column(length = 25)
 	private String apellido;
 	
 	@Basic(optional = false)
@@ -35,7 +35,7 @@ public class Usuario implements Serializable {
 	private TipoDocumento tipoDocumento;
 	
 	@Basic(optional = false)
-	@Column(length = 20, unique=true)
+	@Column(length = 25, unique=true)
 	private String nroDocumento;
 	
 	@Basic(optional = false)
@@ -43,7 +43,7 @@ public class Usuario implements Serializable {
 	private String email;
 	
 	@Basic(optional = true)
-	/**/ @Column(length=100)
+	/**/ @Column(length=50)
 	private String direccion;
 		
 	@Basic(optional = false)
@@ -56,7 +56,7 @@ public class Usuario implements Serializable {
 		
 	
 	@Basic(optional = false)
-	@Column(length = 50)
+	@Column(length = 25)
 	private String password;
 	
 	
