@@ -11,6 +11,7 @@ import javax.persistence.*;
 @NamedQuery(name="Usuario.obtenerTodosFiltro", query="SELECT u FROM Usuario u WHERE u.nombre LIKE :filtro")
 @NamedQuery(name="Usuario.existeNombreUsuario", query="SELECT count (NombreUsuario) FROM Usuario WHERE NombreUsuario=:filtro")
 @NamedQuery(name="Usuario.obtenerUno", query="SELECT u FROM Usuario u WHERE u.nombreUsuario LIKE :filtro")
+@NamedQuery(name="Usuario.obtenerPorDocumento", query="SELECT u FROM Usuario u WHERE u.documento LIKE :filtro")
 public class Usuario implements Serializable {
 
 	@Id
@@ -19,7 +20,7 @@ public class Usuario implements Serializable {
 	private Integer Id_Usuario;
 	
 	@Basic(optional = false)
-	@Column(length = 25)
+	@Column(length = 25, unique=true)
 	private String nombreUsuario;
 	
 	@Basic(optional = false)
@@ -39,7 +40,7 @@ public class Usuario implements Serializable {
 	private String nroDocumento;
 	
 	@Basic(optional = false)
-	@Column(length = 50, unique=true)
+	@Column(length = 50)
 	private String email;
 	
 	@Basic(optional = true)
