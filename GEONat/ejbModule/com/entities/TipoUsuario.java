@@ -2,11 +2,11 @@ package com.entities;
 
 
 public enum TipoUsuario{
-	ADMINISTRADOR("Adminsitrador",1),
+	ADMINISTRADOR("Administrador",1),
 	EXPERTO("Experto",2),
 	ONG("ONG",3),
 	ORGANISMOPRIVADO("Organismo Privado",4),
-	USUARIO("Usuario Común",5);
+	USUARIO("Usuario Comun",5);
 	
 	private int id_tipoUsuario;
 	private String nombre;
