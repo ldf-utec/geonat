@@ -31,6 +31,10 @@ import java.awt.event.ItemListener;
 
 import javax.swing.JPasswordField;
 import java.awt.Font;
+import javax.swing.JPanel;
+import java.awt.Color;
+import java.awt.Rectangle;
+import javax.swing.SwingConstants;
 
 public class AltaUsuario extends JFrame {
 
@@ -80,35 +84,86 @@ public class AltaUsuario extends JFrame {
 		// IUsuarioDAO usuarioDAO = ServiciosGUI.getInstance().getUsuarioBean();
 				
 		frmGeonatAlta = new JFrame();
-		frmGeonatAlta.setTitle("GEONat - Registro de usuarios");
+		frmGeonatAlta.getContentPane().setBounds(new Rectangle(0, 0, 300, 0));
+		frmGeonatAlta.setResizable(false);
+		frmGeonatAlta.setTitle("GEONat - Registro de usuario");
 		frmGeonatAlta.setBounds(100, 100, 1200, 800);
-		frmGeonatAlta.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		frmGeonatAlta.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
-		JLabel lblNombreDeUsuaio = new JLabel("Nombre de usuario");
-		JLabel lblNombre = new JLabel("Nombre");
-		JLabel lblApellido = new JLabel("Apellido");
-		JLabel TipoDoc = new JLabel("Tipo de Documento");
-		JLabel lblTipoDeUsuario = new JLabel("Tipo de Usuario");
-		JLabel lblDocumento = new JLabel("Documento");
-		JLabel lblDireccion = new JLabel("Dirección");
-		JCheckBox checkboxUsuarioActivo = new JCheckBox("Usuario Activo?");
-		JLabel lblPassword = new JLabel("Password");
-		JLabel lblReIngresarPassword = new JLabel("Re ingresar Password");
-		JLabel lblCorreo = new JLabel("Correo");
+		JLabel lblNombreDeUsuaio = new JLabel("Nombre de usuario:");
+		lblNombreDeUsuaio.setBounds(new Rectangle(0, 0, 300, 0));
+		lblNombreDeUsuaio.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblNombreDeUsuaio.setBounds(64, 145, 212, 28);
+		JLabel lblNombre = new JLabel("Nombre:");
+		lblNombre.setBounds(new Rectangle(0, 0, 300, 0));
+		lblNombre.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblNombre.setBounds(64, 193, 200, 28);
+		JLabel lblApellido = new JLabel("Apellido:");
+		lblApellido.setBounds(new Rectangle(0, 0, 300, 0));
+		lblApellido.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblApellido.setBounds(644, 193, 107, 28);
+		JLabel TipoDoc = new JLabel("Tipo de Documento:");
+		TipoDoc.setBounds(new Rectangle(0, 0, 300, 0));
+		TipoDoc.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		TipoDoc.setBounds(64, 290, 212, 25);
+		JLabel lblTipoDeUsuario = new JLabel("Tipo de Usuario:");
+		lblTipoDeUsuario.setBounds(new Rectangle(0, 0, 300, 0));
+		lblTipoDeUsuario.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblTipoDeUsuario.setBounds(64, 587, 238, 26);
+		JLabel lblDocumento = new JLabel("Documento:");
+		lblDocumento.setBounds(new Rectangle(0, 0, 300, 0));
+		lblDocumento.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblDocumento.setBounds(644, 290, 113, 24);
+		JLabel lblDireccion = new JLabel("Direcci\u00F3n:");
+		lblDireccion.setBounds(new Rectangle(0, 0, 300, 0));
+		lblDireccion.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblDireccion.setBounds(64, 357, 212, 26);
+		JCheckBox checkboxUsuarioActivo = new JCheckBox("Activaci\u00F3n de usuario");
+		checkboxUsuarioActivo.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		checkboxUsuarioActivo.setSelected(true);
+		checkboxUsuarioActivo.setBounds(276, 643, 276, 18);
+		JLabel lblPassword = new JLabel("Password:");
+		lblPassword.setBounds(new Rectangle(0, 0, 300, 0));
+		lblPassword.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblPassword.setBounds(64, 487, 212, 28);
+		JLabel lblReIngresarPassword = new JLabel("Reingresar Password:");
+		lblReIngresarPassword.setBounds(new Rectangle(0, 0, 300, 0));
+		lblReIngresarPassword.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblReIngresarPassword.setBounds(64, 535, 212, 28);
+		JLabel lblCorreo = new JLabel("Correo electr\u00F3nico:");
+		lblCorreo.setBounds(new Rectangle(0, 0, 300, 0));
+		lblCorreo.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblCorreo.setBounds(64, 431, 212, 28);
 		
 		nombreUsuario = new JTextField();
+		nombreUsuario.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		nombreUsuario.setBounds(276, 145, 250, 28);
 		nombreUsuario.setColumns(10);
 		nombre = new JTextField();
+		nombre.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		nombre.setBounds(276, 193, 250, 28);
 		nombre.setColumns(10);
 		apellido = new JTextField();
+		apellido.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		apellido.setBounds(756, 193, 250, 28);
 		apellido.setColumns(10);
 		documento = new JTextField();
+		documento.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		documento.setBounds(756, 288, 250, 28);
 		documento.setColumns(10);
 		direccion = new JTextField();
+		direccion.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		direccion.setBounds(276, 355, 450, 28);
 		direccion.setColumns(10);
 		password1 = new JPasswordField();
+		password1.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		password1.setBounds(276, 487, 195, 28);
 		password2 = new JPasswordField();
+		password2.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		password2.setBounds(276, 535, 195, 28);
 		correo = new JTextField();
+		correo.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		correo.setBounds(276, 431, 450, 28);
 		correo.setColumns(10);
 		
 		
@@ -116,6 +171,8 @@ public class AltaUsuario extends JFrame {
 		
 		// Combobox Tipo de DOCUMENTO
 		JComboBox comboTipoDocumento = new JComboBox();
+		comboTipoDocumento.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		comboTipoDocumento.setBounds(276, 289, 250, 26);
 		comboTipoDocumento.removeAllItems(); 
 		comboTipoDocumento.addItem("");
 		TipoDocumento[] tipoDocList = TipoDocumento.values();
@@ -133,6 +190,8 @@ public class AltaUsuario extends JFrame {
 		
 		// ComboBox Tipo de USUARIO
 		JComboBox comboTipoUsuario = new JComboBox();
+		comboTipoUsuario.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		comboTipoUsuario.setBounds(276, 587, 195, 26);
 		comboTipoUsuario.removeAllItems(); 
 		comboTipoUsuario.addItem("");
 		TipoUsuario[] tipousrList = TipoUsuario.values();
@@ -149,7 +208,8 @@ public class AltaUsuario extends JFrame {
 				
 		
 		//Boton AltaUsuario
-		JButton btnAltaUsuario = new JButton("Alta Usuario");
+		JButton btnAltaUsuario = new JButton("Confirmar");
+		btnAltaUsuario.setBounds(821, 708, 155, 34);
 		btnAltaUsuario.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		btnAltaUsuario.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent evento) {
@@ -236,118 +296,57 @@ public class AltaUsuario extends JFrame {
  
 		//Boton Cancelar
 		JButton btnCancela = new JButton("Cancelar");
+		btnCancela.setBounds(1003, 708, 148, 34);
 		btnCancela.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		btnCancela.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evento) {
 				frmGeonatAlta.hide();
 			}
 		});
+		frmGeonatAlta.getContentPane().setLayout(null);
+		frmGeonatAlta.getContentPane().add(lblPassword);
+		frmGeonatAlta.getContentPane().add(lblReIngresarPassword);
+		frmGeonatAlta.getContentPane().add(lblTipoDeUsuario);
+		frmGeonatAlta.getContentPane().add(lblCorreo);
+		frmGeonatAlta.getContentPane().add(comboTipoUsuario);
+		frmGeonatAlta.getContentPane().add(password2);
+		frmGeonatAlta.getContentPane().add(password1);
+		frmGeonatAlta.getContentPane().add(correo);
+		frmGeonatAlta.getContentPane().add(lblDocumento);
+		frmGeonatAlta.getContentPane().add(lblNombreDeUsuaio);
+		frmGeonatAlta.getContentPane().add(lblNombre);
+		frmGeonatAlta.getContentPane().add(lblApellido);
+		frmGeonatAlta.getContentPane().add(TipoDoc);
+		frmGeonatAlta.getContentPane().add(lblDireccion);
+		frmGeonatAlta.getContentPane().add(direccion);
+		frmGeonatAlta.getContentPane().add(documento);
+		frmGeonatAlta.getContentPane().add(comboTipoDocumento);
+		frmGeonatAlta.getContentPane().add(apellido);
+		frmGeonatAlta.getContentPane().add(nombre);
+		frmGeonatAlta.getContentPane().add(nombreUsuario);
+		frmGeonatAlta.getContentPane().add(checkboxUsuarioActivo);
+		frmGeonatAlta.getContentPane().add(btnAltaUsuario);
+		frmGeonatAlta.getContentPane().add(btnCancela);
 		
+		JPanel panel = new JPanel();
+		panel.setLayout(null);
+		panel.setBackground(Color.WHITE);
+		panel.setBounds(0, 0, 1194, 59);
+		frmGeonatAlta.getContentPane().add(panel);
 		
+		JLabel lblRegistroDeUsuario = new JLabel("Registro de usuario");
+		lblRegistroDeUsuario.setHorizontalAlignment(SwingConstants.LEFT);
+		lblRegistroDeUsuario.setForeground(Color.GRAY);
+		lblRegistroDeUsuario.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblRegistroDeUsuario.setBounds(new Rectangle(10, 10, 10, 10));
+		lblRegistroDeUsuario.setBounds(14, 28, 1174, 25);
+		panel.add(lblRegistroDeUsuario);
 		
-		
-		
-		
-		GroupLayout groupLayout = new GroupLayout(frmGeonatAlta.getContentPane());
-		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(25)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblPassword, GroupLayout.PREFERRED_SIZE, 107, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblReIngresarPassword, GroupLayout.PREFERRED_SIZE, 141, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblTipoDeUsuario)
-								.addComponent(lblCorreo))
-							.addGap(26)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addGroup(groupLayout.createSequentialGroup()
-									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-										.addComponent(comboTipoUsuario, 0, 837, Short.MAX_VALUE)
-										.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
-											.addComponent(password2, Alignment.LEADING)
-											.addComponent(password1, Alignment.LEADING, 195, 195, Short.MAX_VALUE)))
-									.addGap(255))
-								.addComponent(correo, GroupLayout.PREFERRED_SIZE, 450, GroupLayout.PREFERRED_SIZE)))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
-									.addComponent(lblDocumento, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-									.addComponent(lblNombreDeUsuaio, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
-									.addComponent(lblNombre, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
-									.addComponent(lblApellido, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
-									.addComponent(TipoDoc, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-								.addComponent(lblDireccion))
-							.addGap(47)
-							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
-								.addComponent(direccion)
-								.addComponent(documento)
-								.addComponent(comboTipoDocumento, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(apellido)
-								.addComponent(nombre)
-								.addComponent(nombreUsuario, GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE)
-								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(checkboxUsuarioActivo)
-									.addGap(18)
-									.addComponent(btnAltaUsuario, GroupLayout.PREFERRED_SIZE, 155, GroupLayout.PREFERRED_SIZE)
-									.addGap(80)))
-							.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addComponent(btnCancela, GroupLayout.PREFERRED_SIZE, 148, GroupLayout.PREFERRED_SIZE)
-							.addGap(488)))
-					.addGap(0))
-		);
-		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(20)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblNombreDeUsuaio, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-						.addComponent(nombreUsuario, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(20)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblNombre, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-						.addComponent(nombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(20)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblApellido, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-						.addComponent(apellido, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(20)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(comboTipoDocumento, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(TipoDoc))
-					.addGap(20)
-					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-						.addComponent(lblDocumento)
-						.addComponent(documento, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(20)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblDireccion)
-						.addComponent(direccion, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(20)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblCorreo)
-						.addComponent(correo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(20)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblPassword)
-						.addComponent(password1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(20)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblReIngresarPassword)
-						.addComponent(password2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(20)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblTipoDeUsuario)
-						.addComponent(comboTipoUsuario, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(88)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnAltaUsuario, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
-						.addComponent(btnCancela, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
-						.addComponent(checkboxUsuarioActivo))
-					.addContainerGap(163, Short.MAX_VALUE))
-		);
-		frmGeonatAlta.getContentPane().setLayout(groupLayout);
+		JLabel label_1 = new JLabel("");
+		label_1.setIconTextGap(0);
+		label_1.setHorizontalAlignment(SwingConstants.CENTER);
+		label_1.setBounds(1099, 0, 69, 53);
+		panel.add(label_1);
 
 		
 	}
