@@ -193,7 +193,7 @@ public class AltaUsuario extends JFrame {
 		// ComboBox Tipo de USUARIO
 		JComboBox comboTipoUsuario = new JComboBox();
 		comboTipoUsuario.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		comboTipoUsuario.setBounds(276, 95, 195, 40);
+		comboTipoUsuario.setBounds(276, 95, 250, 40);
 		comboTipoUsuario.removeAllItems(); 
 		comboTipoUsuario.addItem("");
 		TipoUsuario[] tipousrList = TipoUsuario.values();
@@ -349,6 +349,83 @@ public class AltaUsuario extends JFrame {
 		label_1.setHorizontalAlignment(SwingConstants.CENTER);
 		label_1.setBounds(1099, 0, 69, 53);
 		panel.add(label_1);
+		
+		JLabel label = new JLabel("*");
+		label.setForeground(Color.RED);
+		label.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		label.setBounds(new Rectangle(0, 0, 300, 0));
+		label.setBounds(527, 107, 33, 28);
+		frmGeonatAlta.getContentPane().add(label);
+		
+		JLabel label_2 = new JLabel("*");
+		label_2.setForeground(Color.RED);
+		label_2.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		label_2.setBounds(new Rectangle(0, 0, 300, 0));
+		label_2.setBounds(527, 183, 33, 28);
+		frmGeonatAlta.getContentPane().add(label_2);
+		
+		JLabel label_3 = new JLabel("*");
+		label_3.setForeground(Color.RED);
+		label_3.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		label_3.setBounds(new Rectangle(0, 0, 300, 0));
+		label_3.setBounds(527, 255, 33, 28);
+		frmGeonatAlta.getContentPane().add(label_3);
+		
+		JLabel label_4 = new JLabel("*");
+		label_4.setForeground(Color.RED);
+		label_4.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		label_4.setBounds(new Rectangle(0, 0, 300, 0));
+		label_4.setBounds(943, 255, 33, 28);
+		frmGeonatAlta.getContentPane().add(label_4);
+		
+		JLabel label_5 = new JLabel("*");
+		label_5.setForeground(Color.RED);
+		label_5.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		label_5.setBounds(new Rectangle(0, 0, 300, 0));
+		label_5.setBounds(527, 350, 33, 28);
+		frmGeonatAlta.getContentPane().add(label_5);
+		
+		JLabel label_6 = new JLabel("*");
+		label_6.setForeground(Color.RED);
+		label_6.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		label_6.setBounds(new Rectangle(0, 0, 300, 0));
+		label_6.setBounds(943, 350, 33, 28);
+		frmGeonatAlta.getContentPane().add(label_6);
+		
+		JLabel label_7 = new JLabel("*");
+		label_7.setForeground(Color.RED);
+		label_7.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		label_7.setBounds(new Rectangle(0, 0, 300, 0));
+		label_7.setBounds(728, 482, 33, 28);
+		frmGeonatAlta.getContentPane().add(label_7);
+		
+		JLabel label_8 = new JLabel("*");
+		label_8.setForeground(Color.RED);
+		label_8.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		label_8.setBounds(new Rectangle(0, 0, 300, 0));
+		label_8.setBounds(472, 547, 33, 28);
+		frmGeonatAlta.getContentPane().add(label_8);
+		
+		JLabel label_9 = new JLabel("*");
+		label_9.setForeground(Color.RED);
+		label_9.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		label_9.setBounds(new Rectangle(0, 0, 300, 0));
+		label_9.setBounds(472, 597, 33, 28);
+		frmGeonatAlta.getContentPane().add(label_9);
+		
+		JLabel label_10 = new JLabel("*");
+		label_10.setForeground(Color.RED);
+		label_10.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		label_10.setBounds(new Rectangle(0, 0, 300, 0));
+		label_10.setBounds(48, 737, 33, 28);
+		frmGeonatAlta.getContentPane().add(label_10);
+		
+		JLabel lblCamposObligatorios = new JLabel("Campos obligatorios");
+		lblCamposObligatorios.setForeground(Color.DARK_GRAY);
+		lblCamposObligatorios.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblCamposObligatorios.setBounds(new Rectangle(0, 0, 300, 0));
+		lblCamposObligatorios.setBounds(64, 737, 200, 28);
+		frmGeonatAlta.getContentPane().add(lblCamposObligatorios);
 
 		
 	}
