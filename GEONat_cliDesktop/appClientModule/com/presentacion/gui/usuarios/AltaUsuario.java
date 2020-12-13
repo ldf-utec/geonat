@@ -336,6 +336,14 @@ public class AltaUsuario extends JFrame {
 						errores=true;
 						strerror= strerror + " El correo ingresado no es válido. ";
 					}
+					if (TipoDocumento.valueOf(comboTipoDocumento.getSelectedItem().toString()) == TipoDocumento.CI) {
+						if (isCiValid(documento.getText())) {
+							u.setEmail(correo.getText());
+						}else {
+							errores=true;
+							strerror= strerror + " Cédula de identidad inválida. ";
+						}
+					}
 					
 
 					if (clavesIdenticas(password1.getPassword(), password2.getPassword())) {
@@ -569,7 +577,7 @@ public class AltaUsuario extends JFrame {
     }
 }
 
-	private boolean esCIValida(String ci) {
+	private boolean isCiValid(String ci) {
 
 		if(ci.length() != 7 && ci.length() != 8){
 			return false;
@@ -577,7 +585,7 @@ public class AltaUsuario extends JFrame {
 			try{
 				Integer.parseInt(ci);
 			}catch (NumberFormatException e){
-				return false;
+				throw e;
 			}
 		}
 
@@ -589,17 +597,15 @@ public class AltaUsuario extends JFrame {
 			factores = new int[]{2, 9, 8, 7, 6, 3, 4};
 		}
 
-for (int i = 0; i < factores.length; i++) {
-	int j = factores[i];
-	
-}
+		// Multiplico cada dígito de la cédula por cada factor dado
 		int suma = 0;
-		for(int i=0; i int digito = Integer.parseInt(ci.charAt(i) + "" ){ 
-				suma += digito * factores[ i ];
+		for (int i = 0; i < factores.length; i++) {
+			int digito = Integer.parseInt(ci.charAt(i) + "");
+			suma = suma + (digito * factores[i]);
 		}
-
-	for
-	
+		
+		
+		// A la suma anterior, tengo que obtener el modulo de 10
 		int resto = suma % 10;
 		int checkdigit = 10 - resto;
 
