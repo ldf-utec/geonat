@@ -91,6 +91,24 @@ public class DatosDePrueba {
 					} catch (ServiciosException err) {
 						err.printStackTrace();
 					}
+					//abc para prueba
+					u.setNombre("abc");
+					u.setApellido("abc");
+					u.setNombreUsuario("abc");
+					u.setDireccion("abc");
+					u.setEmail("abc" + "@email" +".com");
+					u.setNroDocumento("00000001");
+					u.setEstadoActivo(true);
+					u.setTipoUsuario(TipoUsuario.ONG);
+					u.setTipoDocumento(TipoDocumento.CI);
+					u.setPassword("abc");
+					try {
+						serviciosUsuario.create(u);
+						System.out.println("Usuario creado " + i);
+						System.out.println("Vez: " + i + "Lista: " + listaUsuarios.size());
+					} catch (ServiciosException err) {
+						err.printStackTrace();
+					}
 				}
 			}
 			else {

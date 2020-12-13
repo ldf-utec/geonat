@@ -91,13 +91,13 @@ public class ServiciosUsuario {
 	// Si lo que se quiere es obtener por Nombre, se debería pasar el String nombre
 	
 	// Obtener uno
-	@Deprecated
-	public Usuario obtenerUno(Usuario usuario) throws ServiciosException {
-
-		Usuario u = servicios.usuarioBean.obtenerUno(usuario);
-		return u ;
-		
-	}
+	
+//	public Usuario obtenerUno(Usuario usuario) throws ServiciosException {
+//
+//		Usuario u = servicios.usuarioBean.obtenerUno(usuario);
+//		return u ;
+//		
+//	}
 	
 	
 	public boolean existeNombreUsuario(Usuario usuario) throws ServiciosException {
@@ -109,7 +109,19 @@ public class ServiciosUsuario {
 		Usuario u = servicios.usuarioBean.obtenerUno(id);
 		return u ;
 	}
+
+	public Usuario obtenerUno(Usuario usuario) throws ServiciosException  {
+		// TODO Auto-generated method stub
+		Usuario u = servicios.usuarioBean.obtenerUno(usuario);
+		return u ;
+
+	}
 	
+	public Usuario obtenerPorNombre(String nombreUsuario) throws ServiciosException {
+		
+		Usuario u = servicios.usuarioBean.obtenerPorNombre(nombreUsuario);
+		return u;
+	}
 
 	
 }
