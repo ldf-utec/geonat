@@ -26,6 +26,9 @@ import java.awt.event.MouseEvent;
 import java.util.List;
 import javax.swing.SwingConstants;
 import javax.swing.JTextArea;
+import java.awt.SystemColor;
+import javax.swing.UIManager;
+import java.awt.Rectangle;
 
 public class FrmGestionFenomeno {
 
@@ -71,70 +74,73 @@ public class FrmGestionFenomeno {
 		
 		
 		frmGestinDeFenmeno = new JFrame();
-		frmGestinDeFenmeno.setTitle("Gesti\u00F3n de Fen\u00F3menos");
-		frmGestinDeFenmeno.setBounds(100, 100, 719, 433);
+		frmGestinDeFenmeno.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		frmGestinDeFenmeno.setResizable(false);
+		frmGestinDeFenmeno.setTitle("GeoNat - Gesti\u00F3n de Fen\u00F3menos");
+		frmGestinDeFenmeno.setBounds(10, 10, 719, 433);
 		frmGestinDeFenmeno.setSize(1200, 800);
-		frmGestinDeFenmeno.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmGestinDeFenmeno.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmGestinDeFenmeno.getContentPane().setLayout(null);
 		
 		JPanel panel = new JPanel();
-		panel.setBackground(new Color(204, 204, 153));
-		panel.setBounds(0, 0, 1184, 761);
+		panel.setBackground(UIManager.getColor("background"));
+		panel.setBounds(0, 0, 1200, 800);
 		frmGestinDeFenmeno.getContentPane().add(panel);
 		panel.setLayout(null);
 		
 		JLabel lblId = new JLabel("ID:");
-		lblId.setFont(new Font("Tahoma", Font.BOLD, 18));
-		lblId.setBounds(10, 145, 113, 22);
+		lblId.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblId.setBounds(23, 135, 113, 22);
 		panel.add(lblId);
 		
 		JLabel lblNombre = new JLabel("Nombre:");
-		lblNombre.setFont(new Font("Tahoma", Font.BOLD, 18));
-		lblNombre.setBounds(10, 195, 113, 22);
+		lblNombre.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblNombre.setBounds(23, 210, 113, 22);
 		panel.add(lblNombre);
 		
 		JLabel lblDescripcion = new JLabel("Descripci\u00F3n:");
-		lblDescripcion.setFont(new Font("Tahoma", Font.BOLD, 18));
-		lblDescripcion.setBounds(10, 245, 113, 22);
+		lblDescripcion.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblDescripcion.setBounds(23, 280, 113, 22);
 		panel.add(lblDescripcion);
 		
 		txtADescripcion = new JTextArea();
 		txtADescripcion.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		txtADescripcion.setBounds(133, 245, 222, 82);
+		txtADescripcion.setBounds(192, 281, 222, 120);
 		panel.add(txtADescripcion);
 		
 		JLabel lblTelefono = new JLabel("Tel\u00E9fono:");
-		lblTelefono.setFont(new Font("Tahoma", Font.BOLD, 18));
-		lblTelefono.setBounds(10, 355, 113, 22);
+		lblTelefono.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblTelefono.setBounds(23, 440, 113, 22);
 		panel.add(lblTelefono);
 		
 		txtFID = new JTextField();
 		txtFID.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		txtFID.setEditable(false);
-		txtFID.setBounds(133, 145, 222, 22);
+		txtFID.setBounds(192, 127, 222, 40);
 		panel.add(txtFID);
 		txtFID.setColumns(10);
 		
 		txtFNombre = new JTextField();
 		txtFNombre.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		txtFNombre.setBounds(133, 195, 222, 22);
+		txtFNombre.setBounds(192, 202, 222, 40);
 		panel.add(txtFNombre);
 		txtFNombre.setColumns(10);
 		
 		txtFTelefono = new JTextField();
 		txtFTelefono.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		txtFTelefono.setBounds(133, 355, 222, 20);
+		txtFTelefono.setBounds(192, 432, 222, 40);
 		panel.add(txtFTelefono);
 		txtFTelefono.setColumns(10);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(442, 91, 732, 659);
+		scrollPane.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		scrollPane.setBounds(442, 74, 732, 676);
 		panel.add(scrollPane);
 		
 		table = new JTable();
-		table.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		table.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		JTableHeader tableHeader = table.getTableHeader();
-		tableHeader.setFont(new Font("Verdana", Font.BOLD, 16));
+		tableHeader.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -145,7 +151,7 @@ public class FrmGestionFenomeno {
 				txtFTelefono.setText(model.getValueAt(i, 3).toString());
 			}
 		});
-		table.setBackground(new Color(153, 153, 102));
+		table.setBackground(UIManager.getColor("EditorPane.background"));
 		//table.setForeground(new Color(220, 220, 220));
 		table.setForeground(Color.black);
 //		model = new DefaultTableModel();
@@ -157,7 +163,7 @@ public class FrmGestionFenomeno {
 		
 		//Boton crear
 		JButton btnCrear = new JButton("Crear");
-		btnCrear.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		btnCrear.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		btnCrear.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (!gestionFenomeno("alta")) {
@@ -176,12 +182,12 @@ public class FrmGestionFenomeno {
 				limpiarVista();
 			}
 		});
-		btnCrear.setBounds(10, 456, 165, 25);
+		btnCrear.setBounds(28, 604, 165, 40);
 		panel.add(btnCrear);
 		
 		//Boton modificar
 		JButton btnModificar = new JButton("Modificar");
-		btnModificar.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		btnModificar.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		btnModificar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int i = table.getSelectedRow();
@@ -207,12 +213,12 @@ public class FrmGestionFenomeno {
 				limpiarVista();
 			}
 		});
-		btnModificar.setBounds(190, 456, 165, 25);
+		btnModificar.setBounds(236, 604, 165, 40);
 		panel.add(btnModificar);
 		
 		//Accion de boton eliminar
 		JButton btnEliminar = new JButton("Eliminar");
-		btnEliminar.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		btnEliminar.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		btnEliminar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int i = table.getSelectedRow();
@@ -233,7 +239,7 @@ public class FrmGestionFenomeno {
 				limpiarVista();
 			}
 		});
-		btnEliminar.setBounds(10, 490, 165, 25);
+		btnEliminar.setBounds(28, 683, 165, 40);
 		panel.add(btnEliminar);
 		
 		JButton btnCancelar = new JButton("Cancelar");
@@ -242,15 +248,29 @@ public class FrmGestionFenomeno {
 				frmGestinDeFenmeno.hide();
 			}
 		});
-		btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		btnCancelar.setBounds(190, 490, 165, 25);
+		btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		btnCancelar.setBounds(236, 683, 165, 40);
 		panel.add(btnCancelar);
 		
-		JLabel lblTitiulo = new JLabel("Gesti\u00F3n de Fen\u00F3menos");
-		lblTitiulo.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTitiulo.setFont(new Font("Verdana", Font.BOLD, 35));
-		lblTitiulo.setBounds(361, 11, 463, 44);
-		panel.add(lblTitiulo);
+		JPanel banner = new JPanel();
+		banner.setLayout(null);
+		banner.setBackground(Color.WHITE);
+		banner.setBounds(0, 6, 1200, 60);
+		panel.add(banner);
+		
+		JLabel lblReporteDeObservaciones = new JLabel("Gesti\u00F3n de Fen\u00F3menos");
+		lblReporteDeObservaciones.setHorizontalAlignment(SwingConstants.LEFT);
+		lblReporteDeObservaciones.setForeground(Color.GRAY);
+		lblReporteDeObservaciones.setFont(new Font("SansSerif", Font.PLAIN, 20));
+		lblReporteDeObservaciones.setBounds(new Rectangle(10, 10, 10, 10));
+		lblReporteDeObservaciones.setBounds(14, 28, 1174, 25);
+		banner.add(lblReporteDeObservaciones);
+		
+		JLabel label = new JLabel("");
+		label.setIconTextGap(0);
+		label.setHorizontalAlignment(SwingConstants.CENTER);
+		label.setBounds(1099, 0, 69, 53);
+		banner.add(label);
 		
 		
 		
@@ -273,7 +293,7 @@ public class FrmGestionFenomeno {
 			//Validacion de nombre
 			if (!(txtFNombre.getText().isEmpty()) && (txtFNombre.getText().length() < limiteNombre)) {
 				f.setNombre(txtFNombre.getText().toLowerCase());
-				if(op.equals("alta")) {
+				if(op.equals("alta") || op.equals("modificar")) {
 					try {
 						boolean existeFenomeno = fenomenoServ.existeNombreFenomeno(f);
 						if (existeFenomeno) {

@@ -1,6 +1,7 @@
 package com.presentacion.gui.fenomenos;
 
 import java.awt.EventQueue;
+import java.awt.Font;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -29,12 +30,18 @@ import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.JFormattedTextField;
 import java.awt.event.KeyAdapter;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+
+import java.awt.Color;
+import java.awt.Rectangle;
+import javax.swing.SwingConstants;
 
 public class AltaFenomeno {
 
 	public JFrame frmAltaFenomenos;
 	private JTextField txtFNombre;
-	private JTextField txtFDescripcion;
+	private JTextArea txtADescripcion;
 	private JTextField txtFTelEmergencia;
 	private int limiteNombre = 50;
 	private int limiteDescripcion = 200;
@@ -75,17 +82,22 @@ public class AltaFenomeno {
 	
 		
 		frmAltaFenomenos = new JFrame();
+		frmAltaFenomenos.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		frmAltaFenomenos.setResizable(false);
 		frmAltaFenomenos.setTitle("GEONat - Registro de Fen\u00F3menos");
 		frmAltaFenomenos.setResizable(false);
-		frmAltaFenomenos.setBounds(100, 100, 457, 249);
-		frmAltaFenomenos.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		frmAltaFenomenos.setBounds(10, 10, 1200, 800);
+		frmAltaFenomenos.setSize(1200, 800);
+		frmAltaFenomenos.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmAltaFenomenos.getContentPane().setLayout(null);
 		
-		JLabel lblNombre = new JLabel("Nombre del fen\u00F3meno");
-		lblNombre.setBounds(10, 22, 135, 14);
+		JLabel lblNombre = new JLabel("Nombre del fen\u00F3meno:");
+		lblNombre.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblNombre.setBounds(40, 110, 250, 40);
 		frmAltaFenomenos.getContentPane().add(lblNombre);
 		
 		txtFNombre = new JTextField();
+		txtFNombre.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		txtFNombre.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
@@ -95,33 +107,37 @@ public class AltaFenomeno {
 			}
 			}
 			});
-		txtFNombre.setBounds(170, 19, 229, 20);
+		txtFNombre.setBounds(310, 110, 250, 40);
 		frmAltaFenomenos.getContentPane().add(txtFNombre);
 		txtFNombre.setColumns(10);
 		
-		JLabel lblDescripcion = new JLabel("Descripci\u00F3n");
-		lblDescripcion.setBounds(10, 71, 111, 14);
+		JLabel lblDescripcion = new JLabel("Descripci\u00F3n:");
+		lblDescripcion.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblDescripcion.setBounds(40, 210, 250, 40);
 		frmAltaFenomenos.getContentPane().add(lblDescripcion);
 		
-		txtFDescripcion = new JTextField();
-		txtFDescripcion.addKeyListener(new KeyAdapter() {
+		txtADescripcion = new JTextArea();
+		txtADescripcion.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		txtADescripcion.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
-				if(txtFDescripcion.getText().length() > limiteDescripcion) {
+				if(txtADescripcion.getText().length() > limiteDescripcion) {
 					JOptionPane.showMessageDialog(null,"Debe ingresar menos de "+limiteDescripcion+" caracteres");
 				e.consume();
 				}
 			}
 		});
-		txtFDescripcion.setBounds(170, 56, 229, 45);
-		frmAltaFenomenos.getContentPane().add(txtFDescripcion);
-		txtFDescripcion.setColumns(10);
+		txtADescripcion.setBounds(310, 210, 250, 80);
+		frmAltaFenomenos.getContentPane().add(txtADescripcion);
+		txtADescripcion.setColumns(10);
 		
-		JLabel lblTelEmergencia = new JLabel("Tel\u00E9fonos de Emergencia");
-		lblTelEmergencia.setBounds(10, 130, 143, 14);
+		JLabel lblTelEmergencia = new JLabel("Tel\u00E9fonos de Emergencia:");
+		lblTelEmergencia.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblTelEmergencia.setBounds(40, 310, 250, 40);
 		frmAltaFenomenos.getContentPane().add(lblTelEmergencia);
 		
 		txtFTelEmergencia = new JTextField();
+		txtFTelEmergencia.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		txtFTelEmergencia.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
@@ -131,13 +147,14 @@ public class AltaFenomeno {
 			}
 			}
 		});
-		txtFTelEmergencia.setBounds(170, 127, 170, 20);
+		txtFTelEmergencia.setBounds(310, 320, 250, 40);
 		frmAltaFenomenos.getContentPane().add(txtFTelEmergencia);
 		txtFTelEmergencia.setColumns(10);
 		
 		
 		
 		JButton btnAltaDeFenomeno = new JButton("Alta de fen\u00F3meno");
+		btnAltaDeFenomeno.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		btnAltaDeFenomeno.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String strerror = "";
@@ -161,8 +178,8 @@ public class AltaFenomeno {
 					strerror = "Debe ingresar un nombre valido";
 				}
 							
-				if(!(txtFDescripcion.getText().isEmpty()) && (txtFDescripcion.getText().length()<limiteDescripcion) ) {
-					f.setDescripcion(txtFDescripcion.getText().toString());						
+				if(!(txtADescripcion.getText().isEmpty()) && (txtADescripcion.getText().length()<limiteDescripcion) ) {
+					f.setDescripcion(txtADescripcion.getText().toString());						
 				} else {
 					errores = true;
 					strerror = "Debe ingresar una descripcion de menos de 200 caracteres";
@@ -193,17 +210,38 @@ public class AltaFenomeno {
 				
 			}
 		});
-		btnAltaDeFenomeno.setBounds(170, 175, 143, 23);
+		btnAltaDeFenomeno.setBounds(550, 700, 250, 40);
 		frmAltaFenomenos.getContentPane().add(btnAltaDeFenomeno);
 		
 		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frmAltaFenomenos.hide();
 			}
 		});
-		btnCancelar.setBounds(335, 175, 89, 23);
+		btnCancelar.setBounds(900, 700, 250, 40);
 		frmAltaFenomenos.getContentPane().add(btnCancelar);
+		
+		JPanel banner = new JPanel();
+		banner.setLayout(null);
+		banner.setBackground(Color.WHITE);
+		banner.setBounds(0, 0, 1195, 60);
+		frmAltaFenomenos.getContentPane().add(banner);
+		
+		JLabel lblModificacinDeFenmenos = new JLabel("Registro de Fen\u00F3menos");
+		lblModificacinDeFenmenos.setHorizontalAlignment(SwingConstants.LEFT);
+		lblModificacinDeFenmenos.setForeground(Color.GRAY);
+		lblModificacinDeFenmenos.setFont(new Font("SansSerif", Font.PLAIN, 20));
+		lblModificacinDeFenmenos.setBounds(new Rectangle(10, 10, 10, 10));
+		lblModificacinDeFenmenos.setBounds(14, 28, 1174, 25);
+		banner.add(lblModificacinDeFenmenos);
+		
+		JLabel label = new JLabel("");
+		label.setIconTextGap(0);
+		label.setHorizontalAlignment(SwingConstants.CENTER);
+		label.setBounds(1099, 0, 69, 53);
+		banner.add(label);
 		
 		
 		
@@ -211,7 +249,7 @@ public class AltaFenomeno {
 	
 	public void limpiarDatos() {
 		txtFNombre.setText(null);
-		txtFDescripcion.setText(null);
+		txtADescripcion.setText(null);
 		txtFTelEmergencia.setText(null);
 	}
 }
