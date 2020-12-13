@@ -32,6 +32,7 @@ import javax.swing.JComboBox;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.swing.JButton;
+import java.awt.Font;
 
 public class AltaCaracteristica {
 
@@ -73,41 +74,49 @@ public class AltaCaracteristica {
 		
 		
 		frmG = new JFrame();
-		frmG.setTitle("GEONat - Alta de una caracteristica");
-		frmG.setBounds(100, 100, 450, 300);
+		frmG.setTitle("GEONat - Registro de una caracter\u00EDstica");
+		frmG.setBounds(100, 100, 1200, 800);
 		frmG.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		frmG.getContentPane().setLayout(null);
+		frmG.setResizable(false);
 		
 		JLabel lblNombre = new JLabel("Nombre de la caracter\u00EDstica");
-		lblNombre.setBounds(10, 25, 141, 14);
+		lblNombre.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblNombre.setBounds(150, 100, 250, 40);
 		frmG.getContentPane().add(lblNombre);
 		
 		txtFNombre = new JTextField();
-		txtFNombre.setBounds(181, 22, 206, 20);
+		txtFNombre.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		txtFNombre.setBounds(600, 105, 350, 30);
 		frmG.getContentPane().add(txtFNombre);
 		txtFNombre.setColumns(10);
 		
 		JLabel lblEtiqueta = new JLabel("Etiqueta de presentaci\u00F3n");
-		lblEtiqueta.setBounds(10, 63, 141, 14);
+		lblEtiqueta.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblEtiqueta.setBounds(150, 240, 250, 40);
 		frmG.getContentPane().add(lblEtiqueta);
 		
 		txtFEtiqueta = new JTextField();
-		txtFEtiqueta.setBounds(181, 60, 206, 34);
+		txtFEtiqueta.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		txtFEtiqueta.setBounds(600, 245, 350, 30);
 		frmG.getContentPane().add(txtFEtiqueta);
 		txtFEtiqueta.setColumns(10);
 		
 		JLabel lblTipoDeDato = new JLabel("Tipo de Dato");
-		lblTipoDeDato.setBounds(10, 117, 125, 14);
+		lblTipoDeDato.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblTipoDeDato.setBounds(150, 380, 250, 40);
 		frmG.getContentPane().add(lblTipoDeDato);
 		
 		JLabel lblFenomenoAsociado = new JLabel("Fen\u00F3meno Asociado");
-		lblFenomenoAsociado.setBounds(10, 157, 125, 14);
+		lblFenomenoAsociado.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblFenomenoAsociado.setBounds(150, 520, 250, 40);
 		frmG.getContentPane().add(lblFenomenoAsociado);
 		
 		
 		// Combo Fenomeno Asociado		
 		JComboBox comboBFenomAsoc = new JComboBox();
-		comboBFenomAsoc.setBounds(181, 154, 206, 20);
+		comboBFenomAsoc.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		comboBFenomAsoc.setBounds(600, 525, 350, 30);
 		frmG.getContentPane().add(comboBFenomAsoc);
 		try {
 			List<Fenomeno> fen = cargarfenomenos();
@@ -118,6 +127,7 @@ public class AltaCaracteristica {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		comboBFenomAsoc.addItem("No Tiene");
 		
 		comboBFenomAsoc.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent eventocombo) {
@@ -129,10 +139,10 @@ public class AltaCaracteristica {
 		
 		// Combo TipoDato
 		JComboBox comboBTipoDato = new JComboBox();
-		comboBTipoDato.setBounds(181, 114, 206, 20);
+		comboBTipoDato.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		comboBTipoDato.setBounds(600, 385, 350, 30);
 		frmG.getContentPane().add(comboBTipoDato);
-		comboBTipoDato.removeAllItems(); 
-		comboBTipoDato.addItem("");
+		comboBTipoDato.removeAllItems();
 		TipoDato[] tipoDatoList = TipoDato.values();
 		for (TipoDato tipoDato : tipoDatoList) {
 			comboBTipoDato.addItem(tipoDato);
@@ -146,7 +156,8 @@ public class AltaCaracteristica {
 		
 		// Botón CANCELAR
 		JButton btnCancelarAlta = new JButton("Cancelar Alta");
-		btnCancelarAlta.setBounds(10, 210, 104, 23);
+		btnCancelarAlta.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		btnCancelarAlta.setBounds(920, 660, 180, 40);
 		frmG.getContentPane().add(btnCancelarAlta);
 		btnCancelarAlta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evento) {
@@ -157,7 +168,8 @@ public class AltaCaracteristica {
 		
 		// Botón GUARDAR
 		JButton btnDarDeAlta = new JButton("Confirmar alta");
-		btnDarDeAlta.setBounds(271, 210, 116, 23);
+		btnDarDeAlta.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		btnDarDeAlta.setBounds(100, 660, 180, 40);
 		frmG.getContentPane().add(btnDarDeAlta);
 		
 		btnDarDeAlta.addActionListener(new ActionListener() {
