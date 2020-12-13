@@ -98,51 +98,42 @@ public class AltaUsuario extends JFrame {
 		frmGeonatAlta.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
 		JLabel lblNombreDeUsuaio = new JLabel("Nombre de usuario:");
-		lblNombreDeUsuaio.setBounds(new Rectangle(0, 0, 300, 0));
-		lblNombreDeUsuaio.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblNombreDeUsuaio.setBounds(64, 175, 212, 28);
+		lblNombreDeUsuaio.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		JLabel lblNombre = new JLabel("Nombre:");
-		lblNombre.setBounds(new Rectangle(0, 0, 300, 0));
-		lblNombre.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblNombre.setBounds(64, 247, 200, 28);
+		lblNombre.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		JLabel lblApellido = new JLabel("Apellido:");
-		lblApellido.setBounds(new Rectangle(0, 0, 300, 0));
-		lblApellido.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblApellido.setBounds(580, 241, 107, 40);
+		lblApellido.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		JLabel TipoDoc = new JLabel("Tipo de Documento:");
-		TipoDoc.setBounds(new Rectangle(0, 0, 300, 0));
-		TipoDoc.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		TipoDoc.setBounds(64, 344, 212, 25);
+		TipoDoc.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		JLabel lblTipoDeUsuario = new JLabel("Tipo de Usuario:");
-		lblTipoDeUsuario.setBounds(new Rectangle(0, 0, 300, 0));
-		lblTipoDeUsuario.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblTipoDeUsuario.setBounds(64, 102, 212, 26);
+		lblTipoDeUsuario.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		JLabel lblDocumento = new JLabel("Documento:");
-		lblDocumento.setBounds(new Rectangle(0, 0, 300, 0));
-		lblDocumento.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblDocumento.setBounds(580, 334, 113, 32);
+		lblDocumento.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		JLabel lblDireccion = new JLabel("Direcci\u00F3n:");
-		lblDireccion.setBounds(new Rectangle(0, 0, 300, 0));
-		lblDireccion.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblDireccion.setBounds(64, 411, 212, 26);
+		lblDireccion.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		JCheckBox checkboxUsuarioActivo = new JCheckBox("Activaci\u00F3n de usuario");
+		checkboxUsuarioActivo.setBounds(276, 664, 284, 28);
 		checkboxUsuarioActivo.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		checkboxUsuarioActivo.setSelected(true);
-		checkboxUsuarioActivo.setBounds(276, 664, 284, 28);
 		JLabel lblPassword = new JLabel("Password:");
-		lblPassword.setBounds(new Rectangle(0, 0, 300, 0));
-		lblPassword.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblPassword.setBounds(64, 539, 212, 28);
+		lblPassword.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		JLabel lblReIngresarPassword = new JLabel("Reingresar Password:");
-		lblReIngresarPassword.setBounds(new Rectangle(0, 0, 300, 0));
-		lblReIngresarPassword.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblReIngresarPassword.setBounds(64, 583, 212, 40);
+		lblReIngresarPassword.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		JLabel lblCorreo = new JLabel("Correo electr\u00F3nico:");
-		lblCorreo.setBounds(new Rectangle(0, 0, 300, 0));
-		lblCorreo.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblCorreo.setBounds(64, 474, 212, 28);
+		lblCorreo.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		
 		nombreUsuario = new JTextField();
+		nombreUsuario.setBounds(276, 169, 250, 40);
 		nombreUsuario.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
@@ -153,10 +144,10 @@ public class AltaUsuario extends JFrame {
 			}
 		});		
 		nombreUsuario.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		nombreUsuario.setBounds(276, 169, 250, 40);
 		nombreUsuario.setColumns(10);
 		
 		nombre = new JTextField();
+		nombre.setBounds(276, 241, 250, 40);
 		nombre.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
@@ -167,10 +158,10 @@ public class AltaUsuario extends JFrame {
 			}
 		});
 		nombre.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		nombre.setBounds(276, 241, 250, 40);
 		nombre.setColumns(10);
 		
 		apellido = new JTextField();
+		apellido.setBounds(715, 240, 250, 40);
 		apellido.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
@@ -181,10 +172,10 @@ public class AltaUsuario extends JFrame {
 			}
 		});
 		apellido.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		apellido.setBounds(715, 240, 250, 40);
 		apellido.setColumns(10);
 		
 		documento = new JTextField();
+		documento.setBounds(715, 335, 250, 40);
 		documento.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
@@ -195,10 +186,10 @@ public class AltaUsuario extends JFrame {
 			}
 		});
 		documento.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		documento.setBounds(715, 335, 250, 40);
 		documento.setColumns(10);
 		
 		direccion = new JTextField();
+		direccion.setBounds(276, 404, 450, 40);
 		direccion.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
@@ -208,12 +199,11 @@ public class AltaUsuario extends JFrame {
 		         }
 			}
 		});
-		direccion.setBounds(new Rectangle(0, 0, 0, 40));
 		direccion.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		direccion.setBounds(276, 404, 450, 40);
 		direccion.setColumns(10);
 		
 		password1 = new JPasswordField();
+		password1.setBounds(276, 531, 206, 40);
 		password1.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
@@ -223,11 +213,10 @@ public class AltaUsuario extends JFrame {
 		         }
 			}
 		});
-		password1.setBounds(new Rectangle(0, 0, 0, 40));
 		password1.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		password1.setBounds(276, 531, 206, 40);
 		
 		password2 = new JPasswordField();
+		password2.setBounds(276, 583, 206, 40);
 		password2.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
@@ -238,9 +227,9 @@ public class AltaUsuario extends JFrame {
 			}
 		});
 		password2.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		password2.setBounds(276, 583, 206, 40);
 		
 		correo = new JTextField();
+		correo.setBounds(276, 468, 450, 40);
 		correo.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
@@ -251,7 +240,6 @@ public class AltaUsuario extends JFrame {
 			}
 		});
 		correo.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		correo.setBounds(276, 468, 450, 40);
 		correo.setColumns(10);
 		
 		
@@ -259,8 +247,8 @@ public class AltaUsuario extends JFrame {
 		
 		// Combobox Tipo de DOCUMENTO
 		comboTipoDocumento = new JComboBox();
-		comboTipoDocumento.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		comboTipoDocumento.setBounds(276, 337, 250, 40);
+		comboTipoDocumento.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		comboTipoDocumento.removeAllItems(); 
 		comboTipoDocumento.addItem("");
 		TipoDocumento[] tipoDocList = TipoDocumento.values();
@@ -278,8 +266,8 @@ public class AltaUsuario extends JFrame {
 		
 		// ComboBox Tipo de USUARIO
 		comboTipoUsuario = new JComboBox();
-		comboTipoUsuario.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		comboTipoUsuario.setBounds(276, 95, 250, 40);
+		comboTipoUsuario.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		comboTipoUsuario.removeAllItems(); 
 		comboTipoUsuario.addItem("");
 		TipoUsuario[] tipousrList = TipoUsuario.values();
@@ -317,7 +305,7 @@ public class AltaUsuario extends JFrame {
 
 						if (serviciosUsuarios.existeNombreUsuario(u)) {
 							errores = true;
-							strerror = " El usuario ya existe. ";
+							strerror = "El usuario ya existe.\n";
 						}
 					} catch (ServiciosException e) {
 						e.printStackTrace();
@@ -334,14 +322,14 @@ public class AltaUsuario extends JFrame {
 						u.setEmail(correo.getText());
 					}else {
 						errores=true;
-						strerror= strerror + " El correo ingresado no es válido. ";
+						strerror= strerror + "El correo ingresado no es válido.\n";
 					}
 					if (TipoDocumento.valueOf(comboTipoDocumento.getSelectedItem().toString()) == TipoDocumento.CI) {
 						if (isCiValid(documento.getText())) {
 							u.setEmail(correo.getText());
 						}else {
 							errores=true;
-							strerror= strerror + " Cédula de identidad inválida. ";
+							strerror= strerror + "Cédula de identidad inválida.\n";
 						}
 					}
 					
@@ -350,7 +338,7 @@ public class AltaUsuario extends JFrame {
 						u.setPassword(new String(password1.getPassword()));
 					} else {
 						errores=true;
-						strerror= strerror + " Las contraseñas ingresadas no coinciden. ";
+						strerror= strerror + "Las contraseñas ingresadas no coinciden.\n";
 					}
 									
 					u.setTipoUsuario(TipoUsuario.valueOf(comboTipoUsuario.getSelectedItem().toString()) );			
@@ -362,6 +350,7 @@ public class AltaUsuario extends JFrame {
 						try {
 							serviciosUsuarios.create(u);
 							JOptionPane.showMessageDialog(null,  "Usuario Creado");
+							frmGeonatAlta.dispose();
 						} catch (ServiciosException err) {
 							
 							err.printStackTrace();
@@ -410,9 +399,9 @@ public class AltaUsuario extends JFrame {
 		frmGeonatAlta.getContentPane().add(btnCancela);
 		
 		JPanel panel = new JPanel();
+		panel.setBounds(0, 0, 1194, 59);
 		panel.setLayout(null);
 		panel.setBackground(Color.WHITE);
-		panel.setBounds(0, 0, 1194, 59);
 		frmGeonatAlta.getContentPane().add(panel);
 		
 		JLabel lblRegistroDeUsuario = new JLabel("Registro de usuario");
@@ -430,87 +419,75 @@ public class AltaUsuario extends JFrame {
 		panel.add(label_1);
 		
 		JLabel label = new JLabel("*");
+		label.setBounds(527, 107, 33, 28);
 		label.setForeground(Color.RED);
 		label.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		label.setBounds(new Rectangle(0, 0, 300, 0));
-		label.setBounds(527, 107, 33, 28);
 		frmGeonatAlta.getContentPane().add(label);
 		
 		JLabel label_2 = new JLabel("*");
+		label_2.setBounds(527, 183, 33, 28);
 		label_2.setForeground(Color.RED);
 		label_2.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		label_2.setBounds(new Rectangle(0, 0, 300, 0));
-		label_2.setBounds(527, 183, 33, 28);
 		frmGeonatAlta.getContentPane().add(label_2);
 		
 		JLabel label_3 = new JLabel("*");
+		label_3.setBounds(527, 255, 33, 28);
 		label_3.setForeground(Color.RED);
 		label_3.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		label_3.setBounds(new Rectangle(0, 0, 300, 0));
-		label_3.setBounds(527, 255, 33, 28);
 		frmGeonatAlta.getContentPane().add(label_3);
 		
 		JLabel label_4 = new JLabel("*");
+		label_4.setBounds(966, 254, 33, 28);
 		label_4.setForeground(Color.RED);
 		label_4.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		label_4.setBounds(new Rectangle(0, 0, 300, 0));
-		label_4.setBounds(966, 254, 33, 28);
 		frmGeonatAlta.getContentPane().add(label_4);
 		
 		JLabel label_5 = new JLabel("*");
+		label_5.setBounds(527, 350, 33, 28);
 		label_5.setForeground(Color.RED);
 		label_5.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		label_5.setBounds(new Rectangle(0, 0, 300, 0));
-		label_5.setBounds(527, 350, 33, 28);
 		frmGeonatAlta.getContentPane().add(label_5);
 		
 		JLabel label_6 = new JLabel("*");
+		label_6.setBounds(966, 358, 33, 17);
 		label_6.setForeground(Color.RED);
 		label_6.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		label_6.setBounds(new Rectangle(0, 0, 300, 0));
-		label_6.setBounds(966, 358, 33, 17);
 		frmGeonatAlta.getContentPane().add(label_6);
 		
 		JLabel label_7 = new JLabel("*");
+		label_7.setBounds(728, 482, 33, 28);
 		label_7.setForeground(Color.RED);
 		label_7.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		label_7.setBounds(new Rectangle(0, 0, 300, 0));
-		label_7.setBounds(728, 482, 33, 28);
 		frmGeonatAlta.getContentPane().add(label_7);
 		
 		JLabel label_8 = new JLabel("*");
+		label_8.setBounds(483, 545, 33, 28);
 		label_8.setForeground(Color.RED);
 		label_8.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		label_8.setBounds(new Rectangle(0, 0, 300, 0));
-		label_8.setBounds(483, 545, 33, 28);
 		frmGeonatAlta.getContentPane().add(label_8);
 		
 		JLabel label_9 = new JLabel("*");
+		label_9.setBounds(483, 595, 33, 28);
 		label_9.setForeground(Color.RED);
 		label_9.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		label_9.setBounds(new Rectangle(0, 0, 300, 0));
-		label_9.setBounds(483, 595, 33, 28);
 		frmGeonatAlta.getContentPane().add(label_9);
 		
 		JLabel label_10 = new JLabel("*");
+		label_10.setBounds(48, 737, 33, 28);
 		label_10.setForeground(Color.RED);
 		label_10.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		label_10.setBounds(new Rectangle(0, 0, 300, 0));
-		label_10.setBounds(48, 737, 33, 28);
 		frmGeonatAlta.getContentPane().add(label_10);
 		
 		JLabel lblCamposObligatorios = new JLabel("Campos obligatorios");
+		lblCamposObligatorios.setBounds(64, 737, 200, 28);
 		lblCamposObligatorios.setForeground(Color.DARK_GRAY);
 		lblCamposObligatorios.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblCamposObligatorios.setBounds(new Rectangle(0, 0, 300, 0));
-		lblCamposObligatorios.setBounds(64, 737, 200, 28);
 		frmGeonatAlta.getContentPane().add(lblCamposObligatorios);
 		
 		JLabel lblSinPuntosNi = new JLabel("Sin puntos ni guiones");
+		lblSinPuntosNi.setBounds(966, 343, 200, 17);
 		lblSinPuntosNi.setForeground(Color.DARK_GRAY);
 		lblSinPuntosNi.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblSinPuntosNi.setBounds(new Rectangle(0, 0, 300, 0));
-		lblSinPuntosNi.setBounds(966, 343, 200, 17);
 		frmGeonatAlta.getContentPane().add(lblSinPuntosNi);
 
 		
@@ -520,13 +497,13 @@ public class AltaUsuario extends JFrame {
 	private boolean hayCamposVacios() {
 		List<JTextField> array = new ArrayList<JTextField>() {
 			{
-				getContentPane().add(nombreUsuario);
-				getContentPane().add(nombre);
-				getContentPane().add(apellido);
-				getContentPane().add(documento);
-				getContentPane().add(correo);
-				getContentPane().add(password1);
-				getContentPane().add(password2);
+				add(nombreUsuario);
+				add(nombre);
+				add(apellido);
+				add(documento);
+				add(correo);
+				add(password1);
+				add(password2);
 			}
 		};
 
@@ -578,7 +555,6 @@ public class AltaUsuario extends JFrame {
 }
 
 	private boolean isCiValid(String ci) {
-
 		if(ci.length() != 7 && ci.length() != 8){
 			return false;
 		}else{
