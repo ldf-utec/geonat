@@ -10,9 +10,9 @@ import javax.persistence.*;
 
 @Entity
 @NamedQuery(name="Caracteristica.obtenerTodos", query="SELECT c FROM Caracteristica c")
-@NamedQuery(name="Caracteristica.existeNombreUsuario", query="SELECT count (nombre) FROM Caracteristica WHERE nombre=:filtro")
-@NamedQuery(name="Caracteristica.obtenerPorNombre", query="SELECT c FROM Caracteristica c WHERE c.nombre LIKE :filtro")
-@NamedQuery(name="Caracteristica.existeNombreCaracteristica", query="SELECT count(nombre) FROM Caracteristica WHERE nombre=:filtro")
+@NamedQuery(name="Caracteristica.obtenerPorNombre", query="SELECT c FROM Caracteristica c WHERE UPPER(c.nombre) LIKE :filtro")
+@NamedQuery(name="Caracteristica.existeNombreCaracteristica", query="SELECT count(nombre) FROM Caracteristica WHERE UPPER(nombre)=:filtro")
+
 public class Caracteristica implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
