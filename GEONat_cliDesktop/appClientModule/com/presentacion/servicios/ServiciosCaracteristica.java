@@ -2,6 +2,7 @@ package com.presentacion.servicios;
 
 import java.util.List;
 import javax.persistence.PersistenceException;
+import javax.persistence.TypedQuery;
 
 import com.DAO.interfaces.ICaracteristicaDAO;
 import com.entities.Caracteristica;
@@ -55,8 +56,7 @@ public class ServiciosCaracteristica {
 	public List<Caracteristica> obtenerTodos() throws ServiciosException {
 		try {
 		
-			List<Caracteristica> l = servicios.caracteristicaBean.obtenerTodos();
-			
+			List<Caracteristica> l = servicios.caracteristicaBean.obtenerTodos();	
 			return l;
 		} catch (Exception e) {
 			System.out.println("Error en serviciosCaracteristicas ObtenerTodos(). " + e.getMessage());
@@ -78,6 +78,15 @@ public class ServiciosCaracteristica {
 		} catch (PersistenceException e) {
 			throw new ServiciosException("Error al consultar");
 		}
+	}
+	
+	public boolean existeNombreCaracteristica(String nombre) throws ServiciosException {
+		try {
+			return servicios.caracteristicaBean.existeNombreCaracteristica(nombre);
+		} catch (PersistenceException e) {
+			throw new ServiciosException("Error al consultar");
+		}
+
 	}
 	
 	
