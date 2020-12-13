@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
@@ -101,7 +102,7 @@ public class GestionObservaciones  {
 		frmGestionObservaciones.setTitle("GEONat - Observaciones");
 		frmGestionObservaciones.setResizable(false);
 		frmGestionObservaciones.setBounds(100, 100, 1200, 800);
-		frmGestionObservaciones.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		frmGestionObservaciones.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmGestionObservaciones.getContentPane().setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
@@ -111,7 +112,7 @@ public class GestionObservaciones  {
 		
 		table = new JTable();
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
-		table.setFont(new Font("SansSerif", Font.PLAIN, 18));
+		table.setFont(new Font("SansSerif", Font.PLAIN, 18));	
 		scrollPane.setViewportView(table);
 		
 		btnCancelar = new JButton("Cerrar");
@@ -223,15 +224,10 @@ public class GestionObservaciones  {
 			}
 		});
 		
-
 		
-		
-				
 		try {
 			cargarTabla(serviciosObservaciones.obtenerTodos());
 			cargarComboBox();
-
-			
 			
 		} catch (ServiciosException e1) {
 			// TODO Auto-generated catch block
@@ -239,9 +235,9 @@ public class GestionObservaciones  {
 		}
 	}
 	
-	// Método para cargar el contenido de la tabla
 	
-	private void cargarTabla(List<Observacion> listaObservaciones) throws ServiciosException {
+	// Método para cargar el contenido de la tabla
+		private void cargarTabla(List<Observacion> listaObservaciones) throws ServiciosException {
 		try {
 			
 			//List<Observacion> listaObservaciones =  serviciosObservaciones.obtenerTodos(); 
@@ -291,6 +287,25 @@ public class GestionObservaciones  {
 			table.setAutoscrolls(true);
 			table.setCellSelectionEnabled(false);
 
+			// Defines table's column width.
+	        int[] columnsWidth = {
+	            40, 120, 500, 200, 120
+	        };
+
+	        // Creates an instance of JTable and fill it with data and
+	        // column names information.
+	        //JTable table = new JTable(data, columnNames);
+
+	        // Configures table's column width.
+	        int i = 0;
+	        for (int width : columnsWidth) {
+	            TableColumn column = table.getColumnModel().getColumn(i++);
+	            column.setMinWidth(width);
+	            column.setMaxWidth(width);
+	            column.setPreferredWidth(width);
+	        }
+			
+			
 		} catch (Exception e) {
 
 			System.out.println("Error al cargar datos en la tabla. ");
@@ -314,17 +329,13 @@ public class GestionObservaciones  {
 		}
 	}
 	
-	
-	
-	
 	public void filtrar() {
 		Date startDate;
 		Date endDate;
 		List<RowFilter<Object,Object>> filters = new ArrayList<RowFilter<Object,Object>>(3);
 		
 		try {
-			
-						
+									
 			String strCriticidad = cmbCriticidad.getSelectedItem().toString();
 			if (strCriticidad == "Todos") { strCriticidad=""; }
 			
@@ -332,15 +343,13 @@ public class GestionObservaciones  {
 			if (ValidateFechas()) {
 				startDate = this.dateChooser_desde.getDate();
 				endDate = this.dateChooser_hasta.getDate();
-				
-				
+								
 				DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 				Calendar cal = Calendar.getInstance();
 				cal.setTime(startDate);
 				cal.add(Calendar.DATE, -1);
 				startDate = cal.getTime();
-				
-				
+								
 				filters.add( RowFilter.dateFilter(ComparisonType.AFTER , startDate) );
 				filters.add( RowFilter.dateFilter(ComparisonType.BEFORE, endDate) );
 			}
@@ -350,13 +359,7 @@ public class GestionObservaciones  {
 			
 			TableRowSorter<TableModel> filtro = new TableRowSorter<>(this.table.getModel());
 			filtro.setRowFilter(RowFilter.andFilter(filters));
-			this.table.setRowSorter(filtro);
-
-			
-			
-			
-			//JOptionPane.showMessageDialog(frmGestionObservaciones, cal.getTime(), null, JOptionPane.ERROR_MESSAGE);
-			
+			this.table.setRowSorter(filtro);		
 			
 			
 		} catch (Exception e) {
@@ -365,9 +368,7 @@ public class GestionObservaciones  {
 				
 	}
 	
-	
-	
-	
+		
 	
 	
 	
@@ -395,6 +396,5 @@ public class GestionObservaciones  {
 		
 	}
 	
-	
-	
+		
 }
