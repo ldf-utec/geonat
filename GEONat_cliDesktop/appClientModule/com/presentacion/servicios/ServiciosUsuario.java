@@ -111,16 +111,20 @@ public class ServiciosUsuario {
 	}
 
 	public Usuario obtenerUno(Usuario usuario) throws ServiciosException  {
-		// TODO Auto-generated method stub
 		Usuario u = servicios.usuarioBean.obtenerUno(usuario);
 		return u ;
-
 	}
 	
 	public Usuario obtenerPorNombre(String nombreUsuario) throws ServiciosException {
 		
 		Usuario u = servicios.usuarioBean.obtenerPorNombre(nombreUsuario);
 		return u;
+	}
+		
+	public Usuario obtenerPorDocumento(String documento) throws ServiciosException {
+
+		Usuario u = servicios.usuarioBean.obtenerPorDocumento(documento);
+		return u ;
 	}
 
 	

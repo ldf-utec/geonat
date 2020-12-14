@@ -31,6 +31,16 @@ import java.awt.event.ItemListener;
 
 import javax.swing.JPasswordField;
 import java.awt.Font;
+import javax.swing.JPanel;
+import java.awt.Color;
+import java.awt.Rectangle;
+import javax.swing.SwingConstants;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class AltaUsuario extends JFrame {
 
@@ -46,7 +56,8 @@ public class AltaUsuario extends JFrame {
 	private JPasswordField password1;
 	private JPasswordField password2;
 	private JTextField correo;
-
+	JComboBox comboTipoDocumento;
+	JComboBox comboTipoUsuario;
 
 	/**
 	 * Launch the application.
@@ -80,42 +91,164 @@ public class AltaUsuario extends JFrame {
 		// IUsuarioDAO usuarioDAO = ServiciosGUI.getInstance().getUsuarioBean();
 				
 		frmGeonatAlta = new JFrame();
-		frmGeonatAlta.setTitle("GEONat - Registro de usuarios");
+		frmGeonatAlta.getContentPane().setBounds(new Rectangle(0, 0, 300, 0));
+		frmGeonatAlta.setResizable(false);
+		frmGeonatAlta.setTitle("GEONat - Registro de usuario");
 		frmGeonatAlta.setBounds(100, 100, 1200, 800);
-		frmGeonatAlta.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		frmGeonatAlta.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
-		JLabel lblNombreDeUsuaio = new JLabel("Nombre de usuario");
-		JLabel lblNombre = new JLabel("Nombre");
-		JLabel lblApellido = new JLabel("Apellido");
-		JLabel TipoDoc = new JLabel("Tipo de Documento");
-		JLabel lblTipoDeUsuario = new JLabel("Tipo de Usuario");
-		JLabel lblDocumento = new JLabel("Documento");
-		JLabel lblDireccion = new JLabel("Dirección");
-		JCheckBox checkboxUsuarioActivo = new JCheckBox("Usuario Activo?");
-		JLabel lblPassword = new JLabel("Password");
-		JLabel lblReIngresarPassword = new JLabel("Re ingresar Password");
-		JLabel lblCorreo = new JLabel("Correo");
+		JLabel lblNombreDeUsuaio = new JLabel("Nombre de usuario:");
+		lblNombreDeUsuaio.setBounds(64, 175, 212, 28);
+		lblNombreDeUsuaio.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		JLabel lblNombre = new JLabel("Nombre:");
+		lblNombre.setBounds(64, 247, 200, 28);
+		lblNombre.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		JLabel lblApellido = new JLabel("Apellido:");
+		lblApellido.setBounds(580, 241, 107, 40);
+		lblApellido.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		JLabel TipoDoc = new JLabel("Tipo de Documento:");
+		TipoDoc.setBounds(64, 344, 212, 25);
+		TipoDoc.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		JLabel lblTipoDeUsuario = new JLabel("Tipo de Usuario:");
+		lblTipoDeUsuario.setBounds(64, 102, 212, 26);
+		lblTipoDeUsuario.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		JLabel lblDocumento = new JLabel("Documento:");
+		lblDocumento.setBounds(580, 334, 113, 32);
+		lblDocumento.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		JLabel lblDireccion = new JLabel("Direcci\u00F3n:");
+		lblDireccion.setBounds(64, 411, 212, 26);
+		lblDireccion.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		JCheckBox checkboxUsuarioActivo = new JCheckBox("Activaci\u00F3n de usuario");
+		checkboxUsuarioActivo.setBounds(276, 664, 284, 28);
+		checkboxUsuarioActivo.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		checkboxUsuarioActivo.setSelected(true);
+		JLabel lblPassword = new JLabel("Password:");
+		lblPassword.setBounds(64, 539, 212, 28);
+		lblPassword.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		JLabel lblReIngresarPassword = new JLabel("Reingresar Password:");
+		lblReIngresarPassword.setBounds(64, 583, 212, 40);
+		lblReIngresarPassword.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		JLabel lblCorreo = new JLabel("Correo electr\u00F3nico:");
+		lblCorreo.setBounds(64, 474, 212, 28);
+		lblCorreo.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		
 		nombreUsuario = new JTextField();
+		nombreUsuario.setBounds(276, 169, 250, 40);
+		nombreUsuario.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				if(nombreUsuario.getText().length()>=25&&!(e.getKeyChar()==KeyEvent.VK_DELETE||e.getKeyChar()==KeyEvent.VK_BACK_SPACE)) {
+		            getToolkit().beep();
+		            e.consume();
+		         }			
+			}
+		});		
+		nombreUsuario.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		nombreUsuario.setColumns(10);
+		
 		nombre = new JTextField();
+		nombre.setBounds(276, 241, 250, 40);
+		nombre.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				if(nombre.getText().length()>=25&&!(e.getKeyChar()==KeyEvent.VK_DELETE||e.getKeyChar()==KeyEvent.VK_BACK_SPACE)) {
+		            getToolkit().beep();
+		            e.consume();
+		         }	
+			}
+		});
+		nombre.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		nombre.setColumns(10);
+		
 		apellido = new JTextField();
+		apellido.setBounds(715, 240, 250, 40);
+		apellido.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				if(apellido.getText().length()>=25&&!(e.getKeyChar()==KeyEvent.VK_DELETE||e.getKeyChar()==KeyEvent.VK_BACK_SPACE)) {
+		            getToolkit().beep();
+		            e.consume();
+		         }	
+			}
+		});
+		apellido.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		apellido.setColumns(10);
+		
 		documento = new JTextField();
+		documento.setBounds(715, 335, 250, 40);
+		documento.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				if(documento.getText().length()>=25&&!(e.getKeyChar()==KeyEvent.VK_DELETE||e.getKeyChar()==KeyEvent.VK_BACK_SPACE)) {
+		            getToolkit().beep();
+		            e.consume();
+		         }
+			}
+		});
+		documento.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		documento.setColumns(10);
+		
 		direccion = new JTextField();
+		direccion.setBounds(276, 404, 450, 40);
+		direccion.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				if(direccion.getText().length()>=50&&!(e.getKeyChar()==KeyEvent.VK_DELETE||e.getKeyChar()==KeyEvent.VK_BACK_SPACE)) {
+		            getToolkit().beep();
+		            e.consume();
+		         }
+			}
+		});
+		direccion.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		direccion.setColumns(10);
+		
 		password1 = new JPasswordField();
+		password1.setBounds(276, 531, 206, 40);
+		password1.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				if(password1.getText().length()>=25&&!(e.getKeyChar()==KeyEvent.VK_DELETE||e.getKeyChar()==KeyEvent.VK_BACK_SPACE)) {
+		            getToolkit().beep();
+		            e.consume();
+		         }
+			}
+		});
+		password1.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		
 		password2 = new JPasswordField();
+		password2.setBounds(276, 583, 206, 40);
+		password2.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				if(password2.getText().length()>=25&&!(e.getKeyChar()==KeyEvent.VK_DELETE||e.getKeyChar()==KeyEvent.VK_BACK_SPACE)) {
+		            getToolkit().beep();
+		            e.consume();
+		         }
+			}
+		});
+		password2.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		
 		correo = new JTextField();
+		correo.setBounds(276, 468, 450, 40);
+		correo.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				if(correo.getText().length()>=50&&!(e.getKeyChar()==KeyEvent.VK_DELETE||e.getKeyChar()==KeyEvent.VK_BACK_SPACE)) {
+		            getToolkit().beep();
+		            e.consume();
+		         }
+			}
+		});
+		correo.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		correo.setColumns(10);
 		
 		
 		
 		
 		// Combobox Tipo de DOCUMENTO
-		JComboBox comboTipoDocumento = new JComboBox();
+		comboTipoDocumento = new JComboBox();
+		comboTipoDocumento.setBounds(276, 337, 250, 40);
+		comboTipoDocumento.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		comboTipoDocumento.removeAllItems(); 
 		comboTipoDocumento.addItem("");
 		TipoDocumento[] tipoDocList = TipoDocumento.values();
@@ -132,7 +265,9 @@ public class AltaUsuario extends JFrame {
 			
 		
 		// ComboBox Tipo de USUARIO
-		JComboBox comboTipoUsuario = new JComboBox();
+		comboTipoUsuario = new JComboBox();
+		comboTipoUsuario.setBounds(276, 95, 250, 40);
+		comboTipoUsuario.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		comboTipoUsuario.removeAllItems(); 
 		comboTipoUsuario.addItem("");
 		TipoUsuario[] tipousrList = TipoUsuario.values();
@@ -149,7 +284,8 @@ public class AltaUsuario extends JFrame {
 				
 		
 		//Boton AltaUsuario
-		JButton btnAltaUsuario = new JButton("Alta Usuario");
+		JButton btnAltaUsuario = new JButton("Confirmar");
+		btnAltaUsuario.setBounds(821, 708, 155, 34);
 		btnAltaUsuario.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		btnAltaUsuario.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent evento) {
@@ -157,63 +293,65 @@ public class AltaUsuario extends JFrame {
 					Boolean errores = false;
 					Usuario u = new Usuario();
 					
+					if (hayCamposVacios()) {
+						JOptionPane.showMessageDialog(frmGeonatAlta,  "Falta completar campos obligatorios(*)");
+						return;
+					}									
+					
 					u.setNombreUsuario(nombreUsuario.getText());
 					
 					try {
-						boolean existeUsuario = serviciosUsuarios.existeNombreUsuario(u);
 
-						if (existeUsuario) {
+						if (serviciosUsuarios.existeNombreUsuario(u)) {
 							errores = true;
-							strerror = " El usuario ya existe. ";
+							strerror = strerror +"- El nombre de usuario ingresado ya está en uso.\n";
 						}
 					} catch (ServiciosException e) {
 						e.printStackTrace();
 					}
 					
-					
-					if ((nombre.getText().length())>50) {
-						errores=true;
-						strerror= strerror + " Nombre con mas de 50 caracteres. ";
-					} else {
-						u.setNombre(nombre.getText());
+					try {
+						boolean existeDocumento = serviciosUsuarios.obtenerPorDocumento(documento.getText())!=null;
+
+						if (existeDocumento) {
+							errores = true;
+							strerror = strerror + "- El documento ingresado ya existe en la base de datos.\n";
+						}
+					} catch (ServiciosException e) {
+						e.printStackTrace();
 					}
-					if ((apellido.getText().length())>50) {
-						errores=true;
-						strerror= strerror + " Apellido con mas de 50 caracteres. ";
-					} else {
-						u.setApellido(apellido.getText());
-					}
+									
+
+					u.setNombre(nombre.getText());
+					u.setApellido(apellido.getText());
 					u.setTipoDocumento(TipoDocumento.valueOf(comboTipoDocumento.getSelectedItem().toString()) );
+					u.setNroDocumento(documento.getText());
+					u.setDireccion(direccion.getText());
 					
-					if ((documento.getText().length())>20) {
-						errores=true;
-						strerror= strerror + " Documento con mas de 20 caracteres. ";
-					} else {
-						u.setNroDocumento(documento.getText());
-					}
-					if ((direccion.getText().length())>100) {
-						errores=true;
-						strerror= strerror + " Direccion con mas de 100 caracteres. ";
-					} else {
-						u.setDireccion(direccion.getText());
-					}
-
-
-					if ((correo.getText().length())>50) {
-						errores=true;
-						strerror= strerror + " Direccion de email con mas de 50 caracteres. ";
-					} else {
+					if (isEmailValid(correo.getText())) {
 						u.setEmail(correo.getText());
+					}else {
+						errores=true;
+						strerror= strerror + "- El correo ingresado no es válido.\n";
 					}
+					if (TipoDocumento.valueOf(comboTipoDocumento.getSelectedItem().toString()) == TipoDocumento.CI) {
+						if (isCiValid(documento.getText())) {
+							u.setEmail(correo.getText());
+						}else {
+							errores=true;
+							strerror= strerror + "- Cédula de identidad inválida.\n";
+						}
+					}
+					
+
 					if (clavesIdenticas(password1.getPassword(), password2.getPassword())) {
 						u.setPassword(new String(password1.getPassword()));
 					} else {
 						errores=true;
-						strerror= strerror + " Las contraseñas ingresadas no coinciden. ";
+						strerror= strerror + "- Las contraseñas ingresadas no coinciden.\n";
 					}
 									
-					u.setTipoUsuario(TipoUsuario.valueOf(comboTipoUsuario.getSelectedItem().toString()) );
-										
+					u.setTipoUsuario(TipoUsuario.valueOf(comboTipoUsuario.getSelectedItem().toString()) );			
 					u.setEstadoActivo(checkboxUsuarioActivo.isSelected());
 										
 					if (errores) {
@@ -222,9 +360,11 @@ public class AltaUsuario extends JFrame {
 						try {
 							serviciosUsuarios.create(u);
 							JOptionPane.showMessageDialog(null,  "Usuario Creado");
+							frmGeonatAlta.dispose();
 						} catch (ServiciosException err) {
 							
 							err.printStackTrace();
+							JOptionPane.showMessageDialog(null,  "Error al crear usuario en la base de datos");
 						}
 						
 					}
@@ -236,122 +376,163 @@ public class AltaUsuario extends JFrame {
  
 		//Boton Cancelar
 		JButton btnCancela = new JButton("Cancelar");
+		btnCancela.setBounds(1003, 708, 148, 34);
 		btnCancela.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		btnCancela.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evento) {
-				frmGeonatAlta.hide();
+				frmGeonatAlta.dispose();;
 			}
 		});
+		frmGeonatAlta.getContentPane().setLayout(null);
+		frmGeonatAlta.getContentPane().add(lblPassword);
+		frmGeonatAlta.getContentPane().add(lblReIngresarPassword);
+		frmGeonatAlta.getContentPane().add(lblTipoDeUsuario);
+		frmGeonatAlta.getContentPane().add(lblCorreo);
+		frmGeonatAlta.getContentPane().add(comboTipoUsuario);
+		frmGeonatAlta.getContentPane().add(password2);
+		frmGeonatAlta.getContentPane().add(password1);
+		frmGeonatAlta.getContentPane().add(correo);
+		frmGeonatAlta.getContentPane().add(lblDocumento);
+		frmGeonatAlta.getContentPane().add(lblNombreDeUsuaio);
+		frmGeonatAlta.getContentPane().add(lblNombre);
+		frmGeonatAlta.getContentPane().add(lblApellido);
+		frmGeonatAlta.getContentPane().add(TipoDoc);
+		frmGeonatAlta.getContentPane().add(lblDireccion);
+		frmGeonatAlta.getContentPane().add(direccion);
+		frmGeonatAlta.getContentPane().add(documento);
+		frmGeonatAlta.getContentPane().add(comboTipoDocumento);
+		frmGeonatAlta.getContentPane().add(apellido);
+		frmGeonatAlta.getContentPane().add(nombre);
+		frmGeonatAlta.getContentPane().add(nombreUsuario);
+		frmGeonatAlta.getContentPane().add(checkboxUsuarioActivo);
+		frmGeonatAlta.getContentPane().add(btnAltaUsuario);
+		frmGeonatAlta.getContentPane().add(btnCancela);
 		
+		JPanel panel = new JPanel();
+		panel.setBounds(0, 0, 1194, 59);
+		panel.setLayout(null);
+		panel.setBackground(Color.WHITE);
+		frmGeonatAlta.getContentPane().add(panel);
 		
+		JLabel lblRegistroDeUsuario = new JLabel("Registro de usuario");
+		lblRegistroDeUsuario.setHorizontalAlignment(SwingConstants.LEFT);
+		lblRegistroDeUsuario.setForeground(Color.GRAY);
+		lblRegistroDeUsuario.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblRegistroDeUsuario.setBounds(new Rectangle(10, 10, 10, 10));
+		lblRegistroDeUsuario.setBounds(14, 28, 1174, 25);
+		panel.add(lblRegistroDeUsuario);
 		
+		JLabel label_1 = new JLabel("");
+		label_1.setIconTextGap(0);
+		label_1.setHorizontalAlignment(SwingConstants.CENTER);
+		label_1.setBounds(1099, 0, 69, 53);
+		panel.add(label_1);
 		
+		JLabel label = new JLabel("*");
+		label.setBounds(527, 107, 33, 28);
+		label.setForeground(Color.RED);
+		label.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		frmGeonatAlta.getContentPane().add(label);
 		
+		JLabel label_2 = new JLabel("*");
+		label_2.setBounds(527, 183, 33, 28);
+		label_2.setForeground(Color.RED);
+		label_2.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		frmGeonatAlta.getContentPane().add(label_2);
 		
-		GroupLayout groupLayout = new GroupLayout(frmGeonatAlta.getContentPane());
-		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(25)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblPassword, GroupLayout.PREFERRED_SIZE, 107, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblReIngresarPassword, GroupLayout.PREFERRED_SIZE, 141, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblTipoDeUsuario)
-								.addComponent(lblCorreo))
-							.addGap(26)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addGroup(groupLayout.createSequentialGroup()
-									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-										.addComponent(comboTipoUsuario, 0, 837, Short.MAX_VALUE)
-										.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
-											.addComponent(password2, Alignment.LEADING)
-											.addComponent(password1, Alignment.LEADING, 195, 195, Short.MAX_VALUE)))
-									.addGap(255))
-								.addComponent(correo, GroupLayout.PREFERRED_SIZE, 450, GroupLayout.PREFERRED_SIZE)))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
-									.addComponent(lblDocumento, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-									.addComponent(lblNombreDeUsuaio, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
-									.addComponent(lblNombre, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
-									.addComponent(lblApellido, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
-									.addComponent(TipoDoc, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-								.addComponent(lblDireccion))
-							.addGap(47)
-							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
-								.addComponent(direccion)
-								.addComponent(documento)
-								.addComponent(comboTipoDocumento, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(apellido)
-								.addComponent(nombre)
-								.addComponent(nombreUsuario, GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE)
-								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(checkboxUsuarioActivo)
-									.addGap(18)
-									.addComponent(btnAltaUsuario, GroupLayout.PREFERRED_SIZE, 155, GroupLayout.PREFERRED_SIZE)
-									.addGap(80)))
-							.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addComponent(btnCancela, GroupLayout.PREFERRED_SIZE, 148, GroupLayout.PREFERRED_SIZE)
-							.addGap(488)))
-					.addGap(0))
-		);
-		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(20)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblNombreDeUsuaio, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-						.addComponent(nombreUsuario, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(20)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblNombre, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-						.addComponent(nombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(20)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblApellido, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-						.addComponent(apellido, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(20)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(comboTipoDocumento, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(TipoDoc))
-					.addGap(20)
-					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-						.addComponent(lblDocumento)
-						.addComponent(documento, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(20)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblDireccion)
-						.addComponent(direccion, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(20)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblCorreo)
-						.addComponent(correo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(20)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblPassword)
-						.addComponent(password1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(20)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblReIngresarPassword)
-						.addComponent(password2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(20)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblTipoDeUsuario)
-						.addComponent(comboTipoUsuario, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(88)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnAltaUsuario, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
-						.addComponent(btnCancela, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
-						.addComponent(checkboxUsuarioActivo))
-					.addContainerGap(163, Short.MAX_VALUE))
-		);
-		frmGeonatAlta.getContentPane().setLayout(groupLayout);
+		JLabel label_3 = new JLabel("*");
+		label_3.setBounds(527, 255, 33, 28);
+		label_3.setForeground(Color.RED);
+		label_3.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		frmGeonatAlta.getContentPane().add(label_3);
+		
+		JLabel label_4 = new JLabel("*");
+		label_4.setBounds(966, 254, 33, 28);
+		label_4.setForeground(Color.RED);
+		label_4.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		frmGeonatAlta.getContentPane().add(label_4);
+		
+		JLabel label_5 = new JLabel("*");
+		label_5.setBounds(527, 350, 33, 28);
+		label_5.setForeground(Color.RED);
+		label_5.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		frmGeonatAlta.getContentPane().add(label_5);
+		
+		JLabel label_6 = new JLabel("*");
+		label_6.setBounds(966, 358, 33, 17);
+		label_6.setForeground(Color.RED);
+		label_6.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		frmGeonatAlta.getContentPane().add(label_6);
+		
+		JLabel label_7 = new JLabel("*");
+		label_7.setBounds(728, 482, 33, 28);
+		label_7.setForeground(Color.RED);
+		label_7.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		frmGeonatAlta.getContentPane().add(label_7);
+		
+		JLabel label_8 = new JLabel("*");
+		label_8.setBounds(483, 545, 33, 28);
+		label_8.setForeground(Color.RED);
+		label_8.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		frmGeonatAlta.getContentPane().add(label_8);
+		
+		JLabel label_9 = new JLabel("*");
+		label_9.setBounds(483, 595, 33, 28);
+		label_9.setForeground(Color.RED);
+		label_9.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		frmGeonatAlta.getContentPane().add(label_9);
+		
+		JLabel label_10 = new JLabel("*");
+		label_10.setBounds(48, 737, 33, 28);
+		label_10.setForeground(Color.RED);
+		label_10.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		frmGeonatAlta.getContentPane().add(label_10);
+		
+		JLabel lblCamposObligatorios = new JLabel("Campos obligatorios");
+		lblCamposObligatorios.setBounds(64, 737, 200, 28);
+		lblCamposObligatorios.setForeground(Color.DARK_GRAY);
+		lblCamposObligatorios.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		frmGeonatAlta.getContentPane().add(lblCamposObligatorios);
+		
+		JLabel lblSinPuntosNi = new JLabel("Sin puntos ni guiones");
+		lblSinPuntosNi.setBounds(966, 343, 200, 17);
+		lblSinPuntosNi.setForeground(Color.DARK_GRAY);
+		lblSinPuntosNi.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		frmGeonatAlta.getContentPane().add(lblSinPuntosNi);
 
 		
 	}
 	
+	// Devuelve true si todos los campos obligatorios NO están vacíos
+	private boolean hayCamposVacios() {
+		List<JTextField> array = new ArrayList<JTextField>() {
+			{
+				add(nombreUsuario);
+				add(nombre);
+				add(apellido);
+				add(documento);
+				add(correo);
+				add(password1);
+				add(password2);
+			}
+		};
+
+		// Valido los campos de texto que no sean null
+		for (JTextField jTextField : array) {
+			String s = jTextField.getText();
+			if (s.equals("")) {
+				return true;
+			}
+		}
+		
+		// valido los combo
+		if (comboTipoDocumento.getSelectedItem().toString().equals("") || comboTipoUsuario.getSelectedItem().toString().equals("")) {
+			return true;
+		}
+		
+		return false;
+	}
+
 	private boolean clavesIdenticas(char[] j1,char[] j2) {
 		boolean valor = true;
 		int puntero = 0;
@@ -367,4 +548,60 @@ public class AltaUsuario extends JFrame {
 		}
 		return valor;
 		}
+
+	private boolean isEmailValid(String email) {
+	// Patrón para validar el email
+    Pattern pattern = Pattern
+            .compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+                    + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+
+    Matcher mather = pattern.matcher(email);
+
+    if (mather.find() == true) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+	private boolean isCiValid(String ci) {
+		if(ci.length() != 7 && ci.length() != 8){
+			return false;
+		}else{
+			try{
+				Integer.parseInt(ci);
+			}catch (NumberFormatException e){
+				throw e;
+			}
+		}
+
+		int digVerificador = Integer.parseInt((ci.charAt(ci.length() - 1)) + "" ) ;
+		int[] factores;
+		if(ci.length() == 7){ // CI viejas
+			factores = new int[]{9, 8, 7, 6, 3, 4};
+		}else{
+			factores = new int[]{2, 9, 8, 7, 6, 3, 4};
+		}
+
+		// Multiplico cada dígito de la cédula por cada factor dado
+		int suma = 0;
+		for (int i = 0; i < factores.length; i++) {
+			int digito = Integer.parseInt(ci.charAt(i) + "");
+			suma = suma + (digito * factores[i]);
+		}
+		
+		
+		// A la suma anterior, tengo que obtener el modulo de 10
+		int resto = suma % 10;
+		int checkdigit = 10 - resto;
+
+		if(checkdigit == 10){
+			return (digVerificador == 0);
+		}else {
+			return (checkdigit == digVerificador) ;
+		}
+
+	}
+
+
 }

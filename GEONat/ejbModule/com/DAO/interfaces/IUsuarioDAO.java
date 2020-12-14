@@ -18,4 +18,6 @@ public interface IUsuarioDAO {
 	public Usuario obtenerUno(Usuario usuario) throws ServiciosException;
 	public Usuario obtenerUno(Integer id) throws ServiciosException;
 	Usuario obtenerPorNombre(String nombreUsuario) throws ServiciosException;
+	Usuario obtenerPorDocumento(String documento) throws ServiciosException;
+
 }
