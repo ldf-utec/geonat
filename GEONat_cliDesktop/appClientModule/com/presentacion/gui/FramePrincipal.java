@@ -3,6 +3,7 @@ package com.presentacion.gui;
 import javax.swing.JFrame;
 import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.Font;
 
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
@@ -55,6 +56,9 @@ JFrame frmGeonat;
 			public void run() {
 				try {
 					UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+					UIManager.put("OptionPane.messageFont", new Font("Tahoma", Font.PLAIN, 18));
+					UIManager.put("OptionPane.buttonFont", new Font("Tahoma", Font.PLAIN, 16));
+					
 					FramePrincipal window = new FramePrincipal();
 					
 					window.frmGeonat.setVisible(true);
