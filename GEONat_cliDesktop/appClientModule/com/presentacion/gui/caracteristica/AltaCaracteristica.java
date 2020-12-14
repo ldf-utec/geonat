@@ -146,7 +146,7 @@ public class AltaCaracteristica {
 		frmG.getContentPane().add(lblFenomenoAsociado);
 		
 		JLabel lblErrorFen = new JLabel("A\u00FAn no se han creado fen\u00F3menos");
-		lblErrorFen.setForeground(Color.YELLOW);
+		lblErrorFen.setForeground(Color.DARK_GRAY);
 		lblErrorFen.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		lblErrorFen.setBounds(850, 525, 262, 30);
 		lblErrorFen.setVisible(false);
