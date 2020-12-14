@@ -1,9 +1,11 @@
 package com.presentacion.servicios;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.PersistenceException;
 
+import com.Enums.Criticidad;
 import com.entities.Observacion;
 import com.exception.ServiciosException;
 
@@ -68,6 +70,28 @@ public class ServiciosObservacion {
 		}
 	}
 	
-
+	// Obtener por criticidad y rango de fechas
+	public List<Observacion> obtenerPorCriticidadRangoFechas(Criticidad criticidad, Date startDate, Date endDate) throws ServiciosException {
+		try {
+			
+			List<Observacion> lista = servicios.observacionBean.obtenerPorCriticidadRangoFechas(criticidad, startDate, endDate);
+			return lista;
+			
+		} catch (Exception e) {
+			throw new ServiciosException("Error al obtener datos");
+		}
+	}
+	
+	// Obtener por criticidad
+	public List<Observacion> obtenerPorCriticidad(Criticidad criticidad) throws ServiciosException {
+		try {
+			
+			List<Observacion> lista = servicios.observacionBean.obtenerPorCriticidad(criticidad);
+			return lista;
+			
+		} catch (Exception e) {
+			throw new ServiciosException("Error al obtener datos");
+		}
+	}
 
 }

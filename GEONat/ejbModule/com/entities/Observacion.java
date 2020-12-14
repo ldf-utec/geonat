@@ -17,6 +17,8 @@ import com.Enums.Criticidad;
 @NamedQuery(name="Observacion.obtenerTodos", query="SELECT o FROM Observacion o")
 //@NamedQuery(name="Observacion.obtenerTodosFiltro", query="SELECT o FROM Observacion o WHERE o.nombre LIKE :filtro")
 @NamedQuery(name="Observacion.obtenerPorCriticidad", query="SELECT o FROM Observacion o WHERE o.criticidad LIKE :criticidad")
+@NamedQuery(name="Observacion.obtenerPorCriticidadRangoFechas", query="SELECT o FROM Observacion o WHERE o.criticidad LIKE :criticidad AND o.fecha BETWEEN :startDate AND :endDate")
+@NamedQuery(name="Observacion.obtenerPorRangoFechas", query="SELECT o FROM Observacion o WHERE o.fecha BETWEEN :startDate AND :endDate")
 public class Observacion implements Serializable {
 
 	@Id

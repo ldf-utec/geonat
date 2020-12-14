@@ -13,6 +13,7 @@ import javax.swing.table.TableRowSorter;
 import com.Enums.Criticidad;
 import com.entities.Fenomeno;
 import com.entities.Observacion;
+import com.entities.TipoDocumento;
 import com.exception.ServiciosException;
 import com.presentacion.componentes.DateCellRenderer;
 import com.presentacion.gui.FramePrincipal;
@@ -167,6 +168,7 @@ public class GestionObservaciones  {
 		lblFechaDesde.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		
 		dateChooser_desde = new JDateChooser();
+		dateChooser_desde.setDateFormatString("dd/MM/yyyy");
 		dateChooser_desde.setBounds(158, 23, 180, 40);
 		dateChooser_desde.setFont(new Font("SansSerif", Font.PLAIN, 18));
 		dateChooser_desde.getCalendarButton().setFont(new Font("Dialog", Font.PLAIN, 18));
@@ -180,6 +182,7 @@ public class GestionObservaciones  {
 		lblFechaHasta.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		
 		dateChooser_hasta = new JDateChooser();
+		dateChooser_hasta.setDateFormatString("dd/MM/yyyy");
 		dateChooser_hasta.setBounds(455, 23, 180, 40);
 		dateChooser_hasta.setFont(new Font("SansSerif", Font.PLAIN, 18));
 		JTextFieldDateEditor dateChooser_hastaEditor = (JTextFieldDateEditor) dateChooser_hasta.getDateEditor();
@@ -219,8 +222,51 @@ public class GestionObservaciones  {
 		btnAplicarFecha.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		btnAplicarFecha.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				    	 
-				filtrar();		
+				try {
+					Criticidad criticidad;
+					Date startDate;
+					Date endDate;
+					
+					// Filtro de Criticidad
+					String strCriticidad = cmbCriticidad.getSelectedItem().toString();
+					if (strCriticidad == "Todos") { 
+						criticidad = null;
+						
+					}else {
+						criticidad = Criticidad.valueOf(strCriticidad);
+					}
+					
+					
+					// Filtro de fechas: sólo lo aplico si está bien seleccionadas
+					if (ValidateFechas()) {
+						startDate = dateChooser_desde.getDate();
+						endDate = dateChooser_hasta.getDate();
+
+						Calendar cal = Calendar.getInstance();
+//						cal.setTime(startDate);
+//						cal.add(Calendar.DATE, -1);
+//						startDate = cal.getTime();
+						
+						cal.setTime(endDate);
+						cal.add(Calendar.DATE, +1);
+						endDate = cal.getTime();
+						
+						// Filtro por Criticidad y por rango de fechas
+						cargarTabla(serviciosObservaciones.obtenerPorCriticidadRangoFechas(criticidad, startDate, endDate));
+						
+					}else {
+						// Filtro solamente por Criticidad
+						cargarTabla(serviciosObservaciones.obtenerPorCriticidad(criticidad));
+					}
+
+					
+				
+				} catch (Exception e2) {
+					e2.printStackTrace();
+				}
+				
+				//filtrar();
+				
 				
 			}
 		});
@@ -251,7 +297,7 @@ public class GestionObservaciones  {
 			 */
 			Object[][] datos = new Object[listaObservaciones.size()][5];
 			
-			DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+			
 			/* Cargamos la matriz con todos los datos */
 			int fila = 0;
 
@@ -349,15 +395,15 @@ public class GestionObservaciones  {
 				startDate = this.dateChooser_desde.getDate();
 				endDate = this.dateChooser_hasta.getDate();
 								
-				DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+				DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 				Calendar cal = Calendar.getInstance();
 				cal.setTime(startDate);
 				cal.add(Calendar.DATE, -1);
 				startDate = cal.getTime();
 				
-				cal.setTime(endDate);
-				cal.add(Calendar.DATE, +1);
-				endDate = cal.getTime();
+//				cal.setTime(endDate);
+//				cal.add(Calendar.DATE, +1);
+//				endDate = cal.getTime();
 								
 				filters.add( RowFilter.dateFilter(ComparisonType.AFTER , startDate) );
 				filters.add( RowFilter.dateFilter(ComparisonType.BEFORE, endDate) );
