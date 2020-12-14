@@ -1,5 +1,6 @@
 package com.DAO.interfaces;
 
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Remote;
 
@@ -29,4 +30,7 @@ public interface IObservacionDAO {
 	Observacion obtenerUno(int id) throws ServiciosException;
 
 	List<Observacion> obtenerPorCriticidad(Criticidad criticidad) throws ServiciosException;
+
+	List<Observacion> obtenerPorCriticidadRangoFechas(Criticidad criticidad, Date startDate, Date endDate)
+			throws ServiciosException;
 }
