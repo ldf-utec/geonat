@@ -18,5 +18,6 @@ public interface IUsuarioDAO {
 	public Usuario obtenerUno(Usuario usuario) throws ServiciosException;
 	List<Usuario> obtenerLogin(Usuario usuario) throws ServiciosException; // esto se agrego para el login con sus tipo de usuario
 	public Usuario obtenerUno(Integer id) throws ServiciosException;
+	Usuario obtenerPorDocumento(String documento) throws ServiciosException;
 	
 }

@@ -110,6 +110,11 @@ public class ServiciosUsuario {
 		return u ;
 	}
 	
+	public Usuario obtenerPorDocumento(String documento) throws ServiciosException {
+
+		Usuario u = servicios.usuarioBean.obtenerPorDocumento(documento);
+		return u ;
+	}
 
 	
 }

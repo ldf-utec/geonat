@@ -11,7 +11,7 @@ import javax.persistence.*;
 @NamedQuery(name="Usuario.obtenerTodosFiltro", query="SELECT u FROM Usuario u WHERE u.nombre LIKE :filtro")
 @NamedQuery(name="Usuario.existeNombreUsuario", query="SELECT count (NombreUsuario) FROM Usuario WHERE NombreUsuario=:filtro")
 @NamedQuery(name="Usuario.obtenerUno", query="SELECT u FROM Usuario u WHERE u.nombreUsuario LIKE :filtro")
-@NamedQuery(name="Usuario.obtenerPorDocumento", query="SELECT u FROM Usuario u WHERE u.documento LIKE :filtro")
+@NamedQuery(name="Usuario.obtenerPorDocumento", query="SELECT u FROM Usuario u WHERE u.nroDocumento LIKE :filtro")
 public class Usuario implements Serializable {
 
 	@Id

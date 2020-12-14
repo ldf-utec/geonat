@@ -90,7 +90,7 @@ public class UsuarioDAO implements IUsuarioDAO {
 			return true;
 		}
 
-	  }
+	 }
 
 	@Deprecated
 	@Override
@@ -117,6 +117,22 @@ public class UsuarioDAO implements IUsuarioDAO {
 		TypedQuery<Usuario> query = em.createNamedQuery("Usuario.obtenerUno", Usuario.class)
 				.setParameter("filtro", filtro);
 		return query.getResultList() ;
+	}
+	
+	@Override
+	public Usuario obtenerPorDocumento(String documento) throws ServiciosException {
+		
+		TypedQuery<Usuario> query = em.createNamedQuery("Usuario.obtenerPorDocumento", Usuario.class)
+				.setParameter("filtro", documento);
+		List<Usuario> lista = query.getResultList();
+		
+		if (lista.size()>0 ) {
+			// si obtuvo resultados, retorno el primer elemento
+			return lista.get(0); 
+		}else {
+			return null;
+		}
+		
 	}
 	
 }
