@@ -301,11 +301,21 @@ public class AltaUsuario extends JFrame {
 					u.setNombreUsuario(nombreUsuario.getText());
 					
 					try {
-						boolean existeUsuario = serviciosUsuarios.existeNombreUsuario(u);
 
 						if (serviciosUsuarios.existeNombreUsuario(u)) {
 							errores = true;
-							strerror = "El usuario ya existe.\n";
+							strerror = strerror +"- El nombre de usuario ingresado ya está en uso.\n";
+						}
+					} catch (ServiciosException e) {
+						e.printStackTrace();
+					}
+					
+					try {
+						boolean existeDocumento = serviciosUsuarios.obtenerPorDocumento(documento.getText())!=null;
+
+						if (existeDocumento) {
+							errores = true;
+							strerror = strerror + "- El documento ingresado ya existe en la base de datos.\n";
 						}
 					} catch (ServiciosException e) {
 						e.printStackTrace();
@@ -322,14 +332,14 @@ public class AltaUsuario extends JFrame {
 						u.setEmail(correo.getText());
 					}else {
 						errores=true;
-						strerror= strerror + "El correo ingresado no es válido.\n";
+						strerror= strerror + "- El correo ingresado no es válido.\n";
 					}
 					if (TipoDocumento.valueOf(comboTipoDocumento.getSelectedItem().toString()) == TipoDocumento.CI) {
 						if (isCiValid(documento.getText())) {
 							u.setEmail(correo.getText());
 						}else {
 							errores=true;
-							strerror= strerror + "Cédula de identidad inválida.\n";
+							strerror= strerror + "- Cédula de identidad inválida.\n";
 						}
 					}
 					
@@ -338,7 +348,7 @@ public class AltaUsuario extends JFrame {
 						u.setPassword(new String(password1.getPassword()));
 					} else {
 						errores=true;
-						strerror= strerror + "Las contraseñas ingresadas no coinciden.\n";
+						strerror= strerror + "- Las contraseñas ingresadas no coinciden.\n";
 					}
 									
 					u.setTipoUsuario(TipoUsuario.valueOf(comboTipoUsuario.getSelectedItem().toString()) );			
