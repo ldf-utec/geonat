@@ -12,7 +12,7 @@ import com.presentacion.gui.caracteristica.FrameListarCaracteristicas;
 import com.presentacion.gui.caracteristica.ModificacionCaracteristica;
 import com.presentacion.gui.fenomenos.AltaFenomeno;
 import com.presentacion.gui.fenomenos.FrmGestionFenomeno;
-import com.presentacion.gui.fenomenos.ListarFenomeno;
+import com.presentacion.gui.fenomenos.FrameListarFenomenos;
 import com.presentacion.gui.fenomenos.NewFrameModificar;
 import com.presentacion.gui.observaciones.GestionObservaciones;
 import com.presentacion.gui.usuarios.AltaUsuario;
@@ -337,8 +337,8 @@ JFrame frmGeonat;
 		JButton btnListadoFenomeno = new JButton("Ver Listado");
 		btnListadoFenomeno.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ListarFenomeno frame = new ListarFenomeno();
-				frame.frmGestionFenomenos.setVisible(true);
+				FrameListarFenomenos window = new FrameListarFenomenos();
+				window.frmListarFenomenos.setVisible(true);
 			}
 		});
 		btnListadoFenomeno.setBounds(10, 132, 199, 23);

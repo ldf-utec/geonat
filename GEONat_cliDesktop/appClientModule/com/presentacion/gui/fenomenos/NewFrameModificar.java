@@ -120,18 +120,22 @@ public class NewFrameModificar  {
 		btnGuardar.setBounds(550, 700, 270, 40);
 		frmGestionFenomenos.getContentPane().add(btnGuardar);
 		
-		/*
-		 * btnEliminar = new JButton("Eliminar"); btnEliminar.addActionListener(new
-		 * ActionListener() { public void actionPerformed(ActionEvent e) {
-		 * 
-		 * try { fenomenoSrv.delete((Integer)comboBox.getSelectedItem());
-		 * JOptionPane.showMessageDialog(null, "Fenomeno Eliminado"); } catch
-		 * (ServiciosException e1) { // TODO Auto-generated catch block
-		 * e1.printStackTrace(); } } }); btnEliminar.setForeground(Color.RED);
-		 * btnEliminar.setFont(new Font("Tahoma", Font.BOLD, 16));
-		 * btnEliminar.setBounds(194, 324, 124, 50);
-		 * frmGestionFenomenos.getContentPane().add(btnEliminar);
-		 */
+		
+		  btnEliminar = new JButton("Eliminar"); 
+		  btnEliminar.addActionListener(new ActionListener() { 
+			  public void actionPerformed(ActionEvent e) {
+				  try { 
+					  fenomenoSrv.delete((Integer)comboBox.getSelectedItem());
+					  JOptionPane.showMessageDialog(null, "Fenomeno Eliminado"); 
+				} catch (ServiciosException e1) { 
+					 e1.printStackTrace(); }
+			  }
+		  });
+		  btnEliminar.setForeground(Color.RED);
+		  btnEliminar.setFont(new Font("Tahoma", Font.BOLD, 18));
+		  btnEliminar.setBounds(300, 700, 150, 40);
+		  frmGestionFenomenos.getContentPane().add(btnEliminar);
+		 
 		
 		btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(new ActionListener() {
