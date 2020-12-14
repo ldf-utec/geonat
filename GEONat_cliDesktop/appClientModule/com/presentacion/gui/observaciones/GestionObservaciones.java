@@ -42,6 +42,7 @@ import javax.swing.JComboBox;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import com.toedter.calendar.JDateChooser;
@@ -239,9 +240,10 @@ public class GestionObservaciones  {
 					
 					// Filtro de fechas: sólo lo aplico si está bien seleccionadas
 					if (ValidateFechas()) {
-						startDate = dateChooser_desde.getDate();
-						endDate = dateChooser_hasta.getDate();
-
+						startDate = getDateWithoutTimeUsingFormat(dateChooser_desde.getDate());
+						endDate = getDateWithoutTimeUsingFormat(dateChooser_hasta.getDate());
+						JOptionPane.showMessageDialog(frmGestionObservaciones, endDate);
+						
 						Calendar cal = Calendar.getInstance();
 //						cal.setTime(startDate);
 //						cal.add(Calendar.DATE, -1);
@@ -250,14 +252,20 @@ public class GestionObservaciones  {
 						cal.setTime(endDate);
 						cal.add(Calendar.DATE, +1);
 						endDate = cal.getTime();
-						
+						JOptionPane.showMessageDialog(frmGestionObservaciones, endDate);
 						// Filtro por Criticidad y por rango de fechas
 						cargarTabla(serviciosObservaciones.obtenerPorCriticidadRangoFechas(criticidad, startDate, endDate));
 						
 					}else {
-						// Filtro solamente por Criticidad
-						cargarTabla(serviciosObservaciones.obtenerPorCriticidad(criticidad));
-					}
+						if (criticidad==null) {
+							// si criticidad es Todos
+							cargarTabla(serviciosObservaciones.obtenerTodos());
+						}else {
+							// Filtro solamente por Criticidad
+							cargarTabla(serviciosObservaciones.obtenerPorCriticidad(criticidad));
+						}
+						}
+						
 
 					
 				
@@ -450,6 +458,14 @@ public class GestionObservaciones  {
 		return false;
 		
 	}
+	
+	public static Date getDateWithoutTimeUsingFormat(Date date) 
+			  throws ParseException {
+			    SimpleDateFormat formatter = new SimpleDateFormat(
+			      "dd/MM/yyyy");
+			    return formatter.parse(formatter.format(date));
+			}
+	
 	
 		
 }
