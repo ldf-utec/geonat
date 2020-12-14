@@ -31,7 +31,7 @@ public class ModificacionCaracteristica {
 
 	ServiciosCaracteristica serviciosCaracteristicas = ServiciosCaracteristica.getInstance();
 	ServiciosFenomeno serviciosFenomeno = ServiciosFenomeno.getInstance();
-	
+
 	public JFrame frmModificarCaracteristica;
 	private JTextField txtFNombre;
 	private JTextField txtFEtiqueta;
@@ -41,7 +41,7 @@ public class ModificacionCaracteristica {
 	private int limiteNombre = 50;
 	private int limiteEtiqueta = 50;
 	private String caracteristicaNombre;
-	
+
 
 	/**
 	 * Launch the application.
@@ -49,7 +49,7 @@ public class ModificacionCaracteristica {
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
-	
+
 				try {
 					ModificacionCaracteristica window = new ModificacionCaracteristica();
 					window.frmModificarCaracteristica.setVisible(true);
@@ -76,12 +76,13 @@ public class ModificacionCaracteristica {
 		frmModificarCaracteristica.setBounds(100, 100, 1200, 800);
 		frmModificarCaracteristica.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmModificarCaracteristica.getContentPane().setLayout(null);
-		
+		frmModificarCaracteristica.setResizable(false);
+
 		JLabel lblNombre = new JLabel("Nombre de la caracter\u00EDstica:");
 		lblNombre.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblNombre.setBounds(150, 220, 250, 40);
 		frmModificarCaracteristica.getContentPane().add(lblNombre);
-		
+
 		txtFNombre = new JTextField();
 		txtFNombre.addKeyListener(new KeyAdapter() {
 			@Override
@@ -96,12 +97,12 @@ public class ModificacionCaracteristica {
 		txtFNombre.setBounds(500, 225, 350, 30);
 		frmModificarCaracteristica.getContentPane().add(txtFNombre);
 		txtFNombre.setColumns(10);
-		
+
 		JLabel lblEtiqueta = new JLabel("Etiqueta de presentaci\u00F3n:");
 		lblEtiqueta.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblEtiqueta.setBounds(150, 340, 250, 40);
 		frmModificarCaracteristica.getContentPane().add(lblEtiqueta);
-		
+
 		txtFEtiqueta = new JTextField();
 		txtFEtiqueta.addKeyListener(new KeyAdapter() {
 			@Override
@@ -116,24 +117,24 @@ public class ModificacionCaracteristica {
 		txtFEtiqueta.setBounds(500, 345, 350, 30);
 		frmModificarCaracteristica.getContentPane().add(txtFEtiqueta);
 		txtFEtiqueta.setColumns(10);
-		
+
 		JLabel lblTipoDeDato = new JLabel("Tipo de Dato:");
 		lblTipoDeDato.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblTipoDeDato.setBounds(150, 460, 250, 40);
 		frmModificarCaracteristica.getContentPane().add(lblTipoDeDato);
-		
+
 		JLabel lblFenomenoAsociado = new JLabel("Fen\u00F3meno Asociado:");
 		lblFenomenoAsociado.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblFenomenoAsociado.setBounds(150, 580, 250, 40);
 		frmModificarCaracteristica.getContentPane().add(lblFenomenoAsociado);
-		
+
 		JLabel lblErrorFen = new JLabel("A\u00FAn no se han ingresado fen\u00F3menos");
 		lblErrorFen.setForeground(Color.DARK_GRAY);
 		lblErrorFen.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		lblErrorFen.setBounds(850, 585, 262, 30);
 		lblErrorFen.setVisible(false);
 		frmModificarCaracteristica.getContentPane().add(lblErrorFen);
-		
+
 		// Combo Fenomeno Asociado		
 		comboBFenomAsoc = new JComboBox();
 		comboBFenomAsoc.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -154,10 +155,10 @@ public class ModificacionCaracteristica {
 		comboBFenomAsoc.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent eventocombo) {
 				comboBFenomAsoc.getSelectedIndex();
-				
+
 			}
 		});	
-				
+
 		// Combo TipoDato
 		comboBTipoDato = new JComboBox();
 		comboBTipoDato.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -167,7 +168,7 @@ public class ModificacionCaracteristica {
 		//Carga de datos inicial
 		TipoDato[] tipoDatoList = TipoDato.values();
 		for (TipoDato tipoDato : tipoDatoList) {
-		comboBTipoDato.addItem(tipoDato);
+			comboBTipoDato.addItem(tipoDato);
 		}
 		//Accion
 		comboBTipoDato.addActionListener(new ActionListener() {
@@ -175,7 +176,7 @@ public class ModificacionCaracteristica {
 				comboBTipoDato.getSelectedIndex();			
 			}
 		});
-		
+
 		//Boton de cancelar
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -186,24 +187,24 @@ public class ModificacionCaracteristica {
 			public void actionPerformed(ActionEvent evento) {
 				frmModificarCaracteristica.hide();
 			}
-			
+
 		});
-		
+
 		//Boton de confirmar
 		JButton btnConfirmar = new JButton("Confirmar");
 		btnConfirmar.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		btnConfirmar.setBounds(100, 705, 180, 40);
 		frmModificarCaracteristica.getContentPane().add(btnConfirmar);
-		
+
 		JLabel lblIdCaracteritica = new JLabel("ID Caracter\u00EDstica");
 		lblIdCaracteritica.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblIdCaracteritica.setBounds(150, 100, 250, 40);
 		frmModificarCaracteristica.getContentPane().add(lblIdCaracteritica);
-		
+
 		//Combo ID Caracteristica
 		comboIDCaracteristica = new JComboBox();
 		comboIDCaracteristica.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		
+
 		//Para mostrar los datos en el combo por primera vez		
 		try {
 			cargarComboBox();
@@ -222,13 +223,13 @@ public class ModificacionCaracteristica {
 		});
 		comboIDCaracteristica.setBounds(500, 105, 350, 30);
 		frmModificarCaracteristica.getContentPane().add(comboIDCaracteristica);
-		
+
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
 		panel.setBackground(Color.WHITE);
 		panel.setBounds(0, 0, 1184, 59);
 		frmModificarCaracteristica.getContentPane().add(panel);
-		
+
 		JLabel lblModificacinDeCaractersticas = new JLabel("Modificaci\u00F3n de caracter\u00EDsticas");
 		lblModificacinDeCaractersticas.setHorizontalAlignment(SwingConstants.LEFT);
 		lblModificacinDeCaractersticas.setForeground(Color.GRAY);
@@ -236,21 +237,21 @@ public class ModificacionCaracteristica {
 		lblModificacinDeCaractersticas.setBounds(new Rectangle(10, 10, 10, 10));
 		lblModificacinDeCaractersticas.setBounds(14, 28, 1174, 25);
 		panel.add(lblModificacinDeCaractersticas);
-		
+
 		JLabel lblErrorNombre = new JLabel("Debe ingresar un nombre");
 		lblErrorNombre.setForeground(Color.RED);
 		lblErrorNombre.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		lblErrorNombre.setBounds(850, 225, 250, 30);
 		lblErrorNombre.setVisible(false);
 		frmModificarCaracteristica.getContentPane().add(lblErrorNombre);
-		
+
 		JLabel lblErrorEtiqueta = new JLabel("Debe ingresar una etiqueta de presentaci\u00F3n");
 		lblErrorEtiqueta.setForeground(Color.RED);
 		lblErrorEtiqueta.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		lblErrorEtiqueta.setBounds(850, 345, 338, 30);
 		lblErrorEtiqueta.setVisible(false);
 		frmModificarCaracteristica.getContentPane().add(lblErrorEtiqueta);
-		
+
 		//Accion boton confirmar
 		btnConfirmar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evento) {
@@ -276,9 +277,9 @@ public class ModificacionCaracteristica {
 				}
 			}
 		});
- 
+
 	}
-	
+
 	//metodo para cargar combobox de id caracteristica
 	private void cargarComboBox() throws ServiciosException {
 		try {
@@ -296,7 +297,7 @@ public class ModificacionCaracteristica {
 			e.printStackTrace();
 		}
 	}
-	
+
 
 	//Metodo que carga los nombres de los fenomenos en el combo fenomenos asociados
 	private List<Fenomeno> cargarfenomenos() throws ServiciosException {
@@ -315,7 +316,7 @@ public class ModificacionCaracteristica {
 		}
 		return fenomenos;
 	}
-	
+
 	//Metodo para cargar datos cuando se selecciona un ID de caracteristica
 	private void cargarDatos (int filtro) {
 		try {
@@ -340,7 +341,7 @@ public class ModificacionCaracteristica {
 
 		}
 	}
-	
+
 	//Metodo para obtener un objeto fenomeno a partir de su nombre
 	private Fenomeno obtenerFenom (String filtro) {
 		List<Fenomeno> fen;	
@@ -360,13 +361,13 @@ public class ModificacionCaracteristica {
 		}	
 		return fenom;
 	}
-		
+
 	//metodo que se encarga del registro de caracteristica
 	private void modificarCaracteristica(String nombre, String etiqueta, TipoDato tipoDato, String fenomeno) throws ServiciosException {
 		String strerror = "";
 		Boolean errores = false;
 		Caracteristica caract = new Caracteristica();
-				
+
 		// VALIDACIONES de campos
 		//Campo Nombre
 		if (!(nombre.length()>50) && !nombre.startsWith(" ")) {
@@ -374,26 +375,26 @@ public class ModificacionCaracteristica {
 				caract.setNombre(nombre);
 			} else {
 				if (serviciosCaracteristicas.existeNombreCaracteristica(nombre.toUpperCase())) {
-					strerror= strerror + "El nombre de la caracter\u00EDstica ya existe.";
+					strerror= strerror + "- El nombre de la caracter\u00EDstica ya existe.\n";
 					errores = true;
 				}else {
 					caract.setNombre(nombre);
 				}
 			}
-						
+
 		} else {
 			errores=true;
-			strerror= strerror + "Nombre caracter\u00EDstica no v\u00E1lido ";
+			strerror= strerror + "- Nombre caracter\u00EDstica no v\u00E1lido.\n";
 		}
-			
+
 		//Campo Etiqueta
 		if (!(etiqueta.length()>50) && !etiqueta.startsWith(" ")) {
 			caract.setEtiqPresentacion(etiqueta);
 		} else {
 			errores=true;
-			strerror= strerror + " Etiqueta de presentaci\u00F3n no v\u00E1lida ";
+			strerror= strerror + "- Etiqueta de presentaci\u00F3n no v\u00E1lida.\n";
 		}
-			
+
 		//Campo fenomeno
 		Fenomeno f = new Fenomeno();
 		if (fenomeno.equals("No tiene")) {
@@ -403,16 +404,16 @@ public class ModificacionCaracteristica {
 			f = obtenerFenom (fenomeno);
 			caract.setFenomeno(f);
 		}
-			
+
 		//Campo tipo dato
 		caract.setTipoDato(tipoDato);
-		
+
 		//El valor de ID no necesita validacion
 		String item = comboIDCaracteristica.getSelectedItem().toString();
 		String[] parts = item.split(" - ");
 		Integer ID = Integer.parseInt(parts[0]); 
 		caract.setId_Caracteristica(ID);
-		
+
 		//Se actualiza la caracteristica modificada
 		if (errores) {
 			JOptionPane.showMessageDialog(null,  strerror, null, JOptionPane.ERROR_MESSAGE);
@@ -426,6 +427,6 @@ public class ModificacionCaracteristica {
 			}
 		}
 	}
-	
-	}
+
+}
 
