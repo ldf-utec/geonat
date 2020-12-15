@@ -175,7 +175,7 @@ public class Login extends JFrame {
 		//usuario.setNombreUsuario(nombreUsuario);
 		Usuario usuarioObtenido = new Usuario();
 		try {
-			usuarioObtenido = serviciosUsuario.obtenerPorNombre(nombreUsuario);
+			usuarioObtenido = serviciosUsuario.obtenerPorNombreOld(nombreUsuario);
 			System.out.println(usuarioObtenido.getNombreUsuario());
 		}catch (ServiciosException err) {
 			err.printStackTrace();
