@@ -58,6 +58,7 @@ JFrame frmGeonat;
 					UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
 					UIManager.put("OptionPane.messageFont", new Font("Tahoma", Font.PLAIN, 18));
 					UIManager.put("OptionPane.buttonFont", new Font("Tahoma", Font.PLAIN, 16));
+					UIManager.put("TitledBorder.font", new Font("Tahoma", Font.PLAIN, 16));
 					
 					FramePrincipal window = new FramePrincipal();
 					
