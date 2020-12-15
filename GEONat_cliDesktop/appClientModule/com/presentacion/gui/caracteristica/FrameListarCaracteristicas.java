@@ -178,26 +178,32 @@ public class FrameListarCaracteristicas extends JFrame implements DocumentListen
 			
 			Object[][] datos = new Object[caracteristicas.size()][5];
 			int fila = 0;
-	
-			for (Caracteristica c : caracteristicas) {
-	
-				datos[fila][0] = c.getId_Caracteristica().toString();
-				datos[fila][1] = c.getNombre().toString();
-				datos[fila][2] = c.getEtiqPresentacion().toString();
-				datos[fila][3] = c.getTipoDato().toString();
-				if (c.getFenomeno() != null) {
-					datos[fila][4] = c.getFenomeno().getNombre();
-				}else {
-					datos[fila][4] = "No tiene";
+			
+			if (caracteristicas != null) {
+				
+				for (Caracteristica c : caracteristicas) {
+					
+					datos[fila][0] = c.getId_Caracteristica().toString();
+					datos[fila][1] = c.getNombre().toString();
+					datos[fila][2] = c.getEtiqPresentacion().toString();
+					datos[fila][3] = c.getTipoDato().toString();
+					if (c.getFenomeno() != null) {
+						datos[fila][4] = c.getFenomeno().getNombre();
+					}else {
+						datos[fila][4] = "No tiene";
+					}
+					
+					fila++;
 				}
 				
-				fila++;
+			} else {
+				JOptionPane.showMessageDialog(null,  "A\u00FAn no se han cargado caracter\u00EDsticas", null, JOptionPane.INFORMATION_MESSAGE);
+				frmListarCaracteristicas.dispose();
 			}
 			
 			model = new DefaultTableModel(datos, nombreColumnas);
 			model.setColumnIdentifiers(nombreColumnas);
 			table.setModel(model);
-
 			
 		} catch (Exception e) {
 			e.printStackTrace();
