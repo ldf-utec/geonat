@@ -110,22 +110,22 @@ public class UsuarioDAO implements IUsuarioDAO {
 		return u ;
 	}
 	
-	
+	@Deprecated
 	@Override
-	public Usuario obtenerPorNombre(String nombreUsuario) throws ServiciosException{
+	public Usuario obtenerPorNombreOld(String nombreUsuario) throws ServiciosException{
 		
 		Usuario usr = new Usuario();
 		nombreUsuario = nombreUsuario.toUpperCase();
 		try {
 			TypedQuery<Usuario> query = em.createNamedQuery("Usuario.obtenerPorNombre", Usuario.class)
 					.setParameter("filtro", nombreUsuario);
-		//query.setMaxResults(1);
-		List<Usuario> lista = query.getResultList();
-		if (lista.size()>0) {
-			usr = lista.get(0);
-		} else {
-			usr.setNombreUsuario("");
-		}
+			//query.setMaxResults(1);
+			List<Usuario> lista = query.getResultList();
+			if (lista.size()>0) {
+				usr = lista.get(0);
+			} else {
+				usr.setNombreUsuario("");
+			}
 
 		} catch  (Exception e) {
 			e.printStackTrace();
@@ -134,11 +134,28 @@ public class UsuarioDAO implements IUsuarioDAO {
 		return usr;
 	  }
 	
+	
+	@Override
+	public Usuario obtenerPorNombre(String nombreUsuario) throws ServiciosException{
+
+		TypedQuery<Usuario> query = em.createNamedQuery("Usuario.obtenerPorNombre", Usuario.class)
+				.setParameter("filtro", nombreUsuario.toUpperCase().replace("%", "")+ "%");
+		List<Usuario> lista = query.getResultList();
+		
+		if (lista.size()>0) {
+			return lista.get(0);
+		} else {
+			return null;
+		}
+	  }
+	
+	
+	
 	@Override
 	public Usuario obtenerPorDocumento(String documento) throws ServiciosException {
 		
 		TypedQuery<Usuario> query = em.createNamedQuery("Usuario.obtenerPorDocumento", Usuario.class)
-				.setParameter("filtro", documento);
+				.setParameter("filtro", documento );
 		List<Usuario> lista = query.getResultList();
 		
 		if (lista.size()>0 ) {
