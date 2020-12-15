@@ -29,6 +29,9 @@ import java.awt.event.KeyEvent;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.JPanel;
+import java.awt.Rectangle;
+import javax.swing.SwingConstants;
 
 public class AltaCaracteristica {
 
@@ -146,7 +149,7 @@ public class AltaCaracteristica {
 		frmG.getContentPane().add(lblFenomenoAsociado);
 		
 		JLabel lblErrorFen = new JLabel("A\u00FAn no se han creado fen\u00F3menos");
-		lblErrorFen.setForeground(Color.YELLOW);
+		lblErrorFen.setForeground(Color.DARK_GRAY);
 		lblErrorFen.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		lblErrorFen.setBounds(850, 525, 262, 30);
 		lblErrorFen.setVisible(false);
@@ -173,8 +176,7 @@ public class AltaCaracteristica {
 				comboBFenomAsoc.getSelectedIndex();
 			}
 		});	
-		
-		
+			
 		// Combo TipoDato
 		comboBTipoDato = new JComboBox();
 		comboBTipoDato.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -209,19 +211,27 @@ public class AltaCaracteristica {
 		btnDarDeAlta.setBounds(100, 660, 180, 40);
 		frmG.getContentPane().add(btnDarDeAlta);
 		
+		JPanel panel = new JPanel();
+		panel.setLayout(null);
+		panel.setBackground(Color.WHITE);
+		panel.setBounds(0, 0, 1194, 59);
+		frmG.getContentPane().add(panel);
+		
+		JLabel lblRegistroDeCaracterstica = new JLabel("Registro de caracter\u00EDstica");
+		lblRegistroDeCaracterstica.setHorizontalAlignment(SwingConstants.LEFT);
+		lblRegistroDeCaracterstica.setForeground(Color.GRAY);
+		lblRegistroDeCaracterstica.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblRegistroDeCaracterstica.setBounds(new Rectangle(10, 10, 10, 10));
+		lblRegistroDeCaracterstica.setBounds(14, 28, 1174, 25);
+		panel.add(lblRegistroDeCaracterstica);
+		
 		
 		btnDarDeAlta.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent evento) {
 			if (txtFNombre.getText().isEmpty()) {
 				lblErrorNombre.setVisible(true);
-				txtFEtiqueta.setText("");
-				comboBTipoDato.setSelectedIndex(0);
-				comboBFenomAsoc.setSelectedIndex(0);
 			} else if (txtFEtiqueta.getText().isEmpty()) {
 				lblErrorEtiqueta.setVisible(true);
-				txtFNombre.setText("");
-				comboBTipoDato.setSelectedIndex(0);
-				comboBFenomAsoc.setSelectedIndex(0);
 			}else {
 				try {
 					altaCaracteristica(
@@ -242,7 +252,6 @@ public class AltaCaracteristica {
 		}
 		});
 	}
-	
 	
 	
 	//Metodo que carga los nombres de los fenomenos en el combo fenomenos asociados
@@ -271,24 +280,24 @@ public class AltaCaracteristica {
 			
 		// VALIDACIONES de campos
 		//Campo Nombre
-		if (!(nombre.length() >50)) {
+		if (!(nombre.length()>50) && !nombre.startsWith(" ")) {
 			if (serviciosCaracteristicas.existeNombreCaracteristica(nombre.toUpperCase())) {
-				strerror= strerror + "El nombre de la característica ya existe.";
+				strerror= strerror + "- El nombre de la caracter\u00EDstica ya existe.\n";
 				errores = true;
 			}else {
 				caract.setNombre(nombre);
 			}			
 		} else {
 			errores=true;
-			strerror= strerror + "Nombre caracteristica con mas de 50 caracteres. ";
+			strerror= strerror + "- Nombre caracter\u00EDstica no v\u00E1lido.\n";
 		}
 		
 		//Campo Etiqueta
-		if (!(etiqueta.length()>50)) {
+		if (!(etiqueta.length()>50) && !etiqueta.startsWith(" ")) {
 			caract.setEtiqPresentacion(etiqueta);
 		} else {
 			errores=true;
-			strerror= strerror + " Etiqueta con mas de 50 caracteres. ";
+			strerror= strerror + "- Etiqueta de presentaci\u00F3n no v\u00E1lida.\n";
 		}
 		
 		//Campo fenomeno
@@ -305,14 +314,14 @@ public class AltaCaracteristica {
 		caract.setTipoDato(tipoDato);
 		
 		if (errores) {
-			JOptionPane.showMessageDialog(null,  strerror);
+			JOptionPane.showMessageDialog(null,  strerror, null, JOptionPane.ERROR_MESSAGE);
 		} else {
 			try {	
 				serviciosCaracteristicas.create(caract);
-				JOptionPane.showMessageDialog(null,  "Característica Creada");	
+				JOptionPane.showMessageDialog(null,  "Caracter\u00EDstica Creada");	
 			}catch ( ServiciosException e) {	
 				e.printStackTrace();
-				JOptionPane.showMessageDialog(null,  "Error al crear característica. " + e.getMessage());				
+				JOptionPane.showMessageDialog(null,  "Error al crear caracter\u00EDstica. " + e.getMessage());				
 			}
 		}
 	}
@@ -331,7 +340,7 @@ public class AltaCaracteristica {
 				fenom.setTelefono(fen.get(0).getTelefono());
 			}		
 		}catch (Exception e) {
-			System.out.println("Error al obtener Fenomenos");
+			System.out.println("Error al obtener Fen\u00F3menos");
 			e.printStackTrace();
 		}
 		return fenom;

@@ -13,7 +13,9 @@ import javax.swing.table.TableRowSorter;
 import com.Enums.Criticidad;
 import com.entities.Fenomeno;
 import com.entities.Observacion;
+import com.entities.TipoDocumento;
 import com.exception.ServiciosException;
+import com.presentacion.componentes.DateCellRenderer;
 import com.presentacion.gui.FramePrincipal;
 import com.presentacion.servicios.ServiciosFenomeno;
 import com.presentacion.servicios.ServiciosObservacion;
@@ -40,6 +42,7 @@ import javax.swing.JComboBox;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import com.toedter.calendar.JDateChooser;
@@ -102,7 +105,7 @@ public class GestionObservaciones  {
 		frmGestionObservaciones.setTitle("GEONat - Observaciones");
 		frmGestionObservaciones.setResizable(false);
 		frmGestionObservaciones.setBounds(100, 100, 1200, 800);
-		frmGestionObservaciones.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmGestionObservaciones.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmGestionObservaciones.getContentPane().setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
@@ -166,6 +169,7 @@ public class GestionObservaciones  {
 		lblFechaDesde.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		
 		dateChooser_desde = new JDateChooser();
+		dateChooser_desde.setDateFormatString("dd/MM/yyyy");
 		dateChooser_desde.setBounds(158, 23, 180, 40);
 		dateChooser_desde.setFont(new Font("SansSerif", Font.PLAIN, 18));
 		dateChooser_desde.getCalendarButton().setFont(new Font("Dialog", Font.PLAIN, 18));
@@ -179,6 +183,7 @@ public class GestionObservaciones  {
 		lblFechaHasta.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		
 		dateChooser_hasta = new JDateChooser();
+		dateChooser_hasta.setDateFormatString("dd/MM/yyyy");
 		dateChooser_hasta.setBounds(455, 23, 180, 40);
 		dateChooser_hasta.setFont(new Font("SansSerif", Font.PLAIN, 18));
 		JTextFieldDateEditor dateChooser_hastaEditor = (JTextFieldDateEditor) dateChooser_hasta.getDateEditor();
@@ -218,8 +223,58 @@ public class GestionObservaciones  {
 		btnAplicarFecha.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		btnAplicarFecha.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				    	 
-				filtrar();		
+				try {
+					Criticidad criticidad;
+					Date startDate;
+					Date endDate;
+					
+					// Filtro de Criticidad
+					String strCriticidad = cmbCriticidad.getSelectedItem().toString();
+					if (strCriticidad == "Todos") { 
+						criticidad = null;
+						
+					}else {
+						criticidad = Criticidad.valueOf(strCriticidad);
+					}
+					
+					
+					// Filtro de fechas: sólo lo aplico si está bien seleccionadas
+					if (ValidateFechas()) {
+						startDate = getDateWithoutTimeUsingFormat(dateChooser_desde.getDate());
+						endDate = getDateWithoutTimeUsingFormat(dateChooser_hasta.getDate());
+						JOptionPane.showMessageDialog(frmGestionObservaciones, endDate);
+						
+						Calendar cal = Calendar.getInstance();
+//						cal.setTime(startDate);
+//						cal.add(Calendar.DATE, -1);
+//						startDate = cal.getTime();
+						
+						cal.setTime(endDate);
+						cal.add(Calendar.DATE, +1);
+						endDate = cal.getTime();
+						JOptionPane.showMessageDialog(frmGestionObservaciones, endDate);
+						// Filtro por Criticidad y por rango de fechas
+						cargarTabla(serviciosObservaciones.obtenerPorCriticidadRangoFechas(criticidad, startDate, endDate));
+						
+					}else {
+						if (criticidad==null) {
+							// si criticidad es Todos
+							cargarTabla(serviciosObservaciones.obtenerTodos());
+						}else {
+							// Filtro solamente por Criticidad
+							cargarTabla(serviciosObservaciones.obtenerPorCriticidad(criticidad));
+						}
+						}
+						
+
+					
+				
+				} catch (Exception e2) {
+					e2.printStackTrace();
+				}
+				
+				//filtrar();
+				
 				
 			}
 		});
@@ -250,14 +305,14 @@ public class GestionObservaciones  {
 			 */
 			Object[][] datos = new Object[listaObservaciones.size()][5];
 			
-			DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+			
 			/* Cargamos la matriz con todos los datos */
 			int fila = 0;
 
 			for (Observacion o : listaObservaciones) {
 
 				datos[fila][0] = o.getId_Observacion().toString();
-				datos[fila][1] = dateFormat.format(o.getFecha());
+				datos[fila][1] = o.getFecha();
 				datos[fila][2] = o.getDescripcion().toString();
 				datos[fila][3] = o.getFenomeno().getNombre().toString();
 				datos[fila][4] = o.getCriticidad().toString();
@@ -286,7 +341,11 @@ public class GestionObservaciones  {
 			table.setModel(model);
 			table.setAutoscrolls(true);
 			table.setCellSelectionEnabled(false);
+			table.getColumnModel().getColumn(1).setCellRenderer(new DateCellRenderer());
 
+
+			
+			
 			// Defines table's column width.
 	        int[] columnsWidth = {
 	            40, 120, 500, 200, 120
@@ -349,6 +408,10 @@ public class GestionObservaciones  {
 				cal.setTime(startDate);
 				cal.add(Calendar.DATE, -1);
 				startDate = cal.getTime();
+				
+//				cal.setTime(endDate);
+//				cal.add(Calendar.DATE, +1);
+//				endDate = cal.getTime();
 								
 				filters.add( RowFilter.dateFilter(ComparisonType.AFTER , startDate) );
 				filters.add( RowFilter.dateFilter(ComparisonType.BEFORE, endDate) );
@@ -395,6 +458,14 @@ public class GestionObservaciones  {
 		return false;
 		
 	}
+	
+	public static Date getDateWithoutTimeUsingFormat(Date date) 
+			  throws ParseException {
+			    SimpleDateFormat formatter = new SimpleDateFormat(
+			      "dd/MM/yyyy");
+			    return formatter.parse(formatter.format(date));
+			}
+	
 	
 		
 }
