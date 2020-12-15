@@ -122,26 +122,6 @@ public class NewFrameModificar  {
 		btnGuardar.setBounds(550, 700, 270, 40);
 		frmGestionFenomenos.getContentPane().add(btnGuardar);
 		
-		
-		  btnEliminar = new JButton("Eliminar"); 
-
-		  btnEliminar.setForeground(Color.RED);
-		  btnEliminar.setFont(new Font("Tahoma", Font.BOLD, 18));
-		  btnEliminar.setBounds(300, 700, 150, 40);
-		  frmGestionFenomenos.getContentPane().add(btnEliminar);
-		  btnEliminar.addActionListener(new ActionListener() { 
-			  public void actionPerformed(ActionEvent e) {
-				try { 
-					//// aca esta el probema con el txtIDFenomeno
-					
-					System.out.println("Valor de ID: "+ Integer.parseInt((txtIDFenomeno).toString()));
-					fenomenoSrv.delete(Integer.valueOf(txtIDFenomeno.toString()));
-					JOptionPane.showMessageDialog(null, "Fenomeno Eliminado"); 
-				} catch (ServiciosException e1) { 
-					e1.printStackTrace(); }
-			  }
-		  });		 
-		
 		btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -222,19 +202,6 @@ public class NewFrameModificar  {
 		label.setBounds(1099, 0, 69, 53);
 		banner.add(label);
 		
-		JLabel lblIDFenomeno = new JLabel("ID_Fenomeno");
-		lblIDFenomeno.setBounds(800, 121, 100, 40);
-		frmGestionFenomenos.getContentPane().add(lblIDFenomeno);
-		lblIDFenomeno.setVisible(false);
-		
-		txtIDFenomeno = new JTextField();
-		txtIDFenomeno.setBounds(919, 127, 100, 40);
-		frmGestionFenomenos.getContentPane().add(txtIDFenomeno);
-		txtIDFenomeno.setColumns(10);
-		txtIDFenomeno.setVisible(false);
-
-		
-		
 		try {
 			cargarComboBox();
 		} catch (ServiciosException e1) {
@@ -246,10 +213,15 @@ public class NewFrameModificar  {
 	private void cargarComboBox() throws ServiciosException {
 		try {
 			List<Fenomeno> fen =  fenomenoSrv.obtenerTodos();
-			for (Fenomeno f : fen) {
-				comboBoxIDFen.addItem((Integer)f.getId_Fenomeno()+" - "+f.getNombre());
+			if (fen!=null) {			
+				for (Fenomeno f : fen) {
+					comboBoxIDFen.addItem((Integer)f.getId_Fenomeno()+" - "+f.getNombre());
+				}
+			} else {
+				JOptionPane.showMessageDialog(null, "No se han cargado Fenomenos", null, JOptionPane.INFORMATION_MESSAGE);
+				frmGestionFenomenos.dispose();
 			}
-			
+
 		}catch (Exception e) {
 
 			System.out.println("Error al cargar datos en el comboBox Fenomenos. ");
@@ -261,13 +233,12 @@ public class NewFrameModificar  {
 	private void cargarDatos (Integer filtro) {
 		try {
 			List<Fenomeno> fen =  fenomenoSrv.obtenerUnoID(filtro);
-			for (Fenomeno f : fen) {
-				txtIDFenomeno.setText(f.getId_Fenomeno().toString());
-				txtFNombre.setText(f.getNombre());;
-				txtADescripcion.setText(f.getDescripcion());;
-				txtFTelefono.setText(f.getTelefono());;
-			}
-			
+				for (Fenomeno f : fen) {
+					txtFNombre.setText(f.getNombre());
+					txtADescripcion.setText(f.getDescripcion());
+					txtFTelefono.setText(f.getTelefono());
+				}
+		
 		}catch (Exception e) {
 
 			System.out.println("Error al cargar datos en el comboBox Fenomenos. ");

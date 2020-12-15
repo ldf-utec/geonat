@@ -7,12 +7,13 @@ import javax.swing.JFrame;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
-
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import javax.swing.JButton;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
@@ -44,10 +45,6 @@ import java.awt.Rectangle;
 import javax.swing.SwingConstants;
 import java.awt.Component;
 import java.awt.FlowLayout;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.FormSpecs;
-import com.jgoodies.forms.layout.RowSpec;
 import java.awt.BorderLayout;
 
 public class FrameListarFenomenos extends JFrame implements DocumentListener {
@@ -136,17 +133,23 @@ public class FrameListarFenomenos extends JFrame implements DocumentListener {
 		btnEliminarFenomeno.setEnabled(false);
 		btnEliminarFenomeno.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try {
-					serviciosFenomeno.delete(idSeleccionado);
-					cargarTabla();
-					idSeleccionado=0;
-					btnEliminarFenomeno.setEnabled(false);
-					
-				} catch ( ServiciosException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+				int continuar= JOptionPane.showConfirmDialog(null, "¿Confirma eliminación?", null, JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+				if (continuar==JOptionPane.YES_OPTION) {
+					if (idSeleccionado>=0) {
+						try {
+							serviciosFenomeno.delete(idSeleccionado);
+							cargarTabla();
+							idSeleccionado=0;
+							btnEliminarFenomeno.setEnabled(false);
+							
+						} catch ( ServiciosException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+					}
+				} else {
+					btnEliminarFenomeno.setEnabled(false);	
 				}
-				
 			}
 		});
 		
@@ -171,6 +174,10 @@ public class FrameListarFenomenos extends JFrame implements DocumentListener {
 		
 		table = new JTable();
 		table.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		table.setRowHeight(25);
+		JTableHeader tableHeader = table.getTableHeader();
+		tableHeader.setFont(new Font("Tahoma", Font.PLAIN, 18));
+
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
 			},
@@ -222,6 +229,7 @@ public class FrameListarFenomenos extends JFrame implements DocumentListener {
 		model.addListSelectionListener(new ListSelectionListener(){
 	        public void valueChanged(ListSelectionEvent event) {
 	            if(!model.isSelectionEmpty()) {
+	            	System.out.println(Integer.valueOf((table.getValueAt(table.getSelectedRow(), 0).toString())));
 		        	idSeleccionado = Integer.valueOf((table.getValueAt(table.getSelectedRow(), 0).toString()));
 	                btnEliminarFenomeno.setEnabled(true);
 	            }
@@ -243,53 +251,56 @@ public class FrameListarFenomenos extends JFrame implements DocumentListener {
 	private void cargarTabla() throws ServiciosException {
 		try {
 			
-			ArrayList<Fenomeno> fenomenos =  (ArrayList<Fenomeno>) serviciosFenomeno.obtenerTodos();
-
-			String[] nombreColumnas = { "ID", "Documento", "Nombre de Usuario", "Nombre", "Apellido", "Tipo Usuario", "Email" };
+			List<Fenomeno> fenomenos =  serviciosFenomeno.obtenerTodos();
+			if (fenomenos!=null) {
+				String[] nombreColumnas = { "ID", "Nombre", "Descripción", "Teléfono"};
+		
+				/*
+				 * El tamaño de la tabla es, 7 columnas (cantidad de datos a mostrar) y
+				 * la cantidad de filas depende de la cantidad de usuarios
+				 */
+				Object[][] datos = new Object[fenomenos.size()][4];
+				
+				/* Cargamos la matriz con todos los datos */
+				int fila = 0;
+		
+				for (Fenomeno f : fenomenos) {
+		
+					datos[fila][0] = f.getId_Fenomeno().toString();
+					datos[fila][1] = f.getNombre().toString();
+					datos[fila][2] = f.getDescripcion().toString();
+					datos[fila][3] = f.getTelefono().toString();
+					fila++;
+				}
+		
+				/*
+				 * Este codigo indica que las celdas no son editables y que son todas
+				 * del tipos String
+				 */
+				DefaultTableModel model = new DefaultTableModel(datos, nombreColumnas) {
+					private static final long serialVersionUID = 1L;
 	
-			/*
-			 * El tamaño de la tabla es, 7 columnas (cantidad de datos a mostrar) y
-			 * la cantidad de filas depende de la cantidad de usuarios
-			 */
-			Object[][] datos = new Object[fenomenos.size()][4];
-			
-			/* Cargamos la matriz con todos los datos */
-			int fila = 0;
-	
-			for (Fenomeno f : fenomenos) {
-	
-				datos[fila][0] = f.getId_Fenomeno().toString();
-				datos[fila][1] = f.getNombre().toString();
-				datos[fila][2] = f.getDescripcion().toString();
-				datos[fila][3] = f.getTelefono().toString();
-				fila++;
+					@Override
+					public boolean isCellEditable(int row, int column) {
+						return false;
+					}
+		
+					@Override
+					public Class<?> getColumnClass(int columnIndex) {
+						return String.class;
+					}
+				};
+				
+				table.setModel(model);
+				table.setAutoscrolls(true);
+				table.setCellSelectionEnabled(false);
+			} else {
+				JOptionPane.showMessageDialog(null, "No se han cargado Fenomenos", null, JOptionPane.INFORMATION_MESSAGE);
+				frmListarFenomenos.dispose();
 			}
-	
-			/*
-			 * Este codigo indica que las celdas no son editables y que son todas
-			 * del tipos String
-			 */
-			DefaultTableModel model = new DefaultTableModel(datos, nombreColumnas) {
-				private static final long serialVersionUID = 1L;
-
-				@Override
-				public boolean isCellEditable(int row, int column) {
-					return false;
-				}
-	
-				@Override
-				public Class<?> getColumnClass(int columnIndex) {
-					return String.class;
-				}
-			};
-			
-			table.setModel(model);
-			table.setAutoscrolls(true);
-			table.setCellSelectionEnabled(false);
-			
 		} catch (Exception e) {
 			
-			System.out.println("Error al cargar datos en la tabla Lista Usuarios. ");
+			System.out.println("Error al cargar datos en la tabla Lista Fenomenos. ");
 			e.printStackTrace();
 			
 		}

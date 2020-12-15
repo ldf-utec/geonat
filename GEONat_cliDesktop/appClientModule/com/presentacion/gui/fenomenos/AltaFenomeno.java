@@ -153,7 +153,7 @@ public class AltaFenomeno {
 		
 		
 		
-		JButton btnAltaDeFenomeno = new JButton("Alta de fen\u00F3meno");
+		JButton btnAltaDeFenomeno = new JButton("Confirmar");
 		btnAltaDeFenomeno.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		btnAltaDeFenomeno.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

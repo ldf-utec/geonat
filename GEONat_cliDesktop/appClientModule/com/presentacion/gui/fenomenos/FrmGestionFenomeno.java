@@ -141,6 +141,7 @@ public class FrmGestionFenomeno {
 		table.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		JTableHeader tableHeader = table.getTableHeader();
 		tableHeader.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		table.setRowHeight(25);
 		table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
