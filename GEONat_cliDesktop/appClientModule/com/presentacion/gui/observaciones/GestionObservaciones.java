@@ -295,6 +295,10 @@ public class GestionObservaciones  {
 		private void cargarTabla(List<Observacion> listaObservaciones) throws ServiciosException {
 		try {
 			
+			if (listaObservaciones == null) {
+				JOptionPane.showMessageDialog(null, "No se encontraron datos con los criterios seleccionados.");
+				return;
+			}
 			//List<Observacion> listaObservaciones =  serviciosObservaciones.obtenerTodos(); 
 
 			String[] nombreColumnas = { "ID", "Fecha", "Descripcion", "Tipo de Fenómeno", "Criticidad" };
@@ -303,6 +307,7 @@ public class GestionObservaciones  {
 			 * El tamaño de la tabla es, 5 columnas (cantidad de datos a mostrar) y
 			 * la cantidad de filas depende de la cantidad de observaciones
 			 */
+			
 			Object[][] datos = new Object[listaObservaciones.size()][5];
 			
 			
