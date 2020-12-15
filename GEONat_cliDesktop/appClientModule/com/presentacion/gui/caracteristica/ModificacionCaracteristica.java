@@ -140,7 +140,7 @@ public class ModificacionCaracteristica {
 		comboBFenomAsoc.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		comboBFenomAsoc.setBounds(500, 585, 350, 30);
 		frmModificarCaracteristica.getContentPane().add(comboBFenomAsoc);
-		//Carga de datos inicial
+		//Carga inicial de datos de fenomeno
 		try {
 			List<Fenomeno> fen = cargarfenomenos();
 			if (fen == null) {
@@ -208,11 +208,11 @@ public class ModificacionCaracteristica {
 		//Para mostrar los datos en el combo por primera vez		
 		try {
 			cargarComboBox();
-			comboIDCaracteristica.setSelectedIndex(0);
 		} catch (ServiciosException e1) {
 			e1.printStackTrace();
 		}
-		//Accion como ID
+		
+		//Accion combo ID
 		comboIDCaracteristica.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String item = comboIDCaracteristica.getSelectedItem().toString();
@@ -323,7 +323,7 @@ public class ModificacionCaracteristica {
 			Caracteristica carac = new Caracteristica();
 			carac = serviciosCaracteristicas.obtenerUno(filtro);
 			if (!carac.equals(null)) {
-				comboIDCaracteristica.setSelectedItem(filtro);
+				//comboIDCaracteristica.setSelectedItem(filtro);
 				txtFNombre.setText(carac.getNombre().toString());
 				caracteristicaNombre = carac.getNombre().toString();
 				txtFEtiqueta.setText(carac.getEtiqPresentacion());
