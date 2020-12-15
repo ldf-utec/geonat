@@ -18,7 +18,8 @@ import com.presentacion.gui.fenomenos.NewFrameModificar;
 import com.presentacion.gui.observaciones.GestionObservaciones;
 import com.presentacion.gui.usuarios.AltaUsuario;
 import com.presentacion.gui.usuarios.FrameListarUsuarios;
-import com.presentacion.gui.usuarios.ModificacionUsuario;
+import com.presentacion.gui.usuarios.ModificacionUsuario_OLD;
+import com.presentacion.gui.usuarios.ModificarUsuario;
 
 import javax.swing.UIManager;
 import java.awt.Color;
@@ -58,6 +59,7 @@ JFrame frmGeonat;
 					UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
 					UIManager.put("OptionPane.messageFont", new Font("Tahoma", Font.PLAIN, 18));
 					UIManager.put("OptionPane.buttonFont", new Font("Tahoma", Font.PLAIN, 16));
+					UIManager.put("TitledBorder.font", new Font("Tahoma", Font.PLAIN, 16));
 					
 					FramePrincipal window = new FramePrincipal();
 					
@@ -143,7 +145,7 @@ JFrame frmGeonat;
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						try {
-							ModificacionUsuario window = new ModificacionUsuario();
+							ModificarUsuario window = new ModificarUsuario();
 							window.frmModificarUsuario.setVisible(true);
 						} catch (Exception e) {
 							e.printStackTrace();

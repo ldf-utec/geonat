@@ -120,6 +120,12 @@ public class ServiciosUsuario {
 		Usuario u = servicios.usuarioBean.obtenerPorNombre(nombreUsuario);
 		return u;
 	}
+	
+	public Usuario obtenerPorNombreOld(String nombreUsuario) throws ServiciosException {
+		
+		Usuario u = servicios.usuarioBean.obtenerPorNombreOld(nombreUsuario);
+		return u;
+	}
 		
 	public Usuario obtenerPorDocumento(String documento) throws ServiciosException {
 
