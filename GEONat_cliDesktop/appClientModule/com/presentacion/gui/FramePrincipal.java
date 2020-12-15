@@ -118,7 +118,7 @@ JFrame frmGeonat;
 		btnUsuariosRegistrar.setBounds(10, 32, 199, 23);
 		panelUsuarios.add(btnUsuariosRegistrar);
 		
-		btnUsuariosVerListado = new JButton("Ver listado / Dar de Baja");
+		btnUsuariosVerListado = new JButton("Dar de Baja");
 		btnUsuariosVerListado.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				EventQueue.invokeLater(new Runnable() {
@@ -209,10 +209,12 @@ JFrame frmGeonat;
 		JLabel lblTotalDeObservaciones = new JLabel("Total de observaciones Registradas:");
 		lblTotalDeObservaciones.setBounds(307, 35, 246, 14);
 		panelObservaciones.add(lblTotalDeObservaciones);
+		lblTotalDeObservaciones.setVisible(false);
 		
 		JLabel label_1 = new JLabel("?");
 		label_1.setBounds(553, 35, 46, 14);
 		panelObservaciones.add(label_1);
+		label_1.setVisible(false);
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.WHITE);
@@ -257,7 +259,7 @@ JFrame frmGeonat;
 		btnRegistrarCaracteristica.setBounds(10, 31, 199, 23);
 		panel_1.add(btnRegistrarCaracteristica);
 		
-		btnListarCaracterisitica = new JButton("Ver listado / Dar de Baja");
+		btnListarCaracterisitica = new JButton("Dar de Baja");
 		btnListarCaracterisitica.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				EventQueue.invokeLater(new Runnable() {
@@ -320,7 +322,7 @@ JFrame frmGeonat;
 		panel_2.add(btnFenomenoRegistrar);
 
 		
-		btnGestionFenomeno = new JButton("Modificar / Dar de Baja");
+		btnGestionFenomeno = new JButton("Modificar");
 		btnGestionFenomeno.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				EventQueue.invokeLater(new Runnable() {
@@ -338,7 +340,7 @@ JFrame frmGeonat;
 		btnGestionFenomeno.setBounds(10, 98, 199, 23);
 		panel_2.add(btnGestionFenomeno);
 		
-		JButton btnListadoFenomeno = new JButton("Ver Listado");
+		JButton btnListadoFenomeno = new JButton("Dar de Baja");
 		btnListadoFenomeno.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ListarFenomeno frame = new ListarFenomeno();
