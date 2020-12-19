@@ -261,7 +261,7 @@ public class Login extends JFrame {
 						}
 					});
 				}
-					else if(nombreUsuario.toUpperCase().equals(naUsuario.toUpperCase()) &&  clave.equals(claveUsuario) && perfil.toUpperCase().equals("ORGANISMO PRIVADO") ) {
+					else if(nombreUsuario.toUpperCase().equals(naUsuario.toUpperCase()) &&  clave.equals(claveUsuario) && perfil.toUpperCase().equals("ORGANISMOPRIVADO") ) {
 						dispose();
 						JOptionPane.showMessageDialog(null,"Bienvenido al Sistema","Login Correcto",JOptionPane.INFORMATION_MESSAGE);
 						
@@ -288,7 +288,7 @@ public class Login extends JFrame {
 							}
 						});
 					}
-						else if(nombreUsuario.toUpperCase().equals(naUsuario.toUpperCase()) &&  clave.equals(claveUsuario) && perfil.toUpperCase().equals("USUARIO COMUN") ) {
+						else if(nombreUsuario.toUpperCase().equals(naUsuario.toUpperCase()) &&  clave.equals(claveUsuario) && perfil.toUpperCase().equals("USUARIO") ) {
 							dispose();
 							JOptionPane.showMessageDialog(null,"Bienvenido al Sistema","Login Correcto",JOptionPane.INFORMATION_MESSAGE);
 							
