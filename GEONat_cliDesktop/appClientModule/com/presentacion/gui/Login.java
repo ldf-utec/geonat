@@ -9,6 +9,7 @@ import javax.swing.border.EmptyBorder;
 
 import com.entities.Usuario;
 import com.exception.ServiciosException;
+import com.presentacion.SessionData;
 import com.presentacion.servicios.ServiciosUsuario;
 
 import javax.swing.JLabel;
@@ -168,6 +169,7 @@ public class Login extends JFrame {
 		String claveUsuario = null;
 		String naUsuario = null;
 		boolean existeUsuario = false;
+		Integer idUsuarioActual = -1;
 		
 		
 		
@@ -185,6 +187,7 @@ public class Login extends JFrame {
 			existeUsuario = true;
 			naUsuario = usuarioObtenido.getNombreUsuario();
 			claveUsuario = usuarioObtenido.getPassword();
+			idUsuarioActual = usuarioObtenido.getId_Usuario();
 			perfil = String.valueOf(usuarioObtenido.getTipoUsuario());
 		}else  {
 			JOptionPane.showMessageDialog(null,"Usuario o Cantraseña Incorrectos","ERROR",JOptionPane.ERROR_MESSAGE);
@@ -196,6 +199,8 @@ public class Login extends JFrame {
 		if(existeUsuario) {
 
 			if(nombreUsuario.toUpperCase().equals(naUsuario.toUpperCase()) &&  clave.equals(claveUsuario) && perfil.toUpperCase().equals("ADMINISTRADOR")) {
+				SessionData.usuarioActual= nombreUsuario;
+				SessionData.idUsuarioActual = idUsuarioActual;
 				dispose();
 				JOptionPane.showMessageDialog(null,"Bienvenido al Sistema","Login Correcto",JOptionPane.INFORMATION_MESSAGE);
 				
