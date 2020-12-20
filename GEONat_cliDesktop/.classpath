@@ -15,7 +15,7 @@
 	</classpathentry>
 	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/GEONat"/>
 	<classpathentry kind="lib" path="appClientModule/lib/jboss-client.jar"/>
-	<classpathentry kind="lib" path="C:/Eclipse/eclipse-workspace/GEONat_cliDesktop/lib/jcalendar-1.4.jar"/>
-	<classpathentry kind="lib" path="C:/Eclipse/eclipse-workspace/GEONat_cliDesktop/lib/hibernate-core-5.3.10.Final.jar"/>
+	<classpathentry kind="lib" path="lib/jcalendar-1.4.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-core-5.3.10.Final.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
