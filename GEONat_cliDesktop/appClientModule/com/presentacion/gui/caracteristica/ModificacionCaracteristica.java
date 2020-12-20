@@ -283,14 +283,13 @@ public class ModificacionCaracteristica {
 	//metodo para cargar combobox de id caracteristica
 	private void cargarComboBox() throws ServiciosException {
 		try {
-			List<Caracteristica> carac =  serviciosCaracteristicas.obtenerTodos();
-			if (carac != null) {
-				for (Caracteristica c : carac) {
+			List<Caracteristica> caracteristicas =  serviciosCaracteristicas.obtenerTodos();
+			if (caracteristicas.size() > 0) {
+				for (Caracteristica c : caracteristicas) {
 					comboIDCaracteristica.addItem(c.getId_Caracteristica()+" - "+c.getNombre());
 				}
 			} else {
 				JOptionPane.showMessageDialog(null,  "A\u00FAn no se han cargado caracter\u00EDsticas", null, JOptionPane.INFORMATION_MESSAGE);
-				frmModificarCaracteristica.dispose();
 			}			
 		}catch (Exception e) {
 			System.out.println("Error al cargar datos en el comboBox ID Caracter\u00EDstica.");
@@ -330,8 +329,10 @@ public class ModificacionCaracteristica {
 				comboBTipoDato.setSelectedItem(carac.getTipoDato());
 				if (carac.getFenomeno() == null) {
 					comboBFenomAsoc.setSelectedItem("No Tiene");
+					txtFNombre.setEditable(true);
 				} else {
-					comboBFenomAsoc.setSelectedItem(carac.getFenomeno().getNombre());	
+					comboBFenomAsoc.setSelectedItem(carac.getFenomeno().getNombre());
+					txtFNombre.setEditable(false);
 				}
 			}		
 		}catch (Exception e) {

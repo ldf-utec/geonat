@@ -170,16 +170,20 @@ public class FrameListarCaracteristicas extends JFrame implements DocumentListen
 	
 	// Método para cargar el contenido de la tabla
 	private void cargarTabla() throws ServiciosException {
+		
+		int fila = 0;
+		int largoFilas = 0;
+		boolean tablaVacia = true;
+		String[] nombreColumnas = { "ID_Caracter\u00EDstica", "Nombre", "Etiqueta", "Tipo de Dato", "Fenómeno Asociado"};
+		Object[][] datos = new Object[largoFilas][5];
+		
 		try {
 
 			List<Caracteristica> caracteristicas =  serviciosCaracteristicas.obtenerTodos(); 
 
-			String[] nombreColumnas = { "ID_Caracter\u00EDstica", "Nombre", "Etiqueta", "Tipo de Dato", "Fenómeno Asociado"};
+			datos = new Object[caracteristicas.size()][5];
 			
-			Object[][] datos = new Object[caracteristicas.size()][5];
-			int fila = 0;
-			
-			if (caracteristicas != null) {
+			if (caracteristicas.size() > 0) {
 				
 				for (Caracteristica c : caracteristicas) {
 					
@@ -195,20 +199,19 @@ public class FrameListarCaracteristicas extends JFrame implements DocumentListen
 					
 					fila++;
 				}
-				
-			} else {
+			} 	else {
 				JOptionPane.showMessageDialog(null,  "A\u00FAn no se han cargado caracter\u00EDsticas", null, JOptionPane.INFORMATION_MESSAGE);
-				frmListarCaracteristicas.dispose();
 			}
-			
-			model = new DefaultTableModel(datos, nombreColumnas);
-			model.setColumnIdentifiers(nombreColumnas);
-			table.setModel(model);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println(e.getMessage());		
 		}
+		
+		model = new DefaultTableModel(datos, nombreColumnas);
+		model.setColumnIdentifiers(nombreColumnas);
+		table.setModel(model);
+		
 	}
 	
 	//Metodo para eliminar una caracteristica
