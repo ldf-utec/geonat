@@ -91,7 +91,7 @@ public class FrameListarFenomenos extends JFrame implements DocumentListener {
 		frmListarFenomenos.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		frmListarFenomenos.setBounds(10, 10, 1200, 800);
 		frmListarFenomenos.setSize(1200, 800);
-		frmListarFenomenos.setTitle("GEONat - Listado de Fen\u00F3menos");
+		frmListarFenomenos.setTitle("GEONat - Ver listado / Dar de Baja");
 		frmListarFenomenos.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmListarFenomenos.getContentPane().setLayout(null);
 		
@@ -113,7 +113,7 @@ public class FrameListarFenomenos extends JFrame implements DocumentListener {
  
 		//Boton Cerrar
 		JButton btnCerrar = new JButton("Cerrar");
-		btnCerrar.setLocation(1000, 700);
+		btnCerrar.setLocation(1030, 700);
 		btnCerrar.setSize(150, 40);
 		btnCerrar.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		btnCerrar.addActionListener(new ActionListener() {
@@ -171,12 +171,12 @@ public class FrameListarFenomenos extends JFrame implements DocumentListener {
 		banner_1.setBounds(0, 0, 1195, 60);
 		frmListarFenomenos.getContentPane().add(banner_1);
 		
-		JLabel lblListadoDeFenmenos = new JLabel("Listado de Fen\u00F3menos");
+		JLabel lblListadoDeFenmenos = new JLabel("Fenomenos");
 		lblListadoDeFenmenos.setHorizontalAlignment(SwingConstants.LEFT);
 		lblListadoDeFenmenos.setForeground(Color.GRAY);
-		lblListadoDeFenmenos.setFont(new Font("SansSerif", Font.PLAIN, 20));
+		lblListadoDeFenmenos.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblListadoDeFenmenos.setBounds(new Rectangle(10, 10, 10, 10));
-		lblListadoDeFenmenos.setBounds(14, 28, 1174, 25);
+		lblListadoDeFenmenos.setBounds(15, 16, 1174, 25);
 		banner_1.add(lblListadoDeFenmenos);
 		
 		JLabel label_1 = new JLabel("");

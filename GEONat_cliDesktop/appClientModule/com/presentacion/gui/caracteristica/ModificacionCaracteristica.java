@@ -73,7 +73,7 @@ public class ModificacionCaracteristica {
 	private void initialize() {
 		frmModificarCaracteristica = new JFrame();
 		frmModificarCaracteristica.setTitle("GEONat - Modificaci\u00F3n de una caracter\u00EDstica");
-		frmModificarCaracteristica.setBounds(100, 100, 1200, 800);
+		frmModificarCaracteristica.setBounds(10, 10, 1200, 800);
 		frmModificarCaracteristica.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmModificarCaracteristica.getContentPane().setLayout(null);
 		frmModificarCaracteristica.setResizable(false);

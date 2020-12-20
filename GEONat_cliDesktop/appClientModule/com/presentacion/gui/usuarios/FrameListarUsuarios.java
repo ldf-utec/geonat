@@ -12,6 +12,7 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
@@ -36,6 +37,11 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.JFormattedTextField;
 import java.awt.Dimension;
+import javax.swing.JPanel;
+import java.awt.Color;
+import java.awt.Rectangle;
+import java.awt.Font;
+import javax.swing.SwingConstants;
 
 public class FrameListarUsuarios extends JFrame implements DocumentListener {
 
@@ -79,18 +85,27 @@ public class FrameListarUsuarios extends JFrame implements DocumentListener {
 		frmListarUsuarios.setResizable(false);
 		frmListarUsuarios.setMinimumSize(new Dimension(800, 600));
 		frmListarUsuarios.setMaximumSize(new Dimension(800, 600));
-		frmListarUsuarios.setTitle("GEONat - Lista de Usuarios");
-		frmListarUsuarios.setBounds(100, 100, 800, 600);
+		frmListarUsuarios.setTitle("GEONat -Ver listado / Dar de Baja");
+		frmListarUsuarios.setBounds(10, 10, 1200, 800);
+		frmListarUsuarios.setSize(1200, 800);
 		frmListarUsuarios.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		
 		JLabel lblNombreDeUsuario = new JLabel("Filtrar por nombre de usuario:");
+		lblNombreDeUsuario.setBounds(18, 82, 259, 20);
+		lblNombreDeUsuario.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		
 		txtFiltroNombreUsuario = new JTextField();
+		txtFiltroNombreUsuario.setLocation(313, 72);
+		txtFiltroNombreUsuario.setSize(327, 40);
 		txtFiltroNombreUsuario.setColumns(10);
+		txtFiltroNombreUsuario.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		
  
 		//Boton Cerrar
 		JButton btnCerrar = new JButton("Cerrar");
+		btnCerrar.setLocation(1067, 714);
+		btnCerrar.setSize(105, 34);
+		btnCerrar.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		btnCerrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evento) {
 				frmListarUsuarios.hide();
@@ -99,10 +114,15 @@ public class FrameListarUsuarios extends JFrame implements DocumentListener {
 		});
 		
 		scrollPane = new JScrollPane();
+		scrollPane.setBounds(18, 124, 1154, 569);
+		scrollPane.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		
 		// Botón ELIMINAR
 		JButton btnEliminarUsuario = new JButton("Eliminar Usuario");
-		btnEliminarUsuario.setEnabled(false);
+		btnEliminarUsuario.setForeground(Color.RED);
+		btnEliminarUsuario.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		btnEliminarUsuario.setBounds(18, 714, 211, 34);
+		btnEliminarUsuario.setEnabled(false);		
 		btnEliminarUsuario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -119,40 +139,30 @@ public class FrameListarUsuarios extends JFrame implements DocumentListener {
 			}
 		});
 		
-		GroupLayout groupLayout = new GroupLayout(frmListarUsuarios.getContentPane());
-		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.TRAILING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap(40, Short.MAX_VALUE)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 705, GroupLayout.PREFERRED_SIZE)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(lblNombreDeUsuario, GroupLayout.PREFERRED_SIZE, 209, GroupLayout.PREFERRED_SIZE)
-							.addGap(18)
-							.addComponent(txtFiltroNombreUsuario, GroupLayout.PREFERRED_SIZE, 196, GroupLayout.PREFERRED_SIZE))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(btnEliminarUsuario, GroupLayout.PREFERRED_SIZE, 132, GroupLayout.PREFERRED_SIZE)
-							.addGap(454)
-							.addComponent(btnCerrar, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE)))
-					.addGap(49))
-		);
-		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(53)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblNombreDeUsuario, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-						.addComponent(txtFiltroNombreUsuario, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(30)
-					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 382, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnCerrar)
-						.addComponent(btnEliminarUsuario))
-					.addGap(23))
-		);
+		JPanel banner_1 = new JPanel();
+		banner_1.setBounds(0, 0, 1195, 60);
+		banner_1.setLayout(null);
+		banner_1.setBackground(Color.WHITE);
+		
+		JLabel lblListadoDeFenmenos = new JLabel("Usuarios");
+		lblListadoDeFenmenos.setHorizontalAlignment(SwingConstants.LEFT);
+		lblListadoDeFenmenos.setForeground(Color.GRAY);
+		lblListadoDeFenmenos.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblListadoDeFenmenos.setBounds(new Rectangle(10, 10, 10, 10));
+		lblListadoDeFenmenos.setBounds(15, 16, 1174, 25);
+		banner_1.add(lblListadoDeFenmenos);
+		
+		JLabel label_1 = new JLabel("");
+		label_1.setIconTextGap(0);
+		label_1.setHorizontalAlignment(SwingConstants.CENTER);
+		label_1.setBounds(1099, 0, 69, 53);
+		banner_1.add(label_1);
 		
 		table = new JTable();
+		table.setRowHeight(25);
+		JTableHeader tableHeader = table.getTableHeader();
+		tableHeader.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		table.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
 			},
@@ -160,7 +170,13 @@ public class FrameListarUsuarios extends JFrame implements DocumentListener {
 			}
 		));
 		scrollPane.setViewportView(table);
-		frmListarUsuarios.getContentPane().setLayout(groupLayout);
+		frmListarUsuarios.getContentPane().setLayout(null);
+		frmListarUsuarios.getContentPane().add(btnEliminarUsuario);
+		frmListarUsuarios.getContentPane().add(btnCerrar);
+		frmListarUsuarios.getContentPane().add(banner_1);
+		frmListarUsuarios.getContentPane().add(lblNombreDeUsuario);
+		frmListarUsuarios.getContentPane().add(txtFiltroNombreUsuario);
+		frmListarUsuarios.getContentPane().add(scrollPane);
 		
 		try {
 			cargarTabla();

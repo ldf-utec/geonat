@@ -33,6 +33,7 @@ import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.border.LineBorder;
 
 public class FramePrincipal {
 JFrame frmGeonat;
@@ -99,7 +100,7 @@ JFrame frmGeonat;
 		
 		JPanel panelUsuarios = new JPanel();
 		panelUsuarios.setBorder(new TitledBorder(null, "Gesti\u00F3n de Usuarios", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panelUsuarios.setBounds(10, 297, 220, 193);
+		panelUsuarios.setBounds(10, 297, 220, 211);
 		frmGeonat.getContentPane().add(panelUsuarios);
 		panelUsuarios.setLayout(null);
 		
@@ -118,10 +119,10 @@ JFrame frmGeonat;
 				});
 			}
 		});
-		btnUsuariosRegistrar.setBounds(10, 32, 199, 23);
+		btnUsuariosRegistrar.setBounds(10, 30, 199, 23);
 		panelUsuarios.add(btnUsuariosRegistrar);
 		
-		btnUsuariosVerListado = new JButton("Dar de Baja");
+		btnUsuariosVerListado = new JButton("Ver listado / Dar de Baja");
 		btnUsuariosVerListado.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				EventQueue.invokeLater(new Runnable() {
@@ -179,7 +180,6 @@ JFrame frmGeonat;
 		panelObservaciones.add(btnObservacionesRegistrar);
 		
 		btnObservacionesVerListado = new JButton("Ver listado");
-		btnObservacionesVerListado.setBorder(null);
 		btnObservacionesVerListado.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				EventQueue.invokeLater(new Runnable() {
@@ -210,6 +210,7 @@ JFrame frmGeonat;
 		panelObservaciones.add(btnObservacionesModificar);
 		
 		JLabel lblTotalDeObservaciones = new JLabel("Total de observaciones Registradas:");
+		lblTotalDeObservaciones.setEnabled(false);
 		lblTotalDeObservaciones.setBounds(307, 35, 246, 14);
 		panelObservaciones.add(lblTotalDeObservaciones);
 		lblTotalDeObservaciones.setVisible(false);
@@ -240,7 +241,7 @@ JFrame frmGeonat;
 		JPanel panel_1 = new JPanel();
 		panel_1.setLayout(null);
 		panel_1.setBorder(new TitledBorder(null, "Gesti\u00F3n de Caracter\u00EDsticas", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel_1.setBounds(564, 297, 220, 193);
+		panel_1.setBounds(564, 297, 220, 211);
 		frmGeonat.getContentPane().add(panel_1);
 		
 		btnRegistrarCaracteristica = new JButton("Registrar");
@@ -262,7 +263,7 @@ JFrame frmGeonat;
 		btnRegistrarCaracteristica.setBounds(10, 31, 199, 23);
 		panel_1.add(btnRegistrarCaracteristica);
 		
-		btnListarCaracterisitica = new JButton("Dar de Baja");
+		btnListarCaracterisitica = new JButton("Ver listado / Dar de Baja");
 		btnListarCaracterisitica.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				EventQueue.invokeLater(new Runnable() {
@@ -277,7 +278,7 @@ JFrame frmGeonat;
 				});
 			}
 		});
-		btnListarCaracterisitica.setBounds(10, 99, 199, 23);
+		btnListarCaracterisitica.setBounds(10, 103, 199, 23);
 		panel_1.add(btnListarCaracterisitica);
 		
 		btnModificarCaracteristica = new JButton("Modificar");
@@ -297,13 +298,13 @@ JFrame frmGeonat;
 				});
 			}
 		});
-		btnModificarCaracteristica.setBounds(10, 65, 199, 23);
+		btnModificarCaracteristica.setBounds(10, 67, 199, 23);
 		panel_1.add(btnModificarCaracteristica);
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setLayout(null);
 		panel_2.setBorder(new TitledBorder(null, "Gesti\u00F3n de Fen\u00F3menos", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel_2.setBounds(289, 297, 220, 193);
+		panel_2.setBounds(289, 297, 220, 211);
 		frmGeonat.getContentPane().add(panel_2);
 		
 		btnFenomenoRegistrar = new JButton("Registrar");
@@ -321,7 +322,7 @@ JFrame frmGeonat;
 				});
 			}
 		});
-		btnFenomenoRegistrar.setBounds(10, 60, 199, 23);
+		btnFenomenoRegistrar.setBounds(10, 65, 199, 23);
 		panel_2.add(btnFenomenoRegistrar);
 
 		
@@ -340,17 +341,17 @@ JFrame frmGeonat;
 				});
 			}
 		});
-		btnGestionFenomeno.setBounds(10, 98, 199, 23);
+		btnGestionFenomeno.setBounds(10, 101, 199, 23);
 		panel_2.add(btnGestionFenomeno);
 		
-		btnBajaFenomeno = new JButton("Dar de Baja");
+		btnBajaFenomeno = new JButton("Ver listado / Dar de Baja");
 		btnBajaFenomeno.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frmBajaFenomenos window = new frmBajaFenomenos();
 				window.frmListarFenomenos.setVisible(true);
 			}
 		});
-		btnBajaFenomeno.setBounds(10, 132, 199, 23);
+		btnBajaFenomeno.setBounds(10, 137, 199, 23);
 		panel_2.add(btnBajaFenomeno);
 		
 		btnGestin = new JButton("Gesti\u00F3n");
@@ -360,27 +361,30 @@ JFrame frmGeonat;
 				window.frmGestinDeFenmeno.setVisible(true);
 			}
 		});
-		btnGestin.setBounds(10, 26, 199, 23);
+		btnGestin.setBounds(10, 29, 199, 23);
 		panel_2.add(btnGestin);
 		
-		btnListadoFenomeno = new JButton("Listado");
-		btnListadoFenomeno.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				FrameListarFenomenos window = new FrameListarFenomenos();
-				window.frmListarFenomenos.setVisible(true);
-			}
-		});
-		btnListadoFenomeno.setBounds(10, 166, 199, 23);
-		panel_2.add(btnListadoFenomeno);
+//		btnListadoFenomeno = new JButton("Listado");
+//		btnListadoFenomeno.setEnabled(false);
+//		btnListadoFenomeno.addActionListener(new ActionListener() {			
+//			public void actionPerformed(ActionEvent e) {
+//		}
+//				FrameListarFenomenos window = new FrameListarFenomenos();
+//				window.frmListarFenomenos.setVisible(true);
+//			}
+//		});
+//		btnListadoFenomeno.setBounds(10, 173, 199, 23);
+//		panel_2.add(btnListadoFenomeno);
 		
 
-		btnCrearDatosPrueba = new JButton("Crear datos de prueba");
-		btnCrearDatosPrueba.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				DatosDePrueba.getInstance();
-			}
-		});
-		btnCrearDatosPrueba.setBounds(582, 537, 181, 23);
-		frmGeonat.getContentPane().add(btnCrearDatosPrueba);
+//		btnCrearDatosPrueba = new JButton("Crear datos de prueba");
+//		btnCrearDatosPrueba.setEnabled(false);
+//		btnCrearDatosPrueba.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				DatosDePrueba.getInstance();
+//			}
+//		});
+//		btnCrearDatosPrueba.setBounds(582, 537, 181, 23);
+//		frmGeonat.getContentPane().add(btnCrearDatosPrueba);
 	}
 }

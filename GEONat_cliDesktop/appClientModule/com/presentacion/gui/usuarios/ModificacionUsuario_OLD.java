@@ -93,7 +93,7 @@ public class ModificacionUsuario_OLD {
 		frmModificarUsuario.setMinimumSize(new Dimension(800, 600));
 		frmModificarUsuario.setSize(new Dimension(800, 600));
 		frmModificarUsuario.setResizable(false);
-		frmModificarUsuario.setBounds(100, 100, 800, 600);
+		frmModificarUsuario.setBounds(10, 10, 1200, 800);
 		frmModificarUsuario.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		frmModificarUsuario.getContentPane().setLayout(null);
 		

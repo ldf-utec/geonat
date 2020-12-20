@@ -100,7 +100,7 @@ public class ModificarUsuario extends JFrame {
 		frmModificarUsuario.getContentPane().setBounds(new Rectangle(0, 0, 300, 0));
 		frmModificarUsuario.setResizable(false);
 		frmModificarUsuario.setTitle("GEONat - Modificar Usuario");
-		frmModificarUsuario.setBounds(100, 100, 1200, 800);
+		frmModificarUsuario.setBounds(10, 10, 1200, 800);
 		frmModificarUsuario.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
 		JLabel lblNombreDeUsuaio = new JLabel("Nombre de usuario:");

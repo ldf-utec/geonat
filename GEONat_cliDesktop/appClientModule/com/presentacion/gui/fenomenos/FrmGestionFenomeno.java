@@ -256,7 +256,7 @@ public class FrmGestionFenomeno {
 		JPanel banner = new JPanel();
 		banner.setLayout(null);
 		banner.setBackground(Color.WHITE);
-		banner.setBounds(0, 6, 1200, 60);
+		banner.setBounds(0, 2, 1200, 60);
 		panel.add(banner);
 		
 		JLabel lblReporteDeObservaciones = new JLabel("Gesti\u00F3n de Fen\u00F3menos");

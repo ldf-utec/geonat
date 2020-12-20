@@ -74,17 +74,17 @@ public class FrameListarCaracteristicas extends JFrame implements DocumentListen
 	private void initialize() {
 		frmListarCaracteristicas = new JFrame();
 		frmListarCaracteristicas.setResizable(false);
-		frmListarCaracteristicas.setTitle("GEONat - Eliminar Caracter\u00EDsticas");
+		frmListarCaracteristicas.setTitle("GEONat -Ver listado / Dar de Baja");
 		frmListarCaracteristicas.setBounds(100, 100, 1200, 800);
 		frmListarCaracteristicas.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
 		JLabel lblNombreDeCaracteristica = new JLabel("Filtrar por nombre de caracter\u00EDstica:");
-		lblNombreDeCaracteristica.setBounds(50, 90, 300, 40);
+		lblNombreDeCaracteristica.setBounds(38, 88, 300, 40);
 		lblNombreDeCaracteristica.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		
 		txtFiltroNombreCaracteristica = new JTextField();
 		txtFiltroNombreCaracteristica.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		txtFiltroNombreCaracteristica.setBounds(350, 95, 350, 30);
+		txtFiltroNombreCaracteristica.setBounds(350, 85, 350, 46);
 		txtFiltroNombreCaracteristica.setColumns(10);
 		
  
@@ -100,12 +100,12 @@ public class FrameListarCaracteristicas extends JFrame implements DocumentListen
 		});
 		
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(50, 150, 1100, 532);
+		scrollPane.setBounds(38, 150, 1112, 532);
 		
 		JButton btnEliminar = new JButton("Eliminar Caracter\u00EDstica");
 		btnEliminar.setForeground(Color.RED);
 		btnEliminar.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		btnEliminar.setBounds(50, 715, 210, 40);
+		btnEliminar.setBounds(38, 715, 210, 40);
 		btnEliminar.setEnabled(false);
 		btnEliminar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -149,12 +149,12 @@ public class FrameListarCaracteristicas extends JFrame implements DocumentListen
 		panel.setBounds(0, 0, 1194, 59);
 		frmListarCaracteristicas.getContentPane().add(panel);
 		
-		lblBajaDeCaractersticas = new JLabel("Baja de caracter\u00EDsticas");
+		lblBajaDeCaractersticas = new JLabel("Caracter\u00EDsticas");
 		lblBajaDeCaractersticas.setHorizontalAlignment(SwingConstants.LEFT);
 		lblBajaDeCaractersticas.setForeground(Color.GRAY);
-		lblBajaDeCaractersticas.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblBajaDeCaractersticas.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblBajaDeCaractersticas.setBounds(new Rectangle(10, 10, 10, 10));
-		lblBajaDeCaractersticas.setBounds(14, 28, 1174, 25);
+		lblBajaDeCaractersticas.setBounds(14, 17, 1174, 25);
 		panel.add(lblBajaDeCaractersticas);
 		
 		try {

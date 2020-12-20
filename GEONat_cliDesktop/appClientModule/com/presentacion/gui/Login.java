@@ -224,7 +224,7 @@ public class Login extends JFrame {
 							window.btnRegistrarCaracteristica.setEnabled(false);
 							window.btnModificarCaracteristica.setEnabled(false);
 							window.btnListarCaracterisitica.setEnabled(false);
-							window.btnCrearDatosPrueba.setEnabled(false);
+							//window.btnCrearDatosPrueba.setEnabled(false);
 							window.btnGestionFenomeno.setEnabled(false);
 							window.btnGestin.setEnabled(false);
 							window.frmGeonat.setVisible(true);
@@ -251,7 +251,7 @@ public class Login extends JFrame {
 								window.btnRegistrarCaracteristica.setEnabled(false);
 								window.btnModificarCaracteristica.setEnabled(false);
 								window.btnListarCaracterisitica.setEnabled(false);
-								window.btnCrearDatosPrueba.setEnabled(false);
+								//window.btnCrearDatosPrueba.setEnabled(false);
 								window.btnUsuariosRegistrar.setEnabled(false);
 								window.btnGestionFenomeno.setEnabled(false);
 								window.btnGestin.setEnabled(false);
@@ -278,7 +278,7 @@ public class Login extends JFrame {
 									window.btnRegistrarCaracteristica.setEnabled(false);
 									window.btnModificarCaracteristica.setEnabled(false);
 									window.btnListarCaracterisitica.setEnabled(false);
-									window.btnCrearDatosPrueba.setEnabled(false);
+									//window.btnCrearDatosPrueba.setEnabled(false);
 									window.btnUsuariosRegistrar.setEnabled(false);
 									window.btnGestionFenomeno.setEnabled(false);
 									window.btnGestin.setEnabled(false);
@@ -305,7 +305,7 @@ public class Login extends JFrame {
 										window.btnRegistrarCaracteristica.setEnabled(false);
 										window.btnModificarCaracteristica.setEnabled(false);
 										window.btnListarCaracterisitica.setEnabled(false);
-										window.btnCrearDatosPrueba.setEnabled(false);
+										//window.btnCrearDatosPrueba.setEnabled(false);
 										window.btnUsuariosRegistrar.setEnabled(false);
 										window.btnGestionFenomeno.setEnabled(false);
 										window.btnGestin.setEnabled(false);

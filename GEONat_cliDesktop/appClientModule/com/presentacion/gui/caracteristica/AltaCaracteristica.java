@@ -78,14 +78,14 @@ public class AltaCaracteristica {
 		
 		frmG = new JFrame();
 		frmG.setTitle("GEONat - Registro de una caracter\u00EDstica");
-		frmG.setBounds(100, 100, 1200, 800);
+		frmG.setBounds(10, 10, 1200, 800);
 		frmG.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmG.getContentPane().setLayout(null);
 		frmG.setResizable(false);
 		
 		JLabel lblNombre = new JLabel("Nombre de la caracter\u00EDstica");
 		lblNombre.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblNombre.setBounds(150, 100, 250, 40);
+		lblNombre.setBounds(150, -280, 1200, 800);
 		frmG.getContentPane().add(lblNombre);
 		
 		txtFNombre = new JTextField();

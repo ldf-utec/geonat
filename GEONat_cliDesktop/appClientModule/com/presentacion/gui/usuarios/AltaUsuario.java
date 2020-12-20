@@ -94,7 +94,7 @@ public class AltaUsuario extends JFrame {
 		frmGeonatAlta.getContentPane().setBounds(new Rectangle(0, 0, 300, 0));
 		frmGeonatAlta.setResizable(false);
 		frmGeonatAlta.setTitle("GEONat - Registro de usuario");
-		frmGeonatAlta.setBounds(100, 100, 1200, 800);
+		frmGeonatAlta.setBounds(10, 10, 1200, 800);
 		frmGeonatAlta.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
 		JLabel lblNombreDeUsuaio = new JLabel("Nombre de usuario:");

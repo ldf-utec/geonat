@@ -97,7 +97,7 @@ public class frmBajaFenomenos extends JFrame implements DocumentListener {
 		
 		
 		lblNombreDeFenomeno = new JLabel("Filtrar por nombre de fen\u00F3meno:");
-		lblNombreDeFenomeno.setLocation(20, 70);
+		lblNombreDeFenomeno.setLocation(30, 70);
 		lblNombreDeFenomeno.setSize(300, 40);
 		lblNombreDeFenomeno.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		
@@ -128,8 +128,9 @@ public class frmBajaFenomenos extends JFrame implements DocumentListener {
 		
 		// Botón ELIMINAR
 		JButton btnEliminarFenomeno = new JButton("Eliminar Fenomeno");
+		btnEliminarFenomeno.setForeground(Color.RED);
 		btnEliminarFenomeno.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		btnEliminarFenomeno.setBounds(750, 700, 200, 40);
+		btnEliminarFenomeno.setBounds(30, 700, 200, 40);
 		btnEliminarFenomeno.setEnabled(false);
 		btnEliminarFenomeno.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
