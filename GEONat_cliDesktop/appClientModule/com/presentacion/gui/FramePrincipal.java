@@ -184,7 +184,7 @@ JFrame frmGeonat;
 				
 			}
 		});
-		btnObservacionesRegistrar.setBounds(10, 35, 300, 50);
+		btnObservacionesRegistrar.setBounds(22, 34, 300, 50);
 		panelObservaciones.add(btnObservacionesRegistrar);
 		
 		btnObservacionesVerListado = new JButton("Ver listado");
@@ -205,7 +205,7 @@ JFrame frmGeonat;
 			}
 			
 		});
-		btnObservacionesVerListado.setBounds(10, 152, 300, 50);
+		btnObservacionesVerListado.setBounds(22, 151, 300, 50);
 		panelObservaciones.add(btnObservacionesVerListado);
 		
 		btnObservacionesModificar = new JButton("Modificar");
@@ -216,7 +216,7 @@ JFrame frmGeonat;
 				
 			}
 		});
-		btnObservacionesModificar.setBounds(10, 92, 300, 50);
+		btnObservacionesModificar.setBounds(22, 91, 300, 50);
 		panelObservaciones.add(btnObservacionesModificar);
 		
 		JLabel lblTotalDeObservaciones = new JLabel("Total de observaciones Registradas:");
