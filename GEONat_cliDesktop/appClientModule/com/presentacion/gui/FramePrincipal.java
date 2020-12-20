@@ -8,6 +8,7 @@ import java.awt.Font;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
+import com.presentacion.SessionData;
 import com.presentacion.gui.caracteristica.AltaCaracteristica;
 import com.presentacion.gui.caracteristica.FrameListarCaracteristicas;
 import com.presentacion.gui.caracteristica.ModificacionCaracteristica;
@@ -138,6 +139,7 @@ JFrame frmGeonat;
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
+						
 					}
 				});
 			}
@@ -250,6 +252,18 @@ JFrame frmGeonat;
 		lblRegistroDeObservaciones.setHorizontalAlignment(SwingConstants.CENTER);
 		lblRegistroDeObservaciones.setBounds(6, 75, 1166, 25);
 		panel.add(lblRegistroDeObservaciones);
+		
+		JLabel lblUsuarioActual = new JLabel("Usuario Actual:");
+		lblUsuarioActual.setFont(new Font("SansSerif", Font.PLAIN, 14));
+		lblUsuarioActual.setBounds(894, 19, 117, 16);
+		panel.add(lblUsuarioActual);
+		
+		JLabel txtUsuarioActual = new JLabel("anonim");
+		txtUsuarioActual.setHorizontalAlignment(SwingConstants.RIGHT);
+		txtUsuarioActual.setFont(new Font("SansSerif", Font.ITALIC, 14));
+		txtUsuarioActual.setBounds(1010, 20, 150, 16);
+		txtUsuarioActual.setText(SessionData.usuarioActual);
+		panel.add(txtUsuarioActual);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setLayout(null);
