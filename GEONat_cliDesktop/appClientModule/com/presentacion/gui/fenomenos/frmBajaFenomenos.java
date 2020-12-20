@@ -47,7 +47,7 @@ import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.BorderLayout;
 
-public class FrameListarFenomenos extends JFrame implements DocumentListener {
+public class frmBajaFenomenos extends JFrame implements DocumentListener {
 
 	// Obtengo la instancia del servicio de capa lógica de negocios
 	ServiciosFenomeno serviciosFenomeno = ServiciosFenomeno.getInstance();
@@ -66,7 +66,7 @@ public class FrameListarFenomenos extends JFrame implements DocumentListener {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					FrameListarFenomenos window = new FrameListarFenomenos();
+					frmBajaFenomenos window = new frmBajaFenomenos();
 					window.frmListarFenomenos.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -78,7 +78,7 @@ public class FrameListarFenomenos extends JFrame implements DocumentListener {
 	/**
 	 * Create the application.
 	 */
-	public FrameListarFenomenos() {
+	public frmBajaFenomenos() {
 		initialize();
 	}
 
@@ -91,7 +91,7 @@ public class FrameListarFenomenos extends JFrame implements DocumentListener {
 		frmListarFenomenos.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		frmListarFenomenos.setBounds(10, 10, 1200, 800);
 		frmListarFenomenos.setSize(1200, 800);
-		frmListarFenomenos.setTitle("GEONat - Listado de Fen\u00F3menos");
+		frmListarFenomenos.setTitle("GEONat - Baja de Fen\u00F3menos");
 		frmListarFenomenos.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmListarFenomenos.getContentPane().setLayout(null);
 		
@@ -126,12 +126,39 @@ public class FrameListarFenomenos extends JFrame implements DocumentListener {
 		scrollPane = new JScrollPane();
 		scrollPane.setBounds(30, 120, 1150, 550);
 		
+		// Botón ELIMINAR
+		JButton btnEliminarFenomeno = new JButton("Eliminar Fenomeno");
+		btnEliminarFenomeno.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		btnEliminarFenomeno.setBounds(750, 700, 200, 40);
+		btnEliminarFenomeno.setEnabled(false);
+		btnEliminarFenomeno.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int continuar= JOptionPane.showConfirmDialog(null, "¿Confirma eliminación?", null, JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+				if (continuar==JOptionPane.YES_OPTION) {
+					if (idSeleccionado>=0) {
+						try {
+							serviciosFenomeno.delete(idSeleccionado);
+							cargarTabla();
+							idSeleccionado=0;
+							btnEliminarFenomeno.setEnabled(false);
+							
+						} catch ( ServiciosException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+					}
+				} else {
+					btnEliminarFenomeno.setEnabled(false);	
+				}
+			}
+		});
+		
 		JPanel banner = new JPanel();
 		banner.setBounds(1153, 218, 1, 1);
 		banner.setLayout(null);
 		banner.setBackground(Color.WHITE);
 		
-		JLabel lblModificacinDeFenmenos = new JLabel("Listado de Fen\u00F3menos");
+		JLabel lblModificacinDeFenmenos = new JLabel("Baja de Fen\u00F3menos");
 		lblModificacinDeFenmenos.setHorizontalAlignment(SwingConstants.LEFT);
 		lblModificacinDeFenmenos.setForeground(Color.GRAY);
 		lblModificacinDeFenmenos.setFont(new Font("SansSerif", Font.PLAIN, 20));
@@ -163,6 +190,7 @@ public class FrameListarFenomenos extends JFrame implements DocumentListener {
 		frmListarFenomenos.getContentPane().add(btnCerrar);
 		frmListarFenomenos.getContentPane().add(lblNombreDeFenomeno);
 		frmListarFenomenos.getContentPane().add(scrollPane);
+		frmListarFenomenos.getContentPane().add(btnEliminarFenomeno);
 		frmListarFenomenos.getContentPane().add(banner);
 		
 		JPanel banner_1 = new JPanel();
@@ -171,7 +199,7 @@ public class FrameListarFenomenos extends JFrame implements DocumentListener {
 		banner_1.setBounds(0, 0, 1195, 60);
 		frmListarFenomenos.getContentPane().add(banner_1);
 		
-		JLabel lblListadoDeFenmenos = new JLabel("Listado de Fen\u00F3menos");
+		JLabel lblListadoDeFenmenos = new JLabel("Baja de Fen\u00F3menos");
 		lblListadoDeFenmenos.setHorizontalAlignment(SwingConstants.LEFT);
 		lblListadoDeFenmenos.setForeground(Color.GRAY);
 		lblListadoDeFenmenos.setFont(new Font("SansSerif", Font.PLAIN, 20));
@@ -203,11 +231,11 @@ public class FrameListarFenomenos extends JFrame implements DocumentListener {
 	            if(!model.isSelectionEmpty()) {
 	            	System.out.println(Integer.valueOf((table.getValueAt(table.getSelectedRow(), 0).toString())));
 		        	idSeleccionado = Integer.valueOf((table.getValueAt(table.getSelectedRow(), 0).toString()));
-	               // btnEliminarFenomeno.setEnabled(true);
+	                btnEliminarFenomeno.setEnabled(true);
 	            }
 	            else {
 	            	idSeleccionado = 0;
-	              //  btnEliminarFenomeno.setEnabled(false);
+	                btnEliminarFenomeno.setEnabled(false);
 	            }
 	        }
 	    });

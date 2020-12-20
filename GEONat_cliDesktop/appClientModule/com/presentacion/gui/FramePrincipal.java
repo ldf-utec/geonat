@@ -15,11 +15,13 @@ import com.presentacion.gui.fenomenos.AltaFenomeno;
 import com.presentacion.gui.fenomenos.FrmGestionFenomeno;
 import com.presentacion.gui.fenomenos.FrameListarFenomenos;
 import com.presentacion.gui.fenomenos.NewFrameModificar;
+import com.presentacion.gui.fenomenos.frmBajaFenomenos;
 import com.presentacion.gui.observaciones.GestionObservaciones;
 import com.presentacion.gui.usuarios.AltaUsuario;
 import com.presentacion.gui.usuarios.FrameListarUsuarios;
 import com.presentacion.gui.usuarios.ModificacionUsuario_OLD;
 import com.presentacion.gui.usuarios.ModificarUsuario;
+
 
 import javax.swing.UIManager;
 import java.awt.Color;
@@ -35,10 +37,7 @@ import java.awt.event.ActionEvent;
 public class FramePrincipal {
 JFrame frmGeonat;
 	
-	JButton btnObservacionesRegistrar;
-	JButton btnObservacionesModificar;
-	JButton btnObservacionesVerListado;
-	JButton btnUsuariosRegistrar;
+	JButton btnObservacionesRegistrar, btnObservacionesModificar, btnObservacionesVerListado, btnUsuariosRegistrar;
 	JButton btnUsuarioModificar;
 	JButton btnUsuariosVerListado;
 	JButton btnFenomenoRegistrar;
@@ -47,7 +46,9 @@ JFrame frmGeonat;
 	JButton btnModificarCaracteristica;
 	JButton btnListarCaracterisitica;
 	JButton btnCrearDatosPrueba;
-	private JButton btnGestin;
+	JButton btnGestin;
+	JButton btnBajaFenomeno;
+	JButton btnListadoFenomeno;
 	
 	/**
 	 * Launch the application.
@@ -342,15 +343,15 @@ JFrame frmGeonat;
 		btnGestionFenomeno.setBounds(10, 98, 199, 23);
 		panel_2.add(btnGestionFenomeno);
 		
-		JButton btnListadoFenomeno = new JButton("Dar de Baja");
-		btnListadoFenomeno.addActionListener(new ActionListener() {
+		btnBajaFenomeno = new JButton("Dar de Baja");
+		btnBajaFenomeno.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				FrameListarFenomenos window = new FrameListarFenomenos();
+				frmBajaFenomenos window = new frmBajaFenomenos();
 				window.frmListarFenomenos.setVisible(true);
 			}
 		});
-		btnListadoFenomeno.setBounds(10, 132, 199, 23);
-		panel_2.add(btnListadoFenomeno);
+		btnBajaFenomeno.setBounds(10, 132, 199, 23);
+		panel_2.add(btnBajaFenomeno);
 		
 		btnGestin = new JButton("Gesti\u00F3n");
 		btnGestin.addActionListener(new ActionListener() {
@@ -361,6 +362,16 @@ JFrame frmGeonat;
 		});
 		btnGestin.setBounds(10, 26, 199, 23);
 		panel_2.add(btnGestin);
+		
+		btnListadoFenomeno = new JButton("Listado");
+		btnListadoFenomeno.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				FrameListarFenomenos window = new FrameListarFenomenos();
+				window.frmListarFenomenos.setVisible(true);
+			}
+		});
+		btnListadoFenomeno.setBounds(10, 166, 199, 23);
+		panel_2.add(btnListadoFenomeno);
 		
 
 		btnCrearDatosPrueba = new JButton("Crear datos de prueba");
