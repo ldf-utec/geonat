@@ -122,7 +122,7 @@ JFrame frmGeonat;
 				});
 			}
 		});
-		btnUsuariosRegistrar.setBounds(10, 50, 300, 50);
+		btnUsuariosRegistrar.setBounds(21, 50, 300, 50);
 		panelUsuarios.add(btnUsuariosRegistrar);
 		
 		btnUsuariosVerListado = new JButton("Ver listado / Dar de Baja");
@@ -142,7 +142,7 @@ JFrame frmGeonat;
 				});
 			}
 		});
-		btnUsuariosVerListado.setBounds(10, 250, 300, 50);
+		btnUsuariosVerListado.setBounds(21, 250, 300, 50);
 		panelUsuarios.add(btnUsuariosVerListado);
 		
 		btnUsuarioModificar = new JButton("Modificar");
@@ -163,7 +163,7 @@ JFrame frmGeonat;
 				});
 			}
 		});
-		btnUsuarioModificar.setBounds(10, 150, 300, 50);
+		btnUsuarioModificar.setBounds(21, 150, 300, 50);
 		panelUsuarios.add(btnUsuarioModificar);
 		
 		JPanel panelObservaciones = new JPanel();
@@ -184,7 +184,7 @@ JFrame frmGeonat;
 				
 			}
 		});
-		btnObservacionesRegistrar.setBounds(10, 35, 199, 50);
+		btnObservacionesRegistrar.setBounds(10, 35, 300, 50);
 		panelObservaciones.add(btnObservacionesRegistrar);
 		
 		btnObservacionesVerListado = new JButton("Ver listado");
@@ -205,7 +205,7 @@ JFrame frmGeonat;
 			}
 			
 		});
-		btnObservacionesVerListado.setBounds(10, 152, 199, 50);
+		btnObservacionesVerListado.setBounds(10, 152, 300, 50);
 		panelObservaciones.add(btnObservacionesVerListado);
 		
 		btnObservacionesModificar = new JButton("Modificar");
@@ -216,19 +216,19 @@ JFrame frmGeonat;
 				
 			}
 		});
-		btnObservacionesModificar.setBounds(10, 92, 199, 50);
+		btnObservacionesModificar.setBounds(10, 92, 300, 50);
 		panelObservaciones.add(btnObservacionesModificar);
 		
 		JLabel lblTotalDeObservaciones = new JLabel("Total de observaciones Registradas:");
 		lblTotalDeObservaciones.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		lblTotalDeObservaciones.setEnabled(false);
-		lblTotalDeObservaciones.setBounds(309, 46, 346, 26);
+		lblTotalDeObservaciones.setBounds(427, 49, 346, 26);
 		panelObservaciones.add(lblTotalDeObservaciones);
 		lblTotalDeObservaciones.setVisible(false);
 		
 		JLabel label_1 = new JLabel("?");
 		label_1.setFont(new Font("SansSerif", Font.PLAIN, 18));
-		label_1.setBounds(684, 48, 62, 24);
+		label_1.setBounds(802, 51, 62, 24);
 		panelObservaciones.add(label_1);
 		label_1.setVisible(false);
 		
@@ -275,7 +275,7 @@ JFrame frmGeonat;
 				
 			}
 		});
-		btnRegistrarCaracteristica.setBounds(10, 50, 300, 50);
+		btnRegistrarCaracteristica.setBounds(23, 51, 300, 50);
 		panel_1.add(btnRegistrarCaracteristica);
 		
 		btnListarCaracterisitica = new JButton("Ver listado / Dar de Baja");
@@ -295,7 +295,7 @@ JFrame frmGeonat;
 				});
 			}
 		});
-		btnListarCaracterisitica.setBounds(10, 250, 300, 50);
+		btnListarCaracterisitica.setBounds(23, 251, 300, 50);
 		panel_1.add(btnListarCaracterisitica);
 		
 		btnModificarCaracteristica = new JButton("Modificar");
@@ -317,7 +317,7 @@ JFrame frmGeonat;
 				});
 			}
 		});
-		btnModificarCaracteristica.setBounds(10, 150, 300, 50);
+		btnModificarCaracteristica.setBounds(23, 151, 300, 50);
 		panel_1.add(btnModificarCaracteristica);
 		
 		JPanel panel_2 = new JPanel();
@@ -343,7 +343,7 @@ JFrame frmGeonat;
 				});
 			}
 		});
-		btnFenomenoRegistrar.setBounds(10, 110, 300, 50);
+		btnFenomenoRegistrar.setBounds(23, 110, 300, 50);
 		panel_2.add(btnFenomenoRegistrar);
 
 		
@@ -364,7 +364,7 @@ JFrame frmGeonat;
 				});
 			}
 		});
-		btnGestionFenomeno.setBounds(10, 190, 300, 50);
+		btnGestionFenomeno.setBounds(23, 190, 300, 50);
 		panel_2.add(btnGestionFenomeno);
 		
 		btnBajaFenomeno = new JButton("Ver listado / Dar de Baja");
@@ -376,7 +376,7 @@ JFrame frmGeonat;
 				window.frmListarFenomenos.setVisible(true);
 			}
 		});
-		btnBajaFenomeno.setBounds(10, 270, 300, 50);
+		btnBajaFenomeno.setBounds(23, 270, 300, 50);
 		panel_2.add(btnBajaFenomeno);
 		
 		btnGestin = new JButton("Gesti\u00F3n");
@@ -388,7 +388,7 @@ JFrame frmGeonat;
 				window.frmGestinDeFenmeno.setVisible(true);
 			}
 		});
-		btnGestin.setBounds(10, 30, 300, 50);
+		btnGestin.setBounds(23, 30, 300, 50);
 		panel_2.add(btnGestin);
 		
 //		btnListadoFenomeno = new JButton("Listado");
