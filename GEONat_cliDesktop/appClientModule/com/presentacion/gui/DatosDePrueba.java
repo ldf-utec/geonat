@@ -79,7 +79,21 @@ public class DatosDePrueba {
 					u.setEmail("email" + i + "@email" + 1+ ".com");
 					u.setNroDocumento("0000000" + i);
 					u.setEstadoActivo(true);
-					u.setTipoUsuario(TipoUsuario.ADMINISTRADOR);
+					if (i== 0 || i == 5) {
+						u.setTipoUsuario(TipoUsuario.ADMINISTRADOR);
+					}else if (i== 1 || i == 6) {
+						u.setTipoUsuario(TipoUsuario.EXPERTO);
+					}else if (i== 2 || i == 7) {
+						u.setTipoUsuario(TipoUsuario.ONG);
+					}else if (i== 3 || i == 8) {
+						u.setTipoUsuario(TipoUsuario.ORGANISMOPRIVADO);
+					}
+					else if (i== 4 || i == 9) {
+						u.setTipoUsuario(TipoUsuario.USUARIO);
+					}
+						
+					//u.setTipoUsuario(TipoUsuario.ADMINISTRADOR);
+					
 					u.setTipoDocumento(TipoDocumento.CARTA_CIUDADANIA);
 					u.setPassword(Integer.toString(i));
 										
@@ -92,23 +106,23 @@ public class DatosDePrueba {
 						err.printStackTrace();
 					}
 					//abc para prueba
-					u.setNombre("abc");
-					u.setApellido("abc");
-					u.setNombreUsuario("abc");
-					u.setDireccion("abc");
-					u.setEmail("abc" + "@email" +".com");
-					u.setNroDocumento("00000001");
-					u.setEstadoActivo(true);
-					u.setTipoUsuario(TipoUsuario.ONG);
-					u.setTipoDocumento(TipoDocumento.CI);
-					u.setPassword("abc");
-					try {
-						serviciosUsuario.create(u);
-						System.out.println("Usuario creado " + i);
-						System.out.println("Vez: " + i + "Lista: " + listaUsuarios.size());
-					} catch (ServiciosException err) {
-						err.printStackTrace();
-					}
+					//u.setNombre("abc");
+					//u.setApellido("abc");
+//					u.setNombreUsuario("abc");
+//					u.setDireccion("abc");
+//					u.setEmail("abc" + "@email" +".com");
+//					u.setNroDocumento("00000001");
+//					u.setEstadoActivo(true);
+//					u.setTipoUsuario(TipoUsuario.ONG);
+//					u.setTipoDocumento(TipoDocumento.CI);
+//					u.setPassword("abc");
+//					try {
+//						serviciosUsuario.create(u);
+//						System.out.println("Usuario creado " + i);
+//						System.out.println("Vez: " + i + "Lista: " + listaUsuarios.size());
+//					} catch (ServiciosException err) {
+//						err.printStackTrace();
+//					}
 				}
 			}
 			else {
