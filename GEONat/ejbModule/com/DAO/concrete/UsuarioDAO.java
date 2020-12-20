@@ -164,7 +164,21 @@ public class UsuarioDAO implements IUsuarioDAO {
 		}else {
 			return null;
 		}
+	}
+	
+	@Override
+	public List<Usuario> obtenerPorEstado(Boolean estado) throws ServiciosException {
 		
+		TypedQuery<Usuario> query = em.createNamedQuery("Usuario.obtenerPorEstado", Usuario.class)
+				.setParameter("estado", estado );
+		List<Usuario> lista = query.getResultList();
+		
+		if (lista.size()>0 ) {
+			// si obtuvo resultados, retorno todo
+			return lista; 
+		}else {
+			return null;
+		}	
 	}
 	
 }

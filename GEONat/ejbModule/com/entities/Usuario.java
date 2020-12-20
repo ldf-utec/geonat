@@ -13,6 +13,7 @@ import javax.persistence.*;
 @NamedQuery(name="Usuario.obtenerUno", query="SELECT u FROM Usuario u WHERE u.nombreUsuario LIKE :filtro")
 @NamedQuery(name="Usuario.obtenerPorNombre", query="SELECT u FROM Usuario u WHERE UPPER(u.nombreUsuario) LIKE :filtro")
 @NamedQuery(name="Usuario.obtenerPorDocumento", query="SELECT u FROM Usuario u WHERE u.nroDocumento LIKE :filtro")
+@NamedQuery(name="Usuario.obtenerPorEstado", query="SELECT u FROM Usuario u WHERE u.estadoActivo=:estado")
 public class Usuario implements Serializable {
 
 	@Id
