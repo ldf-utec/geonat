@@ -258,6 +258,7 @@ public class FrameListarUsuarios extends JFrame implements DocumentListener {
 				}
 			};
 			
+			table.setRowHeight(30);
 			table.setModel(model);
 			table.setAutoscrolls(true);
 			table.setCellSelectionEnabled(false);
