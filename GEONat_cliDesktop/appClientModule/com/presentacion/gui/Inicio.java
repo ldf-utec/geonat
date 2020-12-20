@@ -1,6 +1,9 @@
 package com.presentacion.gui;
 
+import java.awt.Font;
 import java.util.List;
+
+import javax.swing.UIManager;
 
 import com.entities.TipoDocumento;
 import com.entities.TipoUsuario;
@@ -12,7 +15,16 @@ public class Inicio {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-
+		try {
+			UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+			UIManager.put("OptionPane.messageFont", new Font("Tahoma", Font.PLAIN, 18));
+			UIManager.put("OptionPane.buttonFont", new Font("Tahoma", Font.PLAIN, 16));
+			UIManager.put("TitledBorder.font", new Font("Tahoma", Font.PLAIN, 16));
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		
 		creaUsuarios();
 		Login p = new Login();
 		p.setVisible(true);
