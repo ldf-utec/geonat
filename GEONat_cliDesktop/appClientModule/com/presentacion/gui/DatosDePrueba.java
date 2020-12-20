@@ -180,7 +180,7 @@ public class DatosDePrueba {
 				// CREAR CARACTERISTICAS	
 				Caracteristica cGranizo1 = new Caracteristica();
 				cGranizo1.setNombre ("Diámetro de granizo");
-				cGranizo1.setEtiqPresentacion(" ");
+				cGranizo1.setEtiqPresentacion("Etiqueta de granizo");
 				cGranizo1.setTipoDato(TipoDato.NUMERICO);
 				cGranizo1.setFenomeno(granizo);		
 				
@@ -188,7 +188,7 @@ public class DatosDePrueba {
 				
 				Caracteristica cGranizo2 = new Caracteristica();
 				cGranizo2.setNombre ("Duración de granizada (min)");
-				cGranizo2.setEtiqPresentacion(" ");
+				cGranizo2.setEtiqPresentacion("Etiqueta de granizada");
 				cGranizo2.setTipoDato(TipoDato.NUMERICO);
 				cGranizo2.setFenomeno(granizo);	
 				
@@ -198,7 +198,7 @@ public class DatosDePrueba {
 				
 				Caracteristica cLluvia = new Caracteristica();
 				cLluvia.setNombre ("Milímetros de lluvia");
-				cLluvia.setEtiqPresentacion(" ");
+				cLluvia.setEtiqPresentacion("Etiqueta de lluvia");
 				cLluvia.setTipoDato(TipoDato.NUMERICO);
 				cLluvia.setFenomeno(lluvia);
 				
@@ -214,18 +214,26 @@ public class DatosDePrueba {
 				
 				Caracteristica cIncendio1 = new Caracteristica();
 				cIncendio1.setNombre ("Hectáreas afectadas");
-				cIncendio1.setEtiqPresentacion(" ");
+				cIncendio1.setEtiqPresentacion("Etiqueta de hectáreas");
 				cIncendio1.setTipoDato(TipoDato.NUMERICO);
 				cIncendio1.setFenomeno(incendio);
 				
 				Caracteristica cIncendio2 = new Caracteristica();
 				cIncendio2.setNombre ("Tipo de flora");
-				cIncendio2.setEtiqPresentacion(" ");
+				cIncendio2.setEtiqPresentacion("Etiqueta de flora");
 				cIncendio2.setTipoDato(TipoDato.TEXTO);
 				cIncendio2.setFenomeno(incendio);
 				
 				incendio.getCaracteristicas().add(cIncendio1);
 				incendio.getCaracteristicas().add(cIncendio2);
+				
+				Caracteristica cLluvia1 = new Caracteristica();
+				cLluvia.setNombre ("Inundación");
+				cLluvia.setEtiqPresentacion("Etiqueta de Inundación");
+				cLluvia.setTipoDato(TipoDato.TEXTO);
+				cLluvia.setFenomeno(null);
+				
+				//lluvia.getCaracteristicas().add(cLluvia1);
 									
 				// Llamada al servicio remoto para crear los registros
 				try {
@@ -307,13 +315,7 @@ public class DatosDePrueba {
 				serviciosDetalles.create(d1);
 				
 				System.out.println("Grabó Observacion");
-				
-				
-				
-				
-				
-				
-				
+							
 				
 				//
 //				ServiciosDetalleObservaciones serviciosDetalleObservaciones = ServiciosDetalleObservaciones.getInstance();
