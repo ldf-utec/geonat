@@ -133,5 +133,23 @@ public class ServiciosUsuario {
 		return u ;
 	}
 
+	public void bajaLogica(Integer id) throws ServiciosException {
+
+		Usuario u = servicios.usuarioBean.obtenerUno(id);
+		u.setEstadoActivo(false);
+		servicios.usuarioBean.update(u);
+	}
+	
+	// Obtener por estado (activo o inactivo)
+	public List<Usuario> obtenerPorEstado(boolean estado) throws ServiciosException {
+		try {
+			
+			List<Usuario> lista = servicios.usuarioBean.obtenerPorEstado(estado);
+			return lista;
+			
+		} catch (Exception e) {
+			throw new ServiciosException("Error al obtener por estado");
+		}	
+	}
 	
 }

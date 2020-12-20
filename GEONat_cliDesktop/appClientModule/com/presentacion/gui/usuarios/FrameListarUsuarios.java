@@ -6,7 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
-
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import javax.swing.JButton;
@@ -18,6 +18,7 @@ import javax.swing.table.TableRowSorter;
 
 import com.entities.Usuario;
 import com.exception.ServiciosException;
+import com.presentacion.SessionData;
 import com.presentacion.servicios.ServiciosUsuario;
 
 import java.awt.event.ActionEvent;
@@ -88,7 +89,7 @@ public class FrameListarUsuarios extends JFrame implements DocumentListener {
 		frmListarUsuarios.setTitle("GEONat -Ver listado / Dar de Baja");
 		frmListarUsuarios.setBounds(10, 10, 1200, 800);
 		frmListarUsuarios.setSize(1200, 800);
-		frmListarUsuarios.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		frmListarUsuarios.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
 		JLabel lblNombreDeUsuario = new JLabel("Filtrar por nombre de usuario:");
 		lblNombreDeUsuario.setBounds(18, 82, 259, 20);
@@ -125,17 +126,33 @@ public class FrameListarUsuarios extends JFrame implements DocumentListener {
 		btnEliminarUsuario.setEnabled(false);		
 		btnEliminarUsuario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try {
-					serviciosUsuarios.delete(idSeleccionado);
-					cargarTabla();
-					idSeleccionado=0;
-					btnEliminarUsuario.setEnabled(false);
+
+					if(SessionData.idUsuarioActual != idSeleccionado) {
+						
+						// 0=ok, 2=cancel
+						int input = JOptionPane.showConfirmDialog(null, "¿Seguro que desea dar de BAJA el usuario seleccionado?",
+								"Baja de usuario", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+						
+						if (input == 0) {
+							try {
+								serviciosUsuarios.bajaLogica(idSeleccionado);
+								cargarTabla();
+								idSeleccionado=0;
+								btnEliminarUsuario.setEnabled(false);
+								JOptionPane.showMessageDialog(null,  "Usuario dado de baja exitosamente.", "Baja de usuario", JOptionPane.INFORMATION_MESSAGE);
+								
+							} catch (ServiciosException err) {
+								err.printStackTrace();
+								JOptionPane.showMessageDialog(null,  "Error al dar de baja el usuario.\nError:\n"  + err.toString() );
+							}
+						}else {
+							return;
+						}	
 					
-				} catch ( ServiciosException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				
+					}else {
+						JOptionPane.showMessageDialog(null, "No se puede dar de baja al usuario logueado actualmente",
+							      "Baja de usuario", JOptionPane.ERROR_MESSAGE);
+					}
 			}
 		});
 		
