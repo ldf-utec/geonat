@@ -168,6 +168,7 @@ public class Login extends JFrame {
 		String perfil = null;
 		String claveUsuario = null;
 		String naUsuario = null;
+		Boolean activo = false;
 		boolean existeUsuario = false;
 		Integer idUsuarioActual = -1;
 		
@@ -189,6 +190,7 @@ public class Login extends JFrame {
 			claveUsuario = usuarioObtenido.getPassword();
 			idUsuarioActual = usuarioObtenido.getId_Usuario();
 			perfil = String.valueOf(usuarioObtenido.getTipoUsuario());
+			activo = usuarioObtenido.getEstadoActivo();
 		}else  {
 			JOptionPane.showMessageDialog(null,"Usuario o Cantraseña Incorrectos","ERROR",JOptionPane.ERROR_MESSAGE);
 			textUsuario.setText("");
@@ -198,7 +200,7 @@ public class Login extends JFrame {
 
 		if(existeUsuario) {
 
-			if(nombreUsuario.toUpperCase().equals(naUsuario.toUpperCase()) &&  clave.equals(claveUsuario) && perfil.toUpperCase().equals("ADMINISTRADOR")) {
+			if(activo && nombreUsuario.toUpperCase().equals(naUsuario.toUpperCase()) &&  clave.equals(claveUsuario) && perfil.toUpperCase().equals("ADMINISTRADOR")) {
 				SessionData.usuarioActual= nombreUsuario;
 				SessionData.idUsuarioActual = idUsuarioActual;
 				dispose();
@@ -212,7 +214,7 @@ public class Login extends JFrame {
 					}
 				});
 				
-			}else if(nombreUsuario.toUpperCase().equals(naUsuario.toUpperCase()) &&  clave.equals(claveUsuario) && perfil.toUpperCase().equals("EXPERTO")) {
+			}else if(activo && nombreUsuario.toUpperCase().equals(naUsuario.toUpperCase()) &&  clave.equals(claveUsuario) && perfil.toUpperCase().equals("EXPERTO")) {
 				SessionData.usuarioActual= nombreUsuario;
 				SessionData.idUsuarioActual = idUsuarioActual;
 				dispose();
@@ -241,7 +243,7 @@ public class Login extends JFrame {
 				});
 			}
 				//Para ONG
-				else if(nombreUsuario.toUpperCase().equals(naUsuario.toUpperCase()) &&  clave.equals(claveUsuario) && perfil.toUpperCase().equals("ONG") ) {
+				else if(activo && nombreUsuario.toUpperCase().equals(naUsuario.toUpperCase()) &&  clave.equals(claveUsuario) && perfil.toUpperCase().equals("ONG") ) {
 					SessionData.usuarioActual= nombreUsuario;
 					SessionData.idUsuarioActual = idUsuarioActual;
 					dispose();
@@ -270,7 +272,7 @@ public class Login extends JFrame {
 						}
 					});
 				}
-					else if(nombreUsuario.toUpperCase().equals(naUsuario.toUpperCase()) &&  clave.equals(claveUsuario) && perfil.toUpperCase().equals("ORGANISMOPRIVADO") ) {
+					else if(activo && nombreUsuario.toUpperCase().equals(naUsuario.toUpperCase()) &&  clave.equals(claveUsuario) && perfil.toUpperCase().equals("ORGANISMOPRIVADO") ) {
 						SessionData.usuarioActual= nombreUsuario;
 						SessionData.idUsuarioActual = idUsuarioActual;
 						dispose();
@@ -299,7 +301,7 @@ public class Login extends JFrame {
 							}
 						});
 					}
-						else if(nombreUsuario.toUpperCase().equals(naUsuario.toUpperCase()) &&  clave.equals(claveUsuario) && perfil.toUpperCase().equals("USUARIO") ) {
+						else if(activo && nombreUsuario.toUpperCase().equals(naUsuario.toUpperCase()) &&  clave.equals(claveUsuario) && perfil.toUpperCase().equals("USUARIO") ) {
 							SessionData.usuarioActual= nombreUsuario;
 							SessionData.idUsuarioActual = idUsuarioActual;
 							dispose();
@@ -330,11 +332,18 @@ public class Login extends JFrame {
 						}
 							//Solo para ver si hay problemas
 							else {
-								//dispose();
-								JOptionPane.showMessageDialog(null,"Usuario o Cantraseña Incorrectos","ERROR",JOptionPane.ERROR_MESSAGE);
-								textUsuario.setText("");
-								jpassClave.setText("");
-								textUsuario.requestFocus();
+								if (!activo) {
+									JOptionPane.showMessageDialog(null,"Usuario no esta activo en el sistema","ERROR",JOptionPane.ERROR_MESSAGE);
+									textUsuario.setText("");
+									jpassClave.setText("");
+									textUsuario.requestFocus();
+								} else {
+									//dispose();
+									JOptionPane.showMessageDialog(null,"Usuario o Cantraseña Incorrectos","ERROR",JOptionPane.ERROR_MESSAGE);
+									textUsuario.setText("");
+									jpassClave.setText("");
+									textUsuario.requestFocus();
+								}
 								
 								//JOptionPane.showMessageDialog(null,"Bienvenido al Sistema","Login Correcto // Sin Perfil",JOptionPane.INFORMATION_MESSAGE);
 								
