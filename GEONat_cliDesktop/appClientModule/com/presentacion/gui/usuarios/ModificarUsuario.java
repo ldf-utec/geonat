@@ -640,18 +640,15 @@ public class ModificarUsuario extends JFrame {
 	
 	// Devuelve true si todos los campos obligatorios NO están vacíos
 	private boolean hayCamposVacios() {
-		List<JTextField> array = new ArrayList<JTextField>() {
-			{
-				add(txtNombreUsuario);
-				add(txtNombre);
-				add(txtApellido);
-				add(txtDocumento);
-				add(txtCorreo);
-				add(txtPassword1);
-				add(txtPassword2);
-			}
-		};
-
+		List<JTextField> array = new ArrayList<JTextField>();
+		array.add(txtNombreUsuario);
+		array.add(txtNombre);
+		array.add(txtApellido);
+		array.add(txtDocumento);
+		array.add(txtCorreo);
+		array.add(txtPassword1);
+		array.add(txtPassword2);
+		
 		// valido los campos de texto que no sean null
 		for (JTextField jTextField : array) {
 			String s = jTextField.getText();

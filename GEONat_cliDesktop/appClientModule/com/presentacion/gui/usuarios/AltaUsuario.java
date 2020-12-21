@@ -505,17 +505,15 @@ public class AltaUsuario extends JFrame {
 	
 	// Devuelve true si todos los campos obligatorios NO están vacíos
 	private boolean hayCamposVacios() {
-		List<JTextField> array = new ArrayList<JTextField>() {
-			{
-				getContentPane().add(nombreUsuario);
-				getContentPane().add(nombre);
-				getContentPane().add(apellido);
-				getContentPane().add(documento);
-				getContentPane().add(correo);
-				getContentPane().add(password1);
-				getContentPane().add(password2);
-			}
-		};
+		List<JTextField> array = new ArrayList<JTextField>();
+		array.add(nombreUsuario);
+		array.add(nombre);
+		array.add(apellido);
+		array.add(documento);
+		array.add(correo);
+		array.add(password1);
+		array.add(password2);
+		
 
 		// Valido los campos de texto que no sean null
 		for (JTextField jTextField : array) {
