@@ -107,7 +107,7 @@ public class AltaFenomeno {
 			}
 			}
 			});
-		txtFNombre.setBounds(310, 110, 250, 40);
+		txtFNombre.setBounds(310, 110, 375, 40);
 		frmAltaFenomenos.getContentPane().add(txtFNombre);
 		txtFNombre.setColumns(10);
 		
@@ -118,6 +118,8 @@ public class AltaFenomeno {
 		
 		txtADescripcion = new JTextArea();
 		txtADescripcion.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		txtADescripcion.setLineWrap(true);
+		txtADescripcion.setAutoscrolls(true);
 		txtADescripcion.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
@@ -127,13 +129,13 @@ public class AltaFenomeno {
 				}
 			}
 		});
-		txtADescripcion.setBounds(310, 210, 250, 80);
+		txtADescripcion.setBounds(310, 210, 375, 165);
 		frmAltaFenomenos.getContentPane().add(txtADescripcion);
 		txtADescripcion.setColumns(10);
 		
 		JLabel lblTelEmergencia = new JLabel("Tel\u00E9fonos de Emergencia:");
 		lblTelEmergencia.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblTelEmergencia.setBounds(40, 310, 250, 40);
+		lblTelEmergencia.setBounds(40, 398, 250, 40);
 		frmAltaFenomenos.getContentPane().add(lblTelEmergencia);
 		
 		txtFTelEmergencia = new JTextField();
@@ -147,7 +149,7 @@ public class AltaFenomeno {
 			}
 			}
 		});
-		txtFTelEmergencia.setBounds(310, 320, 250, 40);
+		txtFTelEmergencia.setBounds(310, 408, 375, 40);
 		frmAltaFenomenos.getContentPane().add(txtFTelEmergencia);
 		txtFTelEmergencia.setColumns(10);
 		

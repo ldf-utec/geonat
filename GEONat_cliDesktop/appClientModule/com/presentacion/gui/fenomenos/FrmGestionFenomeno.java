@@ -105,30 +105,32 @@ public class FrmGestionFenomeno {
 		
 		txtADescripcion = new JTextArea();
 		txtADescripcion.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		txtADescripcion.setBounds(192, 281, 222, 120);
+		txtADescripcion.setLineWrap(true);
+		txtADescripcion.setAutoscrolls(true);
+		txtADescripcion.setBounds(148, 281, 266, 247);
 		panel.add(txtADescripcion);
 		
 		JLabel lblTelefono = new JLabel("Tel\u00E9fono:");
 		lblTelefono.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblTelefono.setBounds(23, 440, 113, 22);
+		lblTelefono.setBounds(23, 548, 113, 22);
 		panel.add(lblTelefono);
 		
 		txtFID = new JTextField();
 		txtFID.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		txtFID.setEditable(false);
-		txtFID.setBounds(192, 127, 222, 40);
+		txtFID.setBounds(148, 127, 266, 40);
 		panel.add(txtFID);
 		txtFID.setColumns(10);
 		
 		txtFNombre = new JTextField();
 		txtFNombre.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		txtFNombre.setBounds(192, 202, 222, 40);
+		txtFNombre.setBounds(148, 202, 266, 40);
 		panel.add(txtFNombre);
 		txtFNombre.setColumns(10);
 		
 		txtFTelefono = new JTextField();
 		txtFTelefono.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		txtFTelefono.setBounds(192, 432, 222, 40);
+		txtFTelefono.setBounds(148, 540, 266, 40);
 		panel.add(txtFTelefono);
 		txtFTelefono.setColumns(10);
 		

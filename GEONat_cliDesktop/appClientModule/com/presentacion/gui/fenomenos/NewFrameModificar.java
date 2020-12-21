@@ -17,6 +17,8 @@ import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.List;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
@@ -42,6 +44,10 @@ public class NewFrameModificar  {
 	private JTextField txtFTelefono;
 	private JTextArea txtADescripcion;
 	private JComboBox comboBoxIDFen; 
+	private int limiteNombre = 50;
+	private int limiteDescripcion = 200;
+	private int limiteTel = 20;
+
 
 
 	private ServiciosFenomeno fenomenoSrv = ServiciosFenomeno.getInstance();
@@ -141,6 +147,15 @@ public class NewFrameModificar  {
 		JLabel lblNombre = new JLabel("Nombre:");
 		lblNombre.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblNombre.setBounds(10, 220, 270, 40);
+		txtFNombre.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				if(txtFNombre.getText().length() > limiteNombre) {
+					JOptionPane.showMessageDialog(null,"Debe ingresar menos de "+limiteNombre+" caracteres");
+					e.consume();
+			}
+			}
+			});
 		frmGestionFenomenos.getContentPane().add(lblNombre);
 		
 		JLabel lblDescripcion = new JLabel("Descripci\u00F3n:");
@@ -150,13 +165,22 @@ public class NewFrameModificar  {
 		
 		txtFTelefono = new JTextField();
 		txtFTelefono.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		txtFTelefono.setBounds(348, 500, 350, 40);
+		txtFTelefono.setBounds(348, 542, 350, 40);
+		txtFTelefono.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				if(txtFTelefono.getText().length() > limiteTel) {
+					JOptionPane.showMessageDialog(null,"Debe ingresar menos de "+limiteTel+" números");
+				e.consume();
+			}
+			}
+		});
 		frmGestionFenomenos.getContentPane().add(txtFTelefono);
 		txtFTelefono.setColumns(10);
 		
 		JLabel lblTelefonoDe = new JLabel("Tel\u00E9fono:");
 		lblTelefonoDe.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblTelefonoDe.setBounds(10, 500, 270, 40);
+		lblTelefonoDe.setBounds(10, 542, 270, 40);
 		frmGestionFenomenos.getContentPane().add(lblTelefonoDe);
 		
 		comboBoxIDFen = new JComboBox();
@@ -179,7 +203,18 @@ public class NewFrameModificar  {
 		
 		txtADescripcion = new JTextArea();
 		txtADescripcion.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		txtADescripcion.setBounds(348, 320, 350, 120);
+		txtADescripcion.setLineWrap(true);
+		txtADescripcion.setAutoscrolls(true);
+		txtADescripcion.setBounds(348, 320, 350, 163);
+		txtADescripcion.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				if(txtADescripcion.getText().length() > limiteDescripcion) {
+					JOptionPane.showMessageDialog(null,"Debe ingresar menos de "+limiteDescripcion+" caracteres");
+				e.consume();
+				}
+			}
+		});
 		frmGestionFenomenos.getContentPane().add(txtADescripcion);
 		
 		JPanel banner = new JPanel();
