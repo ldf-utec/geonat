@@ -140,6 +140,13 @@ public class ServiciosUsuario {
 		servicios.usuarioBean.update(u);
 	}
 	
+	public void altaLogica(Integer id) throws ServiciosException {
+
+		Usuario u = servicios.usuarioBean.obtenerUno(id);
+		u.setEstadoActivo(true);
+		servicios.usuarioBean.update(u);
+	}
+	
 	// Obtener por estado (activo o inactivo)
 	public List<Usuario> obtenerPorEstado(boolean estado) throws ServiciosException {
 		try {
