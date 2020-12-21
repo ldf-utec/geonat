@@ -104,7 +104,7 @@ public class GestionObservaciones  {
 		//frmGestionObservaciones.setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Leandro\\Downloads\\icongeonat_eij_icon.ico"));
 		frmGestionObservaciones.setTitle("GEONat - Observaciones");
 		frmGestionObservaciones.setResizable(false);
-		frmGestionObservaciones.setBounds(100, 100, 1200, 800);
+		frmGestionObservaciones.setBounds(10, 10, 1200, 800);
 		frmGestionObservaciones.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmGestionObservaciones.getContentPane().setLayout(null);
 		
