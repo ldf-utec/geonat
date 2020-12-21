@@ -213,6 +213,8 @@ public class Login extends JFrame {
 				});
 				
 			}else if(nombreUsuario.toUpperCase().equals(naUsuario.toUpperCase()) &&  clave.equals(claveUsuario) && perfil.toUpperCase().equals("EXPERTO")) {
+				SessionData.usuarioActual= nombreUsuario;
+				SessionData.idUsuarioActual = idUsuarioActual;
 				dispose();
 				JOptionPane.showMessageDialog(null,"Bienvenido al Sistema","Login Correcto",JOptionPane.INFORMATION_MESSAGE);
 				
@@ -240,6 +242,8 @@ public class Login extends JFrame {
 			}
 				//Para ONG
 				else if(nombreUsuario.toUpperCase().equals(naUsuario.toUpperCase()) &&  clave.equals(claveUsuario) && perfil.toUpperCase().equals("ONG") ) {
+					SessionData.usuarioActual= nombreUsuario;
+					SessionData.idUsuarioActual = idUsuarioActual;
 					dispose();
 					JOptionPane.showMessageDialog(null,"Bienvenido al Sistema","Login Correcto",JOptionPane.INFORMATION_MESSAGE);
 					
@@ -267,6 +271,8 @@ public class Login extends JFrame {
 					});
 				}
 					else if(nombreUsuario.toUpperCase().equals(naUsuario.toUpperCase()) &&  clave.equals(claveUsuario) && perfil.toUpperCase().equals("ORGANISMOPRIVADO") ) {
+						SessionData.usuarioActual= nombreUsuario;
+						SessionData.idUsuarioActual = idUsuarioActual;
 						dispose();
 						JOptionPane.showMessageDialog(null,"Bienvenido al Sistema","Login Correcto",JOptionPane.INFORMATION_MESSAGE);
 						
@@ -294,6 +300,8 @@ public class Login extends JFrame {
 						});
 					}
 						else if(nombreUsuario.toUpperCase().equals(naUsuario.toUpperCase()) &&  clave.equals(claveUsuario) && perfil.toUpperCase().equals("USUARIO") ) {
+							SessionData.usuarioActual= nombreUsuario;
+							SessionData.idUsuarioActual = idUsuarioActual;
 							dispose();
 							JOptionPane.showMessageDialog(null,"Bienvenido al Sistema","Login Correcto",JOptionPane.INFORMATION_MESSAGE);
 							
