@@ -45,6 +45,8 @@ import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class FrameListarUsuarios extends JFrame implements DocumentListener, ActionListener {
 
@@ -55,11 +57,13 @@ public class FrameListarUsuarios extends JFrame implements DocumentListener, Act
 	private JTextField txtFiltroNombreUsuario;
 	private JScrollPane scrollPane;
 	private JTable table;
-	private int idSeleccionado = 0;
+	private int idSeleccionado = -1;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	JRadioButton radioTodos;
 	JRadioButton radioActivos;
 	JRadioButton radioInactivos;
+	JButton btnBajaUsuario;
+	private JButton btnAltaUsuario;
 
 	/**
 	 * Launch the application.
@@ -124,15 +128,32 @@ public class FrameListarUsuarios extends JFrame implements DocumentListener, Act
 		scrollPane.setBounds(18, 124, 1154, 569);
 		scrollPane.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		
-		// Botón ELIMINAR
-		JButton btnEliminarUsuario = new JButton("Dar de baja usuario");
-		btnEliminarUsuario.setForeground(Color.RED);
-		btnEliminarUsuario.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		btnEliminarUsuario.setBounds(18, 714, 211, 34);
-		btnEliminarUsuario.setEnabled(false);		
-		btnEliminarUsuario.addActionListener(new ActionListener() {
+		// Botón BAJA DE USUARIO
+		btnBajaUsuario = new JButton("Dar de baja usuario");
+		btnBajaUsuario.setForeground(new Color(255, 0, 0));
+		btnBajaUsuario.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		btnBajaUsuario.setBounds(28, 714, 211, 34);
+		btnBajaUsuario.setEnabled(true);		
+		btnBajaUsuario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+					if (idSeleccionado == -1) {
+						JOptionPane.showMessageDialog(null, "No hay ningún usuario seleccionado para eliminar",
+							      "Baja de usuario", JOptionPane.ERROR_MESSAGE);
+						return;
+					}
+					
+					try {
+						if (serviciosUsuarios.obtenerUno(idSeleccionado).getEstadoActivo()==false) {
+							JOptionPane.showMessageDialog(null, "El usuario seleccionado ya está dado de baja.\nNo se realizará ninguna operación.",
+								      "Baja de usuario", JOptionPane.INFORMATION_MESSAGE);
+							return;
+						}
+					} catch (Exception e2) {
+						// TODO: handle exception
+					}
+					
+					
+				
 					if(SessionData.idUsuarioActual != idSeleccionado) {
 						
 						// 0=ok, 2=cancel
@@ -145,8 +166,7 @@ public class FrameListarUsuarios extends JFrame implements DocumentListener, Act
 								List<Usuario> usuarios = serviciosUsuarios.obtenerPorEstado(true); 
 								cargarTabla(usuarios);
 								radioActivos.setSelected(true);
-								idSeleccionado=0;
-								btnEliminarUsuario.setEnabled(false);
+								idSeleccionado=-1;
 								JOptionPane.showMessageDialog(null,  "Usuario dado de baja exitosamente.", "Baja de usuario", JOptionPane.INFORMATION_MESSAGE);
 								
 							} catch (ServiciosException err) {
@@ -196,7 +216,7 @@ public class FrameListarUsuarios extends JFrame implements DocumentListener, Act
 		));
 		scrollPane.setViewportView(table);
 		frmListarUsuarios.getContentPane().setLayout(null);
-		frmListarUsuarios.getContentPane().add(btnEliminarUsuario);
+		frmListarUsuarios.getContentPane().add(btnBajaUsuario);
 		frmListarUsuarios.getContentPane().add(btnCerrar);
 		frmListarUsuarios.getContentPane().add(banner_1);
 		frmListarUsuarios.getContentPane().add(lblNombreDeUsuario);
@@ -234,6 +254,58 @@ public class FrameListarUsuarios extends JFrame implements DocumentListener, Act
 		label.setBounds(666, 82, 105, 20);
 		frmListarUsuarios.getContentPane().add(label);
 		
+		btnAltaUsuario = new JButton("Dar de alta usuario");
+		btnAltaUsuario.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (idSeleccionado == -1) {
+					JOptionPane.showMessageDialog(null, "No hay ningún usuario seleccionado para dar de alta",
+						      "Alta de usuario", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+				
+				
+				try {
+					if (serviciosUsuarios.obtenerUno(idSeleccionado).getEstadoActivo()==true) {
+						JOptionPane.showMessageDialog(null, "El usuario seleccionado ya está dado de alta.\nNo se realizará ninguna operación.",
+							      "Alta de usuario", JOptionPane.INFORMATION_MESSAGE);
+						return;
+					}
+				} catch (Exception e2) {
+					// TODO: handle exception
+				}
+				
+				
+				// 0=ok, 2=cancel
+				int input = JOptionPane.showConfirmDialog(null, "¿Seguro que desea dar de ALTA el usuario seleccionado?",
+						"Alta de usuario", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+				
+				if (input == 0) {
+					try {
+						serviciosUsuarios.altaLogica(idSeleccionado);
+						List<Usuario> usuarios = serviciosUsuarios.obtenerPorEstado(true); 
+						cargarTabla(usuarios);
+						radioActivos.setSelected(true);
+						idSeleccionado=-1;
+						
+						JOptionPane.showMessageDialog(null,  "Usuario dado de alta exitosamente.", "Alta de usuario", JOptionPane.INFORMATION_MESSAGE);
+						
+					} catch (ServiciosException err) {
+						err.printStackTrace();
+						JOptionPane.showMessageDialog(null,  "Error al dar de alta el usuario.\nError:\n"  + err.toString() );
+					}
+				}else {
+					return;
+				}	
+				
+				
+			}
+		});
+		btnAltaUsuario.setForeground(new Color(50, 205, 50));
+		btnAltaUsuario.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		btnAltaUsuario.setEnabled(true);
+		btnAltaUsuario.setBounds(263, 714, 211, 34);
+		frmListarUsuarios.getContentPane().add(btnAltaUsuario);
+		
 		try {
 			List<Usuario> usuarios = serviciosUsuarios.obtenerPorEstado(true); 
 			cargarTabla(usuarios);
@@ -252,11 +324,11 @@ public class FrameListarUsuarios extends JFrame implements DocumentListener, Act
 	        public void valueChanged(ListSelectionEvent event) {
 	            if(!model.isSelectionEmpty()) {
 		        	idSeleccionado = Integer.valueOf((table.getValueAt(table.getSelectedRow(), 0).toString()));
-	                btnEliminarUsuario.setEnabled(true);
+
 	            }
 	            else {
-	            	idSeleccionado = 0;
-	                btnEliminarUsuario.setEnabled(false);
+	            	idSeleccionado = -1;
+
 	            }
 	        }
 	    });
@@ -345,6 +417,7 @@ public class FrameListarUsuarios extends JFrame implements DocumentListener, Act
 	@Override
 	public void removeUpdate(DocumentEvent e) {
 		this.filtrar();
+		
 
 	}
 	
@@ -407,6 +480,31 @@ public class FrameListarUsuarios extends JFrame implements DocumentListener, Act
 		}
         	
         
+	}
+	
+	
+	private void configurarBotones() {
+		
+		switch (buttonGroup.getSelection().getActionCommand()) {
+		case "Activos":
+			btnAltaUsuario.setVisible(false);
+			btnBajaUsuario.setVisible(true);
+			break;
+		
+		case "Inactivos":
+			btnAltaUsuario.setVisible(true);
+			btnBajaUsuario.setVisible(false);
+			break;
+			
+		case "Todos":
+			btnAltaUsuario.setVisible(false);
+			btnBajaUsuario.setVisible(true);
+			break;
+
+		default:
+			break;
+		}
+		
 	}
 }
 
