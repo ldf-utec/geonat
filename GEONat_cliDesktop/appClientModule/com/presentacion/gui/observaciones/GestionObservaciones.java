@@ -242,16 +242,24 @@ public class GestionObservaciones  {
 					if (ValidateFechas()) {
 						startDate = getDateWithoutTimeUsingFormat(dateChooser_desde.getDate());
 						endDate = getDateWithoutTimeUsingFormat(dateChooser_hasta.getDate());
-						JOptionPane.showMessageDialog(frmGestionObservaciones, endDate);
+						
 						
 						Calendar cal = Calendar.getInstance();
-//						cal.setTime(startDate);
-//						cal.add(Calendar.DATE, -1);
-//						startDate = cal.getTime();
+						cal.setTime(startDate);
+						cal.set(Calendar.HOUR, 00);
+						cal.set(Calendar.MINUTE, 00);
+						cal.set(Calendar.SECOND, 01);
+						cal.add(Calendar.DATE, -1); //le resta un día
+						startDate = cal.getTime();
+						JOptionPane.showMessageDialog(frmGestionObservaciones, startDate);
 						
 						cal.setTime(endDate);
-						cal.add(Calendar.DATE, +1);
+						cal.set(Calendar.HOUR, 23);
+						cal.set(Calendar.MINUTE, 59);
+						cal.set(Calendar.SECOND, 59);
+						
 						endDate = cal.getTime();
+
 						JOptionPane.showMessageDialog(frmGestionObservaciones, endDate);
 						// Filtro por Criticidad y por rango de fechas
 						cargarTabla(serviciosObservaciones.obtenerPorCriticidadRangoFechas(criticidad, startDate, endDate));
