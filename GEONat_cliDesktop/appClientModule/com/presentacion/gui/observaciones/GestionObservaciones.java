@@ -251,7 +251,6 @@ public class GestionObservaciones  {
 						cal.set(Calendar.SECOND, 01);
 						cal.add(Calendar.DATE, -1); //le resta un día
 						startDate = cal.getTime();
-						JOptionPane.showMessageDialog(frmGestionObservaciones, startDate);
 						
 						cal.setTime(endDate);
 						cal.set(Calendar.HOUR, 23);
@@ -260,7 +259,6 @@ public class GestionObservaciones  {
 						
 						endDate = cal.getTime();
 
-						JOptionPane.showMessageDialog(frmGestionObservaciones, endDate);
 						// Filtro por Criticidad y por rango de fechas
 						cargarTabla(serviciosObservaciones.obtenerPorCriticidadRangoFechas(criticidad, startDate, endDate));
 						
