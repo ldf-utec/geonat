@@ -255,13 +255,13 @@ JFrame frmGeonat;
 		
 		JLabel lblUsuarioActual = new JLabel("Usuario Actual:");
 		lblUsuarioActual.setFont(new Font("SansSerif", Font.PLAIN, 14));
-		lblUsuarioActual.setBounds(894, 19, 117, 16);
+		lblUsuarioActual.setBounds(897, 21, 117, 25);
 		panel.add(lblUsuarioActual);
 		
 		JLabel txtUsuarioActual = new JLabel("anonim");
 		txtUsuarioActual.setHorizontalAlignment(SwingConstants.RIGHT);
-		txtUsuarioActual.setFont(new Font("SansSerif", Font.ITALIC, 14));
-		txtUsuarioActual.setBounds(1010, 20, 150, 16);
+		txtUsuarioActual.setFont(new Font("SansSerif", Font.ITALIC, 16));
+		txtUsuarioActual.setBounds(1010, 20, 150, 24);
 		txtUsuarioActual.setText(SessionData.usuarioActual);
 		panel.add(txtUsuarioActual);
 		
