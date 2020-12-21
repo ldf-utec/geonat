@@ -43,8 +43,10 @@ import java.awt.Color;
 import java.awt.Rectangle;
 import java.awt.Font;
 import javax.swing.SwingConstants;
+import javax.swing.JRadioButton;
+import javax.swing.ButtonGroup;
 
-public class FrameListarUsuarios extends JFrame implements DocumentListener {
+public class FrameListarUsuarios extends JFrame implements DocumentListener, ActionListener {
 
 	// Obtengo la instancia del servicio de capa lógica de negocios
 	ServiciosUsuario serviciosUsuarios = ServiciosUsuario.getInstance();
@@ -54,6 +56,10 @@ public class FrameListarUsuarios extends JFrame implements DocumentListener {
 	private JScrollPane scrollPane;
 	private JTable table;
 	private int idSeleccionado = 0;
+	private final ButtonGroup buttonGroup = new ButtonGroup();
+	JRadioButton radioTodos;
+	JRadioButton radioActivos;
+	JRadioButton radioInactivos;
 
 	/**
 	 * Launch the application.
@@ -96,8 +102,8 @@ public class FrameListarUsuarios extends JFrame implements DocumentListener {
 		lblNombreDeUsuario.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		
 		txtFiltroNombreUsuario = new JTextField();
-		txtFiltroNombreUsuario.setLocation(313, 72);
-		txtFiltroNombreUsuario.setSize(327, 40);
+		txtFiltroNombreUsuario.setLocation(275, 72);
+		txtFiltroNombreUsuario.setSize(279, 40);
 		txtFiltroNombreUsuario.setColumns(10);
 		txtFiltroNombreUsuario.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		
@@ -119,7 +125,7 @@ public class FrameListarUsuarios extends JFrame implements DocumentListener {
 		scrollPane.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		
 		// Botón ELIMINAR
-		JButton btnEliminarUsuario = new JButton("Eliminar Usuario");
+		JButton btnEliminarUsuario = new JButton("Dar de baja usuario");
 		btnEliminarUsuario.setForeground(Color.RED);
 		btnEliminarUsuario.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		btnEliminarUsuario.setBounds(18, 714, 211, 34);
@@ -136,7 +142,9 @@ public class FrameListarUsuarios extends JFrame implements DocumentListener {
 						if (input == 0) {
 							try {
 								serviciosUsuarios.bajaLogica(idSeleccionado);
-								cargarTabla();
+								List<Usuario> usuarios = serviciosUsuarios.obtenerPorEstado(true); 
+								cargarTabla(usuarios);
+								radioActivos.setSelected(true);
 								idSeleccionado=0;
 								btnEliminarUsuario.setEnabled(false);
 								JOptionPane.showMessageDialog(null,  "Usuario dado de baja exitosamente.", "Baja de usuario", JOptionPane.INFORMATION_MESSAGE);
@@ -195,8 +203,40 @@ public class FrameListarUsuarios extends JFrame implements DocumentListener {
 		frmListarUsuarios.getContentPane().add(txtFiltroNombreUsuario);
 		frmListarUsuarios.getContentPane().add(scrollPane);
 		
+		radioTodos = new JRadioButton("Todos");
+		radioTodos.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		radioTodos.setActionCommand("Todos");
+		buttonGroup.add(radioTodos);
+		radioTodos.setBounds(1063, 82, 109, 23);
+		frmListarUsuarios.getContentPane().add(radioTodos);
+		radioTodos.addActionListener(this);
+		
+		
+		radioActivos = new JRadioButton("Activos");
+		radioActivos.setSelected(true);
+		radioActivos.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		radioActivos.setActionCommand("Activos");
+		buttonGroup.add(radioActivos);
+		radioActivos.setBounds(767, 82, 109, 23);
+		frmListarUsuarios.getContentPane().add(radioActivos);
+		radioActivos.addActionListener(this);
+		
+		radioInactivos = new JRadioButton("Inactivos");
+		buttonGroup.add(radioInactivos);
+		radioInactivos.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		radioInactivos.setActionCommand("Inactivos");
+		radioInactivos.setBounds(911, 82, 109, 23);
+		frmListarUsuarios.getContentPane().add(radioInactivos);
+		radioInactivos.addActionListener(this);
+		
+		JLabel label = new JLabel("Mostrar:");
+		label.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		label.setBounds(666, 82, 105, 20);
+		frmListarUsuarios.getContentPane().add(label);
+		
 		try {
-			cargarTabla();
+			List<Usuario> usuarios = serviciosUsuarios.obtenerPorEstado(true); 
+			cargarTabla(usuarios);
 
 		} catch (ServiciosException e) {
 			// TODO Auto-generated catch block
@@ -229,10 +269,9 @@ public class FrameListarUsuarios extends JFrame implements DocumentListener {
 	
 	// Método para cargar el contenido de la tabla
 	// Recordar que la tabla va dentro de un JScrollPane para que se vean los encabezados
-	private void cargarTabla() throws ServiciosException {
+	private void cargarTabla(List<Usuario> usuarios ) throws ServiciosException {
 		try {
 			
-			ArrayList<Usuario> usuarios =  (ArrayList<Usuario>) serviciosUsuarios.obtenerTodos(); //ControladorMascotas.obtenerTodasMascotas();
 
 			String[] nombreColumnas = { "ID", "Documento", "Nombre de Usuario", "Nombre", "Apellido", "Tipo Usuario", "Email" };
 	
@@ -321,6 +360,53 @@ public class FrameListarUsuarios extends JFrame implements DocumentListener {
 			filtro.setRowFilter(RowFilter.andFilter(filters));
 			this.table.setRowSorter(filtro);
 
+	}
+
+	
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		txtFiltroNombreUsuario.setText(null);
+		this.table.setRowSorter(null); // Quito el filtrado de la tabla
+		
+		if (e.getActionCommand().equals("Activos")) {
+           
+			System.out.println("Selected Radio Button: " + buttonGroup.getSelection().getActionCommand());
+            try {
+				cargarTabla(serviciosUsuarios.obtenerPorEstado(true));
+				
+				
+			} catch (Exception e2) {
+				// TODO: handle exception
+				e2.printStackTrace();
+			}
+            
+        }
+		
+		if (e.getActionCommand().equals("Inactivos")) {
+        	System.out.println("Selected Radio Button: " + buttonGroup.getSelection().getActionCommand());
+        	try {
+        		List<Usuario> list = serviciosUsuarios.obtenerPorEstado(false);
+				cargarTabla(list);
+				
+			} catch (Exception e2) {
+				// TODO: handle exception
+				e2.printStackTrace();
+			}
+        	
+		}
+	
+		if (e.getActionCommand().equals("Todos")) {
+			System.out.println("Selected Radio Button: " + buttonGroup.getSelection().getActionCommand());
+			try {
+				cargarTabla(serviciosUsuarios.obtenerTodos());
+				
+			} catch (Exception e2) {
+				// TODO: handle exception
+				e2.printStackTrace();
+			}
+		}
+        	
+        
 	}
 }
 
