@@ -25,7 +25,7 @@ public class Inicio {
 		}
 		
 		
-		creaUsuarios();
+		//creaUsuarios();
 		Login p = new Login();
 		p.setVisible(true);
 	}
