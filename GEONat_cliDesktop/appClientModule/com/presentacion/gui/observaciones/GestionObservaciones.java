@@ -110,7 +110,7 @@ public class GestionObservaciones  {
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setFont(new Font("SansSerif", Font.PLAIN, 18));
-		scrollPane.setBounds(50, 195, 1100, 500);
+		scrollPane.setBounds(50, 195, 1100, 487);
 		frmGestionObservaciones.getContentPane().add(scrollPane);
 		
 		table = new JTable();
@@ -125,7 +125,7 @@ public class GestionObservaciones  {
 			}
 		});
 		btnCancelar.setFont(new Font("Dialog", Font.PLAIN, 18));
-		btnCancelar.setBounds(1012, 715, 138, 50);
+		btnCancelar.setBounds(1001, 697, 148, 40);
 		frmGestionObservaciones.getContentPane().add(btnCancelar);
 		
 		JPanel panel_1 = new JPanel();
