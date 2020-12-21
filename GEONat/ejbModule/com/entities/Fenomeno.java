@@ -24,7 +24,8 @@ public class Fenomeno implements Serializable {
 
 	   
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@SequenceGenerator(name = "fenomenoSeq", sequenceName="FENOMENO_SEQ", allocationSize=1, initialValue=1000)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "fenomenoSeq")
 	private Integer Id_Fenomeno;
 	
 	

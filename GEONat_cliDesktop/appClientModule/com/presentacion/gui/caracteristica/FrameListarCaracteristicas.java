@@ -75,7 +75,7 @@ public class FrameListarCaracteristicas extends JFrame implements DocumentListen
 		frmListarCaracteristicas = new JFrame();
 		frmListarCaracteristicas.setResizable(false);
 		frmListarCaracteristicas.setTitle("GEONat -Ver listado / Dar de Baja");
-		frmListarCaracteristicas.setBounds(100, 100, 1200, 800);
+		frmListarCaracteristicas.setBounds(10, 10, 1200, 800);
 		frmListarCaracteristicas.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
 		JLabel lblNombreDeCaracteristica = new JLabel("Filtrar por nombre de caracter\u00EDstica:");

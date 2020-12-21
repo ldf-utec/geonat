@@ -116,7 +116,7 @@ JFrame frmGeonat;
 		frmGeonat.setResizable(false);
 		frmGeonat.setSize(new Dimension(800, 600));
 		frmGeonat.setTitle("GEONat");
-		frmGeonat.setBounds(100, 100, 552, 361);
+		frmGeonat.setBounds(10, 10, 552, 361);
 		frmGeonat.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmGeonat.getContentPane().setLayout(null);
 		
