@@ -7,6 +7,7 @@ import java.awt.Font;
 
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
+import javax.transaction.Transactional.TxType;
 
 import com.presentacion.SessionData;
 import com.presentacion.gui.caracteristica.AltaCaracteristica;
@@ -22,7 +23,8 @@ import com.presentacion.gui.usuarios.AltaUsuario;
 import com.presentacion.gui.usuarios.FrameListarUsuarios;
 import com.presentacion.gui.usuarios.ModificacionUsuario_OLD;
 import com.presentacion.gui.usuarios.ModificarUsuario;
-
+import com.presentacion.servicios.ServiciosObservacion;
+import com.presentacion.servicios.ServiciosUsuario;
 
 import javax.swing.UIManager;
 import java.awt.Color;
@@ -36,6 +38,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.border.LineBorder;
 import java.awt.Rectangle;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class FramePrincipal {
 JFrame frmGeonat;
@@ -52,6 +58,7 @@ JFrame frmGeonat;
 	JButton btnGestin;
 	JButton btnBajaFenomeno;
 	JButton btnListadoFenomeno;
+	JLabel txtCantidadObservaciones ;
 	
 	/**
 	 * Launch the application.
@@ -91,6 +98,19 @@ JFrame frmGeonat;
 	 */
 	private void initialize() {
 		frmGeonat = new JFrame();
+		frmGeonat.getContentPane().addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				try {
+					ServiciosObservacion serviciosObservaciones = ServiciosObservacion.getInstance();
+					txtCantidadObservaciones.setText(String.valueOf(serviciosObservaciones.obtenerTodos().size()));
+				} catch (Exception e2) {
+					// TODO: handle exception
+				}
+			}
+		});
+		
+		
 		frmGeonat.setMinimumSize(new Dimension(1200, 800));
 		frmGeonat.setPreferredSize(new Dimension(800, 600));
 		frmGeonat.setResizable(false);
@@ -226,13 +246,18 @@ JFrame frmGeonat;
 		lblTotalDeObservaciones.setEnabled(false);
 		lblTotalDeObservaciones.setBounds(427, 49, 346, 26);
 		panelObservaciones.add(lblTotalDeObservaciones);
-		lblTotalDeObservaciones.setVisible(false);
 		
-		JLabel label_1 = new JLabel("?");
-		label_1.setFont(new Font("SansSerif", Font.PLAIN, 18));
-		label_1.setBounds(802, 51, 62, 24);
-		panelObservaciones.add(label_1);
-		label_1.setVisible(false);
+		txtCantidadObservaciones = new JLabel("?");
+		txtCantidadObservaciones.setFont(new Font("SansSerif", Font.PLAIN, 18));
+		txtCantidadObservaciones.setBounds(802, 51, 62, 24);
+		
+		try {
+			ServiciosObservacion serviciosObservaciones = ServiciosObservacion.getInstance();
+			txtCantidadObservaciones.setText(String.valueOf(serviciosObservaciones.obtenerTodos().size()));
+		} catch (Exception e2) {
+			// TODO: handle exception
+		}
+		panelObservaciones.add(txtCantidadObservaciones);
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.WHITE);
