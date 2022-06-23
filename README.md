@@ -13,3 +13,6 @@ Stack Tecnológico:
  * Wildfly
  * Eclipse IDE
  
+ En Testing se utilizaron las siguientes herramientas:
+ * Planificación y ejecución de pruebas: Testlink
+ * Reporte y seguimiento de incidentes : Mantis Bug Tracker
