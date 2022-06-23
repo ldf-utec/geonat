@@ -1,14 +1,17 @@
 package com.DAO.concrete;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
+import javax.persistence.TemporalType;
 import javax.persistence.TypedQuery;
 
 import com.DAO.interfaces.IObservacionDAO;
+import com.Enums.Criticidad;
 import com.entities.Fenomeno;
 import com.entities.Observacion;
 import com.exception.ServiciosException;
@@ -79,6 +82,18 @@ public class ObservacionDAO implements IObservacionDAO {
 //				.setParameter("filtro", filtro);
 //		return query.getResultList();
 //	}
+	
+	@Override
+	public List<Observacion> obtenerPorCriticidad(Criticidad criticidad) throws ServiciosException {
+		TypedQuery<Observacion> query = em.createNamedQuery("Observacion.obtenerPorCriticidad", Observacion.class)
+				.setParameter("criticidad", criticidad);
+		List<Observacion> lista = query.getResultList();
+		if (lista.size()>0) {
+			return lista;
+		}else {
+			return null;
+		}
+	}
 
 	@Override
 	public Observacion obtenerUno(int id) throws ServiciosException {
@@ -91,6 +106,31 @@ public class ObservacionDAO implements IObservacionDAO {
 		} catch (PersistenceException e) {
 			throw new ServiciosException("Error al obtener por id");
 		}
+	}
+	
+	@Override
+	public List<Observacion> obtenerPorCriticidadRangoFechas(Criticidad criticidad, Date startDate, Date endDate) throws ServiciosException {
+		String strCriticidad; 
+		TypedQuery<Observacion> query;
+		
+		if (criticidad == null) {
+			query = em.createNamedQuery("Observacion.obtenerPorRangoFechas", Observacion.class)
+				.setParameter("startDate", startDate, TemporalType.DATE)
+				.setParameter("endDate", endDate, TemporalType.DATE);
+		}else {
+			strCriticidad = criticidad.toString();
+			query = em.createNamedQuery("Observacion.obtenerPorCriticidadRangoFechas", Observacion.class)
+				.setParameter("criticidad", criticidad)
+				.setParameter("startDate", startDate, TemporalType.DATE)
+				.setParameter("endDate", endDate, TemporalType.DATE);
+		}
+		
+		List<Observacion> lista = query.getResultList();
+		if (lista.size()>0) {
+			return lista;
+		}else {
+			return null;
+		}	
 	}
 
 }

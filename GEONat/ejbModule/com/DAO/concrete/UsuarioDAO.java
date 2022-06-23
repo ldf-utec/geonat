@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
@@ -90,7 +91,7 @@ public class UsuarioDAO implements IUsuarioDAO {
 			return true;
 		}
 
-	  }
+	 }
 
 	@Deprecated
 	@Override
@@ -109,14 +110,75 @@ public class UsuarioDAO implements IUsuarioDAO {
 		return u ;
 	}
 	
+	@Deprecated
+	@Override
+	public Usuario obtenerPorNombreOld(String nombreUsuario) throws ServiciosException{
+		
+		Usuario usr = new Usuario();
+		nombreUsuario = nombreUsuario.toUpperCase();
+		try {
+			TypedQuery<Usuario> query = em.createNamedQuery("Usuario.obtenerPorNombre", Usuario.class)
+					.setParameter("filtro", nombreUsuario);
+			//query.setMaxResults(1);
+			List<Usuario> lista = query.getResultList();
+			if (lista.size()>0) {
+				usr = lista.get(0);
+			} else {
+				usr.setNombreUsuario("");
+			}
+
+		} catch  (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return usr;
+	  }
+	
 	
 	@Override
-	public List<Usuario> obtenerLogin(Usuario usuario) throws ServiciosException {
+	public Usuario obtenerPorNombre(String nombreUsuario) throws ServiciosException{
+
+		TypedQuery<Usuario> query = em.createNamedQuery("Usuario.obtenerPorNombre", Usuario.class)
+				.setParameter("filtro", nombreUsuario.toUpperCase().replace("%", "")+ "%");
+		List<Usuario> lista = query.getResultList();
 		
-		String filtro = usuario.getNombreUsuario();
-		TypedQuery<Usuario> query = em.createNamedQuery("Usuario.obtenerUno", Usuario.class)
-				.setParameter("filtro", filtro);
-		return query.getResultList() ;
+		if (lista.size()>0) {
+			return lista.get(0);
+		} else {
+			return null;
+		}
+	  }
+	
+	
+	
+	@Override
+	public Usuario obtenerPorDocumento(String documento) throws ServiciosException {
+		
+		TypedQuery<Usuario> query = em.createNamedQuery("Usuario.obtenerPorDocumento", Usuario.class)
+				.setParameter("filtro", documento );
+		List<Usuario> lista = query.getResultList();
+		
+		if (lista.size()>0 ) {
+			// si obtuvo resultados, retorno el primer elemento
+			return lista.get(0); 
+		}else {
+			return null;
+		}
+	}
+	
+	@Override
+	public List<Usuario> obtenerPorEstado(Boolean estado) throws ServiciosException {
+		
+		TypedQuery<Usuario> query = em.createNamedQuery("Usuario.obtenerPorEstado", Usuario.class)
+				.setParameter("estado", estado );
+		List<Usuario> lista = query.getResultList();
+		
+		if (lista.size()>0 ) {
+			// si obtuvo resultados, retorno todo
+			return lista; 
+		}else {
+			return null;
+		}	
 	}
 	
 }

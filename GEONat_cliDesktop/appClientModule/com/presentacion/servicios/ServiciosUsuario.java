@@ -91,13 +91,13 @@ public class ServiciosUsuario {
 	// Si lo que se quiere es obtener por Nombre, se debería pasar el String nombre
 	
 	// Obtener uno
-	@Deprecated
-	public Usuario obtenerUno(Usuario usuario) throws ServiciosException {
-
-		Usuario u = servicios.usuarioBean.obtenerUno(usuario);
-		return u ;
-		
-	}
+	
+//	public Usuario obtenerUno(Usuario usuario) throws ServiciosException {
+//
+//		Usuario u = servicios.usuarioBean.obtenerUno(usuario);
+//		return u ;
+//		
+//	}
 	
 	
 	public boolean existeNombreUsuario(Usuario usuario) throws ServiciosException {
@@ -109,7 +109,54 @@ public class ServiciosUsuario {
 		Usuario u = servicios.usuarioBean.obtenerUno(id);
 		return u ;
 	}
-	
 
+	public Usuario obtenerUno(Usuario usuario) throws ServiciosException  {
+		Usuario u = servicios.usuarioBean.obtenerUno(usuario);
+		return u ;
+	}
+	
+	public Usuario obtenerPorNombre(String nombreUsuario) throws ServiciosException {
+		
+		Usuario u = servicios.usuarioBean.obtenerPorNombre(nombreUsuario);
+		return u;
+	}
+	
+	public Usuario obtenerPorNombreOld(String nombreUsuario) throws ServiciosException {
+		
+		Usuario u = servicios.usuarioBean.obtenerPorNombreOld(nombreUsuario);
+		return u;
+	}
+		
+	public Usuario obtenerPorDocumento(String documento) throws ServiciosException {
+
+		Usuario u = servicios.usuarioBean.obtenerPorDocumento(documento);
+		return u ;
+	}
+
+	public void bajaLogica(Integer id) throws ServiciosException {
+
+		Usuario u = servicios.usuarioBean.obtenerUno(id);
+		u.setEstadoActivo(false);
+		servicios.usuarioBean.update(u);
+	}
+	
+	public void altaLogica(Integer id) throws ServiciosException {
+
+		Usuario u = servicios.usuarioBean.obtenerUno(id);
+		u.setEstadoActivo(true);
+		servicios.usuarioBean.update(u);
+	}
+	
+	// Obtener por estado (activo o inactivo)
+	public List<Usuario> obtenerPorEstado(boolean estado) throws ServiciosException {
+		try {
+			
+			List<Usuario> lista = servicios.usuarioBean.obtenerPorEstado(estado);
+			return lista;
+			
+		} catch (Exception e) {
+			throw new ServiciosException("Error al obtener por estado");
+		}	
+	}
 	
 }

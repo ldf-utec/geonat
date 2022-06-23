@@ -1,5 +1,4 @@
 package com.presentacion.gui;
-//otro comentario
 
 
 import java.awt.EventQueue;
@@ -7,6 +6,12 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import com.entities.Usuario;
+import com.exception.ServiciosException;
+import com.presentacion.SessionData;
+import com.presentacion.servicios.ServiciosUsuario;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -15,6 +20,7 @@ import javax.swing.JPasswordField;
 import javax.swing.InputMap;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.List;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 import javax.swing.SwingConstants;
@@ -89,37 +95,39 @@ public class Login extends JFrame {
 		btIngresar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
-				char[] clave = jpassClave.getPassword();
-				String claveFinal = new String(clave);
+				validarLogin();
 				
-			if(textUsuario.getText().toUpperCase().equals("ADMINISTRADOR") && claveFinal.toUpperCase().equals("ADMINISTRADOR")) {
-				dispose();
+//				char[] clave = jpassClave.getPassword();
+//				String claveFinal = new String(clave);
+				
+//			if(textUsuario.getText().toUpperCase().equals("ADMINISTRADOR") && claveFinal.toUpperCase().equals("ADMINISTRADOR")) {
+//				dispose();
 //				JOptionPane.showConfirmDialog(null,"Bienvenido al Sistema","Login Correcto",
 //					JOptionPane.in);
-				Login p = new Login();
-				p.setVisible(false);
-				
-				EventQueue.invokeLater(new Runnable() {
-					public void run() {
-						try {
-							FramePrincipal window = new FramePrincipal();
-							window.frmGeonat.setVisible(true);
-						} catch (Exception e) {
-							e.printStackTrace();
-						}
-					}
-				});
-				
-				
-			}
-			else {
-				JOptionPane.showMessageDialog(null,"Usuario o Cantraseña Incorrectos","ERROR",
-					JOptionPane.ERROR_MESSAGE);
-				
-				textUsuario.setText("");
-				jpassClave.setText("");
-				textUsuario.requestFocus();
-				}
+//				Login p = new Login();
+//				p.setVisible(false);
+//				
+//				EventQueue.invokeLater(new Runnable() {
+//					public void run() {
+//						try {
+//							FramePrincipal window = new FramePrincipal();
+//							window.frmGeonat.setVisible(true);
+//						} catch (Exception e) {
+//							e.printStackTrace();
+//						}
+//					}
+//				});
+//				
+//				
+//			}
+//			else {
+//				JOptionPane.showMessageDialog(null,"Usuario o Cantraseña Incorrectos","ERROR",
+//					JOptionPane.ERROR_MESSAGE);
+//				
+//				textUsuario.setText("");
+//				jpassClave.setText("");
+//				textUsuario.requestFocus();
+//				}
 			}
 		});
 		
@@ -144,5 +152,225 @@ public class Login extends JFrame {
 		});
 		btSalir.setBounds(38, 231, 115, 29);
 		contentPane.add(btSalir);
+	}
+
+
+	protected void validarLogin() {
+		// TODO Auto-generated method stub
+		//Comienzo validaciones de usuario:
+		ServiciosUsuario serviciosUsuario = ServiciosUsuario.getInstance();
+		//Variables que ingreso en el text del login
+		String nombreUsuario = textUsuario.getText();
+		String clave = String.valueOf(jpassClave.getPassword());
+		
+		
+		//Varibles para comparar los resultas obtenido de la lista.
+		String perfil = null;
+		String claveUsuario = null;
+		String naUsuario = null;
+		Boolean activo = false;
+		boolean existeUsuario = false;
+		Integer idUsuarioActual = -1;
+		
+		
+		
+		//Usuario usuario = new Usuario();
+		//usuario.setNombreUsuario(nombreUsuario);
+		Usuario usuarioObtenido = new Usuario();
+		try {
+			usuarioObtenido = serviciosUsuario.obtenerPorNombreOld(nombreUsuario);
+			System.out.println(usuarioObtenido.getNombreUsuario());
+		}catch (ServiciosException err) {
+			err.printStackTrace();
+		}
+	
+		if(!usuarioObtenido.getNombreUsuario().isEmpty()) {
+			existeUsuario = true;
+			naUsuario = usuarioObtenido.getNombreUsuario();
+			claveUsuario = usuarioObtenido.getPassword();
+			idUsuarioActual = usuarioObtenido.getId_Usuario();
+			perfil = String.valueOf(usuarioObtenido.getTipoUsuario());
+			activo = usuarioObtenido.getEstadoActivo();
+		}else  {
+			JOptionPane.showMessageDialog(null,"Usuario o Cantraseña Incorrectos","ERROR",JOptionPane.ERROR_MESSAGE);
+			textUsuario.setText("");
+			jpassClave.setText("");
+			textUsuario.requestFocus();
+		}
+
+		if(existeUsuario) {
+
+			if(activo && nombreUsuario.toUpperCase().equals(naUsuario.toUpperCase()) &&  clave.equals(claveUsuario) && perfil.toUpperCase().equals("ADMINISTRADOR")) {
+				SessionData.usuarioActual= nombreUsuario;
+				SessionData.idUsuarioActual = idUsuarioActual;
+				dispose();
+				JOptionPane.showMessageDialog(null,"Bienvenido al Sistema","Login Correcto",JOptionPane.INFORMATION_MESSAGE);
+				
+				EventQueue.invokeLater(new Runnable() {
+					public void run() {
+							FramePrincipal window = new FramePrincipal();
+							window.frmGeonat.setVisible(true);
+						
+					}
+				});
+				
+			}else if(activo && nombreUsuario.toUpperCase().equals(naUsuario.toUpperCase()) &&  clave.equals(claveUsuario) && perfil.toUpperCase().equals("EXPERTO")) {
+				SessionData.usuarioActual= nombreUsuario;
+				SessionData.idUsuarioActual = idUsuarioActual;
+				dispose();
+				JOptionPane.showMessageDialog(null,"Bienvenido al Sistema","Login Correcto",JOptionPane.INFORMATION_MESSAGE);
+				
+				EventQueue.invokeLater(new Runnable() {
+					public void run() {
+							FramePrincipal window = new FramePrincipal();
+							window.btnObservacionesRegistrar.setEnabled(false);
+							window.btnObservacionesModificar.setEnabled(false);
+							window.btnObservacionesVerListado.setEnabled(true);
+							window.btnUsuariosRegistrar.setEnabled(false);
+							window.btnUsuarioModificar.setEnabled(false);
+							window.btnUsuariosVerListado.setEnabled(false);
+							window.btnFenomenoRegistrar.setEnabled(false);
+							window.btnRegistrarCaracteristica.setEnabled(false);
+							window.btnModificarCaracteristica.setEnabled(false);
+							window.btnListarCaracterisitica.setEnabled(false);
+							//window.btnCrearDatosPrueba.setEnabled(false);
+							window.btnGestionFenomeno.setEnabled(false);
+							window.btnGestin.setEnabled(false);
+							window.frmGeonat.setVisible(true);
+							
+						
+					}
+				});
+			}
+				//Para ONG
+				else if(activo && nombreUsuario.toUpperCase().equals(naUsuario.toUpperCase()) &&  clave.equals(claveUsuario) && perfil.toUpperCase().equals("ONG") ) {
+					SessionData.usuarioActual= nombreUsuario;
+					SessionData.idUsuarioActual = idUsuarioActual;
+					dispose();
+					JOptionPane.showMessageDialog(null,"Bienvenido al Sistema","Login Correcto",JOptionPane.INFORMATION_MESSAGE);
+					
+					EventQueue.invokeLater(new Runnable() {
+						public void run() {
+								FramePrincipal window = new FramePrincipal();
+								window.btnObservacionesRegistrar.setEnabled(false);
+								window.btnObservacionesModificar.setEnabled(false);
+								window.btnObservacionesVerListado.setEnabled(true);
+								window.btnUsuariosRegistrar.setEnabled(false);
+								window.btnUsuarioModificar.setEnabled(false);
+								window.btnUsuariosVerListado.setEnabled(false);
+								window.btnFenomenoRegistrar.setEnabled(false);
+								window.btnRegistrarCaracteristica.setEnabled(false);
+								window.btnModificarCaracteristica.setEnabled(false);
+								window.btnListarCaracterisitica.setEnabled(false);
+								//window.btnCrearDatosPrueba.setEnabled(false);
+								window.btnUsuariosRegistrar.setEnabled(false);
+								window.btnGestionFenomeno.setEnabled(false);
+								window.btnGestin.setEnabled(false);
+								window.btnBajaFenomeno.setEnabled(false);
+								window.frmGeonat.setVisible(true);
+							
+						}
+					});
+				}
+					else if(activo && nombreUsuario.toUpperCase().equals(naUsuario.toUpperCase()) &&  clave.equals(claveUsuario) && perfil.toUpperCase().equals("ORGANISMOPRIVADO") ) {
+						SessionData.usuarioActual= nombreUsuario;
+						SessionData.idUsuarioActual = idUsuarioActual;
+						dispose();
+						JOptionPane.showMessageDialog(null,"Bienvenido al Sistema","Login Correcto",JOptionPane.INFORMATION_MESSAGE);
+						
+						EventQueue.invokeLater(new Runnable() {
+							public void run() {
+									FramePrincipal window = new FramePrincipal();
+									window.btnObservacionesRegistrar.setEnabled(false);
+									window.btnObservacionesModificar.setEnabled(false);
+									window.btnObservacionesVerListado.setEnabled(true);
+									window.btnUsuariosRegistrar.setEnabled(false);
+									window.btnUsuarioModificar.setEnabled(false);
+									window.btnUsuariosVerListado.setEnabled(false);
+									window.btnFenomenoRegistrar.setEnabled(false);
+									window.btnRegistrarCaracteristica.setEnabled(false);
+									window.btnModificarCaracteristica.setEnabled(false);
+									window.btnListarCaracterisitica.setEnabled(false);
+									//window.btnCrearDatosPrueba.setEnabled(false);
+									window.btnUsuariosRegistrar.setEnabled(false);
+									window.btnGestionFenomeno.setEnabled(false);
+									window.btnGestin.setEnabled(false);
+									window.btnBajaFenomeno.setEnabled(false);
+									window.frmGeonat.setVisible(true);
+								
+							}
+						});
+					}
+						else if(activo && nombreUsuario.toUpperCase().equals(naUsuario.toUpperCase()) &&  clave.equals(claveUsuario) && perfil.toUpperCase().equals("USUARIO") ) {
+							SessionData.usuarioActual= nombreUsuario;
+							SessionData.idUsuarioActual = idUsuarioActual;
+							dispose();
+							JOptionPane.showMessageDialog(null,"Bienvenido al Sistema","Login Correcto",JOptionPane.INFORMATION_MESSAGE);
+							
+							EventQueue.invokeLater(new Runnable() {
+								public void run() {
+										FramePrincipal window = new FramePrincipal();
+										window.btnObservacionesRegistrar.setEnabled(false);
+										window.btnObservacionesModificar.setEnabled(false);
+										window.btnObservacionesVerListado.setEnabled(true);
+										window.btnUsuariosRegistrar.setEnabled(false);
+										window.btnUsuarioModificar.setEnabled(false);
+										window.btnUsuariosVerListado.setEnabled(false);
+										window.btnFenomenoRegistrar.setEnabled(false);
+										window.btnRegistrarCaracteristica.setEnabled(false);
+										window.btnModificarCaracteristica.setEnabled(false);
+										window.btnListarCaracterisitica.setEnabled(false);
+										//window.btnCrearDatosPrueba.setEnabled(false);
+										window.btnUsuariosRegistrar.setEnabled(false);
+										window.btnGestionFenomeno.setEnabled(false);
+										window.btnGestin.setEnabled(false);
+										window.btnBajaFenomeno.setEnabled(false);
+										window.frmGeonat.setVisible(true);
+									
+								}
+							});
+						}
+							//Solo para ver si hay problemas
+							else {
+								if (!activo) {
+									JOptionPane.showMessageDialog(null,"Usuario no esta activo en el sistema","ERROR",JOptionPane.ERROR_MESSAGE);
+									textUsuario.setText("");
+									jpassClave.setText("");
+									textUsuario.requestFocus();
+								} else {
+									//dispose();
+									JOptionPane.showMessageDialog(null,"Usuario o Cantraseña Incorrectos","ERROR",JOptionPane.ERROR_MESSAGE);
+									textUsuario.setText("");
+									jpassClave.setText("");
+									textUsuario.requestFocus();
+								}
+								
+								//JOptionPane.showMessageDialog(null,"Bienvenido al Sistema","Login Correcto // Sin Perfil",JOptionPane.INFORMATION_MESSAGE);
+								
+								//EventQueue.invokeLater(new Runnable() {
+								//	public void run() {
+								//			FramePrincipal window = new FramePrincipal();
+								//			window.btnObservacionesRegistrar.setEnabled(false);
+								//			window.btnObservacionesModificar.setEnabled(false);
+								//			window.btnObservacionesVerListado.setEnabled(false);
+								//			window.btnUsuariosRegistrar.setEnabled(false);
+								//			window.btnUsuarioModificar.setEnabled(false);
+								//			window.btnUsuariosVerListado.setEnabled(false);
+								//			window.btnFenomenoRegistrar.setEnabled(false);
+								//			window.btnRegistrarCaracteristica.setEnabled(false);
+								//			window.btnModificarCaracteristica.setEnabled(false);
+								//			window.btnListarCaracterisitica.setEnabled(false);
+								//			window.btnCrearDatosPrueba.setEnabled(false);
+								//			window.btnUsuariosRegistrar.setEnabled(false);
+								//			window.btnGestionFenomeno.setEnabled(false);
+								//			window.frmGeonat.setVisible(true);
+								//		
+								//	}
+								//});
+								// HOLA MUNDO
+							}
+
+	}
+		
 	}
 }

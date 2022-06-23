@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="appClientModule"/>
+	<classpathentry kind="src" path="img"/>
 	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.jboss.ide.eclipse.as.core.server.runtime.runtimeTarget/WildFly 17.0 Runtime">
 		<attributes>
 			<attribute name="owner.project.facets" value="jst.appclient"/>
@@ -13,9 +14,8 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/GEONat"/>
-	<classpathentry exported="true" kind="lib" path="C:/wildfly-17.0.1.Final/bin/client/jboss-client.jar"/>
-	<classpathentry kind="lib" path="C:/wildfly-17.0.1.Final/modules/system/layers/base/org/hibernate/main/hibernate-core-5.3.10.Final.jar"/>
 	<classpathentry kind="lib" path="appClientModule/lib/jboss-client.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Leandro/git/geonat/GEONat_cliDesktop/lib/jcalendar-1.4.jar"/>
+	<classpathentry kind="lib" path="lib/jcalendar-1.4.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-core-5.3.10.Final.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

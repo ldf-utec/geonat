@@ -9,11 +9,16 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import com.Enums.Criticidad;
+
 
 @Entity
 @NamedQuery(name="Observacion.obtenerUno", query="SELECT o FROM Observacion o WHERE o.Id_Observacion =:id")
 @NamedQuery(name="Observacion.obtenerTodos", query="SELECT o FROM Observacion o")
 //@NamedQuery(name="Observacion.obtenerTodosFiltro", query="SELECT o FROM Observacion o WHERE o.nombre LIKE :filtro")
+@NamedQuery(name="Observacion.obtenerPorCriticidad", query="SELECT o FROM Observacion o WHERE o.criticidad LIKE :criticidad")
+@NamedQuery(name="Observacion.obtenerPorCriticidadRangoFechas", query="SELECT o FROM Observacion o WHERE o.criticidad LIKE :criticidad AND o.fecha BETWEEN :startDate AND :endDate")
+@NamedQuery(name="Observacion.obtenerPorRangoFechas", query="SELECT o FROM Observacion o WHERE o.fecha BETWEEN :startDate AND :endDate")
 public class Observacion implements Serializable {
 
 	@Id
@@ -73,10 +78,9 @@ public class Observacion implements Serializable {
 	@Basic(optional = true)
 	private String comentarioRevision;
 	
-	@Basic(optional = true)
-	@Column(length = 20)
-	private String criticidad;
-	
+	@Basic(optional = false)
+	@Enumerated(EnumType.STRING)
+	private Criticidad criticidad;
 	
 	
 	
@@ -92,7 +96,7 @@ public class Observacion implements Serializable {
 	public Observacion(Integer id_Observacion, Set<DetalleObservacion> detalleObservaciones, Usuario usuarioRegistro,
 			Usuario usuarioRevision, Fenomeno fenomeno, Localidad localidad, Double geoLatitud, Double geoLongitud,
 			Double geoAltitud, String descripcion, Date fecha, Date fechaRevision, Integer fiabilidadRevision,
-			String comentarioRevision, String criticidad) {
+			String comentarioRevision, Criticidad criticidad) {
 		super();
 		Id_Observacion = id_Observacion;
 		this.detalleObservaciones = detalleObservaciones;
@@ -226,11 +230,11 @@ public class Observacion implements Serializable {
 		this.geoAltitud = geoAltitud;
 	}
 
-	public String getCriticidad() {
+	public Criticidad getCriticidad() {
 		return criticidad;
 	}
 
-	public void setCriticidad(String criticidad) {
+	public void setCriticidad(Criticidad criticidad) {
 		this.criticidad = criticidad;
 	}   
 	

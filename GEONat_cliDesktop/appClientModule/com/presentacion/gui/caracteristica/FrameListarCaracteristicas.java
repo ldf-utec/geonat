@@ -2,22 +2,15 @@ package com.presentacion.gui.caracteristica;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-import javax.swing.JComboBox;
-import javax.swing.JCheckBox;
 import javax.swing.JButton;
-import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
-import com.DAO.interfaces.ICaracteristicaDAO;
 import com.entities.Caracteristica;
 import com.exception.ServiciosException;
 import com.presentacion.servicios.ServiciosCaracteristica;
@@ -27,18 +20,18 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JPasswordField;
 import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
 import javax.swing.RowFilter;
 import javax.swing.JScrollPane;
-import javax.swing.border.TitledBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-import javax.swing.JFormattedTextField;
-import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Color;
+import javax.swing.JPanel;
+import java.awt.Rectangle;
+import javax.swing.SwingConstants;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class FrameListarCaracteristicas extends JFrame implements DocumentListener {
 
@@ -48,7 +41,9 @@ public class FrameListarCaracteristicas extends JFrame implements DocumentListen
 	private JTextField txtFiltroNombreCaracteristica;
 	private JScrollPane scrollPane;
 	private JTable table;
-	private int idSeleccionado = 0;
+	private JPanel panel;
+	private JLabel lblBajaDeCaractersticas;
+	private DefaultTableModel model;
 
 	/**
 	 * Launch the application.
@@ -79,182 +74,163 @@ public class FrameListarCaracteristicas extends JFrame implements DocumentListen
 	private void initialize() {
 		frmListarCaracteristicas = new JFrame();
 		frmListarCaracteristicas.setResizable(false);
-		frmListarCaracteristicas.setMinimumSize(new Dimension(800, 600));
-		frmListarCaracteristicas.setMaximumSize(new Dimension(800, 600));
-		frmListarCaracteristicas.setTitle("GEONat - Lista de Caracteristicas");
-		frmListarCaracteristicas.setBounds(100, 100, 800, 600);
-		frmListarCaracteristicas.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		frmListarCaracteristicas.setTitle("GEONat -Ver listado / Dar de Baja");
+		frmListarCaracteristicas.setBounds(10, 10, 1200, 800);
+		frmListarCaracteristicas.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
-		JLabel lblNombreDeCaracteristica = new JLabel("Filtrar por nombre de caracteristica:");
+		JLabel lblNombreDeCaracteristica = new JLabel("Filtrar por nombre de caracter\u00EDstica:");
+		lblNombreDeCaracteristica.setBounds(38, 88, 300, 40);
+		lblNombreDeCaracteristica.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		
 		txtFiltroNombreCaracteristica = new JTextField();
+		txtFiltroNombreCaracteristica.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		txtFiltroNombreCaracteristica.setBounds(350, 85, 350, 46);
 		txtFiltroNombreCaracteristica.setColumns(10);
 		
  
 		//Boton Cerrar
 		JButton btnCerrar = new JButton("Cerrar");
+		btnCerrar.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		btnCerrar.setBounds(970, 715, 180, 40);
 		btnCerrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evento) {
-				frmListarCaracteristicas.hide();
+				frmListarCaracteristicas.dispose();
 			}
 			
 		});
 		
 		scrollPane = new JScrollPane();
+		scrollPane.setBounds(38, 150, 1112, 532);
 		
-		JButton btnEliminarCaracteristica = new JButton("Eliminar Caracteristica");
-		btnEliminarCaracteristica.setEnabled(false);
-		btnEliminarCaracteristica.addActionListener(new ActionListener() {
+		JButton btnEliminar = new JButton("Eliminar Caracter\u00EDstica");
+		btnEliminar.setForeground(Color.RED);
+		btnEliminar.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		btnEliminar.setBounds(38, 715, 210, 40);
+		btnEliminar.setEnabled(false);
+		btnEliminar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ICaracteristicaDAO caracteristicaBean;
-				try {
-					
-					serviciosCaracteristicas.delete(idSeleccionado);
-					cargarTabla();
-					idSeleccionado=0;
-					btnEliminarCaracteristica.setEnabled(false);
-					
-				} catch ( ServiciosException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+				int i = table.getSelectedRow();
+				if (i >= 0) {
+					int resp = JOptionPane.showConfirmDialog(null, "¿Desea eliminar la caracter\u00EDstica seleccionada?", "Atenci\u00F3n", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+					if (resp == JOptionPane.YES_OPTION ) {
+						eliminarCaracteristica(i);
+					}
 				}
-				
+				btnEliminar.setEnabled(false);
+			}
+		});
+		frmListarCaracteristicas.getContentPane().setLayout(null);
+		
+		table = new JTable();
+		table.setShowVerticalLines(true);
+		table.setShowHorizontalLines(true);
+		table.setRowHeight(25);
+		table.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
+		table.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		JTableHeader tableHeader = table.getTableHeader();
+		tableHeader.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		scrollPane.setViewportView(table);
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				btnEliminar.setEnabled(true);
 			}
 		});
 		
-		GroupLayout groupLayout = new GroupLayout(frmListarCaracteristicas.getContentPane());
-		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.TRAILING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap(40, Short.MAX_VALUE)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 705, GroupLayout.PREFERRED_SIZE)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(lblNombreDeCaracteristica, GroupLayout.PREFERRED_SIZE, 209, GroupLayout.PREFERRED_SIZE)
-							.addGap(18)
-							.addComponent(txtFiltroNombreCaracteristica, GroupLayout.PREFERRED_SIZE, 196, GroupLayout.PREFERRED_SIZE))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(btnEliminarCaracteristica, GroupLayout.PREFERRED_SIZE, 132, GroupLayout.PREFERRED_SIZE)
-							.addGap(454)
-							.addComponent(btnCerrar, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE)))
-					.addGap(49))
-		);
-		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(53)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblNombreDeCaracteristica, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-						.addComponent(txtFiltroNombreCaracteristica, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(30)
-					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 382, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnCerrar)
-						.addComponent(btnEliminarCaracteristica))
-					.addGap(23))
-		);
+		frmListarCaracteristicas.getContentPane().add(scrollPane);
+		frmListarCaracteristicas.getContentPane().add(lblNombreDeCaracteristica);
+		frmListarCaracteristicas.getContentPane().add(txtFiltroNombreCaracteristica);
+		frmListarCaracteristicas.getContentPane().add(btnEliminar);
+		frmListarCaracteristicas.getContentPane().add(btnCerrar);
 		
-		table = new JTable();
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-			}
-		));
-		scrollPane.setViewportView(table);
-		frmListarCaracteristicas.getContentPane().setLayout(groupLayout);
+		panel = new JPanel();
+		panel.setLayout(null);
+		panel.setBackground(Color.WHITE);
+		panel.setBounds(0, 0, 1194, 59);
+		frmListarCaracteristicas.getContentPane().add(panel);
+		
+		lblBajaDeCaractersticas = new JLabel("Caracter\u00EDsticas");
+		lblBajaDeCaractersticas.setHorizontalAlignment(SwingConstants.LEFT);
+		lblBajaDeCaractersticas.setForeground(Color.GRAY);
+		lblBajaDeCaractersticas.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblBajaDeCaractersticas.setBounds(new Rectangle(10, 10, 10, 10));
+		lblBajaDeCaractersticas.setBounds(14, 17, 1174, 25);
+		panel.add(lblBajaDeCaractersticas);
 		
 		try {
 			cargarTabla();
-
 		} catch (ServiciosException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		// Listener para Filtrar cuando cambia algo en el Frame
 		this.txtFiltroNombreCaracteristica.getDocument().addDocumentListener(this);
-		
-		// Listener para cuando se selecciona una Fila en la tabla, y habilita la Eliminación de caracteristica
-		ListSelectionModel model = table.getSelectionModel();
-		model.addListSelectionListener(new ListSelectionListener(){
-	        public void valueChanged(ListSelectionEvent event) {
-	            if(!model.isSelectionEmpty()) {
-		        	idSeleccionado = Integer.valueOf((table.getValueAt(table.getSelectedRow(), 0).toString()));
-	                btnEliminarCaracteristica.setEnabled(true);
-	            }
-	            else {
-	            	idSeleccionado = 0;
-	                btnEliminarCaracteristica.setEnabled(false);
-	            }
-	        }
-	    });
-		
-	
+
 	}
 	
-	
-	
-	
 	// Método para cargar el contenido de la tabla
-	// Recordar que la tabla va dentro de un JScrollPane para que se vean los encabezados
 	private void cargarTabla() throws ServiciosException {
+		
+		int fila = 0;
+		int largoFilas = 0;
+		boolean tablaVacia = true;
+		String[] nombreColumnas = { "ID_Caracter\u00EDstica", "Nombre", "Etiqueta", "Tipo de Dato", "Fenómeno Asociado"};
+		Object[][] datos = new Object[largoFilas][5];
+		
 		try {
 
-			ArrayList<Caracteristica> caracteristicas =  (ArrayList<Caracteristica>) serviciosCaracteristicas.obtenerTodos(); //ControladorMascotas.obtenerTodasMascotas();
+			List<Caracteristica> caracteristicas =  serviciosCaracteristicas.obtenerTodos(); 
 
-			String[] nombreColumnas = { "ID_Caracteristica", "Nombre", "Etiqueta"};
+			datos = new Object[caracteristicas.size()][5];
 			
-	
-			/*
-			 * El tamaño de la tabla es, 7 columnas (cantidad de datos a mostrar) y
-			 * la cantidad de filas depende de la cantidad de caracteristicas
-			 */
-			Object[][] datos = new Object[caracteristicas.size()][3];
-			
-			/* Cargamos la matriz con todos los datos */
-			int fila = 0;
-	
-			for (Caracteristica c : caracteristicas) {
-	
-				datos[fila][0] = c.getId_Caracteristica().toString();
-				datos[fila][1] = c.getNombre().toString();
-				datos[fila][2] = c.getEtiqPresentacion().toString();
-				fila++;
+			if (caracteristicas.size() > 0) {
+				
+				for (Caracteristica c : caracteristicas) {
+					
+					datos[fila][0] = c.getId_Caracteristica().toString();
+					datos[fila][1] = c.getNombre().toString();
+					datos[fila][2] = c.getEtiqPresentacion().toString();
+					datos[fila][3] = c.getTipoDato().toString();
+					if (c.getFenomeno() != null) {
+						datos[fila][4] = c.getFenomeno().getNombre();
+					}else {
+						datos[fila][4] = "No tiene";
+					}
+					
+					fila++;
+				}
+			} 	else {
+				JOptionPane.showMessageDialog(null,  "A\u00FAn no se han cargado caracter\u00EDsticas", null, JOptionPane.INFORMATION_MESSAGE);
 			}
-	
-			/*
-			 * Este codigo indica que las celdas no son editables y que son todas
-			 * del tipos String
-			 */
-			DefaultTableModel model = new DefaultTableModel(datos, nombreColumnas) {
-				private static final long serialVersionUID = 1L;
-
-				@Override
-				public boolean isCellEditable(int row, int column) {
-					return false;
-				}
-	
-				@Override
-				public Class<?> getColumnClass(int columnIndex) {
-					return String.class;
-				}
-			};
-			
-			table.setModel(model);
-			table.setAutoscrolls(true);
-			table.setCellSelectionEnabled(false);
 			
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-			
+			System.out.println(e.getMessage());		
+		}
+		
+		model = new DefaultTableModel(datos, nombreColumnas);
+		model.setColumnIdentifiers(nombreColumnas);
+		table.setModel(model);
+		
+	}
+	
+	//Metodo para eliminar una caracteristica
+	private void eliminarCaracteristica(int row) {
+		try {
+			ServiciosCaracteristica caracteristicaServ = ServiciosCaracteristica.getInstance();
+			if (!(model.getValueAt(row, 4).toString().equals("No tiene"))) {
+				JOptionPane.showMessageDialog(null,  "No se puede eliminar la caracter\u00EDstica debido a que tiene un fen\u00F3meno asociado.", null, JOptionPane.ERROR_MESSAGE);
+			} else {
+				caracteristicaServ.delete(Integer.parseInt(model.getValueAt(row, 0).toString()));
+				JOptionPane.showMessageDialog(null,  "Caracter\u00EDstica Eliminada correctamente", null, JOptionPane.INFORMATION_MESSAGE);	
+			}
+			cargarTabla();	
+		} catch ( ServiciosException e1) {
+			e1.printStackTrace();
+			System.out.println(e1.getMessage());
 		}
 	}
 
-	
-	
 	
 	@Override
 	public void changedUpdate(DocumentEvent e) {
@@ -274,13 +250,10 @@ public class FrameListarCaracteristicas extends JFrame implements DocumentListen
 
 	}
 	
-	
-	
-	
 	public void filtrar() {
 		
 			List<RowFilter<Object,Object>> filters = new ArrayList<>(1);
-			filters.add(RowFilter.regexFilter(this.txtFiltroNombreCaracteristica.getText(), 2));
+			filters.add(RowFilter.regexFilter(this.txtFiltroNombreCaracteristica.getText(), 1));
 
 			TableRowSorter<TableModel> filtro = new TableRowSorter<>(this.table.getModel());
 			filtro.setRowFilter(RowFilter.andFilter(filters));

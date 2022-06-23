@@ -3,19 +3,28 @@ package com.presentacion.gui;
 import javax.swing.JFrame;
 import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.Font;
 
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
+import javax.transaction.Transactional.TxType;
 
+import com.presentacion.SessionData;
 import com.presentacion.gui.caracteristica.AltaCaracteristica;
 import com.presentacion.gui.caracteristica.FrameListarCaracteristicas;
 import com.presentacion.gui.caracteristica.ModificacionCaracteristica;
 import com.presentacion.gui.fenomenos.AltaFenomeno;
+import com.presentacion.gui.fenomenos.FrmGestionFenomeno;
+import com.presentacion.gui.fenomenos.FrameListarFenomenos;
 import com.presentacion.gui.fenomenos.NewFrameModificar;
+import com.presentacion.gui.fenomenos.frmBajaFenomenos;
 import com.presentacion.gui.observaciones.GestionObservaciones;
 import com.presentacion.gui.usuarios.AltaUsuario;
 import com.presentacion.gui.usuarios.FrameListarUsuarios;
-import com.presentacion.gui.usuarios.ModificacionUsuario;
+import com.presentacion.gui.usuarios.ModificacionUsuario_OLD;
+import com.presentacion.gui.usuarios.ModificarUsuario;
+import com.presentacion.servicios.ServiciosObservacion;
+import com.presentacion.servicios.ServiciosUsuario;
 
 import javax.swing.UIManager;
 import java.awt.Color;
@@ -27,31 +36,29 @@ import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.border.LineBorder;
+import java.awt.Rectangle;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class FramePrincipal {
-// prueba jj d
-	JFrame frmGeonat;
-
+JFrame frmGeonat;
 	
-	JButton btnObservacionesRegistrar;
-	JButton btnObservacionesModificar;
-	JButton btnObservacionesVerListado;
-	JButton btnUsuariosRegistrar;
+	JButton btnObservacionesRegistrar, btnObservacionesModificar, btnObservacionesVerListado, btnUsuariosRegistrar;
 	JButton btnUsuarioModificar;
 	JButton btnUsuariosVerListado;
-	JButton btnTipoUsuarioRegistrar;
-	JButton btnTipoUsuarioModificar;
-	JButton btnTipoUsuarioEliminar;
 	JButton btnFenomenoRegistrar;
 	JButton btnGestionFenomeno;
-//	JButton btnModificarFenomeno;
-//	JButton btnListarFenomeno;
 	JButton btnRegistrarCaracteristica;
 	JButton btnModificarCaracteristica;
 	JButton btnListarCaracterisitica;
 	JButton btnCrearDatosPrueba;
-	
-	
+	JButton btnGestin;
+	JButton btnBajaFenomeno;
+	JButton btnListadoFenomeno;
+	JLabel txtCantidadObservaciones ;
 	
 	/**
 	 * Launch the application.
@@ -60,7 +67,13 @@ public class FramePrincipal {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+					UIManager.put("OptionPane.messageFont", new Font("Tahoma", Font.PLAIN, 18));
+					UIManager.put("OptionPane.buttonFont", new Font("Tahoma", Font.PLAIN, 16));
+					UIManager.put("TitledBorder.font", new Font("Tahoma", Font.PLAIN, 16));
+					
 					FramePrincipal window = new FramePrincipal();
+					
 					window.frmGeonat.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -68,35 +81,54 @@ public class FramePrincipal {
 			}
 		});
 	}
-
+	
 	/**
 	 * Create the application.
 	 */
 	public FramePrincipal() {
 		initialize();
 	}
-
+	
+	
+	
+	
+	
 	/**
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
 		frmGeonat = new JFrame();
-		frmGeonat.setMinimumSize(new Dimension(800, 600));
+		frmGeonat.getContentPane().addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				try {
+					ServiciosObservacion serviciosObservaciones = ServiciosObservacion.getInstance();
+					txtCantidadObservaciones.setText(String.valueOf(serviciosObservaciones.obtenerTodos().size()));
+				} catch (Exception e2) {
+					// TODO: handle exception
+				}
+			}
+		});
+		
+		
+		frmGeonat.setMinimumSize(new Dimension(1200, 800));
 		frmGeonat.setPreferredSize(new Dimension(800, 600));
 		frmGeonat.setResizable(false);
 		frmGeonat.setSize(new Dimension(800, 600));
 		frmGeonat.setTitle("GEONat");
-		frmGeonat.setBounds(100, 100, 552, 361);
+		frmGeonat.setBounds(10, 10, 552, 361);
 		frmGeonat.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmGeonat.getContentPane().setLayout(null);
 		
 		JPanel panelUsuarios = new JPanel();
 		panelUsuarios.setBorder(new TitledBorder(null, "Gesti\u00F3n de Usuarios", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panelUsuarios.setBounds(10, 297, 220, 263);
+		panelUsuarios.setBounds(10, 370, 350, 350);
 		frmGeonat.getContentPane().add(panelUsuarios);
 		panelUsuarios.setLayout(null);
 		
 		btnUsuariosRegistrar = new JButton("Registrar");
+		btnUsuariosRegistrar.setBounds(new Rectangle(0, 0, 300, 0));
+		btnUsuariosRegistrar.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		btnUsuariosRegistrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				EventQueue.invokeLater(new Runnable() {
@@ -111,10 +143,12 @@ public class FramePrincipal {
 				});
 			}
 		});
-		btnUsuariosRegistrar.setBounds(10, 32, 199, 23);
+		btnUsuariosRegistrar.setBounds(21, 50, 300, 50);
 		panelUsuarios.add(btnUsuariosRegistrar);
 		
 		btnUsuariosVerListado = new JButton("Ver listado / Dar de Baja");
+		btnUsuariosVerListado.setBounds(new Rectangle(0, 0, 300, 0));
+		btnUsuariosVerListado.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		btnUsuariosVerListado.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				EventQueue.invokeLater(new Runnable() {
@@ -125,21 +159,24 @@ public class FramePrincipal {
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
+						
 					}
 				});
 			}
 		});
-		btnUsuariosVerListado.setBounds(10, 100, 199, 23);
+		btnUsuariosVerListado.setBounds(21, 250, 300, 50);
 		panelUsuarios.add(btnUsuariosVerListado);
 		
 		btnUsuarioModificar = new JButton("Modificar");
+		btnUsuarioModificar.setBounds(new Rectangle(0, 0, 300, 0));
+		btnUsuarioModificar.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		btnUsuarioModificar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						try {
-							ModificacionUsuario window = new ModificacionUsuario();
+							ModificarUsuario window = new ModificarUsuario();
 							window.frmModificarUsuario.setVisible(true);
 						} catch (Exception e) {
 							e.printStackTrace();
@@ -148,34 +185,17 @@ public class FramePrincipal {
 				});
 			}
 		});
-		btnUsuarioModificar.setBounds(10, 66, 199, 23);
+		btnUsuarioModificar.setBounds(21, 150, 300, 50);
 		panelUsuarios.add(btnUsuarioModificar);
-		
-		JPanel panel_TiposDeUsuario = new JPanel();
-		panel_TiposDeUsuario.setLayout(null);
-		panel_TiposDeUsuario.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Tipos de Usuario", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		panel_TiposDeUsuario.setBounds(10, 134, 200, 125);
-		panelUsuarios.add(panel_TiposDeUsuario);
-		
-		btnTipoUsuarioRegistrar = new JButton("Registrar");
-		btnTipoUsuarioRegistrar.setBounds(10, 23, 157, 23);
-		panel_TiposDeUsuario.add(btnTipoUsuarioRegistrar);
-		
-		btnTipoUsuarioEliminar = new JButton("Eliminar");
-		btnTipoUsuarioEliminar.setBounds(10, 91, 157, 23);
-		panel_TiposDeUsuario.add(btnTipoUsuarioEliminar);
-		
-		btnTipoUsuarioModificar = new JButton("Modificar");
-		btnTipoUsuarioModificar.setBounds(10, 57, 157, 23);
-		panel_TiposDeUsuario.add(btnTipoUsuarioModificar);
 		
 		JPanel panelObservaciones = new JPanel();
 		panelObservaciones.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Gesti\u00F3n de Observaciones", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		panelObservaciones.setBounds(10, 132, 774, 154);
+		panelObservaciones.setBounds(10, 132, 1178, 226);
 		frmGeonat.getContentPane().add(panelObservaciones);
 		panelObservaciones.setLayout(null);
 		
 		btnObservacionesRegistrar = new JButton("Registrar");
+		btnObservacionesRegistrar.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		btnObservacionesRegistrar.setEnabled(false);
 		btnObservacionesRegistrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -186,10 +206,11 @@ public class FramePrincipal {
 				
 			}
 		});
-		btnObservacionesRegistrar.setBounds(10, 31, 199, 23);
+		btnObservacionesRegistrar.setBounds(22, 34, 300, 50);
 		panelObservaciones.add(btnObservacionesRegistrar);
 		
 		btnObservacionesVerListado = new JButton("Ver listado");
+		btnObservacionesVerListado.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		btnObservacionesVerListado.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				EventQueue.invokeLater(new Runnable() {
@@ -206,52 +227,78 @@ public class FramePrincipal {
 			}
 			
 		});
-		btnObservacionesVerListado.setBounds(10, 99, 199, 23);
+		btnObservacionesVerListado.setBounds(22, 151, 300, 50);
 		panelObservaciones.add(btnObservacionesVerListado);
 		
 		btnObservacionesModificar = new JButton("Modificar");
+		btnObservacionesModificar.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		btnObservacionesModificar.setEnabled(false);
 		btnObservacionesModificar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
 			}
 		});
-		btnObservacionesModificar.setBounds(10, 65, 199, 23);
+		btnObservacionesModificar.setBounds(22, 91, 300, 50);
 		panelObservaciones.add(btnObservacionesModificar);
 		
 		JLabel lblTotalDeObservaciones = new JLabel("Total de observaciones Registradas:");
-		lblTotalDeObservaciones.setBounds(307, 35, 246, 14);
+		lblTotalDeObservaciones.setFont(new Font("SansSerif", Font.PLAIN, 16));
+		lblTotalDeObservaciones.setEnabled(false);
+		lblTotalDeObservaciones.setBounds(427, 49, 346, 26);
 		panelObservaciones.add(lblTotalDeObservaciones);
 		
-		JLabel label_1 = new JLabel("?");
-		label_1.setBounds(553, 35, 46, 14);
-		panelObservaciones.add(label_1);
+		txtCantidadObservaciones = new JLabel("?");
+		txtCantidadObservaciones.setFont(new Font("SansSerif", Font.PLAIN, 18));
+		txtCantidadObservaciones.setBounds(802, 51, 62, 24);
+		
+		try {
+			ServiciosObservacion serviciosObservaciones = ServiciosObservacion.getInstance();
+			txtCantidadObservaciones.setText(String.valueOf(serviciosObservaciones.obtenerTodos().size()));
+		} catch (Exception e2) {
+			// TODO: handle exception
+		}
+		panelObservaciones.add(txtCantidadObservaciones);
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.WHITE);
-		panel.setBounds(10, 11, 774, 100);
+		panel.setBounds(10, 11, 1178, 109);
 		frmGeonat.getContentPane().add(panel);
 		panel.setLayout(null);
 		
 		JLabel img_logo = new JLabel("");
 		img_logo.setHorizontalAlignment(SwingConstants.CENTER);
 		img_logo.setIcon(new ImageIcon(FramePrincipal.class.getResource("/logo.png")));
-		img_logo.setBounds(274, 11, 225, 78);
+		img_logo.setBounds(474, 6, 225, 78);
 		panel.add(img_logo);
 		
 		JLabel lblRegistroDeObservaciones = new JLabel("Registro de observaciones medioambientales");
+		lblRegistroDeObservaciones.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		lblRegistroDeObservaciones.setForeground(Color.DARK_GRAY);
 		lblRegistroDeObservaciones.setHorizontalAlignment(SwingConstants.CENTER);
-		lblRegistroDeObservaciones.setBounds(10, 75, 754, 25);
+		lblRegistroDeObservaciones.setBounds(6, 75, 1166, 25);
 		panel.add(lblRegistroDeObservaciones);
+		
+		JLabel lblUsuarioActual = new JLabel("Usuario Actual:");
+		lblUsuarioActual.setFont(new Font("SansSerif", Font.PLAIN, 14));
+		lblUsuarioActual.setBounds(897, 21, 117, 25);
+		panel.add(lblUsuarioActual);
+		
+		JLabel txtUsuarioActual = new JLabel("anonim");
+		txtUsuarioActual.setHorizontalAlignment(SwingConstants.RIGHT);
+		txtUsuarioActual.setFont(new Font("SansSerif", Font.ITALIC, 16));
+		txtUsuarioActual.setBounds(1010, 20, 150, 24);
+		txtUsuarioActual.setText(SessionData.usuarioActual);
+		panel.add(txtUsuarioActual);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setLayout(null);
-		panel_1.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Gesti\u00F3n de Caracter\u00EDsticas", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		panel_1.setBounds(564, 297, 220, 193);
+		panel_1.setBorder(new TitledBorder(null, "Gesti\u00F3n de Caracter\u00EDsticas", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel_1.setBounds(838, 370, 350, 350);
 		frmGeonat.getContentPane().add(panel_1);
 		
 		btnRegistrarCaracteristica = new JButton("Registrar");
+		btnRegistrarCaracteristica.setBounds(new Rectangle(0, 0, 300, 0));
+		btnRegistrarCaracteristica.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		btnRegistrarCaracteristica.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				EventQueue.invokeLater(new Runnable() {
@@ -267,10 +314,12 @@ public class FramePrincipal {
 				
 			}
 		});
-		btnRegistrarCaracteristica.setBounds(10, 31, 199, 23);
+		btnRegistrarCaracteristica.setBounds(23, 51, 300, 50);
 		panel_1.add(btnRegistrarCaracteristica);
 		
 		btnListarCaracterisitica = new JButton("Ver listado / Dar de Baja");
+		btnListarCaracterisitica.setBounds(new Rectangle(0, 0, 300, 0));
+		btnListarCaracterisitica.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		btnListarCaracterisitica.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				EventQueue.invokeLater(new Runnable() {
@@ -285,10 +334,12 @@ public class FramePrincipal {
 				});
 			}
 		});
-		btnListarCaracterisitica.setBounds(10, 99, 199, 23);
+		btnListarCaracterisitica.setBounds(23, 251, 300, 50);
 		panel_1.add(btnListarCaracterisitica);
 		
 		btnModificarCaracteristica = new JButton("Modificar");
+		btnModificarCaracteristica.setBounds(new Rectangle(0, 0, 300, 0));
+		btnModificarCaracteristica.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		btnModificarCaracteristica.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -305,16 +356,18 @@ public class FramePrincipal {
 				});
 			}
 		});
-		btnModificarCaracteristica.setBounds(10, 65, 199, 23);
+		btnModificarCaracteristica.setBounds(23, 151, 300, 50);
 		panel_1.add(btnModificarCaracteristica);
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setLayout(null);
-		panel_2.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Gesti\u00F3n de Fen\u00F3menos", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		panel_2.setBounds(289, 297, 220, 263);
+		panel_2.setBorder(new TitledBorder(null, "Gesti\u00F3n de Fen\u00F3menos", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel_2.setBounds(429, 370, 350, 350);
 		frmGeonat.getContentPane().add(panel_2);
 		
 		btnFenomenoRegistrar = new JButton("Registrar");
+		btnFenomenoRegistrar.setBounds(new Rectangle(0, 0, 300, 0));
+		btnFenomenoRegistrar.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		btnFenomenoRegistrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				EventQueue.invokeLater(new Runnable() {
@@ -329,11 +382,13 @@ public class FramePrincipal {
 				});
 			}
 		});
-		btnFenomenoRegistrar.setBounds(10, 31, 199, 23);
+		btnFenomenoRegistrar.setBounds(23, 110, 300, 50);
 		panel_2.add(btnFenomenoRegistrar);
 
 		
-		btnGestionFenomeno = new JButton("Gestión Fenomeno");
+		btnGestionFenomeno = new JButton("Modificar");
+		btnGestionFenomeno.setBounds(new Rectangle(0, 0, 300, 0));
+		btnGestionFenomeno.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		btnGestionFenomeno.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				EventQueue.invokeLater(new Runnable() {
@@ -348,17 +403,54 @@ public class FramePrincipal {
 				});
 			}
 		});
-		btnGestionFenomeno.setBounds(10, 99, 199, 23);
+		btnGestionFenomeno.setBounds(23, 190, 300, 50);
 		panel_2.add(btnGestionFenomeno);
 		
-
-		btnCrearDatosPrueba = new JButton("Crear datos de prueba");
-		btnCrearDatosPrueba.addActionListener(new ActionListener() {
+		btnBajaFenomeno = new JButton("Ver listado / Dar de Baja");
+		btnBajaFenomeno.setBounds(new Rectangle(0, 0, 300, 0));
+		btnBajaFenomeno.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		btnBajaFenomeno.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				DatosDePrueba.getInstance();
+				frmBajaFenomenos window = new frmBajaFenomenos();
+				window.frmListarFenomenos.setVisible(true);
 			}
 		});
-		btnCrearDatosPrueba.setBounds(582, 537, 181, 23);
-		frmGeonat.getContentPane().add(btnCrearDatosPrueba);
+		btnBajaFenomeno.setBounds(23, 270, 300, 50);
+		panel_2.add(btnBajaFenomeno);
+		
+		btnGestin = new JButton("Gesti\u00F3n");
+		btnGestin.setBounds(new Rectangle(0, 0, 300, 0));
+		btnGestin.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		btnGestin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				FrmGestionFenomeno window = new FrmGestionFenomeno();
+				window.frmGestinDeFenmeno.setVisible(true);
+			}
+		});
+		btnGestin.setBounds(23, 30, 300, 50);
+		panel_2.add(btnGestin);
+		
+//		btnListadoFenomeno = new JButton("Listado");
+//		btnListadoFenomeno.setEnabled(false);
+//		btnListadoFenomeno.addActionListener(new ActionListener() {			
+//			public void actionPerformed(ActionEvent e) {
+//		}
+//				FrameListarFenomenos window = new FrameListarFenomenos();
+//				window.frmListarFenomenos.setVisible(true);
+//			}
+//		});
+//		btnListadoFenomeno.setBounds(10, 173, 199, 23);
+//		panel_2.add(btnListadoFenomeno);
+		
+
+//		btnCrearDatosPrueba = new JButton("Crear datos de prueba");
+//		btnCrearDatosPrueba.setEnabled(false);
+//		btnCrearDatosPrueba.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				DatosDePrueba.getInstance();
+//			}
+//		});
+//		btnCrearDatosPrueba.setBounds(582, 537, 181, 23);
+//		frmGeonat.getContentPane().add(btnCrearDatosPrueba);
 	}
 }

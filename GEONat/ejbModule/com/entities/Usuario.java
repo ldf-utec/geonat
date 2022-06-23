@@ -11,23 +11,26 @@ import javax.persistence.*;
 @NamedQuery(name="Usuario.obtenerTodosFiltro", query="SELECT u FROM Usuario u WHERE u.nombre LIKE :filtro")
 @NamedQuery(name="Usuario.existeNombreUsuario", query="SELECT count (NombreUsuario) FROM Usuario WHERE NombreUsuario=:filtro")
 @NamedQuery(name="Usuario.obtenerUno", query="SELECT u FROM Usuario u WHERE u.nombreUsuario LIKE :filtro")
+@NamedQuery(name="Usuario.obtenerPorNombre", query="SELECT u FROM Usuario u WHERE UPPER(u.nombreUsuario) LIKE :filtro")
+@NamedQuery(name="Usuario.obtenerPorDocumento", query="SELECT u FROM Usuario u WHERE u.nroDocumento LIKE :filtro")
+@NamedQuery(name="Usuario.obtenerPorEstado", query="SELECT u FROM Usuario u WHERE u.estadoActivo=:estado")
 public class Usuario implements Serializable {
 
 	@Id
-	@SequenceGenerator(name = "usuarioSeq", sequenceName="USUARIO_SEQ", allocationSize=1)
+	@SequenceGenerator(name = "usuarioSeq", sequenceName="USUARIO_SEQ", allocationSize=1, initialValue=1000)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "usuarioSeq")
 	private Integer Id_Usuario;
 	
-	@Basic(optional = true)
-	@Column(length = 50)
+	@Basic(optional = false)
+	@Column(length = 25, unique=true)
 	private String nombreUsuario;
 	
 	@Basic(optional = false)
-	@Column(length = 50)
+	@Column(length = 25)
 	private String nombre;
 	
 	@Basic(optional = false)
-	@Column(length = 50)
+	@Column(length = 25)
 	private String apellido;
 	
 	@Basic(optional = false)
@@ -35,28 +38,28 @@ public class Usuario implements Serializable {
 	private TipoDocumento tipoDocumento;
 	
 	@Basic(optional = false)
-	@Column(length = 20, unique=true)
+	@Column(length = 25, unique=true)
 	private String nroDocumento;
 	
-	@Basic(optional = true)
-	@Column(length = 50, unique=true)
+	@Basic(optional = false)
+	@Column(length = 50)
 	private String email;
 	
 	@Basic(optional = true)
-	/**/ @Column(length=100)
+	/**/ @Column(length=50)
 	private String direccion;
 		
-	@Basic(optional = true)
+	@Basic(optional = false)
 	private Boolean estadoActivo;
 	
 	
-	@Basic(optional = true)
+	@Basic(optional = false)
 	@Enumerated(value = EnumType.STRING)
 	private TipoUsuario tipoUsuario;
 		
 	
-	@Basic(optional = true)
-	@Column(length = 50)
+	@Basic(optional = false)
+	@Column(length = 25)
 	private String password;
 	
 	
